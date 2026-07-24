@@ -17,11 +17,18 @@ export default function Footer() {
       <div className="xo-container py-20">
         <div className="grid grid-cols-1 gap-14 md:grid-cols-12">
           <div className="md:col-span-5">
-            <img
-              src="/logos/xenon-corp-dark.svg"
-              alt="Xenon Ophthalmics"
-              className="h-11 w-auto md:h-12"
-            />
+            <div className="flex items-center gap-4">
+              <img
+                src="/logos/xenon-corp-dark.svg"
+                alt="Xenon Ophthalmics"
+                className="h-12 w-auto md:h-14"
+              />
+              <span className="border-l border-white/15 pl-4 font-mono text-[10px] uppercase leading-[1.5] tracking-[0.14em] text-white/55">
+                Building the future
+                <br />
+                of vision care
+              </span>
+            </div>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/50">
               Founded in 2019, Xenon Ophthalmics builds technology to make eye
               care deliverable anywhere — one system, from appointment to

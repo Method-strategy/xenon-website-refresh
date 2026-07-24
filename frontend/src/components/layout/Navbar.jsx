@@ -14,13 +14,13 @@ function ThemeToggle({ light }) {
       data-testid="theme-toggle"
       aria-label="Toggle color theme"
       className={cn(
-        "flex h-10 w-10 items-center justify-center rounded-full border transition-[color,border-color,background-color] duration-300 hover:border-xo-blue",
+        "flex h-8 w-8 items-center justify-center rounded-full border transition-[color,border-color,background-color] duration-300 hover:border-xo-blue",
         light
           ? "border-white/20 text-white/70 hover:text-white"
           : "border-fg/15 text-fg/70 hover:text-xo-blue",
       )}
     >
-      {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+      {theme === "dark" ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
     </button>
   );
 }
@@ -60,87 +60,101 @@ export default function Navbar() {
         scrolled ? "glass py-3" : "py-5 border-b border-transparent",
       )}
     >
-      <nav className="xo-container flex items-center justify-between">
-        <Link to="/" data-testid="nav-logo" className="relative z-10 flex items-center">
-          <img src={logo} alt="Xenon Ophthalmics" className="h-10 w-auto md:h-12" />
-        </Link>
-
-        {/* Desktop nav */}
-        <ul className="hidden items-center gap-1 lg:flex">
-          {NAV.map((item) => (
-            <li
-              key={item.label}
-              className="relative"
-              onMouseEnter={() => item.children && setOpenGroup(item.label)}
-              onMouseLeave={() => item.children && setOpenGroup(null)}
-            >
-              {item.children ? (
-                <button
-                  data-testid={`nav-${item.label.toLowerCase()}`}
-                  className={cn(
-                    "flex items-center gap-1.5 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors duration-300",
-                    linkCls,
-                  )}
-                >
-                  {item.label}
-                  <ChevronDown className="h-3 w-3" />
-                </button>
-              ) : (
-                <Link
-                  to={item.to}
-                  data-testid={`nav-${item.label.replace(/\s+/g, "-").toLowerCase()}`}
-                  className={cn(
-                    "block px-4 py-2 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors duration-300",
-                    linkCls,
-                  )}
-                >
-                  {item.label}
-                </Link>
-              )}
-
-              <AnimatePresence>
-                {item.children && openGroup === item.label && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute left-0 top-full w-72 pt-3"
-                  >
-                    <div className="overflow-hidden rounded-xl border border-fg/10 bg-bg/98 shadow-2xl backdrop-blur-xl">
-                      {item.children.map((c) => (
-                        <Link
-                          key={c.label}
-                          to={c.to}
-                          data-testid={`nav-child-${c.label.toLowerCase()}`}
-                          className="group flex items-center justify-between border-b border-fg/5 px-5 py-4 transition-colors duration-300 hover:bg-fg/[0.03] last:border-0"
-                        >
-                          <div>
-                            <div className="font-display text-base text-fg group-hover:text-xo-blue">
-                              {c.label}
-                            </div>
-                            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40">
-                              {c.sub}
-                            </div>
-                          </div>
-                          <span className="text-fg/30 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-xo-blue">
-                            →
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </li>
-          ))}
-        </ul>
-
-        <div className="hidden items-center gap-3 lg:flex">
-          <ThemeToggle light={light} />
-          <Link to="/request-a-demo" data-testid="nav-demo-cta" className="btn-primary">
-            Request a Demo
+      <nav className="xo-container flex items-center justify-between gap-6">
+        <div className="flex items-center gap-4">
+          <Link to="/" data-testid="nav-logo" className="relative z-10 flex items-center">
+            <img src={logo} alt="Xenon Ophthalmics" className="h-12 w-auto md:h-14" />
           </Link>
+          <span
+            className={cn(
+              "hidden border-l pl-4 font-mono text-[10px] uppercase leading-[1.5] tracking-[0.14em] xl:block",
+              light ? "border-white/15 text-white/55" : "border-fg/15 text-fg/45",
+            )}
+          >
+            Building the future
+            <br />
+            of vision care
+          </span>
+        </div>
+
+        {/* Desktop nav — flush right */}
+        <div className="hidden items-center gap-2 lg:flex">
+          <ul className="flex items-center gap-1">
+            {NAV.map((item) => (
+              <li
+                key={item.label}
+                className="relative"
+                onMouseEnter={() => item.children && setOpenGroup(item.label)}
+                onMouseLeave={() => item.children && setOpenGroup(null)}
+              >
+                {item.children ? (
+                  <button
+                    data-testid={`nav-${item.label.toLowerCase()}`}
+                    className={cn(
+                      "flex items-center gap-1.5 px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors duration-300",
+                      linkCls,
+                    )}
+                  >
+                    {item.label}
+                    <ChevronDown className="h-3 w-3" />
+                  </button>
+                ) : (
+                  <Link
+                    to={item.to}
+                    data-testid={`nav-${item.label.replace(/\s+/g, "-").toLowerCase()}`}
+                    className={cn(
+                      "block px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors duration-300",
+                      linkCls,
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                )}
+
+                <AnimatePresence>
+                  {item.children && openGroup === item.label && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute right-0 top-full w-72 pt-3"
+                    >
+                      <div className="overflow-hidden rounded-xl border border-fg/10 bg-bg/98 shadow-2xl backdrop-blur-xl">
+                        {item.children.map((c) => (
+                          <Link
+                            key={c.label}
+                            to={c.to}
+                            data-testid={`nav-child-${c.label.toLowerCase()}`}
+                            className="group flex items-center justify-between border-b border-fg/5 px-5 py-4 transition-colors duration-300 hover:bg-fg/[0.03] last:border-0"
+                          >
+                            <div>
+                              <div className="font-display text-base text-fg group-hover:text-xo-blue">
+                                {c.label}
+                              </div>
+                              <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40">
+                                {c.sub}
+                              </div>
+                            </div>
+                            <span className="text-fg/30 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-xo-blue">
+                              →
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </li>
+            ))}
+          </ul>
+
+          <div className="ml-3 flex items-center gap-3">
+            <ThemeToggle light={light} />
+            <Link to="/request-a-demo" data-testid="nav-demo-cta" className="btn-primary">
+              Request a Demo
+            </Link>
+          </div>
         </div>
 
         {/* Mobile controls */}
