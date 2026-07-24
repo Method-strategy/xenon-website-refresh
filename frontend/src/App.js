@@ -1,5 +1,6 @@
 import "@/App.css";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { ThemeProvider } from "@/lib/theme";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import Navbar from "@/components/layout/Navbar";
@@ -34,25 +35,27 @@ function Layout() {
 function App() {
   return (
     <BrowserRouter>
-      <SmoothScroll>
-        <ScrollToTop />
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/xo-vision-care-system" element={<System />} />
-            <Route path="/xoiris-scheduling" element={<Iris />} />
-            <Route path="/xoexam-eye-exam" element={<Exam />} />
-            <Route path="/xofit-frame-fitting" element={<Fit />} />
-            <Route path="/xolab-eyewear-finishing" element={<Lab />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/request-a-demo" element={<Contact />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </SmoothScroll>
+      <ThemeProvider>
+        <SmoothScroll>
+          <ScrollToTop />
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/xo-vision-care-system" element={<System />} />
+              <Route path="/xoiris-scheduling" element={<Iris />} />
+              <Route path="/xoexam-eye-exam" element={<Exam />} />
+              <Route path="/xofit-frame-fitting" element={<Fit />} />
+              <Route path="/xolab-eyewear-finishing" element={<Lab />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/team" element={<Team />} />
+              <Route path="/news" element={<News />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/request-a-demo" element={<Contact />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </SmoothScroll>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

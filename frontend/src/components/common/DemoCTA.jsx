@@ -10,7 +10,7 @@ export default function DemoCTA({
   return (
     <section
       data-testid="demo-cta"
-      className="relative overflow-hidden border-t border-white/10 bg-xo-obsidian py-28 md:py-40"
+      className="relative overflow-hidden border-t border-fg/10 bg-bg py-28 md:py-40"
     >
       <div aria-hidden className="pointer-events-none absolute inset-0 spotlight" />
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
@@ -19,12 +19,12 @@ export default function DemoCTA({
           <div className="eyebrow mb-6">{eyebrow}</div>
         </Reveal>
         <Reveal delay={0.05}>
-          <h2 className="max-w-4xl font-display text-4xl font-medium leading-[1.02] tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h2 className="max-w-4xl font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl">
             {headline}
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
-          <p className="mt-8 max-w-xl text-base leading-relaxed text-white/55">
+          <p className="mt-8 max-w-xl text-base leading-relaxed text-fg/55">
             {body}
           </p>
         </Reveal>

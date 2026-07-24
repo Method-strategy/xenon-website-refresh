@@ -37,7 +37,7 @@ export default function Lab() {
       />
 
       {/* Overview */}
-      <section className="border-t border-white/10 bg-xo-obsidian py-24 md:py-32">
+      <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
         <div className="xo-container grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Reveal>
@@ -46,19 +46,19 @@ export default function Lab() {
             <MaskTextInView
               lines={["Finishing is the one step", "most practices give away."]}
               as="span"
-              className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-white sm:text-5xl"
+              className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
             />
           </div>
           <div className="lg:col-span-7">
             <Reveal>
-              <p className="text-lg leading-relaxed text-white/60">
+              <p className="text-lg leading-relaxed text-fg/60">
                 Every other stage of care happens in the building — the exam, the
                 frame selection, the fitting, the sale. Then the job leaves, and a
                 portion of the value leaves with it.
               </p>
             </Reveal>
             <Reveal delay={0.1}>
-              <p className="mt-6 leading-relaxed text-white/45">
+              <p className="mt-6 leading-relaxed text-fg/45">
                 xoLab brings tracing, blocking, and edging in-house in a compact,
                 scalable configuration, designed to be operated by existing staff
                 rather than a dedicated lab technician.
@@ -69,37 +69,37 @@ export default function Lab() {
       </section>
 
       {/* Economics */}
-      <section className="border-t border-white/10 bg-xo-void py-24 md:py-32">
+      <section className="border-t border-fg/10 bg-surface py-24 md:py-32">
         <div className="xo-container">
           <MaskTextInView
             lines={["The lab bill is a recurring cost", "with a fixed alternative."]}
             as="span"
-            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-white sm:text-5xl"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
           <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2">
             <Reveal>
-              <div className="h-full rounded-md border border-xo-blue/30 bg-gradient-to-br from-xo-navy-deep/40 to-xo-void p-10">
+              <div className="h-full rounded-md bg-gradient-to-br from-xo-navy-deep to-xo-navy-deeper p-10">
                 <div className="font-display text-6xl font-semibold text-white">
                   $5–$15
                 </div>
-                <div className="mt-2 font-mono text-xs uppercase tracking-[0.2em] text-white/40">
+                <div className="mt-2 font-mono text-xs uppercase tracking-[0.2em] text-white/50">
                   typical savings per job on edging
                 </div>
-                <p className="mt-6 text-[15px] leading-relaxed text-white/55">
+                <p className="mt-6 text-[15px] leading-relaxed text-white/70">
                   With additional recovery on tinting and drilling, against a
                   one-time equipment investment rather than a per-job charge.
                 </p>
               </div>
             </Reveal>
             <Reveal delay={0.08}>
-              <div className="h-full rounded-md border border-white/10 bg-xo-obsidian p-10">
-                <div className="font-display text-6xl font-semibold text-xo-teal">
+              <div className="h-full rounded-md border border-fg/10 bg-surface p-10">
+                <div className="font-display text-6xl font-semibold text-xo-blue">
                   Same day
                 </div>
-                <div className="mt-2 font-mono text-xs uppercase tracking-[0.2em] text-white/40">
+                <div className="mt-2 font-mono text-xs uppercase tracking-[0.2em] text-fg/40">
                   the second return is time
                 </div>
-                <p className="mt-6 text-[15px] leading-relaxed text-white/55">
+                <p className="mt-6 text-[15px] leading-relaxed text-fg/55">
                   A job that does not leave the building is not waiting on a courier,
                   a lab queue, or a return shipment. Same-day delivery becomes
                   possible for work that currently takes days.
@@ -111,10 +111,10 @@ export default function Lab() {
       </section>
 
       {/* Equipment */}
-      <section className="relative overflow-hidden border-t border-white/10 bg-xo-obsidian py-24 md:py-32">
+      <section className="relative overflow-hidden border-t border-fg/10 bg-bg py-24 md:py-32">
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <img src={IMAGES.microscope} alt="" className="h-full w-full object-cover opacity-10" />
-          <div className="absolute inset-0 bg-xo-obsidian/85" />
+          <div className="absolute inset-0 bg-bg/85" />
         </div>
         <div className="xo-container relative">
           <Reveal>
@@ -123,15 +123,15 @@ export default function Lab() {
           <MaskTextInView
             lines={["Three machines.", "One in-office lab."]}
             as="span"
-            className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-white sm:text-5xl"
+            className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
           <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
             {EQUIPMENT.map((e, i) => (
               <Reveal key={e.name} delay={i * 0.08}>
-                <div className="flex h-full flex-col rounded-md border border-white/10 bg-xo-void/70 p-8 backdrop-blur-sm transition-[transform,border-color] duration-500 hover:-translate-y-1 hover:border-xo-teal/40">
-                  <div className="font-mono text-sm text-xo-teal">{e.n}</div>
-                  <h3 className="mt-6 font-display text-2xl text-white">{e.name}</h3>
-                  <p className="mt-3 text-[15px] leading-relaxed text-white/50">{e.desc}</p>
+                <div className="flex h-full flex-col rounded-md border border-fg/10 bg-surface/70 p-8 backdrop-blur-sm transition-[transform,border-color] duration-500 hover:-translate-y-1 hover:border-xo-blue/40">
+                  <div className="font-mono text-sm text-xo-blue">{e.n}</div>
+                  <h3 className="mt-6 font-display text-2xl text-fg">{e.name}</h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-fg/50">{e.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -140,15 +140,15 @@ export default function Lab() {
       </section>
 
       {/* What stays / goes out */}
-      <section className="border-t border-white/10 bg-xo-void py-24 md:py-32">
+      <section className="border-t border-fg/10 bg-surface py-24 md:py-32">
         <div className="xo-container">
           <MaskTextInView
             lines={["What stays in the building,", "and what doesn't."]}
             as="span"
-            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-white sm:text-5xl"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
           <Reveal delay={0.1}>
-            <p className="mt-10 max-w-2xl text-lg leading-relaxed text-white/55">
+            <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
               xoLab is an edging operation, not a surfacing lab. Single-vision work —
               the volume category in most practices — can be finished on site the same
               day. Progressives and anything requiring surfacing still route to your
@@ -160,7 +160,7 @@ export default function Lab() {
           <Reveal delay={0.15}>
             <div className="mt-10">
               <div className="eyebrow mb-3">In the system — where the visit closes</div>
-              <p className="max-w-2xl text-lg leading-relaxed text-white/70">
+              <p className="max-w-2xl text-lg leading-relaxed text-fg/70">
                 The visit that began with a phone call ends with a finished pair of
                 glasses. Sometimes the same day, in the same building, without a single
                 step in between where the patient had to wait on the practice.
@@ -168,7 +168,7 @@ export default function Lab() {
               <Link
                 to="/xo-vision-care-system"
                 data-testid="lab-journey-link"
-                className="group mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-xo-teal"
+                className="group mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-xo-blue"
               >
                 See the full patient journey
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />

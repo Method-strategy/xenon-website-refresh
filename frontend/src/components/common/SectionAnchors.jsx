@@ -34,7 +34,7 @@ export default function SectionAnchors({ sections }) {
       data-testid="section-anchors"
       className="sticky top-32 hidden lg:block"
     >
-      <ul className="space-y-4 border-l border-white/10 pl-6">
+      <ul className="space-y-4 border-l border-fg/10 pl-6">
         {sections.map((s, i) => (
           <li key={s.id}>
             <button
@@ -42,14 +42,14 @@ export default function SectionAnchors({ sections }) {
               onClick={() => go(s.id)}
               className={cn(
                 "group flex items-center gap-3 text-left font-mono text-[11px] uppercase tracking-[0.18em] transition-colors duration-300",
-                active === s.id ? "text-xo-teal" : "text-white/35 hover:text-white/70",
+                active === s.id ? "text-xo-blue" : "text-fg/35 hover:text-fg/70",
               )}
             >
               <span className="tabular-nums">{String(i + 1).padStart(2, "0")}</span>
               <span
                 className={cn(
                   "h-px transition-all duration-300",
-                  active === s.id ? "w-8 bg-xo-teal" : "w-4 bg-white/20 group-hover:w-6",
+                  active === s.id ? "w-8 bg-xo-blue" : "w-4 bg-fg/20 group-hover:w-6",
                 )}
               />
               {s.label}

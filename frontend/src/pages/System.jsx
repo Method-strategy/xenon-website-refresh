@@ -80,7 +80,7 @@ export default function System() {
   return (
     <>
       {/* Hero */}
-      <section className="grain relative flex min-h-[85vh] items-center overflow-hidden bg-xo-obsidian pt-32">
+      <section className="hero-dark grain relative flex min-h-[85vh] items-center overflow-hidden bg-bg pt-32">
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
         <div aria-hidden className="pointer-events-none absolute inset-0 spotlight" />
         <div className="xo-container relative">
@@ -88,9 +88,9 @@ export default function System() {
           <MaskText
             lines={["One system.", "From appointment", "to finished eyewear."]}
             as="span"
-            className="max-w-[16ch] font-display text-[13vw] font-medium leading-[0.92] tracking-tight text-white sm:text-6xl lg:text-8xl"
+            className="max-w-[16ch] font-display text-[10vw] font-medium leading-[0.94] tracking-tight text-fg sm:text-5xl lg:text-7xl"
           />
-          <p className="mt-10 max-w-xl text-lg leading-relaxed text-white/60">
+          <p className="mt-10 max-w-xl text-lg leading-relaxed text-fg/60">
             Four points of contact across a single visit: scheduling, examination,
             fitting, and finishing. Designed so the patient never waits for the
             practice to catch up.
@@ -98,7 +98,7 @@ export default function System() {
         </div>
       </section>
 
-      <div className="bg-xo-obsidian">
+      <div className="bg-bg">
         <div className="xo-container grid grid-cols-1 gap-16 py-24 lg:grid-cols-12 lg:py-32">
           <div className="lg:col-span-3">
             <SectionAnchors sections={ANCHORS} />
@@ -113,10 +113,10 @@ export default function System() {
               <MaskTextInView
                 lines={["Eye care is delivered in steps.", "The waiting happens between them."]}
                 as="span"
-                className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-white sm:text-5xl"
+                className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
               />
               <Reveal delay={0.1}>
-                <p className="mt-10 max-w-2xl text-lg leading-relaxed text-white/55">
+                <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
                   A patient books in one system. Pre-testing runs on one instrument,
                   refraction on another. The exam is charted somewhere else. Frame
                   selection happens with a ruler or a separate device. The order goes
@@ -126,7 +126,7 @@ export default function System() {
                 </p>
               </Reveal>
               <Reveal delay={0.15}>
-                <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/55">
+                <p className="mt-6 max-w-2xl text-lg leading-relaxed text-fg/55">
                   This is not a failure of clinical skill. It is a structural property
                   of a care model assembled from separate tools, joined by connections
                   that pass job files between machines rather than carrying a patient
@@ -142,11 +142,11 @@ export default function System() {
                 <section key={step.id} id={step.id} className="scroll-mt-32">
                   <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
                     <div className="lg:col-span-3">
-                      <div className="font-display text-7xl font-semibold leading-none text-white/10">
+                      <div className="font-display text-7xl font-semibold leading-none text-fg/10">
                         {step.n}
                       </div>
                       <img src={step.logo} alt={step.role} className="mt-6 h-6 w-auto" />
-                      <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+                      <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40">
                         {step.role}
                       </div>
                     </div>
@@ -154,23 +154,23 @@ export default function System() {
                       <MaskTextInView
                         lines={[step.title]}
                         as="span"
-                        className="font-display text-3xl font-medium leading-tight tracking-tight text-white md:text-4xl"
+                        className="font-display text-3xl font-medium leading-tight tracking-tight text-fg md:text-4xl"
                       />
                       <Reveal delay={0.1}>
-                        <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-white/55">
+                        <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-fg/55">
                           {step.body}
                         </p>
                       </Reveal>
                       <Reveal delay={0.15}>
-                        <div className="mt-8 border-l-2 border-xo-teal/60 pl-6">
-                          <p className="text-[15px] leading-relaxed text-white/70">{step.hand}</p>
+                        <div className="mt-8 border-l-2 border-xo-blue/60 pl-6">
+                          <p className="text-[15px] leading-relaxed text-fg/70">{step.hand}</p>
                         </div>
                       </Reveal>
                       <Reveal delay={0.2}>
                         <Link
                           to={step.to}
                           data-testid={`system-link-${step.id}`}
-                          className="group mt-8 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-xo-teal"
+                          className="group mt-8 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-xo-blue"
                         >
                           In detail
                           <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -185,7 +185,7 @@ export default function System() {
         </div>
 
         {/* What it replaces */}
-        <section id="replaces" className="scroll-mt-32 border-t border-white/10 bg-xo-void py-24 md:py-32">
+        <section id="replaces" className="scroll-mt-32 border-t border-fg/10 bg-surface py-24 md:py-32">
           <div className="xo-container">
             <Reveal>
               <div className="eyebrow mb-6">What it replaces</div>
@@ -193,25 +193,25 @@ export default function System() {
             <MaskTextInView
               lines={["Fewer boxes. Fewer handoffs.", "Fewer places for the day to slow down."]}
               as="span"
-              className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-white sm:text-5xl"
+              className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
             />
 
             <Reveal className="mt-14">
-              <div className="overflow-hidden rounded-md border border-white/10">
-                <div className="grid grid-cols-12 border-b border-white/10 bg-white/[0.02] px-6 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 md:px-8">
+              <div className="overflow-hidden rounded-md border border-fg/10">
+                <div className="grid grid-cols-12 border-b border-fg/10 bg-fg/[0.02] px-6 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40 md:px-8">
                   <div className="col-span-3 md:col-span-2">Step</div>
                   <div className="col-span-9 md:col-span-6">Conventional</div>
-                  <div className="hidden md:col-span-4 md:block text-xo-teal">XO System</div>
+                  <div className="hidden md:col-span-4 md:block text-xo-blue">XO System</div>
                 </div>
                 {REPLACES.map(([step, conv, xo]) => (
                   <div
                     key={step}
-                    className="grid grid-cols-12 items-start gap-2 border-b border-white/5 px-6 py-6 transition-colors duration-300 hover:bg-white/[0.02] last:border-0 md:px-8"
+                    className="grid grid-cols-12 items-start gap-2 border-b border-fg/5 px-6 py-6 transition-colors duration-300 hover:bg-fg/[0.02] last:border-0 md:px-8"
                   >
-                    <div className="col-span-12 mb-2 font-display text-lg text-white md:col-span-2 md:mb-0">{step}</div>
-                    <div className="col-span-12 text-[14px] leading-relaxed text-white/40 md:col-span-6">{conv}</div>
-                    <div className="col-span-12 text-[14px] leading-relaxed text-white/80 md:col-span-4">
-                      <span className="md:hidden font-mono text-[10px] uppercase tracking-widest text-xo-teal">XO — </span>
+                    <div className="col-span-12 mb-2 font-display text-lg text-fg md:col-span-2 md:mb-0">{step}</div>
+                    <div className="col-span-12 text-[14px] leading-relaxed text-fg/40 md:col-span-6">{conv}</div>
+                    <div className="col-span-12 text-[14px] leading-relaxed text-fg/80 md:col-span-4">
+                      <span className="md:hidden font-mono text-[10px] uppercase tracking-widest text-xo-blue">XO — </span>
                       {xo}
                     </div>
                   </div>
@@ -222,10 +222,10 @@ export default function System() {
         </section>
 
         {/* Deployment */}
-        <section id="deployment" className="scroll-mt-32 relative overflow-hidden border-t border-white/10 py-24 md:py-32">
+        <section id="deployment" className="scroll-mt-32 relative overflow-hidden border-t border-fg/10 py-24 md:py-32">
           <div aria-hidden className="pointer-events-none absolute inset-0">
             <img src={IMAGES.lab} alt="" className="h-full w-full object-cover opacity-10" />
-            <div className="absolute inset-0 bg-xo-obsidian/85" />
+            <div className="absolute inset-0 bg-bg/85" />
           </div>
           <div className="xo-container relative grid grid-cols-1 gap-16 lg:grid-cols-12">
             <div className="lg:col-span-5">
@@ -235,10 +235,10 @@ export default function System() {
               <MaskTextInView
                 lines={["Configured to the practice,", "not the other way around."]}
                 as="span"
-                className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-white sm:text-5xl"
+                className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
               />
               <Reveal delay={0.1}>
-                <p className="mt-8 max-w-md text-lg leading-relaxed text-white/55">
+                <p className="mt-8 max-w-md text-lg leading-relaxed text-fg/55">
                   The system is designed to work as a whole, and to be adopted in
                   stages. However many components are in place, they run as one system
                   rather than as separate purchases.
@@ -246,12 +246,12 @@ export default function System() {
               </Reveal>
             </div>
             <div className="lg:col-span-7 lg:pl-10">
-              <div className="grid grid-cols-1 gap-px overflow-hidden rounded-md border border-white/10 bg-white/10 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-px overflow-hidden rounded-md border border-fg/10 bg-fg/10 sm:grid-cols-2">
                 {ENVIRONMENTS.map((env, i) => (
-                  <Reveal key={env} delay={i * 0.04} className="bg-xo-void">
+                  <Reveal key={env} delay={i * 0.04} className="bg-surface">
                     <div className="flex items-center gap-4 p-6 md:p-8">
-                      <span className="font-mono text-xs text-xo-teal">{String(i + 1).padStart(2, "0")}</span>
-                      <span className="text-[15px] text-white/75">{env}</span>
+                      <span className="font-mono text-xs text-xo-blue">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="text-[15px] text-fg/75">{env}</span>
                     </div>
                   </Reveal>
                 ))}

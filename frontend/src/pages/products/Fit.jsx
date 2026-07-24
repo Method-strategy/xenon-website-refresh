@@ -60,7 +60,7 @@ export default function Fit() {
       />
 
       {/* Overview */}
-      <section className="border-t border-white/10 bg-xo-obsidian py-24 md:py-32">
+      <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
         <div className="xo-container grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Reveal>
@@ -69,12 +69,12 @@ export default function Fit() {
             <MaskTextInView
               lines={["The measurement is", "the easy part.", "Getting it there is not."]}
               as="span"
-              className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-white sm:text-5xl"
+              className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
             />
           </div>
           <div className="lg:col-span-7">
             <Reveal>
-              <p className="text-lg leading-relaxed text-white/60">
+              <p className="text-lg leading-relaxed text-fg/60">
                 Digital centration is a mature technology. What is not standard is a
                 measurement that lands in the same system that produced the
                 prescription and will drive the edger, without an optician
@@ -82,7 +82,7 @@ export default function Fit() {
               </p>
             </Reveal>
             <Reveal delay={0.1}>
-              <p className="mt-6 leading-relaxed text-white/45">
+              <p className="mt-6 leading-relaxed text-fg/45">
                 The prescription is already loaded from the exam. xoFit adds
                 pupillary distance, segment height, vertical optical center, and
                 frame geometry — and the lab specification assembles itself.
@@ -93,7 +93,7 @@ export default function Fit() {
       </section>
 
       {/* Form factor tabs */}
-      <section className="border-t border-white/10 bg-xo-void py-24 md:py-32">
+      <section className="border-t border-fg/10 bg-surface py-24 md:py-32">
         <div className="xo-container">
           <Reveal>
             <div className="eyebrow mb-6">Choose your form factor</div>
@@ -101,7 +101,7 @@ export default function Fit() {
           <MaskTextInView
             lines={["Three ways a practice", "actually works."]}
             as="span"
-            className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-white sm:text-5xl"
+            className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
 
           {/* Tab buttons */}
@@ -120,12 +120,12 @@ export default function Fit() {
                 className={cn(
                   "rounded-full border px-6 py-3 font-mono text-[11px] uppercase tracking-[0.15em] transition-[color,border-color,background-color] duration-300",
                   active === f.key
-                    ? "border-xo-teal bg-xo-teal/10 text-xo-teal"
-                    : "border-white/15 text-white/50 hover:border-white/40 hover:text-white",
+                    ? "border-xo-blue bg-xo-blue/10 text-xo-blue"
+                    : "border-fg/15 text-fg/50 hover:border-fg/40 hover:text-fg",
                 )}
               >
                 {f.tab}
-                <span className="ml-2 text-white/30">{f.kind}</span>
+                <span className="ml-2 text-fg/30">{f.kind}</span>
               </button>
             ))}
           </div>
@@ -144,16 +144,16 @@ export default function Fit() {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="grid grid-cols-1 gap-8 overflow-hidden rounded-md border border-white/10 bg-xo-obsidian lg:grid-cols-12"
+                  className="grid grid-cols-1 gap-8 overflow-hidden rounded-md border border-fg/10 bg-bg lg:grid-cols-12"
                 >
                   <div className="p-10 lg:col-span-6 lg:p-14">
-                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-xo-teal">
+                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-xo-blue">
                       {f.tab} · {f.kind}
                     </div>
-                    <h3 className="mt-6 font-display text-3xl leading-tight text-white md:text-4xl">
+                    <h3 className="mt-6 font-display text-3xl leading-tight text-fg md:text-4xl">
                       {f.headline}
                     </h3>
-                    <p className="mt-6 max-w-md text-[15px] leading-relaxed text-white/55">
+                    <p className="mt-6 max-w-md text-[15px] leading-relaxed text-fg/55">
                       {f.body}
                     </p>
                   </div>
@@ -163,7 +163,7 @@ export default function Fit() {
                       alt={f.headline}
                       className="h-full w-full object-cover opacity-40"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-xo-obsidian to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-bg to-transparent" />
                   </div>
                 </motion.div>
               </div>
@@ -173,16 +173,16 @@ export default function Fit() {
       </section>
 
       {/* Why precision matters */}
-      <section className="border-t border-white/10 bg-xo-obsidian py-24 md:py-32">
+      <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
         <div className="xo-container grid grid-cols-1 gap-16 lg:grid-cols-12">
           <div className="lg:col-span-6">
             <MaskTextInView
               lines={["The lens is only as good", "as where it sits."]}
               as="span"
-              className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-white sm:text-5xl"
+              className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
             />
             <Reveal delay={0.1}>
-              <p className="mt-8 max-w-lg text-lg leading-relaxed text-white/55">
+              <p className="mt-8 max-w-lg text-lg leading-relaxed text-fg/55">
                 Premium lens designs assume the position they will occupy in front of
                 the eye. When that position is estimated rather than measured, the
                 design falls back on assumed values and the patient pays for
@@ -192,32 +192,32 @@ export default function Fit() {
             </Reveal>
           </div>
           <div className="lg:col-span-6">
-            <div className="space-y-px overflow-hidden rounded-md border border-white/10 bg-white/10">
+            <div className="space-y-px overflow-hidden rounded-md border border-fg/10 bg-fg/10">
               {[
                 ["~3mm", "average ruler variance among opticians"],
                 ["0.09–0.24mm", "variance for digital systems"],
                 ["~25%", "binocular field of view lost to a 2mm centration error"],
               ].map(([stat, label], i) => (
-                <Reveal key={label} delay={i * 0.06} className="bg-xo-void">
+                <Reveal key={label} delay={i * 0.06} className="bg-surface">
                   <div className="flex items-baseline gap-6 p-8">
                     <div className="font-display text-4xl font-semibold text-xo-blue md:text-5xl">
                       {stat}
                     </div>
-                    <div className="text-[14px] leading-relaxed text-white/55">{label}</div>
+                    <div className="text-[14px] leading-relaxed text-fg/55">{label}</div>
                   </div>
                 </Reveal>
               ))}
             </div>
-            <p className="mt-6 font-mono text-xs text-white/30">Source: Carl Zeiss Vision</p>
+            <p className="mt-6 font-mono text-xs text-fg/30">Source: Carl Zeiss Vision</p>
           </div>
         </div>
       </section>
 
       {/* In the system */}
-      <section className="border-t border-white/10 bg-xo-void py-20">
+      <section className="border-t border-fg/10 bg-surface py-20">
         <div className="xo-container">
           <div className="eyebrow mb-4">In the system</div>
-          <p className="max-w-2xl text-lg leading-relaxed text-white/60">
+          <p className="max-w-2xl text-lg leading-relaxed text-fg/60">
             A complete lab-ready specification covering prescription, centration, and
             frame geometry — finished at the moment the sale is. Whether the job stays
             in the building or goes to your contracted lab, nobody rebuilds it.
@@ -225,7 +225,7 @@ export default function Fit() {
           <Link
             to="/xo-vision-care-system"
             data-testid="fit-journey-link"
-            className="group mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-xo-teal"
+            className="group mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-xo-blue"
           >
             See the full patient journey
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />

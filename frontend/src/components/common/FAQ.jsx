@@ -11,13 +11,13 @@ export default function FAQ({ items, title = "Questions" }) {
   return (
     <section
       data-testid="faq-section"
-      className="border-t border-white/10 bg-xo-void py-24 md:py-32"
+      className="border-t border-fg/10 bg-surface py-24 md:py-32"
     >
       <div className="xo-container grid grid-cols-1 gap-12 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <Reveal>
             <div className="eyebrow mb-4">FAQ</div>
-            <h2 className="font-display text-3xl font-medium tracking-tight text-white md:text-4xl">
+            <h2 className="font-display text-3xl font-medium tracking-tight text-fg md:text-4xl">
               {title}
             </h2>
           </Reveal>
@@ -29,13 +29,13 @@ export default function FAQ({ items, title = "Questions" }) {
                 <AccordionItem
                   key={i}
                   value={`item-${i}`}
-                  className="border-white/10"
+                  className="border-fg/10"
                   data-testid={`faq-item-${i}`}
                 >
-                  <AccordionTrigger className="py-6 text-left font-display text-xl text-white hover:no-underline data-[state=open]:text-xo-teal md:text-2xl">
+                  <AccordionTrigger className="py-6 text-left font-display text-xl text-fg hover:no-underline data-[state=open]:text-xo-blue md:text-2xl">
                     {item.q}
                   </AccordionTrigger>
-                  <AccordionContent className="max-w-3xl pb-8 text-base leading-relaxed text-white/55">
+                  <AccordionContent className="max-w-3xl pb-8 text-base leading-relaxed text-fg/55">
                     {item.a}
                   </AccordionContent>
                 </AccordionItem>

@@ -50,7 +50,7 @@ export default function Iris() {
       />
 
       {/* Definitional overview */}
-      <section className="border-t border-white/10 bg-xo-obsidian py-24 md:py-32">
+      <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
         <div className="xo-container grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Reveal>
@@ -59,12 +59,12 @@ export default function Iris() {
             <MaskTextInView
               lines={["Where the patient", "journey begins."]}
               as="span"
-              className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-white sm:text-5xl"
+              className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
             />
           </div>
           <div className="lg:col-span-7">
             <Reveal>
-              <p className="text-lg leading-relaxed text-white/60">
+              <p className="text-lg leading-relaxed text-fg/60">
                 xoIris is the scheduling and patient communication component of the
                 XO Vision Care System. It automates appointment booking, reminders,
                 and recall outreach for eye care practices, and can fill cancelled
@@ -73,7 +73,7 @@ export default function Iris() {
               </p>
             </Reveal>
             <Reveal delay={0.1}>
-              <p className="mt-6 leading-relaxed text-white/45">
+              <p className="mt-6 leading-relaxed text-fg/45">
                 Every appointment slot is finite and perishable. Once it passes
                 unfilled, that capacity cannot be recovered. xoIris works the
                 schedule continuously rather than waiting on it — and it is where the
@@ -86,15 +86,15 @@ export default function Iris() {
       </section>
 
       {/* Filling the schedule */}
-      <section className="border-t border-white/10 bg-xo-void py-24 md:py-32">
+      <section className="border-t border-fg/10 bg-surface py-24 md:py-32">
         <div className="xo-container">
           <MaskTextInView
             lines={["A cancellation is a hole in the day.", "It doesn't have to be."]}
             as="span"
-            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-white sm:text-5xl"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
           <Reveal delay={0.1}>
-            <p className="mt-10 max-w-2xl text-lg leading-relaxed text-white/55">
+            <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
               Most scheduling tools respond to a cancellation by notifying a
               waitlist. xoIris works from the patient base: when a slot opens, it can
               identify patients nearby already due for care and reach them by text
@@ -109,8 +109,8 @@ export default function Iris() {
               <ul className="space-y-4">
                 {CAPABILITIES.map((c, i) => (
                   <Reveal key={c} delay={i * 0.05}>
-                    <li className="flex items-start gap-4 border-b border-white/10 pb-4 text-[15px] text-white/70">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-xo-teal" />
+                    <li className="flex items-start gap-4 border-b border-fg/10 pb-4 text-[15px] text-fg/70">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-xo-blue" />
                       {c}
                     </li>
                   </Reveal>
@@ -122,8 +122,8 @@ export default function Iris() {
               <ul className="space-y-4">
                 {COMMS.map((c, i) => (
                   <Reveal key={c} delay={i * 0.05}>
-                    <li className="flex items-start gap-4 border-b border-white/10 pb-4 text-[15px] text-white/70">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-xo-teal" />
+                    <li className="flex items-start gap-4 border-b border-fg/10 pb-4 text-[15px] text-fg/70">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-xo-blue" />
                       {c}
                     </li>
                   </Reveal>
@@ -135,7 +135,7 @@ export default function Iris() {
       </section>
 
       {/* In the system */}
-      <section className="border-t border-white/10 bg-xo-obsidian py-24 md:py-32">
+      <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
         <div className="xo-container">
           <Reveal>
             <div className="eyebrow mb-6">In the system</div>
@@ -143,10 +143,10 @@ export default function Iris() {
           <MaskTextInView
             lines={["What the exam room", "already knows."]}
             as="span"
-            className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-white sm:text-5xl"
+            className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
           <Reveal delay={0.1}>
-            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-white/55">
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
               Who the patient is, why they came, and what happened last time — all
               present the moment the exam begins. The visit starts where the booking
               left off instead of starting over.
@@ -157,12 +157,12 @@ export default function Iris() {
               <Link
                 to="/xo-vision-care-system"
                 data-testid="iris-journey-link"
-                className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-xo-teal"
+                className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-xo-blue"
               >
                 See the full patient journey
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </Link>
-              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/30">
+              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg/30">
                 HIPAA compliant · 99.9% uptime target
               </span>
             </div>

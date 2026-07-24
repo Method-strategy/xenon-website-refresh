@@ -1,15 +1,36 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X, Sun, Moon } from "lucide-react";
 import { NAV } from "@/data/site";
+import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
+
+function ThemeToggle({ className }) {
+  const { theme, toggle } = useTheme();
+  return (
+    <button
+      onClick={toggle}
+      data-testid="theme-toggle"
+      aria-label="Toggle color theme"
+      className={cn(
+        "flex h-10 w-10 items-center justify-center rounded-full border border-fg/15 text-fg/70 transition-[color,border-color,background-color] duration-300 hover:border-xo-blue hover:text-xo-blue",
+        className,
+      )}
+    >
+      {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+    </button>
+  );
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState(null);
   const location = useLocation();
+  const { theme } = useTheme();
+
+  const logo = theme === "dark" ? "/logos/xenon-corp-dark.svg" : "/logos/xenon-corp.svg";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -33,11 +54,7 @@ export default function Navbar() {
     >
       <nav className="xo-container flex items-center justify-between">
         <Link to="/" data-testid="nav-logo" className="relative z-10 flex items-center">
-          <img
-            src="/logos/xenon-corp-dark.svg"
-            alt="Xenon Ophthalmics"
-            className="h-7 w-auto md:h-8"
-          />
+          <img src={logo} alt="Xenon Ophthalmics" className="h-10 w-auto md:h-12" />
         </Link>
 
         {/* Desktop nav */}
@@ -52,7 +69,7 @@ export default function Navbar() {
               {item.children ? (
                 <button
                   data-testid={`nav-${item.label.toLowerCase()}`}
-                  className="flex items-center gap-1.5 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-white/70 transition-colors duration-300 hover:text-white"
+                  className="flex items-center gap-1.5 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-fg/70 transition-colors duration-300 hover:text-fg"
                 >
                   {item.label}
                   <ChevronDown className="h-3 w-3" />
@@ -61,7 +78,7 @@ export default function Navbar() {
                 <Link
                   to={item.to}
                   data-testid={`nav-${item.label.replace(/\s+/g, "-").toLowerCase()}`}
-                  className="block px-4 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-white/70 transition-colors duration-300 hover:text-white"
+                  className="block px-4 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-fg/70 transition-colors duration-300 hover:text-fg"
                 >
                   {item.label}
                 </Link>
@@ -76,23 +93,23 @@ export default function Navbar() {
                     transition={{ duration: 0.2 }}
                     className="absolute left-0 top-full w-72 pt-3"
                   >
-                    <div className="overflow-hidden rounded-md border border-white/10 bg-xo-void/95 backdrop-blur-xl">
+                    <div className="overflow-hidden rounded-md border border-fg/10 bg-bg/98 shadow-xl backdrop-blur-xl">
                       {item.children.map((c) => (
                         <Link
                           key={c.label}
                           to={c.to}
                           data-testid={`nav-child-${c.label.toLowerCase()}`}
-                          className="group flex items-center justify-between border-b border-white/5 px-5 py-4 transition-colors duration-300 hover:bg-white/[0.03] last:border-0"
+                          className="group flex items-center justify-between border-b border-fg/5 px-5 py-4 transition-colors duration-300 hover:bg-fg/[0.03] last:border-0"
                         >
                           <div>
-                            <div className="font-display text-base text-white group-hover:text-xo-teal">
+                            <div className="font-display text-base text-fg group-hover:text-xo-blue">
                               {c.label}
                             </div>
-                            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+                            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40">
                               {c.sub}
                             </div>
                           </div>
-                          <span className="text-white/30 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-xo-teal">
+                          <span className="text-fg/30 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-xo-blue">
                             →
                           </span>
                         </Link>
@@ -105,21 +122,25 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-3 lg:flex">
+          <ThemeToggle />
           <Link to="/request-a-demo" data-testid="nav-demo-cta" className="btn-primary">
             Request a Demo
           </Link>
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          data-testid="mobile-menu-toggle"
-          onClick={() => setOpen((v) => !v)}
-          className="relative z-10 flex h-10 w-10 items-center justify-center text-white lg:hidden"
-          aria-label="Toggle menu"
-        >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        {/* Mobile controls */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
+          <button
+            data-testid="mobile-menu-toggle"
+            onClick={() => setOpen((v) => !v)}
+            className="relative z-10 flex h-10 w-10 items-center justify-center text-fg"
+            aria-label="Toggle menu"
+          >
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}
@@ -130,7 +151,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden bg-xo-void/98 backdrop-blur-xl lg:hidden"
+            className="overflow-hidden bg-bg/98 backdrop-blur-xl lg:hidden"
           >
             <div className="xo-container flex flex-col gap-1 py-6">
               {NAV.flatMap((item) =>
@@ -138,7 +159,7 @@ export default function Navbar() {
                   ? [
                       <div
                         key={item.label}
-                        className="mt-3 px-1 font-mono text-[10px] uppercase tracking-[0.25em] text-xo-teal"
+                        className="mt-3 px-1 font-mono text-[10px] uppercase tracking-[0.25em] text-xo-blue"
                       >
                         {item.label}
                       </div>,
@@ -147,10 +168,10 @@ export default function Navbar() {
                           key={c.label}
                           to={c.to}
                           data-testid={`mobile-nav-${c.label.toLowerCase()}`}
-                          className="flex items-center justify-between border-b border-white/5 py-3 text-white/80"
+                          className="flex items-center justify-between border-b border-fg/5 py-3 text-fg/80"
                         >
                           <span className="font-display text-lg">{c.label}</span>
-                          <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">
+                          <span className="font-mono text-[10px] uppercase tracking-widest text-fg/40">
                             {c.sub}
                           </span>
                         </Link>
@@ -161,7 +182,7 @@ export default function Navbar() {
                         key={item.label}
                         to={item.to}
                         data-testid={`mobile-nav-${item.label.replace(/\s+/g, "-").toLowerCase()}`}
-                        className="border-b border-white/5 py-3 font-display text-lg text-white/90"
+                        className="border-b border-fg/5 py-3 font-display text-lg text-fg/90"
                       >
                         {item.label}
                       </Link>,

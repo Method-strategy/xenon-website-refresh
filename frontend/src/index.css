@@ -3,21 +3,38 @@
 @tailwind utilities;
 
 :root {
-  /* Xenon brand palette (derived from logo) */
+  /* Xenon brand palette (from logos) + deepened tones */
   --xo-obsidian: #05070d;
   --xo-void: #070a12;
   --xo-navy: #0a1428;
   --xo-navy-deep: #0e2f5e;
+  --xo-navy-deeper: #081f42;
   --xo-blue: #1f8eff;
   --xo-blue-deep: #155bcc;
+  --xo-blue-deeper: #0f3d8c;
   --xo-teal: #05d3c8;
-  --xo-signal: #1fff6f;
+  --xo-teal-deep: #039189;
+  --xo-signal: #75d647;
+  --xo-signal-deep: #4fa82e;
   --xo-white: #ffffff;
-  --xo-mist: #f5f8fc;
-  --xo-ink: #0a0f1c;
+  --xo-mist: #f6f4f0;
+  --xo-ink: #0b1220;
   --xo-slate: #5a6779;
 
-  /* shadcn tokens (light defaults kept for component compatibility) */
+  /* Product accents */
+  --xo-iris: #155bcc;
+  --xo-exam: #1f8eff;
+  --xo-fit: #05c1bc;
+  --xo-lab: #75d647;
+
+  /* ===== SEMANTIC THEME TOKENS — LIGHT (default) ===== */
+  --bg: 255 255 255;
+  --surface: 246 244 240; /* warm editorial gray */
+  --warm: 240 236 229; /* deeper warm row */
+  --fg: 11 18 32; /* deep ink navy */
+  --nav: 255 255 255;
+
+  /* shadcn (light) */
   --background: 0 0% 100%;
   --foreground: 222 47% 8%;
   --card: 0 0% 100%;
@@ -29,7 +46,7 @@
   --secondary: 210 40% 96%;
   --secondary-foreground: 222 47% 11%;
   --muted: 210 40% 96%;
-  --muted-foreground: 215 16% 47%;
+  --muted-foreground: 215 16% 40%;
   --accent: 176 95% 42%;
   --accent-foreground: 222 47% 11%;
   --destructive: 0 84% 60%;
@@ -40,6 +57,32 @@
   --radius: 0.4rem;
 }
 
+.dark {
+  --bg: 5 7 13;
+  --surface: 8 11 19;
+  --warm: 12 18 32;
+  --fg: 255 255 255;
+  --nav: 7 10 18;
+
+  --background: 222 47% 4%;
+  --foreground: 0 0% 100%;
+  --card: 222 47% 6%;
+  --card-foreground: 0 0% 100%;
+  --popover: 222 47% 5%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 213 100% 56%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 222 30% 12%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 222 30% 12%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 176 95% 42%;
+  --accent-foreground: 222 47% 11%;
+  --border: 222 30% 16%;
+  --input: 222 30% 16%;
+  --ring: 176 95% 42%;
+}
+
 * {
   border-color: hsl(var(--border));
 }
@@ -47,16 +90,17 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: auto;
 }
 
 body {
   margin: 0;
   font-family: "Manrope", system-ui, sans-serif;
-  background-color: var(--xo-obsidian);
-  color: var(--xo-white);
+  background-color: rgb(var(--bg));
+  color: rgb(var(--fg));
   overflow-x: hidden;
-  font-feature-settings: "ss01", "cv01";
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
 }
 
 /* Lenis */
@@ -71,31 +115,27 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* Typography helpers */
 .font-display {
-  font-family: "Clash Display", "Manrope", sans-serif;
+  font-family: "Zalando Sans SemiExpanded", "Manrope", sans-serif;
 }
 .font-mono {
   font-family: "JetBrains Mono", monospace;
 }
 
-/* Selection */
 ::selection {
-  background: var(--xo-teal);
-  color: var(--xo-obsidian);
+  background: var(--xo-blue);
+  color: #ffffff;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--xo-obsidian);
+  background: rgb(var(--bg));
 }
 ::-webkit-scrollbar-thumb {
-  background: #1a2438;
-  border-radius: 0;
+  background: rgb(var(--fg) / 0.2);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--xo-blue-deep);
@@ -106,67 +146,70 @@ html.lenis body {
     @apply mx-auto w-full max-w-[1400px] px-6 md:px-10 lg:px-16;
   }
   .eyebrow {
-    @apply font-mono text-xs uppercase tracking-[0.25em] text-[color:var(--xo-teal)];
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--xo-blue-deep);
+  }
+  .dark .eyebrow {
+    color: var(--xo-blue);
   }
   .glass {
-    background: rgba(7, 10, 18, 0.72);
+    background: rgb(var(--nav) / 0.72);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    border-bottom: 1px solid rgb(var(--fg) / 0.08);
   }
-  /* Primary pill button */
   .btn-primary {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--xo-blue)] px-7 py-3.5 font-mono text-xs uppercase tracking-[0.15em] text-white transition-[transform,box-shadow,background-color] duration-300;
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-mono text-xs uppercase tracking-[0.15em] transition-[transform,box-shadow,background-color] duration-300;
+    background-color: var(--xo-blue);
+    color: #ffffff;
   }
   .btn-primary:hover {
     background-color: var(--xo-blue-deep);
     transform: translateY(-2px);
-    box-shadow: 0 12px 40px -8px rgba(31, 142, 255, 0.6);
+    box-shadow: 0 12px 40px -8px rgba(31, 142, 255, 0.55);
   }
   .btn-ghost {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-7 py-3.5 font-mono text-xs uppercase tracking-[0.15em] text-white transition-[border-color,transform,background-color] duration-300;
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-mono text-xs uppercase tracking-[0.15em] transition-[border-color,transform,background-color,color] duration-300;
+    color: rgb(var(--fg));
+    border: 1px solid rgb(var(--fg) / 0.22);
   }
   .btn-ghost:hover {
-    border-color: var(--xo-teal);
+    border-color: var(--xo-blue);
     transform: translateY(-2px);
-    background-color: rgba(5, 211, 200, 0.06);
+    background-color: rgb(var(--fg) / 0.04);
   }
 }
 
 @layer utilities {
   .text-glow {
-    text-shadow: 0 0 40px rgba(31, 142, 255, 0.45);
+    text-shadow: 0 0 40px rgba(31, 142, 255, 0.35);
   }
   .mask-line {
     overflow: hidden;
     display: block;
   }
-  /* Grain overlay */
   .grain::after {
     content: "";
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.05;
+    opacity: 0.04;
     z-index: 1;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   .bg-grid {
     background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 64px 64px;
-  }
-  .bg-grid-dark {
-    background-image:
-      linear-gradient(to right, rgba(10, 15, 28, 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(10, 15, 28, 0.06) 1px, transparent 1px);
+      linear-gradient(to right, rgb(var(--fg) / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--fg) / 0.05) 1px, transparent 1px);
     background-size: 64px 64px;
   }
   .spotlight {
     background: radial-gradient(
       ellipse 60% 60% at 50% 40%,
-      rgba(31, 142, 255, 0.18),
+      rgba(31, 142, 255, 0.16),
       transparent 70%
     );
   }
@@ -186,4 +229,13 @@ html.lenis body {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+/* Force a dark token scope for cinematic hero stages, even in light mode */
+.hero-dark {
+  --bg: 5 7 13;
+  --surface: 12 18 32;
+  --warm: 10 15 26;
+  --fg: 255 255 255;
+  background-color: rgb(var(--bg));
 }

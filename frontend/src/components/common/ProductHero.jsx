@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { MaskText } from "@/components/common/Reveal";
 
-// Reusable product-page hero with parallax image.
+// Reusable product-page hero. Always a cinematic dark "stage" for strong
+// product imagery, regardless of site theme.
 export default function ProductHero({
   eyebrow,
   logo,
@@ -27,17 +28,12 @@ export default function ProductHero({
       data-testid="product-hero"
       className="relative grain flex min-h-[92vh] items-end overflow-hidden bg-xo-obsidian pb-16 pt-40 md:pb-24"
     >
-      {/* Parallax image */}
       <motion.div
         style={{ y, scale }}
         aria-hidden
         className="pointer-events-none absolute inset-0"
       >
-        <img
-          src={image}
-          alt={imageAlt}
-          className="h-full w-full object-cover opacity-30"
-        />
+        <img src={image} alt={imageAlt} className="h-full w-full object-cover opacity-30" />
       </motion.div>
       <div
         aria-hidden
@@ -55,7 +51,7 @@ export default function ProductHero({
           >
             <img src={logo} alt={eyebrow} className="h-9 w-auto md:h-11" />
             {role && (
-              <span className="border-l border-white/20 pl-4 font-mono text-xs uppercase tracking-[0.25em] text-xo-teal">
+              <span className="border-l border-white/20 pl-4 font-mono text-xs uppercase tracking-[0.25em] text-xo-blue">
                 {role}
               </span>
             )}
@@ -65,7 +61,7 @@ export default function ProductHero({
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="eyebrow mb-8"
+            className="mb-8 font-mono text-xs uppercase tracking-[0.25em] text-xo-blue"
           >
             {eyebrow}
           </motion.div>
@@ -73,7 +69,7 @@ export default function ProductHero({
         <MaskText
           lines={headlineLines}
           as="span"
-          className="max-w-5xl font-display text-[13vw] font-medium leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl xl:text-8xl"
+          className="max-w-5xl font-display text-[10vw] font-medium leading-[0.96] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl"
         />
         <motion.p
           initial={{ opacity: 0, y: 16 }}
@@ -88,11 +84,7 @@ export default function ProductHero({
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.7 }}
         >
-          <Link
-            to="/request-a-demo"
-            data-testid="product-hero-cta"
-            className="btn-primary mt-10"
-          >
+          <Link to="/request-a-demo" data-testid="product-hero-cta" className="btn-primary mt-10">
             Request a Demo
           </Link>
         </motion.div>

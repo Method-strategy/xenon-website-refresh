@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils";
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const FIELD =
-  "border-white/15 bg-white/[0.03] text-white placeholder:text-white/30 focus-visible:ring-xo-teal focus-visible:border-xo-teal";
+  "border-fg/15 bg-fg/[0.03] text-fg placeholder:text-fg/30 focus-visible:ring-xo-blue focus-visible:border-xo-blue";
 
 const TIMES = ["Morning (8am–12pm)", "Afternoon (12pm–4pm)", "Late (4pm–6pm)"];
 const SIZES = ["Solo / 1 provider", "2–4 providers", "5–10 providers", "Multi-location / enterprise"];
@@ -71,7 +71,7 @@ export default function Contact() {
   return (
     <>
       {/* Hero */}
-      <section className="grain relative overflow-hidden bg-xo-obsidian pb-16 pt-40">
+      <section className="hero-dark grain relative overflow-hidden bg-bg pb-16 pt-40">
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
         <div aria-hidden className="pointer-events-none absolute inset-0 spotlight" />
         <div className="xo-container relative">
@@ -79,9 +79,9 @@ export default function Contact() {
           <MaskText
             lines={["See the whole journey", "in thirty minutes."]}
             as="span"
-            className="max-w-[16ch] font-display text-[11vw] font-medium leading-[0.95] tracking-tight text-white sm:text-5xl lg:text-7xl"
+            className="max-w-[16ch] font-display text-[8.5vw] font-medium leading-[0.97] tracking-tight text-fg sm:text-4xl lg:text-6xl"
           />
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-white/60">
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-fg/60">
             Tell us about your practice and we'll be in touch within one business day —
             a walkthrough of the full patient visit, mapped against how your practice
             runs today.
@@ -89,7 +89,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 bg-xo-obsidian py-20 md:py-28">
+      <section className="border-t border-fg/10 bg-bg py-20 md:py-28">
         <div className="xo-container grid grid-cols-1 gap-16 lg:grid-cols-12">
           {/* Form */}
           <div className="lg:col-span-8">
@@ -98,13 +98,13 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 data-testid="demo-success"
-                className="flex min-h-[400px] flex-col items-start justify-center rounded-md border border-xo-teal/30 bg-xo-void p-12"
+                className="flex min-h-[400px] flex-col items-start justify-center rounded-md border border-xo-blue/30 bg-surface p-12"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-xo-teal/40 bg-xo-teal/10">
-                  <Check className="h-6 w-6 text-xo-teal" />
+                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-xo-blue/40 bg-xo-blue/10">
+                  <Check className="h-6 w-6 text-xo-blue" />
                 </div>
-                <h2 className="mt-8 font-display text-4xl text-white">Request received.</h2>
-                <p className="mt-4 max-w-md text-white/55">
+                <h2 className="mt-8 font-display text-4xl text-fg">Request received.</h2>
+                <p className="mt-4 max-w-md text-fg/55">
                   Thank you, {form.first_name}. A member of our team will reach out
                   within one business day to schedule your walkthrough.
                 </p>
@@ -133,9 +133,9 @@ export default function Contact() {
                         <SelectTrigger data-testid="select-profession" className={FIELD}>
                           <SelectValue placeholder="Select profession" />
                         </SelectTrigger>
-                        <SelectContent className="border-white/10 bg-xo-void text-white">
+                        <SelectContent className="border-fg/10 bg-surface text-fg">
                           {PROFESSIONS.map((p) => (
-                            <SelectItem key={p} value={p} className="focus:bg-white/5 focus:text-xo-teal">
+                            <SelectItem key={p} value={p} className="focus:bg-fg/5 focus:text-xo-blue">
                               {p}
                             </SelectItem>
                           ))}
@@ -147,9 +147,9 @@ export default function Contact() {
                         <SelectTrigger data-testid="select-size" className={FIELD}>
                           <SelectValue placeholder="Select size" />
                         </SelectTrigger>
-                        <SelectContent className="border-white/10 bg-xo-void text-white">
+                        <SelectContent className="border-fg/10 bg-surface text-fg">
                           {SIZES.map((s) => (
-                            <SelectItem key={s} value={s} className="focus:bg-white/5 focus:text-xo-teal">
+                            <SelectItem key={s} value={s} className="focus:bg-fg/5 focus:text-xo-blue">
                               {s}
                             </SelectItem>
                           ))}
@@ -161,9 +161,9 @@ export default function Contact() {
                         <SelectTrigger data-testid="select-time" className={FIELD}>
                           <SelectValue placeholder="Select time" />
                         </SelectTrigger>
-                        <SelectContent className="border-white/10 bg-xo-void text-white">
+                        <SelectContent className="border-fg/10 bg-surface text-fg">
                           {TIMES.map((t) => (
-                            <SelectItem key={t} value={t} className="focus:bg-white/5 focus:text-xo-teal">
+                            <SelectItem key={t} value={t} className="focus:bg-fg/5 focus:text-xo-blue">
                               {t}
                             </SelectItem>
                           ))}
@@ -179,21 +179,21 @@ export default function Contact() {
                             className={cn(
                               "flex h-10 w-full items-center justify-between rounded-md border px-3 py-2 text-sm transition-colors",
                               FIELD,
-                              !date && "text-white/30",
+                              !date && "text-fg/30",
                             )}
                           >
                             {date ? format(date, "PPP") : "Pick a date"}
-                            <CalendarIcon className="h-4 w-4 text-white/40" />
+                            <CalendarIcon className="h-4 w-4 text-fg/40" />
                           </button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-auto border-white/10 bg-xo-void p-0" align="start">
+                        <PopoverContent className="w-auto border-fg/10 bg-surface p-0" align="start">
                           <Calendar
                             mode="single"
                             selected={date}
                             onSelect={setDate}
                             disabled={(d) => d < new Date(new Date().setHours(0, 0, 0, 0))}
                             initialFocus
-                            className="text-white"
+                            className="text-fg"
                           />
                         </PopoverContent>
                       </Popover>
@@ -228,14 +228,14 @@ export default function Contact() {
           {/* Contact info */}
           <div className="lg:col-span-4">
             <Reveal delay={0.1}>
-              <div className="sticky top-32 rounded-md border border-white/10 bg-xo-void p-8">
+              <div className="sticky top-32 rounded-md border border-fg/10 bg-surface p-8">
                 <div className="eyebrow mb-6">Contact</div>
-                <p className="font-display text-2xl leading-snug text-white">
+                <p className="font-display text-2xl leading-snug text-fg">
                   Talk to Xenon Ophthalmics.
                 </p>
-                <div className="mt-8 space-y-6 text-sm text-white/55">
+                <div className="mt-8 space-y-6 text-sm text-fg/55">
                   <div>
-                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">Address</div>
+                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg/35">Address</div>
                     <p className="mt-2 leading-relaxed">
                       525 Washington Blvd, Suite 300
                       <br />
@@ -245,8 +245,8 @@ export default function Contact() {
                     </p>
                   </div>
                   <div>
-                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">Email</div>
-                    <a href="mailto:info@xophthalmics.com" data-testid="contact-email" className="mt-2 block text-xo-teal transition-colors hover:text-white">
+                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg/35">Email</div>
+                    <a href="mailto:info@xophthalmics.com" data-testid="contact-email" className="mt-2 block text-xo-blue transition-colors hover:text-fg">
                       info@xophthalmics.com
                     </a>
                   </div>
@@ -263,8 +263,8 @@ export default function Contact() {
 function Field({ label, required, children }) {
   return (
     <div className="space-y-2">
-      <Label className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/50">
-        {label} {required && <span className="text-xo-teal">*</span>}
+      <Label className="font-mono text-[10px] uppercase tracking-[0.18em] text-fg/50">
+        {label} {required && <span className="text-xo-blue">*</span>}
       </Label>
       {children}
     </div>

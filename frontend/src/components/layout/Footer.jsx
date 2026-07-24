@@ -12,7 +12,7 @@ export default function Footer() {
   return (
     <footer
       data-testid="site-footer"
-      className="relative border-t border-white/10 bg-xo-void"
+      className="relative border-t border-white/10 bg-gradient-to-b from-xo-navy to-xo-obsidian"
     >
       <div className="xo-container py-20">
         <div className="grid grid-cols-1 gap-14 md:grid-cols-12">
@@ -20,7 +20,7 @@ export default function Footer() {
             <img
               src="/logos/xenon-corp-dark.svg"
               alt="Xenon Ophthalmics"
-              className="h-9 w-auto"
+              className="h-11 w-auto md:h-12"
             />
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/50">
               Founded in 2019, Xenon Ophthalmics builds technology to make eye
@@ -35,7 +35,7 @@ export default function Footer() {
               <a
                 href="mailto:info@xophthalmics.com"
                 data-testid="footer-email"
-                className="mt-2 inline-block text-xo-teal transition-colors hover:text-white"
+                className="mt-2 inline-block text-xo-blue transition-colors hover:text-white"
               >
                 info@xophthalmics.com
               </a>
@@ -48,7 +48,7 @@ export default function Footer() {
               <li>
                 <Link
                   to="/xo-vision-care-system"
-                  className="font-display text-lg text-white/80 transition-colors hover:text-xo-teal"
+                  className="font-display text-lg text-white/80 transition-colors hover:text-xo-blue"
                 >
                   Overview
                 </Link>
@@ -58,7 +58,7 @@ export default function Footer() {
                   <Link
                     to={p.to}
                     data-testid={`footer-link-${p.key}`}
-                    className="group flex items-baseline gap-3 font-display text-lg text-white/80 transition-colors hover:text-xo-teal"
+                    className="group flex items-baseline gap-3 font-display text-lg text-white/80 transition-colors hover:text-xo-blue"
                   >
                     {p.name}
                     <span className="font-mono text-[10px] uppercase tracking-widest text-white/30">
@@ -78,7 +78,7 @@ export default function Footer() {
                   <Link
                     to={l.to}
                     data-testid={`footer-link-${l.label.split(" ")[0].toLowerCase()}`}
-                    className="font-display text-lg text-white/80 transition-colors hover:text-xo-teal"
+                    className="font-display text-lg text-white/80 transition-colors hover:text-xo-blue"
                   >
                     {l.label}
                   </Link>
