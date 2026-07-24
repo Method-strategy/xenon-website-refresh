@@ -120,7 +120,7 @@ export default function Navbar() {
                       transition={{ duration: 0.2 }}
                       className="absolute right-0 top-full w-72 pt-3"
                     >
-                      <div className="overflow-hidden rounded-xl border border-fg/10 bg-bg/98 shadow-2xl backdrop-blur-xl">
+                      <div className="overflow-hidden rounded-xl border border-fg/10 bg-bg shadow-2xl backdrop-blur-xl">
                         {item.children.map((c) => (
                           <Link
                             key={c.label}
@@ -179,7 +179,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden bg-bg/98 backdrop-blur-xl lg:hidden"
+            className="overflow-hidden bg-bg backdrop-blur-xl lg:hidden"
           >
             <div className="xo-container flex flex-col gap-1 py-6">
               {NAV.flatMap((item) =>
