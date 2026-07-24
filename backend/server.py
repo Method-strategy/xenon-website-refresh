@@ -37,10 +37,55 @@ class StatusCheck(BaseModel):
 class StatusCheckCreate(BaseModel):
     client_name: str
 
+class DemoRequest(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    first_name: str
+    last_name: str
+    email: str
+    phone: str = ""
+    organization: str = ""
+    profession: str = ""
+    practice_size: str = ""
+    preferred_date: str = ""
+    preferred_time: str = ""
+    message: str = ""
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class DemoRequestCreate(BaseModel):
+    first_name: str
+    last_name: str
+    email: str
+    phone: str = ""
+    organization: str = ""
+    profession: str = ""
+    practice_size: str = ""
+    preferred_date: str = ""
+    preferred_time: str = ""
+    message: str = ""
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
     return {"message": "Hello World"}
+
+@api_router.post("/demo-request", response_model=DemoRequest)
+async def create_demo_request(payload: DemoRequestCreate):
+    obj = DemoRequest(**payload.model_dump())
+    doc = obj.model_dump()
+    doc['created_at'] = doc['created_at'].isoformat()
+    await db.demo_requests.insert_one(doc)
+    logger.info("New demo request from %s (%s)", obj.email, obj.organization)
+    return obj
+
+@api_router.get("/demo-request", response_model=List[DemoRequest])
+async def list_demo_requests():
+    docs = await db.demo_requests.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
+    for d in docs:
+        if isinstance(d.get('created_at'), str):
+            d['created_at'] = datetime.fromisoformat(d['created_at'])
+    return docs
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):

@@ -7,12 +7,25 @@ module.exports = {
   ],
   theme: {
     extend: {
-      borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
+      fontFamily: {
+        display: ['"Clash Display"', 'Manrope', 'sans-serif'],
+        sans: ['Manrope', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       },
       colors: {
+        xo: {
+          obsidian: '#05070D',
+          void: '#070A12',
+          navy: '#0A1428',
+          'navy-deep': '#0E2F5E',
+          blue: '#1F8EFF',
+          'blue-deep': '#155BCC',
+          teal: '#05D3C8',
+          signal: '#1FFF6F',
+          mist: '#F5F8FC',
+          ink: '#0A0F1C',
+          slate: '#5A6779',
+        },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
@@ -53,6 +66,11 @@ module.exports = {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))'
         }
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)'
       },
       keyframes: {
         'accordion-down': {

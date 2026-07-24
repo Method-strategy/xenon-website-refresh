@@ -2,114 +2,188 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Xenon brand palette (derived from logo) */
+  --xo-obsidian: #05070d;
+  --xo-void: #070a12;
+  --xo-navy: #0a1428;
+  --xo-navy-deep: #0e2f5e;
+  --xo-blue: #1f8eff;
+  --xo-blue-deep: #155bcc;
+  --xo-teal: #05d3c8;
+  --xo-signal: #1fff6f;
+  --xo-white: #ffffff;
+  --xo-mist: #f5f8fc;
+  --xo-ink: #0a0f1c;
+  --xo-slate: #5a6779;
+
+  /* shadcn tokens (light defaults kept for component compatibility) */
+  --background: 0 0% 100%;
+  --foreground: 222 47% 8%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 8%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 8%;
+  --primary: 213 100% 56%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222 47% 11%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+  --accent: 176 95% 42%;
+  --accent-foreground: 222 47% 11%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 214 20% 88%;
+  --input: 214 20% 88%;
+  --ring: 213 100% 56%;
+  --radius: 0.4rem;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: auto;
+}
+
 body {
-    margin: 0;
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: "Manrope", system-ui, sans-serif;
+  background-color: var(--xo-obsidian);
+  color: var(--xo-white);
+  overflow-x: hidden;
+  font-feature-settings: "ss01", "cv01";
 }
 
-code {
-    font-family:
-        source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
-@layer base {
-    :root {
-        --background: 0 0% 100%;
-        --foreground: 0 0% 3.9%;
-        --card: 0 0% 100%;
-        --card-foreground: 0 0% 3.9%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 3.9%;
-        --primary: 0 0% 9%;
-        --primary-foreground: 0 0% 98%;
-        --secondary: 0 0% 96.1%;
-        --secondary-foreground: 0 0% 9%;
-        --muted: 0 0% 96.1%;
-        --muted-foreground: 0 0% 45.1%;
-        --accent: 0 0% 96.1%;
-        --accent-foreground: 0 0% 9%;
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 89.8%;
-        --input: 0 0% 89.8%;
-        --ring: 0 0% 3.9%;
-        --chart-1: 12 76% 61%;
-        --chart-2: 173 58% 39%;
-        --chart-3: 197 37% 24%;
-        --chart-4: 43 74% 66%;
-        --chart-5: 27 87% 67%;
-        --radius: 0.5rem;
-    }
-    .dark {
-        --background: 0 0% 3.9%;
-        --foreground: 0 0% 98%;
-        --card: 0 0% 3.9%;
-        --card-foreground: 0 0% 98%;
-        --popover: 0 0% 3.9%;
-        --popover-foreground: 0 0% 98%;
-        --primary: 0 0% 98%;
-        --primary-foreground: 0 0% 9%;
-        --secondary: 0 0% 14.9%;
-        --secondary-foreground: 0 0% 98%;
-        --muted: 0 0% 14.9%;
-        --muted-foreground: 0 0% 63.9%;
-        --accent: 0 0% 14.9%;
-        --accent-foreground: 0 0% 98%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 14.9%;
-        --input: 0 0% 14.9%;
-        --ring: 0 0% 83.1%;
-        --chart-1: 220 70% 50%;
-        --chart-2: 160 60% 45%;
-        --chart-3: 30 80% 55%;
-        --chart-4: 280 65% 60%;
-        --chart-5: 340 75% 55%;
-    }
+/* Typography helpers */
+.font-display {
+  font-family: "Clash Display", "Manrope", sans-serif;
+}
+.font-mono {
+  font-family: "JetBrains Mono", monospace;
 }
 
-@layer base {
-    * {
-        @apply border-border;
-    }
-    body {
-        @apply bg-background text-foreground;
-    }
+/* Selection */
+::selection {
+  background: var(--xo-teal);
+  color: var(--xo-obsidian);
 }
 
-@layer base {
-    [data-debug-wrapper="true"] {
-        display: contents !important;
-    }
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--xo-obsidian);
+}
+::-webkit-scrollbar-thumb {
+  background: #1a2438;
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--xo-blue-deep);
+}
 
-    [data-debug-wrapper="true"] > * {
-        margin-left: inherit;
-        margin-right: inherit;
-        margin-top: inherit;
-        margin-bottom: inherit;
-        padding-left: inherit;
-        padding-right: inherit;
-        padding-top: inherit;
-        padding-bottom: inherit;
-        column-gap: inherit;
-        row-gap: inherit;
-        gap: inherit;
-        border-left-width: inherit;
-        border-right-width: inherit;
-        border-top-width: inherit;
-        border-bottom-width: inherit;
-        border-left-style: inherit;
-        border-right-style: inherit;
-        border-top-style: inherit;
-        border-bottom-style: inherit;
-        border-left-color: inherit;
-        border-right-color: inherit;
-        border-top-color: inherit;
-        border-bottom-color: inherit;
-    }
+@layer components {
+  .xo-container {
+    @apply mx-auto w-full max-w-[1400px] px-6 md:px-10 lg:px-16;
+  }
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.25em] text-[color:var(--xo-teal)];
+  }
+  .glass {
+    background: rgba(7, 10, 18, 0.72);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  /* Primary pill button */
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--xo-blue)] px-7 py-3.5 font-mono text-xs uppercase tracking-[0.15em] text-white transition-[transform,box-shadow,background-color] duration-300;
+  }
+  .btn-primary:hover {
+    background-color: var(--xo-blue-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px -8px rgba(31, 142, 255, 0.6);
+  }
+  .btn-ghost {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-7 py-3.5 font-mono text-xs uppercase tracking-[0.15em] text-white transition-[border-color,transform,background-color] duration-300;
+  }
+  .btn-ghost:hover {
+    border-color: var(--xo-teal);
+    transform: translateY(-2px);
+    background-color: rgba(5, 211, 200, 0.06);
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 40px rgba(31, 142, 255, 0.45);
+  }
+  .mask-line {
+    overflow: hidden;
+    display: block;
+  }
+  /* Grain overlay */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .bg-grid-dark {
+    background-image:
+      linear-gradient(to right, rgba(10, 15, 28, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(10, 15, 28, 0.06) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .spotlight {
+    background: radial-gradient(
+      ellipse 60% 60% at 50% 40%,
+      rgba(31, 142, 255, 0.18),
+      transparent 70%
+    );
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
 }
