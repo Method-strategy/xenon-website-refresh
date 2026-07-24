@@ -28,6 +28,8 @@ export default function Lab() {
     <>
       <ProductHero
         eyebrow="xoLab™ · Finish"
+        logo="/logos/xolab-dark.svg"
+        role="Finish"
         headlineLines={["The last step", "is where", "the margin goes."]}
         subhead="Frame tracing, blocking, and edging in a footprint sized for a practice — with finished eyewear on site, as fast as same day."
         image={IMAGES.lab}

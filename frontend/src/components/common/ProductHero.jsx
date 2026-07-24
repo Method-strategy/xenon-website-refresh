@@ -6,6 +6,8 @@ import { MaskText } from "@/components/common/Reveal";
 // Reusable product-page hero with parallax image.
 export default function ProductHero({
   eyebrow,
+  logo,
+  role,
   headlineLines,
   subhead,
   image,
@@ -44,14 +46,30 @@ export default function ProductHero({
       <div aria-hidden className="pointer-events-none absolute inset-0 spotlight" />
 
       <div className="xo-container relative">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="eyebrow mb-8"
-        >
-          {eyebrow}
-        </motion.div>
+        {logo ? (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-8 flex items-center gap-4"
+          >
+            <img src={logo} alt={eyebrow} className="h-9 w-auto md:h-11" />
+            {role && (
+              <span className="border-l border-white/20 pl-4 font-mono text-xs uppercase tracking-[0.25em] text-xo-teal">
+                {role}
+              </span>
+            )}
+          </motion.div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="eyebrow mb-8"
+          >
+            {eyebrow}
+          </motion.div>
+        )}
         <MaskText
           lines={headlineLines}
           as="span"

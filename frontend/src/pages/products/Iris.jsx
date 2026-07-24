@@ -41,6 +41,8 @@ export default function Iris() {
     <>
       <ProductHero
         eyebrow="xoIris™ · Schedule"
+        logo="/logos/xoiris-dark.svg"
+        role="Schedule"
         headlineLines={["Every empty slot", "was capacity.", "Until it wasn't."]}
         subhead="xoIris manages booking, communication, and recall — and starts the visit that carries through the rest of the day."
         image={IMAGES.abstract}

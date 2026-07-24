@@ -51,6 +51,8 @@ export default function Fit() {
     <>
       <ProductHero
         eyebrow="xoFit™ · Fit & Measure"
+        logo="/logos/xofit-dark.svg"
+        role="Fit & Measure"
         headlineLines={["Measurements that", "arrive at the lab", "exactly as taken."]}
         subhead="Digital centration and frame measurement in three form factors, captured in the same visit that produced the prescription."
         image={IMAGES.clinic}
