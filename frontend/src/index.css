@@ -162,24 +162,100 @@ html.lenis body {
     border-bottom: 1px solid rgb(var(--fg) / 0.08);
   }
   .btn-primary {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-mono text-xs uppercase tracking-[0.15em] transition-[transform,box-shadow,background-color] duration-300;
-    background-color: var(--xo-blue);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    overflow: hidden;
+    padding: 0.9rem 1.85rem;
+    border-radius: 9999px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
     color: #ffffff;
+    background: linear-gradient(180deg, #3a9dff 0%, #1f8eff 46%, #1466d4 100%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.4),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+      0 6px 22px -10px rgba(31, 142, 255, 0.6);
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s ease;
+  }
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      110deg,
+      transparent 32%,
+      rgba(255, 255, 255, 0.4) 50%,
+      transparent 68%
+    );
+    transform: translateX(-130%);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
   }
   .btn-primary:hover {
-    background-color: var(--xo-blue-deep);
     transform: translateY(-2px);
-    box-shadow: 0 12px 40px -8px rgba(31, 142, 255, 0.55);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+      0 14px 34px -10px rgba(31, 142, 255, 0.75);
+  }
+  .btn-primary:hover::before {
+    transform: translateX(130%);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
   }
   .btn-ghost {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-mono text-xs uppercase tracking-[0.15em] transition-[border-color,transform,background-color,color] duration-300;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    overflow: hidden;
+    padding: 0.9rem 1.85rem;
+    border-radius: 9999px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
     color: rgb(var(--fg));
-    border: 1px solid rgb(var(--fg) / 0.22);
+    border: 1px solid rgb(var(--fg) / 0.25);
+    background-color: transparent;
+    transition:
+      color 0.35s ease,
+      border-color 0.35s ease,
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .btn-ghost::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgb(var(--fg) / 0.06);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+  .btn-ghost > * {
+    position: relative;
+    z-index: 1;
   }
   .btn-ghost:hover {
-    border-color: var(--xo-blue);
     transform: translateY(-2px);
-    background-color: rgb(var(--fg) / 0.04);
+    border-color: var(--xo-blue);
+    color: var(--xo-blue);
+  }
+  .btn-ghost:hover::before {
+    transform: scaleX(1);
   }
 }
 

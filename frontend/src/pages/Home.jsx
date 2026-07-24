@@ -4,7 +4,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { MaskText, MaskTextInView, Reveal } from "@/components/common/Reveal";
 import SectionAnchors from "@/components/common/SectionAnchors";
-import EditorialMarquee from "@/components/common/EditorialMarquee";
 import DemoCTA from "@/components/common/DemoCTA";
 import { PRODUCTS, IMAGES } from "@/data/site";
 
@@ -129,11 +128,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-
-      <EditorialMarquee
-        items={["Scheduling", "Examination", "Fitting", "Finishing"]}
-        className="bg-surface"
-      />
 
       {/* Layout: sticky anchors + content */}
       <div className="bg-bg">

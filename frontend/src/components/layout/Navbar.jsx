@@ -6,7 +6,7 @@ import { NAV } from "@/data/site";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 
-function ThemeToggle({ className }) {
+function ThemeToggle({ light }) {
   const { theme, toggle } = useTheme();
   return (
     <button
@@ -14,8 +14,10 @@ function ThemeToggle({ className }) {
       data-testid="theme-toggle"
       aria-label="Toggle color theme"
       className={cn(
-        "flex h-10 w-10 items-center justify-center rounded-full border border-fg/15 text-fg/70 transition-[color,border-color,background-color] duration-300 hover:border-xo-blue hover:text-xo-blue",
-        className,
+        "flex h-10 w-10 items-center justify-center rounded-full border transition-[color,border-color,background-color] duration-300 hover:border-xo-blue",
+        light
+          ? "border-white/20 text-white/70 hover:text-white"
+          : "border-fg/15 text-fg/70 hover:text-xo-blue",
       )}
     >
       {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -30,7 +32,13 @@ export default function Navbar() {
   const location = useLocation();
   const { theme } = useTheme();
 
-  const logo = theme === "dark" ? "/logos/xenon-corp-dark.svg" : "/logos/xenon-corp.svg";
+  // Every page opens with a dark hero. At the top the navbar floats over it,
+  // so it must use light content. Once scrolled (glass), follow the theme.
+  const light = !scrolled || theme === "dark";
+  const logo = light ? "/logos/xenon-corp-dark.svg" : "/logos/xenon-corp.svg";
+  const linkCls = light
+    ? "text-white/70 hover:text-white"
+    : "text-fg/70 hover:text-fg";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -69,7 +77,10 @@ export default function Navbar() {
               {item.children ? (
                 <button
                   data-testid={`nav-${item.label.toLowerCase()}`}
-                  className="flex items-center gap-1.5 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-fg/70 transition-colors duration-300 hover:text-fg"
+                  className={cn(
+                    "flex items-center gap-1.5 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors duration-300",
+                    linkCls,
+                  )}
                 >
                   {item.label}
                   <ChevronDown className="h-3 w-3" />
@@ -78,7 +89,10 @@ export default function Navbar() {
                 <Link
                   to={item.to}
                   data-testid={`nav-${item.label.replace(/\s+/g, "-").toLowerCase()}`}
-                  className="block px-4 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-fg/70 transition-colors duration-300 hover:text-fg"
+                  className={cn(
+                    "block px-4 py-2 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors duration-300",
+                    linkCls,
+                  )}
                 >
                   {item.label}
                 </Link>
@@ -93,7 +107,7 @@ export default function Navbar() {
                     transition={{ duration: 0.2 }}
                     className="absolute left-0 top-full w-72 pt-3"
                   >
-                    <div className="overflow-hidden rounded-md border border-fg/10 bg-bg/98 shadow-xl backdrop-blur-xl">
+                    <div className="overflow-hidden rounded-xl border border-fg/10 bg-bg/98 shadow-2xl backdrop-blur-xl">
                       {item.children.map((c) => (
                         <Link
                           key={c.label}
@@ -123,7 +137,7 @@ export default function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <ThemeToggle />
+          <ThemeToggle light={light} />
           <Link to="/request-a-demo" data-testid="nav-demo-cta" className="btn-primary">
             Request a Demo
           </Link>
@@ -131,11 +145,11 @@ export default function Navbar() {
 
         {/* Mobile controls */}
         <div className="flex items-center gap-2 lg:hidden">
-          <ThemeToggle />
+          <ThemeToggle light={light} />
           <button
             data-testid="mobile-menu-toggle"
             onClick={() => setOpen((v) => !v)}
-            className="relative z-10 flex h-10 w-10 items-center justify-center text-fg"
+            className={cn("relative z-10 flex h-10 w-10 items-center justify-center", light ? "text-white" : "text-fg")}
             aria-label="Toggle menu"
           >
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
