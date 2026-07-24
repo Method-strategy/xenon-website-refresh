@@ -228,6 +228,10 @@ html.lenis body {
   .mask-line {
     overflow: hidden;
     display: block;
+    /* Extend the clip box downward so descenders (g, y, p, j) aren't cut,
+       then cancel it with a negative margin so line spacing is unchanged. */
+    padding-bottom: 0.2em;
+    margin-bottom: -0.2em;
   }
   .grain::after {
     content: "";
