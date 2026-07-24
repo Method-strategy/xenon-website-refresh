@@ -1,0 +1,142 @@
+{
+  "theme": "Dark and Light Hybrid (Medical Precision)",
+  "art_direction": "The Clinical Void & The Lens - A high-precision, cinematic medtech aesthetic blending Swiss Brutalism with Premium Luxury. Deep obsidian backgrounds, glowing azure accents, stark mono typography, and spotlit product photography.",
+  "typography": {
+    "primary_display": "Clash Display",
+    "primary_display_usage": "H1, H2, Hero kinetic text, large manifesto headings. Use tracking-tight, uppercase for emphasis.",
+    "body": "Manrope",
+    "body_usage": "Paragraphs, descriptions, UI text. Clean, legible, objective.",
+    "mono": "JetBrains Mono",
+    "mono_usage": "Data points, stats (2.2B), test-suite grid labels, manifesto chapter numbers, forms.",
+    "installation": "Ensure fonts are loaded via Google Fonts or Fontsource."
+  },
+  "colors": {
+    "background_dark": "#050505",
+    "background_light": "#FFFFFF",
+    "surface_dark": "#0F172A",
+    "surface_light": "#F8F9FA",
+    "primary_brand": "#0047AB",
+    "accent_glow": "#00E5FF",
+    "text_primary_light": "#111111",
+    "text_secondary_light": "#475569",
+    "text_primary_dark": "#FFFFFF",
+    "text_secondary_dark": "#94A3B8",
+    "borders_dark": "rgba(255, 255, 255, 0.1)",
+    "borders_light": "rgba(0, 0, 0, 0.1)"
+  },
+  "visual_enhancers": {
+    "shadows": "Ambient diffuse shadows for light mode. For dark mode, rely on 1px borders and subtle inner glows.",
+    "textures": "Subtle noise overlay (grain) on dark hero sections to reduce digital flatness.",
+    "glassmorphism": "Used strictly for sticky headers and floating stat cards (backdrop-blur-xl, saturate-150, 1px inner border).",
+    "borders": "Technical grid lines. Use border-collapse patterns to expose the layout skeleton in data-heavy sections (like the 19-test suite)."
+  },
+  "component_name": {
+    "navigation": "Sticky Header with Glassmorphism",
+    "hero": "Kinetic Masked Reveal Hero",
+    "product_bento": "4-Component Bento Grid",
+    "workflow": "Numbered Manifesto Workflow",
+    "data_display": "Technical Stat Grid with Mono Typography",
+    "tabs": "Technical Form Factor Toggles (xoFit)",
+    "faq": "Minimalist Accordion"
+  },
+  "grids": {
+    "bento_grid": "grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-6. Highly asymmetrical.",
+    "data_grid": "Strict border-collapse grid. Every cell has border-r border-b. Used for the 19-test suite.",
+    "article_grid": "3-column CSS grid for the News section."
+  },
+  "layouts": {
+    "spacing_system": "Generous. Use p-8 to p-32. Sections must have breathing room.",
+    "alignment": "Optical alignment over geometrical. Left-align dense data, center-align massive hero statements.",
+    "sidebar": "Sticky left sidebar for section anchors on the Home page, while right content scrolls."
+  },
+  "motion": {
+    "hero_reveal": "Framer Motion: Masked line-by-line reveal. Text inside overflow-hidden wrappers. initial { y: '100%' } animate { y: '0%' } transition { staggerChildren: 0.1 }.",
+    "scroll": "Lenis for smooth momentum scrolling across the entire site.",
+    "parallax": "Framer Motion useScroll + useTransform on hero images and abstract backgrounds to create depth on scroll.",
+    "marquee": "Slow continuous scroll using react-fast-marquee. Uppercase, mono font, tracking-widest, large gaps.",
+    "micro_interactions": "Hover states on cards: slight negative translation (-translate-y-1) and glowing border."
+  },
+  "accessibility": {
+    "contrast": "Maintain 4.5:1 ratio for normal text. Use text-shadow on text overlapping images.",
+    "motion": "Respect prefers-reduced-motion media query for all Framer Motion and Lenis animations.",
+    "focus": "Clear focus rings (ring-2 ring-[#00E5FF]) for form inputs and interactive elements.",
+    "aria": "Use aria-hidden='true' for purely decorative abstract backgrounds."
+  },
+  "3d_libraries": {
+    "selected_library": "Framer Motion 3D / React Spring Parallax",
+    "steps": [
+      "Use framer-motion useScroll to track page scroll.",
+      "Map scroll progress to y-axis translation and scale of product images.",
+      "Apply to the sleek VR headset image in the hero to give a faux-3D floating effect."
+    ]
+  },
+  "media": {
+    "style_rules": "Images must be clipped precisely (sharp corners or max rounded-md). Use spotlight treatments (radial-gradient overlays) to draw focus to the product.",
+    "image_urls": {
+      "hero_product": {
+        "url": "https://images.unsplash.com/photo-1702471897393-47ec1ba1192b",
+        "description": "Sleek floating black VR headset under a spotlight",
+        "category": "Hero / xoExam Product Page"
+      },
+      "clinic_environment": {
+        "url": "https://images.pexels.com/photos/5965843/pexels-photo-5965843.jpeg",
+        "description": "High-end ophthalmology clinic with empty chair",
+        "category": "System Deployments / Home Environments"
+      },
+      "lab_equipment": {
+        "url": "https://images.pexels.com/photos/5752264/pexels-photo-5752264.jpeg",
+        "description": "Medical optical equipment for lens finishing",
+        "category": "xoLab Product Page / 4 Components"
+      },
+      "microscope_detail": {
+        "url": "https://images.pexels.com/photos/13949979/pexels-photo-13949979.jpeg",
+        "description": "Macro shot of lab microscope",
+        "category": "News / Scientific backing"
+      },
+      "team_doctor_1": {
+        "url": "https://images.pexels.com/photos/28516278/pexels-photo-28516278.jpeg",
+        "description": "Side profile of male doctor in white coat on dark background",
+        "category": "Team / Founders"
+      },
+      "team_doctor_2": {
+        "url": "https://images.pexels.com/photos/6749778/pexels-photo-6749778.jpeg",
+        "description": "Smiling female doctor with stethoscope",
+        "category": "Team / Advisors"
+      },
+      "team_professional": {
+        "url": "https://images.unsplash.com/photo-1594824476967-48c8b964273f",
+        "description": "Professional smiling woman in blue scrub/shirt",
+        "category": "Team / Board of Directors"
+      },
+      "abstract_tech_bg": {
+        "url": "https://images.unsplash.com/photo-1672750771479-5ea73e9439ce",
+        "description": "Blue abstract lines and curves",
+        "category": "Backgrounds / 4 Hidden Spaces data section"
+      }
+    }
+  },
+  "component_path": {
+    "shadcn_ui": "/app/frontend/src/components/ui/",
+    "custom_sections": "/app/frontend/src/components/sections/"
+  },
+  "instructions_to_main_agent": [
+    "Install required dependencies: framer-motion, @studio-freight/lenis, react-fast-marquee, lucide-react.",
+    "Build the multi-page structure using React Router (Home, System, Products, About, Team, News, Contact).",
+    "For the home page kinetic hero, strictly implement the masked line-by-line reveal using Framer Motion.",
+    "Construct the 19-test suite on the xoExam page using a strict CSS grid with 1px borders to look like a clinical data table.",
+    "The tabs for xoFit MUST render all content in the DOM for SEO/accessibility, toggling visibility via CSS or Framer Motion variants.",
+    "Implement smooth scrolling using Lenis globally in the App component.",
+    "Build the contact form using Shadcn UI form components with highly customized clinical styling (sharp edges, blue focus rings).",
+    "Never use purely transparent backgrounds for the sticky nav; use 'backdrop-blur-xl bg-black/70' (dark mode) or 'bg-white/80' (light mode)."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic outputs. Break the mold. Commit to 'The Clinical Void & The Lens' art direction.",
+    "Do NOT center align everything. Use left-aligned dense data and asymmetrical grids to create visual tension.",
+    "Use 2-3x more spacing than feels comfortable. Medtech luxury requires breathing room.",
+    "Never use generic placeholder images. Use the precise image URLs provided in the media section.",
+    "Every interactive element MUST have micro-animations (hover states, focus states).",
+    "Include 'data-testid' attributes on all buttons, links, form inputs, tabs, and key interactive components.",
+    "Do not apply 'transition: all' globally. Target specific properties to prevent breaking transforms.",
+    "Use the exact font pairings provided (Clash Display, Manrope, JetBrains Mono) to establish the brand voice."
+  ]
+}
