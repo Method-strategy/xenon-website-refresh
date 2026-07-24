@@ -33,6 +33,7 @@
   --warm: 240 236 229; /* deeper warm row */
   --fg: 11 18 32; /* deep ink navy */
   --nav: 255 255 255;
+  --acc: 31 142 255; /* default product accent (xoExam blue) */
 
   /* shadcn (light) */
   --background: 0 0% 100%;
@@ -280,4 +281,40 @@ html.lenis body {
   --warm: 10 15 26;
   --fg: 255 255 255;
   background-color: rgb(var(--bg));
+}
+
+/* Positioned scroll container so framer-motion useScroll can measure offsets
+   without warning (targets resolve their offset parent correctly). */
+html {
+  position: relative;
+}
+main {
+  position: relative;
+}
+
+/* Per-product accent scopes. --acc drives text-acc / border-acc / bg-acc etc.
+   Light values are deepened for contrast; dark values use the vivid logo hue. */
+.acc-iris {
+  --acc: 21 91 204;
+}
+.acc-exam {
+  --acc: 21 91 204;
+}
+.acc-fit {
+  --acc: 3 145 137;
+}
+.acc-lab {
+  --acc: 63 130 46;
+}
+.dark .acc-iris {
+  --acc: 42 122 235;
+}
+.dark .acc-exam {
+  --acc: 31 142 255;
+}
+.dark .acc-fit {
+  --acc: 5 211 200;
+}
+.dark .acc-lab {
+  --acc: 117 214 71;
 }

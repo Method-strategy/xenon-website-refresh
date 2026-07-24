@@ -56,7 +56,7 @@ const FAQS = [
 
 export default function Exam() {
   return (
-    <>
+    <div className="acc-exam">
       <ProductHero
         eyebrow="xoExam™ · Exam"
         logo="/logos/xoexam-dark.svg"
@@ -98,7 +98,7 @@ export default function Exam() {
             </Reveal>
             <Reveal delay={0.15}>
               <div className="mt-8 rounded-md border border-fg/10 bg-surface p-6">
-                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-xo-blue">
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-acc">
                   Boundary statement
                 </div>
                 <p className="mt-3 text-[14px] leading-relaxed text-fg/60">
@@ -134,7 +134,7 @@ export default function Exam() {
             {CHANGES.map((c, i) => (
               <Reveal key={c} delay={i * 0.05} className="bg-surface">
                 <div className="flex items-center gap-4 p-8">
-                  <span className="font-mono text-xs text-xo-blue">→</span>
+                  <span className="font-mono text-xs text-acc">→</span>
                   <span className="text-[15px] text-fg/70">{c}</span>
                 </div>
               </Reveal>
@@ -169,7 +169,7 @@ export default function Exam() {
                   data-testid={`test-${i + 1}`}
                   className="group flex items-center gap-4 border-b border-r border-fg/10 px-6 py-6 transition-colors duration-300 hover:bg-fg/[0.03]"
                 >
-                  <span className="font-mono text-xs text-xo-blue tabular-nums">
+                  <span className="font-mono text-xs text-acc tabular-nums">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="text-[15px] text-fg/75 transition-colors group-hover:text-fg">
@@ -198,8 +198,8 @@ export default function Exam() {
           <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
             {DELEGATION.map((d, i) => (
               <Reveal key={d.title} delay={i * 0.08}>
-                <div className="flex h-full flex-col rounded-md border border-fg/10 bg-bg p-8 transition-[transform,border-color] duration-500 hover:-translate-y-1 hover:border-xo-blue/40">
-                  <div className="font-mono text-xs text-xo-blue">{String(i + 1).padStart(2, "0")}</div>
+                <div className="flex h-full flex-col rounded-md border border-fg/10 bg-bg p-8 transition-[transform,border-color] duration-500 hover:-translate-y-1 hover:border-acc/40">
+                  <div className="font-mono text-xs text-acc">{String(i + 1).padStart(2, "0")}</div>
                   <h3 className="mt-4 font-display text-2xl text-fg">{d.title}</h3>
                   <p className="mt-3 text-[15px] leading-relaxed text-fg/50">{d.body}</p>
                   <div className="mt-auto pt-6 font-mono text-[11px] uppercase tracking-[0.15em] text-fg/70">
@@ -237,7 +237,7 @@ export default function Exam() {
               <Link
                 to="/xo-vision-care-system"
                 data-testid="exam-journey-link"
-                className="group mt-8 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-xo-blue"
+                className="group mt-8 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-acc"
               >
                 See the full patient journey
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -270,6 +270,6 @@ export default function Exam() {
         headline="Put the lane on the doctor's terms."
         body="A thirty-minute walkthrough of xoExam inside the full XO Vision Care System."
       />
-    </>
+    </div>
   );
 }

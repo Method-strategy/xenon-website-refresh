@@ -25,7 +25,7 @@ const FAQS = [
 
 export default function Lab() {
   return (
-    <>
+    <div className="acc-lab">
       <ProductHero
         eyebrow="xoLab™ · Finish"
         logo="/logos/xolab-dark.svg"
@@ -93,7 +93,7 @@ export default function Lab() {
             </Reveal>
             <Reveal delay={0.08}>
               <div className="h-full rounded-md border border-fg/10 bg-surface p-10">
-                <div className="font-display text-6xl font-semibold text-xo-blue">
+                <div className="font-display text-6xl font-semibold text-acc">
                   Same day
                 </div>
                 <div className="mt-2 font-mono text-xs uppercase tracking-[0.2em] text-fg/40">
@@ -128,8 +128,8 @@ export default function Lab() {
           <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
             {EQUIPMENT.map((e, i) => (
               <Reveal key={e.name} delay={i * 0.08}>
-                <div className="flex h-full flex-col rounded-md border border-fg/10 bg-surface/70 p-8 backdrop-blur-sm transition-[transform,border-color] duration-500 hover:-translate-y-1 hover:border-xo-blue/40">
-                  <div className="font-mono text-sm text-xo-blue">{e.n}</div>
+                <div className="flex h-full flex-col rounded-md border border-fg/10 bg-surface/70 p-8 backdrop-blur-sm transition-[transform,border-color] duration-500 hover:-translate-y-1 hover:border-acc/40">
+                  <div className="font-mono text-sm text-acc">{e.n}</div>
                   <h3 className="mt-6 font-display text-2xl text-fg">{e.name}</h3>
                   <p className="mt-3 text-[15px] leading-relaxed text-fg/50">{e.desc}</p>
                 </div>
@@ -168,7 +168,7 @@ export default function Lab() {
               <Link
                 to="/xo-vision-care-system"
                 data-testid="lab-journey-link"
-                className="group mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-xo-blue"
+                className="group mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-acc"
               >
                 See the full patient journey
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -184,6 +184,6 @@ export default function Lab() {
         headline="Keep the last step — and its margin — inside the building."
         body="A thirty-minute walkthrough of xoLab inside the full XO Vision Care System."
       />
-    </>
+    </div>
   );
 }

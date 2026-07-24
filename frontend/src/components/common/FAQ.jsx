@@ -32,7 +32,7 @@ export default function FAQ({ items, title = "Questions" }) {
                   className="border-fg/10"
                   data-testid={`faq-item-${i}`}
                 >
-                  <AccordionTrigger className="py-6 text-left font-display text-xl text-fg hover:no-underline data-[state=open]:text-xo-blue md:text-2xl">
+                  <AccordionTrigger className="py-6 text-left font-display text-xl text-fg hover:no-underline data-[state=open]:text-acc md:text-2xl">
                     {item.q}
                   </AccordionTrigger>
                   <AccordionContent className="max-w-3xl pb-8 text-base leading-relaxed text-fg/55">

@@ -48,7 +48,7 @@ export default function Fit() {
   const [active, setActive] = useState("wall");
 
   return (
-    <>
+    <div className="acc-fit">
       <ProductHero
         eyebrow="xoFit™ · Fit & Measure"
         logo="/logos/xofit-dark.svg"
@@ -120,7 +120,7 @@ export default function Fit() {
                 className={cn(
                   "rounded-full border px-6 py-3 font-mono text-[11px] uppercase tracking-[0.15em] transition-[color,border-color,background-color] duration-300",
                   active === f.key
-                    ? "border-xo-blue bg-xo-blue/10 text-xo-blue"
+                    ? "border-acc bg-acc/10 text-acc"
                     : "border-fg/15 text-fg/50 hover:border-fg/40 hover:text-fg",
                 )}
               >
@@ -147,7 +147,7 @@ export default function Fit() {
                   className="grid grid-cols-1 gap-8 overflow-hidden rounded-md border border-fg/10 bg-bg lg:grid-cols-12"
                 >
                   <div className="p-10 lg:col-span-6 lg:p-14">
-                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-xo-blue">
+                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-acc">
                       {f.tab} · {f.kind}
                     </div>
                     <h3 className="mt-6 font-display text-3xl leading-tight text-fg md:text-4xl">
@@ -200,7 +200,7 @@ export default function Fit() {
               ].map(([stat, label], i) => (
                 <Reveal key={label} delay={i * 0.06} className="bg-surface">
                   <div className="flex items-baseline gap-6 p-8">
-                    <div className="font-display text-4xl font-semibold text-xo-blue md:text-5xl">
+                    <div className="font-display text-4xl font-semibold text-acc md:text-5xl">
                       {stat}
                     </div>
                     <div className="text-[14px] leading-relaxed text-fg/55">{label}</div>
@@ -225,7 +225,7 @@ export default function Fit() {
           <Link
             to="/xo-vision-care-system"
             data-testid="fit-journey-link"
-            className="group mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-xo-blue"
+            className="group mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-acc"
           >
             See the full patient journey
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -239,6 +239,6 @@ export default function Fit() {
         headline="Send the lab exactly what you measured."
         body="A thirty-minute walkthrough of xoFit inside the full XO Vision Care System."
       />
-    </>
+    </div>
   );
 }

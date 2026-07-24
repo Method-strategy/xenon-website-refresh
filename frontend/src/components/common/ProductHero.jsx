@@ -51,7 +51,7 @@ export default function ProductHero({
           >
             <img src={logo} alt={eyebrow} className="h-9 w-auto md:h-11" />
             {role && (
-              <span className="border-l border-white/20 pl-4 font-mono text-xs uppercase tracking-[0.25em] text-xo-blue">
+              <span className="border-l border-white/20 pl-4 font-mono text-xs uppercase tracking-[0.25em] text-acc">
                 {role}
               </span>
             )}
@@ -61,7 +61,7 @@ export default function ProductHero({
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-8 font-mono text-xs uppercase tracking-[0.25em] text-xo-blue"
+            className="mb-8 font-mono text-xs uppercase tracking-[0.25em] text-acc"
           >
             {eyebrow}
           </motion.div>

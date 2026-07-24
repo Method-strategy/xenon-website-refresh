@@ -38,7 +38,7 @@ const FAQS = [
 
 export default function Iris() {
   return (
-    <>
+    <div className="acc-iris">
       <ProductHero
         eyebrow="xoIris™ · Schedule"
         logo="/logos/xoiris-dark.svg"
@@ -110,7 +110,7 @@ export default function Iris() {
                 {CAPABILITIES.map((c, i) => (
                   <Reveal key={c} delay={i * 0.05}>
                     <li className="flex items-start gap-4 border-b border-fg/10 pb-4 text-[15px] text-fg/70">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-xo-blue" />
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-acc" />
                       {c}
                     </li>
                   </Reveal>
@@ -123,7 +123,7 @@ export default function Iris() {
                 {COMMS.map((c, i) => (
                   <Reveal key={c} delay={i * 0.05}>
                     <li className="flex items-start gap-4 border-b border-fg/10 pb-4 text-[15px] text-fg/70">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-xo-blue" />
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-acc" />
                       {c}
                     </li>
                   </Reveal>
@@ -157,7 +157,7 @@ export default function Iris() {
               <Link
                 to="/xo-vision-care-system"
                 data-testid="iris-journey-link"
-                className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-xo-blue"
+                className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-acc"
               >
                 See the full patient journey
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -176,6 +176,6 @@ export default function Iris() {
         headline="Fill the schedule you already have."
         body="A thirty-minute walkthrough of xoIris inside the full XO Vision Care System."
       />
-    </>
+    </div>
   );
 }

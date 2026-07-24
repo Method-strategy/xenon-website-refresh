@@ -18,6 +18,7 @@ module.exports = {
         warm: 'rgb(var(--warm) / <alpha-value>)',
         fg: 'rgb(var(--fg) / <alpha-value>)',
         nav: 'rgb(var(--nav) / <alpha-value>)',
+        acc: 'rgb(var(--acc) / <alpha-value>)',
         xo: {
           obsidian: '#05070D',
           void: '#070A12',
