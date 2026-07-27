@@ -104,6 +104,12 @@ body {
     color 0.5s ease;
 }
 
+/* Systemic, responsive body wrapping — avoids orphans/awkward breaks
+   at every viewport without hand-tuning line breaks. */
+p {
+  text-wrap: pretty;
+}
+
 /* Lenis */
 html.lenis,
 html.lenis body {

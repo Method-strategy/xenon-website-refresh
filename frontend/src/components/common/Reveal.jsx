@@ -1,49 +1,64 @@
+import { Fragment } from "react";
 import { motion } from "framer-motion";
-import { lineParent, lineChild, fadeUp, viewport } from "@/lib/motion";
+import { EASE, viewport } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
-// Masked line-by-line reveal. `lines` is an array of strings (or nodes).
-export function MaskText({ lines, className, as: Tag = "h1", delay = 0 }) {
+// Word-level reveal that wraps NATURALLY at every breakpoint (text-wrap: balance)
+// and never clips descenders (no overflow:hidden). Accepts either `lines`
+// (array — joined into flowing text) or `text` (string) for backwards-compat.
+
+const container = (delay = 0) => ({
+  hidden: {},
+  show: { transition: { staggerChildren: 0.035, delayChildren: delay } },
+});
+
+const word = {
+  hidden: { opacity: 0, y: "0.45em" },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+};
+
+function toWords(lines, text) {
+  const str =
+    text != null ? text : Array.isArray(lines) ? lines.join(" ") : lines || "";
+  return String(str).split(/\s+/).filter(Boolean);
+}
+
+function WordReveal({ lines, text, className, delay = 0, trigger }) {
+  const words = toWords(lines, text);
+  const anim =
+    trigger === "view"
+      ? { initial: "hidden", whileInView: "show", viewport }
+      : { initial: "hidden", animate: "show" };
+
   return (
-    <motion.div
-      variants={{
-        hidden: {},
-        show: { transition: { staggerChildren: 0.12, delayChildren: delay } },
-      }}
-      initial="hidden"
-      animate="show"
-      className={className}
-    >
-      {lines.map((line, i) => (
-        <span key={i} className="mask-line">
-          <motion.span variants={lineChild} className="inline-block will-change-transform">
-            <Tag className="inline">{line}</Tag>
-          </motion.span>
-        </span>
-      ))}
-    </motion.div>
+    <span className={cn("block [text-wrap:balance]", className)}>
+      <motion.span variants={container(delay)} {...anim} className="inline">
+        {words.map((w, i) => (
+          <Fragment key={i}>
+            <motion.span
+              variants={word}
+              className="inline-block will-change-[transform,opacity]"
+            >
+              {w}
+            </motion.span>
+            {i < words.length - 1 ? " " : null}
+          </Fragment>
+        ))}
+      </motion.span>
+    </span>
   );
 }
 
-// Same masked reveal but triggered on scroll into view.
-export function MaskTextInView({ lines, className, as: Tag = "h2" }) {
+// Animate on mount (hero headlines).
+export function MaskText({ lines, text, className, delay = 0 }) {
   return (
-    <motion.div
-      variants={lineParent}
-      initial="hidden"
-      whileInView="show"
-      viewport={viewport}
-      className={className}
-    >
-      {lines.map((line, i) => (
-        <span key={i} className="mask-line">
-          <motion.span variants={lineChild} className="inline-block will-change-transform">
-            <Tag className="inline">{line}</Tag>
-          </motion.span>
-        </span>
-      ))}
-    </motion.div>
+    <WordReveal lines={lines} text={text} className={className} delay={delay} trigger="mount" />
   );
+}
+
+// Animate when scrolled into view (section headlines).
+export function MaskTextInView({ lines, text, className }) {
+  return <WordReveal lines={lines} text={text} className={className} trigger="view" />;
 }
 
 // Generic scroll-reveal fade-up wrapper.
@@ -55,7 +70,7 @@ export function Reveal({ children, className, delay = 0, y = 28 }) {
         show: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1], delay },
+          transition: { duration: 0.8, ease: EASE, delay },
         },
       }}
       initial="hidden"
@@ -67,5 +82,3 @@ export function Reveal({ children, className, delay = 0, y = 28 }) {
     </motion.div>
   );
 }
-
-export { fadeUp };

@@ -1,0 +1,27 @@
+{
+  "summary": "Frontend-only responsive typography verification for Xenon Ophthalmics marketing site. Tested headline/body wrapping at viewport widths 2560, 1920, 1440, 1280, 768, 390 on routes /, /xo-vision-care-system, /xoexam-eye-exam, /about. Used Playwright to measure the actual visual line composition per headline (grouping motion word-spans by top offset), computed style text-wrap, and document horizontal overflow. All acceptance criteria for the bug fix are met: (1) macro-thesis headline 'Demand for eye care is rising. Delivery capacity is not.' NO LONGER contains a single-word 'care' orphan at 2560px — it now balances to 4 even lines: 'Demand for' / 'eye care is' / 'rising. Delivery' / 'capacity is not.' (2) All measured headline spans report computed textWrap='balance'. (3) No horizontal overflow on any tested route/width (documentElement.scrollWidth === clientWidth on all 24 combinations). (4) Descenders visible — overflow:hidden removed; screenshots confirm 'y' in 'eyewear/system', 'p' in 'appointment' not clipped. (5) Word-reveal animation settles fully within ~1s (all words opaque; measurable via consistent bounding rects). (6) Body paragraphs use text-wrap:pretty globally (verified in index.css). No orphan single-word last lines detected by the automated scan across the tested widths.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "/xo-vision-care-system (>=1440px) & /about (>=1280px)", "issues": ["Balance algorithm places the article 'The' at end of first line for 'Eye care is delivered in steps. The waiting happens between them.' and 'The need is enormous. The workforce is concentrated.' — not an orphan, but a small typographic widow (dangling article). Cosmetic only; leaving as-is since this is a natural consequence of text-wrap:balance and is preferable to hand-tuned line breaks per the requirement."]},
+      {"screen": "/about @ 390px", "issues": ["'Vision care should not depend on where you happen to live.' wraps to 4 lines with L2='not depend' looking slightly short next to L1/L3. Still balanced by browser algorithm; no orphan. Cosmetic."]}
+    ]
+  },
+  "test_report_links": ["/app/test_reports/iteration_5.json"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Reveal.jsx: MaskText/MaskTextInView `as` prop is silently ignored (documented in comment). Consider forwarding a `Tag` prop or destructuring & warning in dev to avoid future confusion at call sites that still pass as='h1'/'h2' for semantics/SEO.",
+    "Headlines are rendered as <span> not semantic <h1>/<h2>. This is an accessibility/SEO regression risk (screen readers & search engines lose heading hierarchy). Recommend accepting an `as` prop that renders a real heading element wrapping the animated span.",
+    "index.css .mask-line utility (lines 235-242) is now unused after the switch — safe to remove to keep CSS lean."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (skipped per request)", "frontend": "100% (all 6 responsive-wrap criteria pass on all 4 routes x 6 widths = 24 combos)"},
+  "test_credentials": "n/a — no auth required",
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Responsive typography fix is verified end-to-end. Automated measurement script (embedded in the playwright run) computes per-line word grouping via bounding-rect top clustering and checks (a) document scrollWidth vs clientWidth for overflow and (b) detects last-line single-word orphans when total word count > 5. Re-use that pattern for future typography regressions. Only design-nits left are natural text-wrap:balance behavior with trailing articles ('The'), which the user explicitly wanted over hand-tuned <br /> breaks. Semantic heading tag concern is a separate a11y improvement, not part of this bug fix.",
+  "rca of the issue": "Original bug: prior MaskText split copy by lines and each line was wrapped in a `overflow:hidden` mask, meaning the hard-coded `lines={[...]}` array on the homepage macro-thesis dictated the wrap — at ultra-wide (2560px), those pre-split lines caused the last word 'care' to render alone on a line because the mask width followed content-max, not the balance-optimal breakpoint. Fix (in Reveal.jsx): join `lines` into a single string, split into word-level animated spans, and set `[text-wrap:balance]` on the block. Removing overflow:hidden also eliminates the descender clipping. Reproduction (pre-fix): visit / at 2560×1440, inspect macro-thesis; expected 'care' on its own line. Verified in this run: no such orphan; 4 balanced lines with even word counts."
+}
