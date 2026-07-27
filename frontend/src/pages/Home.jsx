@@ -400,12 +400,18 @@ export default function Home() {
                     rel="noopener noreferrer"
                     data-testid="eyecare4kids-logo-link"
                     aria-label="EyeCare4Kids"
-                    className="mb-6 inline-flex items-center rounded-sm bg-white px-4 py-2 shadow-sm ring-1 ring-fg/5 transition-transform duration-300 hover:scale-[1.02]"
+                    className="mb-6 inline-block transition-transform duration-300 hover:scale-[1.02]"
                   >
                     <img
-                      src="/partners/eyecare4kids.webp"
+                      src="/partners/eyecare4kids-light.svg"
                       alt="EyeCare4Kids"
-                      className="h-10 w-auto md:h-12"
+                      className="block h-12 w-auto md:h-14 dark:hidden"
+                    />
+                    <img
+                      src="/partners/eyecare4kids-dark.svg"
+                      alt="EyeCare4Kids"
+                      aria-hidden="true"
+                      className="hidden h-12 w-auto md:h-14 dark:block"
                     />
                   </a>
                   <p className="text-[15px] leading-relaxed text-fg/70">
