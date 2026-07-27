@@ -11,6 +11,7 @@ const EQUIPMENT = [
     n: "01",
     name: "xoLab Trace",
     img: "/products/xolab-trace.png",
+    scale: 0.86,
     desc: "High-precision frame & pattern tracer with a 7\" TFT display and VCA/RS-232C connectivity — with drop-failure prevention for reliable, repeatable traces.",
     specs: ["7\" TFT display", "Binocular & monocular tracing", "VCA / RS-232C connectivity", "Drop-failure prevention"],
   },
@@ -18,6 +19,7 @@ const EQUIPMENT = [
     n: "02",
     name: "xoLab Block",
     img: "/products/xolab-block.png",
+    scale: 0.92,
     desc: "Precision blocking that positions the lens exactly to the traced spec before edging — protecting centration through the cut.",
     specs: ["Accurate axis & optical-center blocking", "Works from the shared job spec", "Compact benchtop footprint"],
   },
@@ -25,6 +27,7 @@ const EQUIPMENT = [
     n: "03",
     name: "xoLab Edge",
     img: "/products/xolab-edge.png",
+    scale: 1,
     desc: "High-precision patternless edger with a conical grinding wheel for beveling, grooving, and polishing across materials.",
     specs: ["Conical grinding wheel", "Bevel, groove & polish", "Handles glass, plastic, poly & Trivex", "Drilling & safety-bevel ready"],
   },
@@ -146,27 +149,28 @@ export default function Lab() {
           <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
             {EQUIPMENT.map((e, i) => (
               <Reveal key={e.name} delay={i * 0.08}>
-                <div className="group flex h-full flex-col overflow-hidden rounded-md border border-fg/10 bg-surface/70 backdrop-blur-sm transition-[transform,border-color] duration-500 hover:-translate-y-1 hover:border-acc/40">
-                  <div className="relative flex h-72 items-center justify-center overflow-hidden bg-gradient-to-b from-white to-slate-100 p-4 sm:h-80 lg:h-[22rem]">
+                <div className="group flex h-full flex-col">
+                  <div className="relative flex h-72 items-end justify-center sm:h-80 lg:h-[26rem]">
                     <div
                       aria-hidden
-                      className="pointer-events-none absolute inset-0"
+                      className="pointer-events-none absolute inset-x-0 bottom-0 top-4"
                       style={{
                         background:
-                          "radial-gradient(58% 52% at 50% 45%, rgba(31,142,255,0.12), transparent 72%)",
+                          "radial-gradient(50% 55% at 50% 55%, rgb(var(--fg) / 0.10), transparent 72%)",
                       }}
                     />
                     <img
                       src={e.img}
                       alt={e.name}
-                      className="relative h-full w-full object-contain transition-transform duration-700 group-hover:scale-110"
+                      style={{ height: `${e.scale * 100}%` }}
+                      className="relative w-auto max-w-full object-contain object-bottom drop-shadow-2xl transition-transform duration-700 group-hover:-translate-y-1.5"
                     />
                   </div>
-                  <div className="flex flex-1 flex-col p-8">
+                  <div className="mt-8 flex flex-1 flex-col border-t border-fg/10 pt-6">
                     <div className="font-mono text-sm text-acc">{e.n}</div>
                     <h3 className="mt-4 font-display text-2xl text-fg">{e.name}</h3>
                     <p className="mt-3 text-[15px] leading-relaxed text-fg/50">{e.desc}</p>
-                    <ul className="mt-6 space-y-2 border-t border-fg/10 pt-6">
+                    <ul className="mt-6 space-y-2">
                       {e.specs.map((s) => (
                         <li key={s} className="flex items-start gap-3 text-[13px] text-fg/60">
                           <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-acc" />
