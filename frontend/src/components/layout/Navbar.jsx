@@ -130,7 +130,7 @@ export default function Navbar() {
                             key={c.label}
                             to={c.to}
                             data-testid={`nav-child-${c.label.toLowerCase()}`}
-                            className="group flex items-center justify-between border-b border-fg/5 px-5 py-4 transition-colors duration-300 hover:bg-fg/[0.05] last:border-0"
+                            className="group flex items-center justify-between border-b border-fg/5 px-5 py-4 transition-colors duration-300 hover:bg-bg/95 last:border-0"
                           >
                             <div>
                               <div className="font-display text-base text-fg group-hover:text-xo-blue">
