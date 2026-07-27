@@ -38,6 +38,20 @@ const FORM_FACTORS = [
       "Compact, portable configuration",
     ],
   },
+  {
+    key: "frame",
+    tab: "xoFrame",
+    kind: "Virtual try-on",
+    headline: "Virtual try-on. Real confidence.",
+    body: "Every frame, tried on instantly. xoFrame brings virtual try-on to frame selection, showing patients exactly how they look in any frame in your collection — and capturing that selection alongside the measurement.",
+    features: [
+      "Photorealistic virtual try-on",
+      "Try any frame in the collection instantly",
+      "Compare looks side by side",
+      "Selection captured with the fitting record",
+      "Shareable for at-home decisions",
+    ],
+  },
 ];
 
 const MEASUREMENTS = [
@@ -79,7 +93,7 @@ export default function Fit() {
         logo="/logos/xofit-dark.svg"
         role="Fit"
         headlineLines={["Measurements that", "arrive at the lab", "exactly as taken."]}
-        subhead="Digital centration and frame measurement in two configurations, captured in the same visit that produced the prescription."
+        subhead="Digital centration, frame measurement, and virtual try-on — captured in the same visit that produced the prescription."
         image={IMAGES.clinic}
         imageAlt="Optical fitting environment"
       />
@@ -121,10 +135,10 @@ export default function Fit() {
       <section className="border-t border-fg/10 bg-surface py-24 md:py-32">
         <div className="xo-container">
           <Reveal>
-            <div className="eyebrow mb-6">Two configurations. One precision standard.</div>
+            <div className="eyebrow mb-6">The xoFit family · one precision standard</div>
           </Reveal>
           <MaskTextInView
-            lines={["Two ways a practice", "actually works."]}
+            lines={["Three ways a practice", "actually works."]}
             as="span"
             className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
@@ -192,7 +206,7 @@ export default function Fit() {
                   </div>
                   <div className="relative min-h-[280px] lg:col-span-6">
                     <img
-                      src={IMAGES.lab}
+                      src={f.key === "frame" ? IMAGES.professional : IMAGES.lab}
                       alt={f.headline}
                       className="h-full w-full object-cover opacity-40"
                     />
