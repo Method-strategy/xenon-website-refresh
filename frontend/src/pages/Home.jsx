@@ -394,8 +394,31 @@ export default function Home() {
               </Reveal>
               <Reveal delay={0.15}>
                 <div className="mt-10 rounded-md border border-fg/10 bg-surface/60 p-8 backdrop-blur-sm">
+                  <a
+                    href="https://eyecare4kids.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid="eyecare4kids-logo-link"
+                    aria-label="EyeCare4Kids"
+                    className="mb-6 inline-flex items-center rounded-sm bg-white px-4 py-2 shadow-sm ring-1 ring-fg/5 transition-transform duration-300 hover:scale-[1.02]"
+                  >
+                    <img
+                      src="/partners/eyecare4kids.webp"
+                      alt="EyeCare4Kids"
+                      className="h-10 w-auto md:h-12"
+                    />
+                  </a>
                   <p className="text-[15px] leading-relaxed text-fg/70">
-                    This is why <span className="text-fg">EyeCare4Kids</span>{" "}
+                    This is why{" "}
+                    <a
+                      href="https://eyecare4kids.org/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid="eyecare4kids-text-link"
+                      className="text-fg underline decoration-fg/20 underline-offset-4 transition-colors hover:text-xo-blue hover:decoration-xo-blue/60"
+                    >
+                      EyeCare4Kids<sup className="ml-0.5 text-[0.55em] top-[-0.6em] relative">®</sup>
+                    </a>{" "}
                     partners with Xenon: a delivery model that travels lets them
                     reach children the conventional system never could. In July
                     2026, Xenon introduced the XO Vision Care System at Nelson
