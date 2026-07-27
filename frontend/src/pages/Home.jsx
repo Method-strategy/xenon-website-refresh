@@ -425,10 +425,20 @@ export default function Home() {
                     >
                       EyeCare4Kids<sup className="ml-0.5 text-[0.55em] top-[-0.6em] relative">®</sup>
                     </a>{" "}
-                    partners with Xenon: a delivery model that travels lets them
-                    reach children the conventional system never could. In July
-                    2026, Xenon introduced the XO Vision Care System at Nelson
-                    Mandela Children's Hospital in South Africa.
+                    partners with Xenon to help with its mission: our eye care
+                    delivery model lets them reach children a legacy system
+                    never could. In July 2026, Xenon introduced xoExam, our
+                    exam component of the XO Vision Care System, at Nelson
+                    Mandela Children's Hospital in South Africa with{" "}
+                    <a
+                      href="https://eyecare4kids.org/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-fg underline decoration-fg/20 underline-offset-4 transition-colors hover:text-xo-blue hover:decoration-xo-blue/60"
+                    >
+                      EyeCare4Kids
+                    </a>
+                    .
                   </p>
                 </div>
               </Reveal>
