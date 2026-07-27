@@ -276,19 +276,20 @@ export default function Home() {
                   Care begins before the patient walks through the door, and then
                   the waiting starts. Waiting for a lane. Waiting while the
                   prescription makes its way to the dispensary. Waiting while an
-                  order is rebuilt from a chart. Those gaps are the day. The XO
-                  Vision Care System closes them: four steps designed as one system
-                  rather than assembled from four purchases.
+                  order is rebuilt from a chart. Those gaps are the day, and
+                  fewer handoffs means fewer places for the schedule to slip.
+                  The XO Vision Care System closes them: four steps designed as
+                  one system rather than assembled from four purchases. A day
+                  that holds its shape has room in it.
                 </p>
               </Reveal>
 
               <div className="mt-14 space-y-px overflow-hidden rounded-md border border-fg/10 bg-fg/10">
                 {[
                   ["Before they arrive", "Care begins at booking, not at check-in. xoIris manages scheduling, reminders, and chair utilization, aligning demand with capacity and filling openings from patients already due, so the day starts full instead of catching up. It's the foundation everything after it is built on."],
-                  ["In the exam room", "One wearable device instead of a lane built from separate instruments. Objective and subjective refraction in the same workflow, with no stop between."],
+                  ["The exam experience", "One wearable device instead of a lane built from separate instruments. Objective and subjective refraction in the same workflow, with no stop between."],
                   ["At the fitting", "The optician opens xoFit and the prescription is already loaded, along with the patient's history. Nothing to chase, nothing to re-ask."],
                   ["At the finish", "The lab specification is complete the moment the sale closes, whether the job stays in the building or goes out."],
-                  ["Across the day", "Fewer handoffs means fewer places for the schedule to slip. A day that holds its shape has room in it."],
                 ].map(([t, b], i) => (
                   <Reveal key={t} delay={i * 0.04} className="bg-surface">
                     <div className="grid grid-cols-1 gap-4 p-8 transition-colors duration-500 hover:bg-fg/[0.02] md:grid-cols-12 md:p-10">
@@ -299,7 +300,14 @@ export default function Home() {
                 ))}
               </div>
 
-              <Reveal className="mt-12">
+              <Reveal delay={0.1} className="mt-12">
+                <p className="max-w-2xl font-display text-2xl leading-snug text-fg/85 md:text-3xl">
+                  One system. From appointment to finished eyewear. Not four
+                  products that work together. A visit that never has to stop.
+                </p>
+              </Reveal>
+
+              <Reveal className="mt-10">
                 <Link
                   to="/xo-vision-care-system"
                   data-testid="home-system-link"
@@ -336,7 +344,17 @@ export default function Home() {
                     <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-xo-blue/10 blur-3xl transition-opacity duration-500 group-hover:opacity-100 opacity-0" />
                     <div className="relative">
                       <div className="flex items-baseline gap-3">
-                        <img src={p.logo} alt={p.name} className="h-6 w-auto" />
+                        <img
+                          src={p.logo.replace("-dark.svg", ".svg")}
+                          alt={p.name}
+                          className="block h-6 w-auto dark:hidden"
+                        />
+                        <img
+                          src={p.logo}
+                          alt=""
+                          aria-hidden="true"
+                          className="hidden h-6 w-auto dark:block"
+                        />
                         <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40">
                           {p.role}
                         </span>

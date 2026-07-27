@@ -151,7 +151,17 @@ export default function System() {
                       <div className="font-display text-7xl font-semibold leading-none text-fg/10">
                         {step.n}
                       </div>
-                      <img src={step.logo} alt={step.role} className="mt-6 h-6 w-auto" />
+                      <img
+                        src={step.logo.replace("-dark.svg", ".svg")}
+                        alt={step.role}
+                        className="mt-6 block h-6 w-auto dark:hidden"
+                      />
+                      <img
+                        src={step.logo}
+                        alt=""
+                        aria-hidden="true"
+                        className="mt-6 hidden h-6 w-auto dark:block"
+                      />
                       <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40">
                         {step.role}
                       </div>
