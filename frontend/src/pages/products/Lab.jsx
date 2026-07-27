@@ -147,11 +147,19 @@ export default function Lab() {
             {EQUIPMENT.map((e, i) => (
               <Reveal key={e.name} delay={i * 0.08}>
                 <div className="group flex h-full flex-col overflow-hidden rounded-md border border-fg/10 bg-surface/70 backdrop-blur-sm transition-[transform,border-color] duration-500 hover:-translate-y-1 hover:border-acc/40">
-                  <div className="relative flex h-52 items-center justify-center overflow-hidden bg-white p-6">
+                  <div className="relative flex h-72 items-center justify-center overflow-hidden bg-gradient-to-b from-white to-slate-100 p-4 sm:h-80 lg:h-[22rem]">
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0"
+                      style={{
+                        background:
+                          "radial-gradient(58% 52% at 50% 45%, rgba(31,142,255,0.12), transparent 72%)",
+                      }}
+                    />
                     <img
                       src={e.img}
                       alt={e.name}
-                      className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105"
+                      className="relative h-full w-full object-contain transition-transform duration-700 group-hover:scale-110"
                     />
                   </div>
                   <div className="flex flex-1 flex-col p-8">
