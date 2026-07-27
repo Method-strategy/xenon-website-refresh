@@ -25,7 +25,7 @@ const COMMS = [
 
 const SPECS = [
   "Cloud-based, high-availability deployment",
-  "HIPAA-certified cloud architecture",
+  "HIPAA-compliant cloud architecture",
   "No local software or on-site servers",
   "macOS, Windows, iOS, Android & web browser",
   "API integration with EHR & practice systems",
@@ -161,7 +161,7 @@ export default function Iris() {
             />
             <Reveal delay={0.1}>
               <p className="mt-8 max-w-md text-lg leading-relaxed text-fg/55">
-                xoIris runs in a HIPAA-certified cloud and reaches patients over
+                xoIris runs in a HIPAA-compliant cloud and reaches patients over
                 conversational SMS — no app to download, no on-site servers to
                 maintain. Staff work from any browser or device.
               </p>
