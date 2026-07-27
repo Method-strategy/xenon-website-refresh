@@ -150,13 +150,13 @@ export default function Lab() {
             {EQUIPMENT.map((e, i) => (
               <Reveal key={e.name} delay={i * 0.08}>
                 <div className="group flex h-full flex-col">
-                  <div className="relative flex h-72 items-end justify-center sm:h-80 lg:h-[26rem]">
+                  <div className="relative flex h-[30rem] items-end justify-center sm:h-[34rem] md:h-80 lg:h-[26rem]">
                     <div
                       aria-hidden
-                      className="pointer-events-none absolute inset-x-0 bottom-0 top-4"
+                      className="pointer-events-none absolute inset-0"
                       style={{
                         background:
-                          "radial-gradient(50% 55% at 50% 55%, rgb(var(--fg) / 0.10), transparent 72%)",
+                          "radial-gradient(70% 45% at 50% 88%, rgb(var(--fg) / 0.18), transparent 74%), radial-gradient(45% 55% at 50% 45%, rgb(var(--fg) / 0.08), transparent 78%)",
                       }}
                     />
                     <img
