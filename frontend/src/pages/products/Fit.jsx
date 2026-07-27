@@ -50,9 +50,9 @@ export default function Fit() {
   return (
     <div className="acc-fit">
       <ProductHero
-        eyebrow="xoFit™ · Fit & Measure"
+        eyebrow="xoFit™ · Fit"
         logo="/logos/xofit-dark.svg"
-        role="Fit & Measure"
+        role="Fit"
         headlineLines={["Measurements that", "arrive at the lab", "exactly as taken."]}
         subhead="Digital centration and frame measurement in three form factors, captured in the same visit that produced the prescription."
         image={IMAGES.clinic}
@@ -233,7 +233,7 @@ export default function Fit() {
         </div>
       </section>
 
-      <FAQ items={FAQS} title="Fit & measure, answered." />
+      <FAQ items={FAQS} title="Fit, answered." />
       <DemoCTA
         eyebrow="Request a demo"
         headline="Send the lab exactly what you measured."

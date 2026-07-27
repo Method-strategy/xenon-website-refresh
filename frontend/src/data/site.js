@@ -18,7 +18,7 @@ export const NAV = [
     children: [
       { label: "xoIris", sub: "Schedule", to: "/xoiris-scheduling" },
       { label: "xoExam", sub: "Exam", to: "/xoexam-eye-exam" },
-      { label: "xoFit", sub: "Fit & Measure", to: "/xofit-frame-fitting" },
+      { label: "xoFit", sub: "Fit", to: "/xofit-frame-fitting" },
       { label: "xoLab", sub: "Finish", to: "/xolab-eyewear-finishing" },
     ],
   },
@@ -55,7 +55,7 @@ export const PRODUCTS = [
   {
     key: "xofit",
     name: "xoFit",
-    role: "Fit & Measure",
+    role: "Fit",
     to: "/xofit-frame-fitting",
     logo: "/logos/xofit-dark.svg",
     blurb:

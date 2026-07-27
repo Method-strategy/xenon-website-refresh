@@ -129,6 +129,56 @@ export default function Home() {
     <>
       <Hero />
 
+      {/* MACRO THESIS — the "why", mirroring the launch film's opening */}
+      <section className="relative overflow-hidden border-b border-fg/10 bg-surface py-24 md:py-32">
+        <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
+        <div className="xo-container relative grid grid-cols-1 gap-16 lg:grid-cols-12">
+          <div className="lg:col-span-6">
+            <Reveal>
+              <div className="eyebrow mb-6">The problem</div>
+            </Reveal>
+            <MaskTextInView
+              lines={["Demand for eye care", "is rising. Delivery", "capacity is not."]}
+              as="span"
+              className="font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
+            />
+            <Reveal delay={0.1}>
+              <p className="mt-10 max-w-lg text-lg leading-relaxed text-fg/55">
+                More than a billion people live with vision impairment that is
+                preventable or unaddressed, and the gap keeps widening — not because
+                the science is missing, but because care is assembled from
+                disconnected tools, fixed to buildings most of the world will never
+                walk into.
+              </p>
+            </Reveal>
+            <Reveal delay={0.15}>
+              <p className="mt-6 max-w-lg font-display text-2xl leading-snug text-fg/85">
+                This isn't a doctor shortage. It's a system-design problem.
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="lg:col-span-6 lg:pl-10">
+            <div className="grid grid-cols-1 gap-px overflow-hidden rounded-md border border-fg/10 bg-fg/10">
+              {[
+                ["1B+", "people with preventable or unaddressed vision impairment"],
+                ["Rising", "global demand for eye care, year over year"],
+                ["Flat", "delivery capacity under the conventional, building-bound model"],
+              ].map(([stat, label], i) => (
+                <Reveal key={label} delay={i * 0.06} className="bg-bg">
+                  <div className="p-8 md:p-10">
+                    <div className="font-display text-4xl font-semibold text-xo-blue md:text-5xl">
+                      {stat}
+                    </div>
+                    <div className="mt-3 text-[15px] leading-relaxed text-fg/55">{label}</div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Layout: sticky anchors + content */}
       <div className="bg-bg">
         <div className="xo-container grid grid-cols-1 gap-16 py-24 lg:grid-cols-12 lg:py-32">
@@ -295,6 +345,17 @@ export default function Home() {
                 </Reveal>
               ))}
             </div>
+
+            <Reveal className="mt-16">
+              <p className="font-display text-3xl font-medium leading-snug tracking-tight text-fg md:text-4xl">
+                The system is the advantage.
+              </p>
+              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-fg/55">
+                Any one component earns its place. Together they compound — each step
+                handing the next a head start, so capacity builds across the whole
+                visit instead of leaking between the parts.
+              </p>
+            </Reveal>
           </div>
         </section>
 
@@ -326,9 +387,9 @@ export default function Home() {
               <Reveal delay={0.15}>
                 <div className="mt-10 rounded-md border border-fg/10 bg-surface/60 p-8 backdrop-blur-sm">
                   <p className="text-[15px] leading-relaxed text-fg/70">
-                    Xenon Ophthalmics works with{" "}
-                    <span className="text-fg">EyeCare4Kids</span> to bring vision
-                    care to children the traditional model hasn't reached. In July
+                    This is why <span className="text-fg">EyeCare4Kids</span>{" "}
+                    partners with Xenon: a delivery model that travels lets them
+                    reach children the conventional system never could. In July
                     2026, Xenon introduced the XO Vision Care System at Nelson
                     Mandela Children's Hospital in South Africa.
                   </p>
@@ -354,6 +415,28 @@ export default function Home() {
                 ))}
               </div>
               <p className="mt-6 font-mono text-xs text-fg/30">Source: AJO International, 2026</p>
+            </div>
+          </div>
+
+          {/* Scale ladder — integration -> capacity -> access */}
+          <div className="xo-container relative mt-20">
+            <Reveal>
+              <p className="max-w-3xl font-display text-2xl leading-snug tracking-tight text-fg md:text-3xl">
+                The structure stays the same. The scale changes. Integration
+                increases capacity — and capacity expands access.
+              </p>
+            </Reveal>
+            <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-fg/10 bg-fg/10 md:grid-cols-4">
+              {["Single practice", "Multi-location", "National", "Global"].map((s, i) => (
+                <Reveal key={s} delay={i * 0.06} className="bg-bg">
+                  <div className="group flex h-full flex-col justify-between p-6 md:p-8">
+                    <div className="font-mono text-xs text-xo-blue">
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <div className="mt-8 font-display text-lg text-fg md:text-xl">{s}</div>
+                  </div>
+                </Reveal>
+              ))}
             </div>
           </div>
         </section>
