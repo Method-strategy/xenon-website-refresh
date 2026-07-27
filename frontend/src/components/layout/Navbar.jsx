@@ -124,13 +124,13 @@ export default function Navbar() {
                       transition={{ duration: 0.2 }}
                       className="absolute right-0 top-full w-72 pt-3"
                     >
-                      <div className="overflow-hidden rounded-xl border border-fg/10 bg-bg shadow-2xl backdrop-blur-xl">
+                      <div className="overflow-hidden rounded-xl border border-fg/10 bg-bg/70 shadow-2xl ring-1 ring-fg/5 backdrop-blur-2xl">
                         {item.children.map((c) => (
                           <Link
                             key={c.label}
                             to={c.to}
                             data-testid={`nav-child-${c.label.toLowerCase()}`}
-                            className="group flex items-center justify-between border-b border-fg/5 px-5 py-4 transition-colors duration-300 hover:bg-fg/[0.03] last:border-0"
+                            className="group flex items-center justify-between border-b border-fg/5 px-5 py-4 transition-colors duration-300 hover:bg-fg/[0.05] last:border-0"
                           >
                             <div>
                               <div className="font-display text-base text-fg group-hover:text-xo-blue">
@@ -154,10 +154,10 @@ export default function Navbar() {
           </ul>
 
           <div className="ml-3 flex items-center gap-3">
-            <ThemeToggle light={light} />
             <Link to="/request-a-demo" data-testid="nav-demo-cta" className="btn-primary">
               Request a Demo
             </Link>
+            <ThemeToggle light={light} />
           </div>
         </div>
 
