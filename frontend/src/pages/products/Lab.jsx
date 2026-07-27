@@ -10,18 +10,21 @@ const EQUIPMENT = [
   {
     n: "01",
     name: "xoLab Trace",
+    img: "/products/xolab-trace.png",
     desc: "High-precision frame & pattern tracer with a 7\" TFT display and VCA/RS-232C connectivity — with drop-failure prevention for reliable, repeatable traces.",
     specs: ["7\" TFT display", "Binocular & monocular tracing", "VCA / RS-232C connectivity", "Drop-failure prevention"],
   },
   {
     n: "02",
     name: "xoLab Block",
+    img: "/products/xolab-block.png",
     desc: "Precision blocking that positions the lens exactly to the traced spec before edging — protecting centration through the cut.",
     specs: ["Accurate axis & optical-center blocking", "Works from the shared job spec", "Compact benchtop footprint"],
   },
   {
     n: "03",
     name: "xoLab Edge",
+    img: "/products/xolab-edge.png",
     desc: "High-precision patternless edger with a conical grinding wheel for beveling, grooving, and polishing across materials.",
     specs: ["Conical grinding wheel", "Bevel, groove & polish", "Handles glass, plastic, poly & Trivex", "Drilling & safety-bevel ready"],
   },
@@ -143,18 +146,27 @@ export default function Lab() {
           <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
             {EQUIPMENT.map((e, i) => (
               <Reveal key={e.name} delay={i * 0.08}>
-                <div className="flex h-full flex-col rounded-md border border-fg/10 bg-surface/70 p-8 backdrop-blur-sm transition-[transform,border-color] duration-500 hover:-translate-y-1 hover:border-acc/40">
-                  <div className="font-mono text-sm text-acc">{e.n}</div>
-                  <h3 className="mt-6 font-display text-2xl text-fg">{e.name}</h3>
-                  <p className="mt-3 text-[15px] leading-relaxed text-fg/50">{e.desc}</p>
-                  <ul className="mt-6 space-y-2 border-t border-fg/10 pt-6">
-                    {e.specs.map((s) => (
-                      <li key={s} className="flex items-start gap-3 text-[13px] text-fg/60">
-                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-acc" />
-                        {s}
-                      </li>
-                    ))}
-                  </ul>
+                <div className="group flex h-full flex-col overflow-hidden rounded-md border border-fg/10 bg-surface/70 backdrop-blur-sm transition-[transform,border-color] duration-500 hover:-translate-y-1 hover:border-acc/40">
+                  <div className="relative flex h-52 items-center justify-center overflow-hidden bg-white p-6">
+                    <img
+                      src={e.img}
+                      alt={e.name}
+                      className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-8">
+                    <div className="font-mono text-sm text-acc">{e.n}</div>
+                    <h3 className="mt-4 font-display text-2xl text-fg">{e.name}</h3>
+                    <p className="mt-3 text-[15px] leading-relaxed text-fg/50">{e.desc}</p>
+                    <ul className="mt-6 space-y-2 border-t border-fg/10 pt-6">
+                      {e.specs.map((s) => (
+                        <li key={s} className="flex items-start gap-3 text-[13px] text-fg/60">
+                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-acc" />
+                          {s}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </Reveal>
             ))}
