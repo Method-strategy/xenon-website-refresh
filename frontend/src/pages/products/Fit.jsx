@@ -8,6 +8,7 @@ import FAQ from "@/components/common/FAQ";
 import DemoCTA from "@/components/common/DemoCTA";
 import { cn } from "@/lib/utils";
 import { IMAGES } from "@/data/site";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 const FORM_FACTORS = [
   {
@@ -84,6 +85,11 @@ const FAQS = [
 ];
 
 export default function Fit() {
+  usePageMeta({
+    title: "xoFit — Frame Fitting & Centration",
+    description:
+      "Digital centration and frame measurement in three form factors: wall-mounted station, handheld unit and a virtual try-on patients use themselves. Measurements pass straight to finishing.",
+  });
   const [active, setActive] = useState("core");
 
   return (

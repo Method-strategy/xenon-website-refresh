@@ -4,7 +4,8 @@ import { PRODUCTS } from "@/data/site";
 const companyLinks = [
   { label: "About", to: "/about" },
   { label: "Team", to: "/team" },
-  { label: "News & Insights", to: "/news" },
+  { label: "Blog", to: "/blog" },
+  { label: "News", to: "/news" },
   { label: "Contact", to: "/contact" },
 ];
 
@@ -50,7 +51,7 @@ export default function Footer() {
           </div>
 
           <div className="md:col-span-4">
-            <div className="eyebrow mb-6">The XO System</div>
+            <div className="eyebrow mb-6">XO Vision Care System</div>
             <ul className="space-y-4">
               <li>
                 <Link

@@ -5,6 +5,7 @@ import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import FAQ from "@/components/common/FAQ";
 import DemoCTA from "@/components/common/DemoCTA";
 import { IMAGES } from "@/data/site";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 const TESTS = [
   "Wavefront Refraction", "Visual Acuity", "Wavefront Aberrometry", "Color Vision",
@@ -55,6 +56,11 @@ const FAQS = [
 ];
 
 export default function Exam() {
+  usePageMeta({
+    title: "xoExam — Wearable Eye Exam",
+    description:
+      "xoExam brings 19 doctor-led vision tests into a single wearable device. Run by the patient, a technician or the doctor — certified by the doctor in every case.",
+  });
   return (
     <div className="acc-exam">
       <ProductHero

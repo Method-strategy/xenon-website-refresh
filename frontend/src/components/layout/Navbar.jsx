@@ -93,7 +93,7 @@ export default function Navbar() {
               >
                 {item.children ? (
                   <button
-                    data-testid={`nav-${item.label.toLowerCase()}`}
+                    data-testid={`nav-${item.label.replace(/\s+/g, "-").toLowerCase()}`}
                     className={cn(
                       "flex items-center gap-1.5 px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors duration-300",
                       linkCls,

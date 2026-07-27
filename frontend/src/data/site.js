@@ -12,10 +12,10 @@ export const IMAGES = {
 };
 
 export const NAV = [
-  { label: "The XO System", to: "/xo-vision-care-system" },
   {
-    label: "Products",
+    label: "XO Vision Care System",
     children: [
+      { label: "Overview", sub: "The system", to: "/xo-vision-care-system" },
       { label: "xoIris", sub: "Schedule", to: "/xoiris-scheduling" },
       { label: "xoExam", sub: "Exam", to: "/xoexam-eye-exam" },
       { label: "xoFit", sub: "Fit", to: "/xofit-frame-fitting" },
@@ -27,7 +27,8 @@ export const NAV = [
     children: [
       { label: "About", sub: "Our mission", to: "/about" },
       { label: "Team", sub: "The people", to: "/team" },
-      { label: "News", sub: "Analysis & insight", to: "/news" },
+      { label: "Blog", sub: "Analysis & insight", to: "/blog" },
+      { label: "News", sub: "Company news", to: "/news" },
     ],
   },
   { label: "Contact", to: "/contact" },
@@ -94,7 +95,8 @@ export const TEAM_ADVISORY = [
   { name: "Mathew Gilligan, MBA", title: "Media Relations", linkedin: "#" },
 ];
 
-export const NEWS = [
+// Editorial / analysis / insight — long-form pieces. Lives on /blog.
+export const BLOG = [
   {
     slug: "space-race-orbit-of-access",
     title: "The New Space Race: Why eye care is the next frontier of access.",
@@ -145,6 +147,10 @@ export const NEWS = [
     date: "2026-07-24",
     readTime: "7 min",
   },
+];
+
+// Company news, press releases, program launches. Lives on /news.
+export const NEWS = [
   {
     slug: "mandela-childrens-hospital",
     title: "Xenon and EyeCare4Kids introduce the XO System at Nelson Mandela Children's Hospital.",

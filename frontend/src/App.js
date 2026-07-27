@@ -16,6 +16,7 @@ import Lab from "@/pages/products/Lab";
 import About from "@/pages/About";
 import Team from "@/pages/Team";
 import News from "@/pages/News";
+import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
 import NotFound from "@/pages/NotFound";
 
@@ -49,6 +50,7 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/team" element={<Team />} />
               <Route path="/news" element={<News />} />
+              <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/request-a-demo" element={<Contact />} />
               <Route path="*" element={<NotFound />} />

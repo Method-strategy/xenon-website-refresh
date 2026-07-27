@@ -3,6 +3,7 @@ import { MaskText, MaskTextInView, Reveal } from "@/components/common/Reveal";
 import EditorialMarquee from "@/components/common/EditorialMarquee";
 import DemoCTA from "@/components/common/DemoCTA";
 import { IMAGES } from "@/data/site";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 const GAP = [
   ["2.2B", "people worldwide live with vision impairment — 1 billion of those preventable or unaddressed."],
@@ -17,6 +18,11 @@ const GOALS = [
 ];
 
 export default function About() {
+  usePageMeta({
+    title: "About",
+    description:
+      "Xenon Ophthalmics builds technology to make eye care deliverable anywhere — one system, from appointment to finished eyewear.",
+  });
   return (
     <>
       {/* Hero */}

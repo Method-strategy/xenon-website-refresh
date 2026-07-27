@@ -4,6 +4,7 @@ import { MaskText, MaskTextInView, Reveal } from "@/components/common/Reveal";
 import SectionAnchors from "@/components/common/SectionAnchors";
 import DemoCTA from "@/components/common/DemoCTA";
 import { IMAGES } from "@/data/site";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 const ANCHORS = [
   { id: "problem", label: "The problem" },
@@ -77,6 +78,11 @@ const ENVIRONMENTS = [
 ];
 
 export default function System() {
+  usePageMeta({
+    title: "XO Vision Care System — Overview",
+    description:
+      "One system for eye care: scheduling, examination, fitting and finishing. Four points of contact across a single visit, designed to work as one.",
+  });
   return (
     <>
       {/* Hero */}

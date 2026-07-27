@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { MaskText } from "@/components/common/Reveal";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 export default function NotFound() {
+  usePageMeta({ title: "Page not found" });
   return (
     <section className="grain relative flex min-h-screen items-center justify-center overflow-hidden bg-bg">
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid opacity-40" />

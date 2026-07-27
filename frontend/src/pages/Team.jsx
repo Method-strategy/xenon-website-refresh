@@ -2,6 +2,7 @@ import { Linkedin, Mail } from "lucide-react";
 import { MaskText, Reveal } from "@/components/common/Reveal";
 import DemoCTA from "@/components/common/DemoCTA";
 import { TEAM_BOARD, TEAM_ADVISORY } from "@/data/site";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 function initials(name) {
   return name
@@ -51,6 +52,11 @@ function MemberCard({ m, i, testid }) {
 }
 
 export default function Team() {
+  usePageMeta({
+    title: "Team",
+    description:
+      "The people behind Xenon Ophthalmics — founders, board of directors, medical relations and advisory network.",
+  });
   return (
     <>
       {/* Hero */}

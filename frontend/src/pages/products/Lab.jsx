@@ -5,6 +5,7 @@ import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import FAQ from "@/components/common/FAQ";
 import DemoCTA from "@/components/common/DemoCTA";
 import { IMAGES } from "@/data/site";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 const EQUIPMENT = [
   {
@@ -45,6 +46,11 @@ const FAQS = [
 ];
 
 export default function Lab() {
+  usePageMeta({
+    title: "xoLab — In-Office Eyewear Finishing",
+    description:
+      "Frame tracing, blocking and edging in a compact in-office footprint. Finished eyewear on site, as fast as same-day — with the margin that would otherwise leave with the lab bill.",
+  });
   return (
     <div className="acc-lab">
       <ProductHero

@@ -6,6 +6,7 @@ import { MaskText, MaskTextInView, Reveal } from "@/components/common/Reveal";
 import SectionAnchors from "@/components/common/SectionAnchors";
 import DemoCTA from "@/components/common/DemoCTA";
 import { PRODUCTS, IMAGES } from "@/data/site";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 const ANCHORS = [
   { id: "capacity", label: "Where capacity goes" },
@@ -125,6 +126,12 @@ function Hero() {
 }
 
 export default function Home() {
+  usePageMeta({
+    title: "Xenon Ophthalmics — The XO Vision Care System",
+    description:
+      "Xenon Ophthalmics builds the XO Vision Care System — one system for eye care, from appointment to finished eyewear. Scheduling, exams, frame fitting and in-office finishing, designed to work as one.",
+    raw: true,
+  });
   return (
     <>
       <Hero />

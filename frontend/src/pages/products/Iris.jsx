@@ -5,6 +5,7 @@ import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import FAQ from "@/components/common/FAQ";
 import DemoCTA from "@/components/common/DemoCTA";
 import { IMAGES } from "@/data/site";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 const CAPABILITIES = [
   "AI-powered, text-first appointment orchestration",
@@ -50,6 +51,11 @@ const FAQS = [
 ];
 
 export default function Iris() {
+  usePageMeta({
+    title: "xoIris — Scheduling",
+    description:
+      "xoIris manages booking, reminders and patient communication, predicts no-shows and fills openings from patients already due — so the day starts full and stays full.",
+  });
   return (
     <div className="acc-iris">
       <ProductHero

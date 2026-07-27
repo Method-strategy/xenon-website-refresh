@@ -19,6 +19,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { toast } from "sonner";
 import { PROFESSIONS } from "@/data/site";
 import { cn } from "@/lib/utils";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -29,6 +30,11 @@ const TIMES = ["Morning (8am–12pm)", "Afternoon (12pm–4pm)", "Late (4pm–6p
 const SIZES = ["Solo / 1 provider", "2–4 providers", "5–10 providers", "Multi-location / enterprise"];
 
 export default function Contact() {
+  usePageMeta({
+    title: "Contact & Demo",
+    description:
+      "Request a demo of the XO Vision Care System or get in touch with the Xenon Ophthalmics team.",
+  });
   const [form, setForm] = useState({
     first_name: "",
     last_name: "",
