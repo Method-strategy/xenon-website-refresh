@@ -55,7 +55,7 @@ export default function Team() {
   usePageMeta({
     title: "Team",
     description:
-      "The people behind Xenon Ophthalmics — founders, board of directors, medical relations and advisory network.",
+      "The people behind Xenon Ophthalmics: founders, board of directors, medical relations, and advisory network.",
   });
   return (
     <>

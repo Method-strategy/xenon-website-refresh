@@ -16,7 +16,7 @@ export default function News() {
   usePageMeta({
     title: "News",
     description:
-      "Company news and program updates from Xenon Ophthalmics — deployments of the XO Vision Care System, partnerships, and press.",
+      "Company news and program updates from Xenon Ophthalmics: deployments of the XO Vision Care System, partnerships, and press.",
   });
 
   const feature = NEWS[0];

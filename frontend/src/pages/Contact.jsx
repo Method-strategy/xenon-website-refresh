@@ -88,7 +88,7 @@ export default function Contact() {
             className="max-w-[16ch] font-display text-[8.5vw] font-medium leading-[0.97] tracking-tight text-fg sm:text-4xl lg:text-6xl"
           />
           <p className="mt-8 max-w-xl text-lg leading-relaxed text-fg/60">
-            Tell us about your practice and we'll be in touch within one business day —
+            Tell us about your practice and we'll be in touch within one business day:
             a walkthrough of the full patient visit, mapped against how your practice
             runs today.
           </p>

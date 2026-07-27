@@ -17,7 +17,7 @@ const CAPABILITIES = [
 ];
 
 const COMMS = [
-  "Conversational SMS — no app to download",
+  "Conversational SMS, no app to download",
   "Automated reminders, confirmations & rescheduling",
   "Routine question handling with staff escalation",
   "Recall & lapsed-patient outreach",
@@ -38,7 +38,7 @@ const SPECS = [
 const FAQS = [
   {
     q: "How do you fill a cancelled eye exam appointment?",
-    a: "When a slot opens, xoIris identifies patients nearby who are already due for care and reaches them by text with the specific opening — filling the gap from your existing patient base rather than waiting for someone to call.",
+    a: "When a slot opens, xoIris identifies patients nearby who are already due for care and reaches them by text with the specific opening, filling the gap from your existing patient base rather than waiting for someone to call.",
   },
   {
     q: "What is the average no-show rate in optometry?",
@@ -46,15 +46,15 @@ const FAQS = [
   },
   {
     q: "Does xoIris replace my front desk?",
-    a: "No. xoIris handles the predictable, repetitive exchanges — confirmations, reminders, routine questions, rescheduling — and escalates to staff the moment a conversation needs a person.",
+    a: "No. xoIris handles the predictable, repetitive exchanges (confirmations, reminders, routine questions, rescheduling) and escalates to staff the moment a conversation needs a person.",
   },
 ];
 
 export default function Iris() {
   usePageMeta({
-    title: "xoIris — Scheduling",
+    title: "xoIris: Scheduling",
     description:
-      "xoIris manages booking, reminders and patient communication, predicts no-shows and fills openings from patients already due — so the day starts full and stays full.",
+      "xoIris manages booking, reminders and patient communication, predicts no-shows and fills openings from patients already due, so the day starts full and stays full.",
   });
   return (
     <div className="acc-iris">
@@ -63,7 +63,7 @@ export default function Iris() {
         logo="/logos/xoiris-dark.svg"
         role="Schedule"
         headlineLines={["Every empty slot", "was capacity.", "Until it wasn't."]}
-        subhead="xoIris manages booking, communication, and recall — and starts the visit that carries through the rest of the day."
+        subhead="xoIris manages booking, communication, and recall, and starts the visit that carries through the rest of the day."
         image={IMAGES.abstract}
         imageAlt="Abstract scheduling network"
       />
@@ -95,7 +95,7 @@ export default function Iris() {
               <p className="mt-6 leading-relaxed text-fg/45">
                 Every appointment slot is finite and perishable. Once it passes
                 unfilled, that capacity cannot be recovered. xoIris works the
-                schedule continuously rather than waiting on it — and it is where the
+                schedule continuously rather than waiting on it, and it is where the
                 visit begins. What xoIris captures is what the exam, the fitting, and
                 the finished pair are built on.
               </p>
@@ -118,7 +118,7 @@ export default function Iris() {
               waitlist. xoIris works from the patient base: when a slot opens, it can
               identify patients nearby already due for care and reach them by text
               with the specific opening. The practice isn't waiting for someone to
-              call — it's filling the gap from patients it already has.
+              call: it's filling the gap from patients it already has.
             </p>
           </Reveal>
 
@@ -168,7 +168,7 @@ export default function Iris() {
             <Reveal delay={0.1}>
               <p className="mt-8 max-w-md text-lg leading-relaxed text-fg/55">
                 xoIris runs in a HIPAA-compliant cloud and reaches patients over
-                conversational SMS — no app to download, no on-site servers to
+                conversational SMS, no app to download, no on-site servers to
                 maintain. Staff work from any browser or device.
               </p>
             </Reveal>
@@ -206,7 +206,7 @@ export default function Iris() {
           />
           <Reveal delay={0.1}>
             <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
-              Who the patient is, why they came, and what happened last time — all
+              Who the patient is, why they came, and what happened last time: all
               present the moment the exam begins. The visit starts where the booking
               left off instead of starting over.
             </p>

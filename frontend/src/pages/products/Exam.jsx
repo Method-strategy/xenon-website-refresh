@@ -51,15 +51,15 @@ const FAQS = [
   },
   {
     q: "Who is responsible for the results?",
-    a: "The eye care practitioner. No result leaves the device until the ECP certifies it — whether the test was run by the patient, a technician, or the doctor directly.",
+    a: "The eye care practitioner. No result leaves the device until the ECP certifies it, whether the test was run by the patient, a technician, or the doctor directly.",
   },
 ];
 
 export default function Exam() {
   usePageMeta({
-    title: "xoExam — Wearable Eye Exam",
+    title: "xoExam: Wearable Eye Exam",
     description:
-      "xoExam brings 19 doctor-led vision tests into a single wearable device. Run by the patient, a technician or the doctor — certified by the doctor in every case.",
+      "xoExam brings 19 doctor-led vision tests into a single wearable device. Run by the patient, a technician or the doctor, certified by the doctor in every case.",
   });
   return (
     <div className="acc-exam">
@@ -68,7 +68,7 @@ export default function Exam() {
         logo="/logos/xoexam-dark.svg"
         role="Exam"
         headlineLines={["The exam lane,", "in one", "wearable device."]}
-        subhead="A medical-grade eye exam platform bringing 19 doctor-led vision tests into a single unit — administered in minutes, from virtually anywhere."
+        subhead="A medical-grade eye exam platform bringing 19 doctor-led vision tests into a single unit, administered in minutes, from virtually anywhere."
         image={IMAGES.heroProduct}
         imageAlt="Wearable eye examination device"
       />
@@ -129,8 +129,8 @@ export default function Exam() {
           />
           <Reveal delay={0.1}>
             <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
-              A conventional refraction workflow runs across several instruments — an
-              autorefractor, a phoropter, a chart projector, a lensmeter — each its
+              A conventional refraction workflow runs across several instruments (an
+              autorefractor, a phoropter, a chart projector, a lensmeter), each its
               own purchase, space, and line on the capital plan. xoExam is one unit.
               Objective and subjective refraction happen in the same device, in the
               same workflow, with no transcription step between them.

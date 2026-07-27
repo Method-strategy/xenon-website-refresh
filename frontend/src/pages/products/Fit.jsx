@@ -16,7 +16,7 @@ const FORM_FACTORS = [
     tab: "xoFit Core",
     kind: "Fixed / wall-mounted",
     headline: "Single-shot 3D capture. Built for throughput.",
-    body: "A 6-camera high-precision imaging system captures full centration in a single shot. Telescoping stand or wall-mounted, controlled from any browser — engineered in Germany for high-volume optical environments.",
+    body: "A 6-camera high-precision imaging system captures full centration in a single shot. Telescoping stand or wall-mounted, controlled from any browser, engineered in Germany for high-volume optical environments.",
     features: [
       "Single-shot 3D centration capture",
       "6-camera high-precision imaging system",
@@ -30,10 +30,10 @@ const FORM_FACTORS = [
     tab: "xoFit Mobile",
     kind: "iPad-based / portable",
     headline: "Precision measurement. Wherever you fit.",
-    body: "An iPad-based centration workflow with a wearable optical alignment module and 4x German precision optics. Three operating modes — easy, advanced, expert — with results delivered by PDF or print.",
+    body: "An iPad-based centration workflow with a wearable optical alignment module and 4x German precision optics. Three operating modes (easy, advanced, expert) with results delivered by PDF or print.",
     features: [
       "iPad-based mobile centration workflow",
-      "3 modes — easy, advanced, expert",
+      "3 modes: easy, advanced, expert",
       "Wearable optical alignment module",
       "4x optical zoom · German precision optics",
       "Compact, portable configuration",
@@ -44,7 +44,7 @@ const FORM_FACTORS = [
     tab: "xoFrame",
     kind: "Virtual try-on",
     headline: "Virtual try-on. Real confidence.",
-    body: "Every frame, tried on instantly. xoFrame brings virtual try-on to frame selection, showing patients exactly how they look in any frame in your collection — and capturing that selection alongside the measurement.",
+    body: "Every frame, tried on instantly. xoFrame brings virtual try-on to frame selection, showing patients exactly how they look in any frame in your collection, and capturing that selection alongside the measurement.",
     features: [
       "Photorealistic virtual try-on",
       "Try any frame in the collection instantly",
@@ -72,7 +72,7 @@ const MEASUREMENTS = [
 const FAQS = [
   {
     q: "What is digital centration?",
-    a: "Digital centration is the precise measurement of where a lens sits in front of the eye — pupillary distance, segment height, vertical optical center, and frame geometry — captured digitally rather than with a ruler, so premium lens designs perform as intended.",
+    a: "Digital centration is the precise measurement of where a lens sits in front of the eye (pupillary distance, segment height, vertical optical center, and frame geometry), captured digitally rather than with a ruler, so premium lens designs perform as intended.",
   },
   {
     q: "Why does pupillary distance accuracy matter?",
@@ -86,7 +86,7 @@ const FAQS = [
 
 export default function Fit() {
   usePageMeta({
-    title: "xoFit — Frame Fitting & Centration",
+    title: "xoFit: Frame Fitting & Centration",
     description:
       "Digital centration and frame measurement in three form factors: wall-mounted station, handheld unit and a virtual try-on patients use themselves. Measurements pass straight to finishing.",
   });
@@ -99,7 +99,7 @@ export default function Fit() {
         logo="/logos/xofit-dark.svg"
         role="Fit"
         headlineLines={["Measurements that", "arrive at the lab", "exactly as taken."]}
-        subhead="Digital centration, frame measurement, and virtual try-on — captured in the same visit that produced the prescription."
+        subhead="Digital centration, frame measurement, and virtual try-on, captured in the same visit that produced the prescription."
         image={IMAGES.clinic}
         imageAlt="Optical fitting environment"
       />
@@ -130,7 +130,7 @@ export default function Fit() {
               <p className="mt-6 leading-relaxed text-fg/45">
                 The prescription is already loaded from the exam. xoFit adds
                 pupillary distance, segment height, vertical optical center, and
-                frame geometry — and the lab specification assembles itself.
+                frame geometry, and the lab specification assembles itself.
               </p>
             </Reveal>
           </div>
@@ -298,7 +298,7 @@ export default function Fit() {
           <div className="eyebrow mb-4">In the system</div>
           <p className="max-w-2xl text-lg leading-relaxed text-fg/60">
             A complete lab-ready specification covering prescription, centration, and
-            frame geometry — finished at the moment the sale is. Whether the job stays
+            frame geometry, finished at the moment the sale is. Whether the job stays
             in the building or goes to your contracted lab, nobody rebuilds it.
           </p>
           <Link

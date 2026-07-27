@@ -32,7 +32,7 @@ export default function Footer() {
             </div>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/50">
               Founded in 2019, Xenon Ophthalmics builds technology to make eye
-              care deliverable anywhere — one system, from appointment to
+              care deliverable anywhere: one system, from appointment to
               finished eyewear.
             </p>
             <div className="mt-8 font-mono text-xs leading-relaxed text-white/40">

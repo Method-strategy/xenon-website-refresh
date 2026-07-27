@@ -6,7 +6,7 @@ import { usePageMeta } from "@/lib/usePageMeta";
 
 export default function Blog() {
   usePageMeta({
-    title: "Blog — Analysis & Insight",
+    title: "Blog: Analysis & Insight",
     description:
       "Long-form analysis on eye care delivery, practice capacity and access from Xenon Ophthalmics. Home of The New Space Race series.",
   });

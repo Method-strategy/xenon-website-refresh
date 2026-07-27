@@ -23,7 +23,7 @@ const STEPS = [
     logo: "/logos/xoiris-dark.svg",
     role: "Schedule · xoIris™",
     title: "The visit starts before the patient arrives.",
-    body: "Booking is where the visit begins, not where it gets queued. xoIris manages booking, reminders, and patient communication, and works to keep the schedule full. When a cancellation opens a slot, it can identify patients nearby already due for care and reach them by text — filling the opening from your existing patient base.",
+    body: "Booking is where the visit begins, not where it gets queued. xoIris manages booking, reminders, and patient communication, and works to keep the schedule full. When a cancellation opens a slot, it can identify patients nearby already due for care and reach them by text, filling the opening from your existing patient base.",
     hand: "By the time the patient arrives: who they are, why they're here, and what happened last visit are already in front of the practice.",
     to: "/xoiris-scheduling",
   },
@@ -43,7 +43,7 @@ const STEPS = [
     logo: "/logos/xofit-dark.svg",
     role: "Fit · xoFit™",
     title: "The prescription is there before the patient is.",
-    body: "Frame selection begins with the exam results already loaded. The optician isn't waiting on a chart or re-asking answered questions. xoFit captures pupillary distance, segment height, vertical optical center, and frame geometry — all attached to the same record, across three form factors.",
+    body: "Frame selection begins with the exam results already loaded. The optician isn't waiting on a chart or re-asking answered questions. xoFit captures pupillary distance, segment height, vertical optical center, and frame geometry, all attached to the same record, across three form factors.",
     hand: "By the time the job reaches finishing: the specification is already written.",
     to: "/xofit-frame-fitting",
   },
@@ -53,7 +53,7 @@ const STEPS = [
     logo: "/logos/xolab-dark.svg",
     role: "Finish · xoLab™",
     title: "The order is already written.",
-    body: "Finishing receives a complete specification — nothing to assemble at the end of the sale. xoLab handles frame tracing, blocking, and edging on site, in a footprint sized for a practice. Single-vision work can be finished the same day, in the building. Jobs requiring surfacing go out as a complete lab-ready order with nothing re-keyed.",
+    body: "Finishing receives a complete specification: nothing to assemble at the end of the sale. xoLab handles frame tracing, blocking, and edging on site, in a footprint sized for a practice. Single-vision work can be finished the same day, in the building. Jobs requiring surfacing go out as a complete lab-ready order with nothing re-keyed.",
     hand: "What the patient leaves with: a finished pair, and margin that would otherwise have left with the lab bill.",
     to: "/xolab-eyewear-finishing",
   },
@@ -79,7 +79,7 @@ const ENVIRONMENTS = [
 
 export default function System() {
   usePageMeta({
-    title: "XO Vision Care System — Overview",
+    title: "XO Vision Care System: Overview",
     description:
       "One system for eye care: scheduling, examination, fitting and finishing. Four points of contact across a single visit, designed to work as one.",
   });
@@ -217,7 +217,7 @@ export default function System() {
                     <div className="col-span-12 mb-2 font-display text-lg text-fg md:col-span-2 md:mb-0">{step}</div>
                     <div className="col-span-12 text-[14px] leading-relaxed text-fg/40 md:col-span-6">{conv}</div>
                     <div className="col-span-12 text-[14px] leading-relaxed text-fg/80 md:col-span-4">
-                      <span className="md:hidden font-mono text-[10px] uppercase tracking-widest text-xo-blue">XO — </span>
+                      <span className="md:hidden font-mono text-[10px] uppercase tracking-widest text-xo-blue">XO: </span>
                       {xo}
                     </div>
                   </div>

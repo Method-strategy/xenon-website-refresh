@@ -13,7 +13,7 @@ const EQUIPMENT = [
     name: "xoLab Trace",
     img: "/products/xolab-trace.png",
     scale: 0.86,
-    desc: "High-precision frame & pattern tracer with a 7\" TFT display and VCA/RS-232C connectivity — with drop-failure prevention for reliable, repeatable traces.",
+    desc: "High-precision frame & pattern tracer with a 7\" TFT display and VCA/RS-232C connectivity, with drop-failure prevention for reliable, repeatable traces.",
     specs: ["7\" TFT display", "Binocular & monocular tracing", "VCA / RS-232C connectivity", "Drop-failure prevention"],
   },
   {
@@ -21,7 +21,7 @@ const EQUIPMENT = [
     name: "xoLab Block",
     img: "/products/xolab-block.png",
     scale: 0.92,
-    desc: "Precision blocking that positions the lens exactly to the traced spec before edging — protecting centration through the cut.",
+    desc: "Precision blocking that positions the lens exactly to the traced spec before edging, protecting centration through the cut.",
     specs: ["Accurate axis & optical-center blocking", "Works from the shared job spec", "Compact benchtop footprint"],
   },
   {
@@ -37,19 +37,19 @@ const EQUIPMENT = [
 const FAQS = [
   {
     q: "Is in-office lens edging worth it?",
-    a: "In-office finishing changes the unit economics of every single-vision job. Industry reporting places typical savings at $5–$15 per job on edging, with additional recovery on tinting and drilling, against a one-time equipment investment rather than a per-job charge — plus same-day turnaround.",
+    a: "In-office finishing changes the unit economics of every single-vision job. Industry reporting places typical savings at $5–$15 per job on edging, with additional recovery on tinting and drilling, against a one-time equipment investment rather than a per-job charge, plus same-day turnaround.",
   },
   {
     q: "What can and cannot be finished in office?",
-    a: "xoLab is an edging operation, not a surfacing lab. Single-vision work — the volume category in most practices — can be finished on site the same day. Progressives and anything requiring surfacing still route to your contracted lab, going out as a complete specification generated from the record.",
+    a: "xoLab is an edging operation, not a surfacing lab. Single-vision work (the volume category in most practices) can be finished on site the same day. Progressives and anything requiring surfacing still route to your contracted lab, going out as a complete specification generated from the record.",
   },
 ];
 
 export default function Lab() {
   usePageMeta({
-    title: "xoLab — In-Office Eyewear Finishing",
+    title: "xoLab: In-Office Eyewear Finishing",
     description:
-      "Frame tracing, blocking and edging in a compact in-office footprint. Finished eyewear on site, as fast as same-day — with the margin that would otherwise leave with the lab bill.",
+      "Frame tracing, blocking and edging in a compact in-office footprint. Finished eyewear on site, as fast as same-day, with the margin that would otherwise leave with the lab bill.",
   });
   return (
     <div className="acc-lab">
@@ -58,7 +58,7 @@ export default function Lab() {
         logo="/logos/xolab-dark.svg"
         role="Finish"
         headlineLines={["The last step", "is where", "the margin goes."]}
-        subhead="Frame tracing, blocking, and edging in a footprint sized for a practice — with finished eyewear on site, as fast as same day."
+        subhead="Frame tracing, blocking, and edging in a footprint sized for a practice, with finished eyewear on site, as fast as same day."
         image={IMAGES.lab}
         imageAlt="In-office lens finishing lab equipment"
       />
@@ -79,7 +79,7 @@ export default function Lab() {
           <div className="lg:col-span-7">
             <Reveal>
               <p className="text-lg leading-relaxed text-fg/60">
-                Every other stage of care happens in the building — the exam, the
+                Every other stage of care happens in the building: the exam, the
                 frame selection, the fitting, the sale. Then the job leaves, and a
                 portion of the value leaves with it.
               </p>
@@ -202,8 +202,8 @@ export default function Lab() {
           />
           <Reveal delay={0.1}>
             <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
-              xoLab is an edging operation, not a surfacing lab. Single-vision work —
-              the volume category in most practices — can be finished on site the same
+              xoLab is an edging operation, not a surfacing lab. Single-vision work
+              (the volume category in most practices) can be finished on site the same
               day. Progressives and anything requiring surfacing still route to your
               contracted lab. The difference is what leaves with them: a job that goes
               out from the XO system goes out as a complete specification generated
@@ -212,7 +212,7 @@ export default function Lab() {
           </Reveal>
           <Reveal delay={0.15}>
             <div className="mt-10">
-              <div className="eyebrow mb-3">In the system — where the visit closes</div>
+              <div className="eyebrow mb-3">In the system · where the visit closes</div>
               <p className="max-w-2xl text-lg leading-relaxed text-fg/70">
                 The visit that began with a phone call ends with a finished pair of
                 glasses. Sometimes the same day, in the same building, without a single
@@ -234,7 +234,7 @@ export default function Lab() {
       <FAQ items={FAQS} title="Finishing, answered." />
       <DemoCTA
         eyebrow="Request a demo"
-        headline="Keep the last step — and its margin — inside the building."
+        headline="Keep the last step (and its margin) inside the building."
         body="A thirty-minute walkthrough of xoLab inside the full XO Vision Care System."
       />
     </div>

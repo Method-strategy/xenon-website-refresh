@@ -69,7 +69,7 @@ export const PRODUCTS = [
     to: "/xolab-eyewear-finishing",
     logo: "/logos/xolab-dark.svg",
     blurb:
-      "Frame tracing, blocking, and edging in a compact in-office footprint. Finished eyewear on site, as fast as same day — with the margin that would otherwise leave with the lab bill.",
+      "Frame tracing, blocking, and edging in a compact in-office footprint. Finished eyewear on site, as fast as same day, with the margin that would otherwise leave with the lab bill.",
   },
 ];
 
@@ -100,7 +100,7 @@ export const BLOG = [
   {
     slug: "space-race-orbit-of-access",
     title: "The New Space Race: Why eye care is the next frontier of access.",
-    dek: "Opening the series. The delivery model — not the science — is what keeps care from reaching most of the world.",
+    dek: "Opening the series. The delivery model, not the science, is what keeps care from reaching most of the world.",
     category: "Analysis",
     series: "The New Space Race",
     seriesLabel: "Part 1 of 5",

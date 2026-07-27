@@ -6,7 +6,7 @@ import { IMAGES } from "@/data/site";
 import { usePageMeta } from "@/lib/usePageMeta";
 
 const GAP = [
-  ["2.2B", "people worldwide live with vision impairment — 1 billion of those preventable or unaddressed."],
+  ["2.2B", "people worldwide live with vision impairment: 1 billion of those preventable or unaddressed."],
   ["$410B", "annual global productivity loss from vision impairment."],
   ["39", "optometrists per million globally, against a recommended minimum of 100 per million."],
 ];
@@ -21,7 +21,7 @@ export default function About() {
   usePageMeta({
     title: "About",
     description:
-      "Xenon Ophthalmics builds technology to make eye care deliverable anywhere — one system, from appointment to finished eyewear.",
+      "Xenon Ophthalmics builds technology to make eye care deliverable anywhere: one system, from appointment to finished eyewear.",
   });
   return (
     <>
@@ -165,7 +165,7 @@ export default function About() {
       <DemoCTA
         eyebrow="Talk to us"
         headline="Bring the system to your practice."
-        body="See the whole journey — scheduling through finished eyewear — mapped against how your practice runs today."
+        body="See the whole journey (scheduling through finished eyewear), mapped against how your practice runs today."
       />
     </>
   );
