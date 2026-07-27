@@ -20,7 +20,7 @@ export default function About() {
   return (
     <>
       {/* Hero */}
-      <section className="hero-dark grain relative flex min-h-[80vh] items-center overflow-hidden bg-bg pt-32">
+      <section className="grain relative flex min-h-[80vh] items-center overflow-hidden bg-bg pt-32">
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <img src={IMAGES.clinic} alt="" className="h-full w-full object-cover opacity-20" />
           <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/80 to-bg/40" />

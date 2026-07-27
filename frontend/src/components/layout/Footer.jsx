@@ -12,7 +12,7 @@ export default function Footer() {
   return (
     <footer
       data-testid="site-footer"
-      className="relative border-t border-white/10 bg-gradient-to-b from-xo-navy to-xo-obsidian"
+      className="relative border-t border-white/10 bg-gradient-to-b from-xo-navy-deep to-xo-navy-deeper"
     >
       <div className="xo-container py-20">
         <div className="grid grid-cols-1 gap-14 md:grid-cols-12">

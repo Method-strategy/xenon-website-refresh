@@ -80,7 +80,7 @@ export default function System() {
   return (
     <>
       {/* Hero */}
-      <section className="hero-dark grain relative flex min-h-[85vh] items-center overflow-hidden bg-bg pt-32">
+      <section className="grain relative flex min-h-[85vh] items-center overflow-hidden bg-bg pt-32">
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
         <div aria-hidden className="pointer-events-none absolute inset-0 spotlight" />
         <div className="xo-container relative">

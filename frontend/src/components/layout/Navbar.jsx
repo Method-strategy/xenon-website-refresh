@@ -32,9 +32,13 @@ export default function Navbar() {
   const location = useLocation();
   const { theme } = useTheme();
 
-  // Every page opens with a dark hero. At the top the navbar floats over it,
-  // so it must use light content. Once scrolled (glass), follow the theme.
-  const light = !scrolled || theme === "dark";
+  // Which heros are dark: the Home signature hero always, and every hero in
+  // dark mode. Secondary heros are light in light mode. The navbar floats over
+  // the hero at the top, so match its content to the hero; once scrolled
+  // (glass), follow the theme.
+  const isHome = location.pathname === "/";
+  const heroIsDark = theme === "dark" || isHome;
+  const light = scrolled ? theme === "dark" : heroIsDark;
   const logo = light ? "/logos/xenon-corp-dark.svg" : "/logos/xenon-corp.svg";
   const linkCls = light
     ? "text-white/70 hover:text-white"

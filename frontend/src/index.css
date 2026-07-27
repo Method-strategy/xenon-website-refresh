@@ -59,29 +59,29 @@
 }
 
 .dark {
-  --bg: 5 7 13;
-  --surface: 8 11 19;
-  --warm: 12 18 32;
+  --bg: 6 16 36;
+  --surface: 11 26 51;
+  --warm: 15 33 62;
   --fg: 255 255 255;
-  --nav: 7 10 18;
+  --nav: 8 18 40;
 
-  --background: 222 47% 4%;
+  --background: 218 60% 8%;
   --foreground: 0 0% 100%;
-  --card: 222 47% 6%;
+  --card: 218 55% 11%;
   --card-foreground: 0 0% 100%;
-  --popover: 222 47% 5%;
+  --popover: 218 58% 9%;
   --popover-foreground: 0 0% 100%;
   --primary: 213 100% 56%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 222 30% 12%;
+  --secondary: 218 40% 16%;
   --secondary-foreground: 0 0% 98%;
-  --muted: 222 30% 12%;
-  --muted-foreground: 215 20% 65%;
-  --accent: 176 95% 42%;
-  --accent-foreground: 222 47% 11%;
-  --border: 222 30% 16%;
-  --input: 222 30% 16%;
-  --ring: 176 95% 42%;
+  --muted: 218 40% 16%;
+  --muted-foreground: 215 25% 68%;
+  --accent: 213 100% 56%;
+  --accent-foreground: 0 0% 100%;
+  --border: 218 35% 20%;
+  --input: 218 35% 20%;
+  --ring: 213 100% 56%;
 }
 
 * {
@@ -280,12 +280,14 @@ html.lenis body {
   }
 }
 
-/* Force a dark token scope for cinematic hero stages, even in light mode */
+/* Signature brooding hero stage — brand deep-navy (used on the Home hero,
+   and on all heros in dark mode). */
 .hero-dark {
-  --bg: 5 7 13;
-  --surface: 12 18 32;
-  --warm: 10 15 26;
+  --bg: 6 16 36;
+  --surface: 11 26 51;
+  --warm: 15 33 62;
   --fg: 255 255 255;
+  --nav: 8 18 40;
   background-color: rgb(var(--bg));
 }
 

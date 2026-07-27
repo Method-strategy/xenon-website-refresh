@@ -54,7 +54,7 @@ export default function Team() {
   return (
     <>
       {/* Hero */}
-      <section className="hero-dark grain relative flex min-h-[60vh] items-end overflow-hidden bg-bg pb-16 pt-40">
+      <section className="grain relative flex min-h-[60vh] items-end overflow-hidden bg-bg pb-16 pt-40">
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
         <div aria-hidden className="pointer-events-none absolute inset-0 spotlight" />
         <div className="xo-container relative">

@@ -19,7 +19,7 @@ export default function News() {
   return (
     <>
       {/* Hero */}
-      <section className="hero-dark grain relative flex min-h-[55vh] items-end overflow-hidden bg-bg pb-16 pt-40">
+      <section className="grain relative flex min-h-[55vh] items-end overflow-hidden bg-bg pb-16 pt-40">
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
         <div className="xo-container relative">
           <div className="eyebrow mb-8">News & Insights</div>

@@ -2,9 +2,10 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { MaskText } from "@/components/common/Reveal";
+import { useTheme } from "@/lib/theme";
 
-// Reusable product-page hero. Always a cinematic dark "stage" for strong
-// product imagery, regardless of site theme.
+// Reusable product-page hero. Follows the site theme: airy/light in light mode
+// (matching the brand datasheets), brooding brand-navy in dark mode.
 export default function ProductHero({
   eyebrow,
   logo,
@@ -15,6 +16,7 @@ export default function ProductHero({
   imageAlt = "",
 }) {
   const ref = useRef(null);
+  const { theme } = useTheme();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -22,36 +24,47 @@ export default function ProductHero({
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "28%"]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
 
+  // Product logo lockups: '-dark' variants are light-colored (for dark bg).
+  const logoSrc = logo
+    ? theme === "dark"
+      ? logo
+      : logo.replace("-dark", "")
+    : null;
+
   return (
     <section
       ref={ref}
       data-testid="product-hero"
-      className="relative grain flex min-h-[92vh] items-end overflow-hidden bg-xo-obsidian pb-16 pt-40 md:pb-24"
+      className="relative grain flex min-h-[92vh] items-end overflow-hidden bg-bg pb-16 pt-40 md:pb-24"
     >
       <motion.div
         style={{ y, scale }}
         aria-hidden
         className="pointer-events-none absolute inset-0"
       >
-        <img src={image} alt={imageAlt} className="h-full w-full object-cover opacity-30" />
+        <img
+          src={image}
+          alt={imageAlt}
+          className="h-full w-full object-cover opacity-20 dark:opacity-30"
+        />
       </motion.div>
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-xo-obsidian via-xo-obsidian/70 to-xo-obsidian/30"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg via-bg/75 to-bg/40"
       />
       <div aria-hidden className="pointer-events-none absolute inset-0 spotlight" />
 
       <div className="xo-container relative">
-        {logo ? (
+        {logoSrc ? (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="mb-8 flex items-center gap-4"
           >
-            <img src={logo} alt={eyebrow} className="h-9 w-auto md:h-11" />
+            <img src={logoSrc} alt={eyebrow} className="h-9 w-auto md:h-11" />
             {role && (
-              <span className="border-l border-white/20 pl-4 font-mono text-xs uppercase tracking-[0.25em] text-acc">
+              <span className="border-l border-fg/20 pl-4 font-mono text-xs uppercase tracking-[0.25em] text-acc">
                 {role}
               </span>
             )}
@@ -68,14 +81,13 @@ export default function ProductHero({
         )}
         <MaskText
           lines={headlineLines}
-          as="span"
-          className="max-w-5xl font-display text-[10vw] font-medium leading-[0.96] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl"
+          className="max-w-5xl font-display text-[10vw] font-medium leading-[0.96] tracking-tight text-fg sm:text-5xl lg:text-6xl xl:text-7xl"
         />
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-10 max-w-xl text-lg leading-relaxed text-white/60"
+          className="mt-10 max-w-xl text-lg leading-relaxed text-fg/60"
         >
           {subhead}
         </motion.p>

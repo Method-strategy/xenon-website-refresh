@@ -1,0 +1,23 @@
+{
+  "summary": "Frontend-only regression for the 'A + navy re-base' design direction and the new xoIris scheduling row in Home's Section 02. Verified content, navbar readability matrix (light/dark x top/scrolled x home/secondary), hero theme behavior, product hero logo swap, navy re-base, theme persistence, 11-route smoke, no horizontal overflow, and Request-a-Demo submission. All checks pass.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Navbar logo variable naming (`light` boolean) means 'use light foreground'; the SVG filename convention '-dark' represents a light-colored logo (for dark bgs). Non-obvious but consistent with ProductHero. Consider renaming to `useLightFg` for future readers.",
+    "Footer computed background is transparent at the <footer> element; navy gradient lives on inner elements. Visually correct but a testing agent grepping footer bg would see rgba(0,0,0,0)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "100%"},
+  "test_credentials": "none",
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Verified matrix at 1680px: (Home /, LIGHT, top) nav links rgba(255,255,255,.7) over hero bg rgb(6,16,36); (Home /, LIGHT, scrolled 900) nav links rgba(11,18,32,.7); (/xoexam-eye-exam LIGHT top) hero bg rgb(255,255,255), nav links dark; product hero logo /logos/xoexam.svg; (/xoexam DARK top) hero bg rgb(6,16,36), nav links white, product logo /logos/xoexam-dark.svg; scrolled DARK still white. Home dark body bg rgb(6,16,36) navy. localStorage 'xo-theme' toggles + persists. All 11 routes render with no runtime errors. No horizontal overflow at 1680 or 390. Demo form (input-first-name/last-name/email + demo-submit) shows demo-success. Home '#one-visit' contains 'Before they arrive' with 'xoIris', appearing before 'In the exam room'.",
+  "rca of the issue": "N/A — no issues found."
+}
