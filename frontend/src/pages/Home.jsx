@@ -46,7 +46,8 @@ function Hero() {
     offset: ["start start", "end start"],
   });
   const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "35%"]);
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.18]);
+  const imgRotate = useTransform(scrollYProgress, [0, 1], [0, -2]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
 
   return (
@@ -55,21 +56,57 @@ function Hero() {
       data-testid="hero"
       className="hero-dark grain relative flex min-h-screen items-center overflow-hidden bg-bg pt-32"
     >
-      {/* parallax product image */}
+      {/* Cinematic hero stage: layered parallax image, ambient blue glow,
+          drifting light scan, subtle rotation on scroll. */}
       <motion.div
-        style={{ y: imgY, scale: imgScale }}
+        style={{ y: imgY, scale: imgScale, rotate: imgRotate }}
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-[62%]"
+        className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-[70%]"
       >
-        <img
-          src={IMAGES.heroProduct}
+        <motion.img
+          src="/hero/xoexam-arm.webp"
           alt=""
-          className="h-full w-full object-cover object-center opacity-45 lg:opacity-60"
+          initial={{ opacity: 0, scale: 1.08 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }}
+          className="h-full w-full object-cover object-center opacity-90 lg:opacity-100"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/70 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-bg/40" />
+        {/* Deep left fade so headline stays legible */}
+        <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/85 to-transparent lg:via-bg/60" />
+        {/* Top / bottom vignette */}
+        <div className="absolute inset-0 bg-gradient-to-b from-bg/60 via-transparent to-bg/70" />
+        {/* Right edge fade so device dissolves into the frame */}
+        <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-bg to-transparent" />
       </motion.div>
+
+      {/* Ambient blue radial glow behind the device */}
+      <motion.div
+        aria-hidden
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0.35, 0.55, 0.35] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute right-[8%] top-[38%] h-[46vh] w-[46vh] -translate-y-1/2 rounded-full bg-xo-blue/25 blur-[120px]"
+      />
+      {/* Secondary teal/blue ambient */}
+      <motion.div
+        aria-hidden
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0.15, 0.3, 0.15] }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="pointer-events-none absolute right-[22%] top-[72%] h-[30vh] w-[30vh] -translate-y-1/2 rounded-full bg-xo-teal/20 blur-[100px]"
+      />
+      {/* Anamorphic light scan — thin horizontal streak that drifts slowly */}
+      <motion.div
+        aria-hidden
+        initial={{ opacity: 0, x: "-30%" }}
+        animate={{ opacity: [0, 0.5, 0], x: "30%" }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+        className="pointer-events-none absolute right-0 top-[52%] h-px w-[70%] bg-gradient-to-r from-transparent via-xo-blue/60 to-transparent"
+      />
+
+      {/* Overall spotlight + soft grain vignette (existing) */}
       <div aria-hidden className="pointer-events-none absolute inset-0 spotlight" />
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_35%,_rgb(var(--bg))_100%)] opacity-70" />
 
       <motion.div style={{ y: textY }} className="xo-container relative">
         <motion.div
