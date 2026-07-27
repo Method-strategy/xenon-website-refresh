@@ -7,9 +7,24 @@ import DemoCTA from "@/components/common/DemoCTA";
 import { IMAGES } from "@/data/site";
 
 const EQUIPMENT = [
-  { n: "01", name: "xoLab Trace", desc: "High-precision frame tracing system." },
-  { n: "02", name: "xoLab Block", desc: "Precision blocking control system." },
-  { n: "03", name: "xoLab Edge", desc: "High-precision vertical edging system." },
+  {
+    n: "01",
+    name: "xoLab Trace",
+    desc: "High-precision frame & pattern tracer with a 7\" TFT display and VCA/RS-232C connectivity — with drop-failure prevention for reliable, repeatable traces.",
+    specs: ["7\" TFT display", "Binocular & monocular tracing", "VCA / RS-232C connectivity", "Drop-failure prevention"],
+  },
+  {
+    n: "02",
+    name: "xoLab Block",
+    desc: "Precision blocking that positions the lens exactly to the traced spec before edging — protecting centration through the cut.",
+    specs: ["Accurate axis & optical-center blocking", "Works from the shared job spec", "Compact benchtop footprint"],
+  },
+  {
+    n: "03",
+    name: "xoLab Edge",
+    desc: "High-precision patternless edger with a conical grinding wheel for beveling, grooving, and polishing across materials.",
+    specs: ["Conical grinding wheel", "Bevel, groove & polish", "Handles glass, plastic, poly & Trivex", "Drilling & safety-bevel ready"],
+  },
 ];
 
 const FAQS = [
@@ -132,6 +147,14 @@ export default function Lab() {
                   <div className="font-mono text-sm text-acc">{e.n}</div>
                   <h3 className="mt-6 font-display text-2xl text-fg">{e.name}</h3>
                   <p className="mt-3 text-[15px] leading-relaxed text-fg/50">{e.desc}</p>
+                  <ul className="mt-6 space-y-2 border-t border-fg/10 pt-6">
+                    {e.specs.map((s) => (
+                      <li key={s} className="flex items-start gap-3 text-[13px] text-fg/60">
+                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-acc" />
+                        {s}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </Reveal>
             ))}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 import ProductHero from "@/components/common/ProductHero";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import FAQ from "@/components/common/FAQ";
@@ -11,26 +11,47 @@ import { IMAGES } from "@/data/site";
 
 const FORM_FACTORS = [
   {
-    key: "wall",
-    tab: "xoFit",
-    kind: "Wall-mounted",
-    headline: "Precision frame fitting. Digitally guided.",
-    body: "A wall-mounted station using multi-camera optical imaging to capture facial geometry and frame position in a single guided capture.",
+    key: "core",
+    tab: "xoFit Core",
+    kind: "Fixed / wall-mounted",
+    headline: "Single-shot 3D capture. Built for throughput.",
+    body: "A 6-camera high-precision imaging system captures full centration in a single shot. Telescoping stand or wall-mounted, controlled from any browser — engineered in Germany for high-volume optical environments.",
+    features: [
+      "Single-shot 3D centration capture",
+      "6-camera high-precision imaging system",
+      "Telescoping stand or wall-mounted",
+      "Browser-based control (PC, tablet, phone)",
+      "Engineered in Germany",
+    ],
   },
   {
     key: "mobile",
-    tab: "xoFit mobile",
-    kind: "Handheld",
-    headline: "Precision measurements. Anywhere fitting happens.",
-    body: "A handheld unit for practices without dedicated wall space, or opticians who prefer to stay with the patient on the floor.",
+    tab: "xoFit Mobile",
+    kind: "iPad-based / portable",
+    headline: "Precision measurement. Wherever you fit.",
+    body: "An iPad-based centration workflow with a wearable optical alignment module and 4x German precision optics. Three operating modes — easy, advanced, expert — with results delivered by PDF or print.",
+    features: [
+      "iPad-based mobile centration workflow",
+      "3 modes — easy, advanced, expert",
+      "Wearable optical alignment module",
+      "4x optical zoom · German precision optics",
+      "Compact, portable configuration",
+    ],
   },
-  {
-    key: "virtual",
-    tab: "xoFrame",
-    kind: "Virtual",
-    headline: "Virtual try-on. Real confidence.",
-    body: "Every frame, tried on instantly. xoFrame brings virtual try-on to the frame selection process, showing patients exactly how they look in any frame in your collection.",
-  },
+];
+
+const MEASUREMENTS = [
+  "Pupillary distance (PD)",
+  "Centration distance",
+  "Eye point height",
+  "Segment (fitting) height",
+  "Boxing dimensions (A & B)",
+  "Distance between lenses",
+  "Back vertex distance",
+  "Pantoscopic angle",
+  "Frame face-form angle",
+  "Head rotation correction",
+  "VarioInset (near PD)",
 ];
 
 const FAQS = [
@@ -42,10 +63,14 @@ const FAQS = [
     q: "Why does pupillary distance accuracy matter?",
     a: "Premium lens designs assume a specific position in front of the eye. Ruler measurements vary by up to ~3mm between opticians, versus 0.09–0.24mm for digital systems. A 2mm centration error can reduce binocular field of view by roughly 25 percent.",
   },
+  {
+    q: "What's the difference between xoFit Core and xoFit Mobile?",
+    a: "Both meet one precision standard. xoFit Core is a fixed or wall-mounted 6-camera station with single-shot 3D capture, built for high-throughput dispensaries. xoFit Mobile is an iPad-based unit with a wearable alignment module and 4x German optics, for practices that fit on the floor or need portability.",
+  },
 ];
 
 export default function Fit() {
-  const [active, setActive] = useState("wall");
+  const [active, setActive] = useState("core");
 
   return (
     <div className="acc-fit">
@@ -54,7 +79,7 @@ export default function Fit() {
         logo="/logos/xofit-dark.svg"
         role="Fit"
         headlineLines={["Measurements that", "arrive at the lab", "exactly as taken."]}
-        subhead="Digital centration and frame measurement in three form factors, captured in the same visit that produced the prescription."
+        subhead="Digital centration and frame measurement in two configurations, captured in the same visit that produced the prescription."
         image={IMAGES.clinic}
         imageAlt="Optical fitting environment"
       />
@@ -96,10 +121,10 @@ export default function Fit() {
       <section className="border-t border-fg/10 bg-surface py-24 md:py-32">
         <div className="xo-container">
           <Reveal>
-            <div className="eyebrow mb-6">Choose your form factor</div>
+            <div className="eyebrow mb-6">Two configurations. One precision standard.</div>
           </Reveal>
           <MaskTextInView
-            lines={["Three ways a practice", "actually works."]}
+            lines={["Two ways a practice", "actually works."]}
             as="span"
             className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
@@ -156,10 +181,18 @@ export default function Fit() {
                     <p className="mt-6 max-w-md text-[15px] leading-relaxed text-fg/55">
                       {f.body}
                     </p>
+                    <ul className="mt-8 space-y-3">
+                      {f.features.map((feat) => (
+                        <li key={feat} className="flex items-start gap-3 text-[14px] text-fg/70">
+                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-acc" />
+                          {feat}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                   <div className="relative min-h-[280px] lg:col-span-6">
                     <img
-                      src={f.key === "virtual" ? IMAGES.professional : IMAGES.lab}
+                      src={IMAGES.lab}
                       alt={f.headline}
                       className="h-full w-full object-cover opacity-40"
                     />
@@ -209,6 +242,32 @@ export default function Fit() {
               ))}
             </div>
             <p className="mt-6 font-mono text-xs text-fg/30">Source: Carl Zeiss Vision</p>
+          </div>
+        </div>
+      </section>
+
+      {/* What it measures */}
+      <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
+        <div className="xo-container">
+          <Reveal>
+            <div className="eyebrow mb-6">What it captures</div>
+          </Reveal>
+          <MaskTextInView
+            lines={["Every measurement", "a lab-ready spec needs."]}
+            as="span"
+            className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+          />
+          <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-fg/10 bg-fg/10 sm:grid-cols-2 lg:grid-cols-3">
+            {MEASUREMENTS.map((m, i) => (
+              <Reveal key={m} delay={(i % 3) * 0.05} className="bg-surface">
+                <div className="flex items-center gap-4 p-6">
+                  <span className="font-mono text-xs text-acc tabular-nums">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[15px] text-fg/75">{m}</span>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>

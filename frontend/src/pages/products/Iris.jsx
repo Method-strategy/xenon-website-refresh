@@ -7,18 +7,31 @@ import DemoCTA from "@/components/common/DemoCTA";
 import { IMAGES } from "@/data/site";
 
 const CAPABILITIES = [
-  "Automated booking & rescheduling",
-  "Cancellation & no-show recovery",
-  "Recall & lapsed-patient outreach",
-  "Proximity & due-date targeting",
-  "Two-way text communication",
+  "AI-powered, text-first appointment orchestration",
+  "Intelligent waitlist management with auto-backfill",
+  "Utilization optimization to reduce idle chair time",
+  "Rapid booking & rescheduling in ~90 seconds",
+  "Automated follow-up scheduling on practice rules",
+  "Real-time dashboard: revenue, wait times, utilization",
 ];
 
 const COMMS = [
-  "Appointment confirmation & reminders",
-  "Rescheduling & cancellation handling",
+  "Conversational SMS — no app to download",
+  "Automated reminders, confirmations & rescheduling",
   "Routine question handling with staff escalation",
-  "Recall & follow-up outreach",
+  "Recall & lapsed-patient outreach",
+  "Professional, proactive patient communication",
+];
+
+const SPECS = [
+  "Cloud-based, high-availability deployment",
+  "HIPAA-certified cloud architecture",
+  "No local software or on-site servers",
+  "macOS, Windows, iOS, Android & web browser",
+  "API integration with EHR & practice systems",
+  "Role-based access control (RBAC)",
+  "Encrypted patient data transmission",
+  "Auditable communication & scheduling logs",
 ];
 
 const FAQS = [
@@ -105,7 +118,7 @@ export default function Iris() {
 
           <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-2">
             <div>
-              <div className="eyebrow mb-6">Filling the schedule</div>
+              <div className="eyebrow mb-6">Core platform features</div>
               <ul className="space-y-4">
                 {CAPABILITIES.map((c, i) => (
                   <Reveal key={c} delay={i * 0.05}>
@@ -129,6 +142,46 @@ export default function Iris() {
                   </Reveal>
                 ))}
               </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Platform & specifications */}
+      <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
+        <div className="xo-container grid grid-cols-1 gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <Reveal>
+              <div className="eyebrow mb-6">Platform</div>
+            </Reveal>
+            <MaskTextInView
+              lines={["Cloud-based.", "Nothing to install."]}
+              as="span"
+              className="font-display text-3xl font-medium leading-[1.06] tracking-tight text-fg sm:text-4xl"
+            />
+            <Reveal delay={0.1}>
+              <p className="mt-8 max-w-md text-lg leading-relaxed text-fg/55">
+                xoIris runs in a HIPAA-certified cloud and reaches patients over
+                conversational SMS — no app to download, no on-site servers to
+                maintain. Staff work from any browser or device.
+              </p>
+            </Reveal>
+          </div>
+          <div className="lg:col-span-7">
+            <Reveal>
+              <div className="eyebrow mb-6">Specifications</div>
+            </Reveal>
+            <div className="overflow-hidden rounded-md border border-fg/10">
+              {SPECS.map((s, i) => (
+                <Reveal key={s} delay={i * 0.03}>
+                  <div className="flex items-center gap-4 border-b border-fg/5 px-6 py-4 text-[14px] text-fg/70 last:border-0">
+                    <span className="font-mono text-xs text-fg/30 tabular-nums">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    {s}
+                  </div>
+                </Reveal>
+              ))}
             </div>
           </div>
         </div>
