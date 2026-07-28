@@ -12,8 +12,8 @@ import { usePageMeta } from "@/lib/usePageMeta";
 const FORM_FACTORS = [
   {
     key: "core",
-    tab: "xoFit",
-    kind: "Guided precision. Consistent results.",
+    tab: "xoFit Core",
+    kind: "Fixed / wall-mounted",
     intro: {
       subhead: "Precision frame fitting. Digitally guided.",
       body: "xoFit is a digital centration and measurement system designed to support accurate, repeatable frame fitting. Using advanced optical imaging and intelligent analysis, xoFit captures critical facial and frame data to support confident frame selection and produce lab-ready measurements for precise eyewear fabrication in retail and clinical environments.",
@@ -57,8 +57,8 @@ const FORM_FACTORS = [
   },
   {
     key: "mobile",
-    tab: "xoFit mobile",
-    kind: "Flexible precision. Confident fit.",
+    tab: "xoFit Mobile",
+    kind: "iPad-based / portable",
     intro: {
       subhead: "Precision measurement. Wherever you fit.",
       body: "An iPad-based centration workflow with a wearable optical alignment module and 4x German precision optics. Three operating modes (easy, advanced, expert) with results delivered by PDF or print.",
@@ -74,7 +74,7 @@ const FORM_FACTORS = [
   {
     key: "frame",
     tab: "xoFrame",
-    kind: "Virtual try-on. Real confidence.",
+    kind: "Virtual try-on",
     intro: {
       subhead: "Virtual try-on. Real confidence.",
       body: "Every frame, tried on instantly. xoFrame brings virtual try-on to frame selection, showing patients exactly how they look in any frame in your collection, and capturing that selection alongside the measurement.",
@@ -190,7 +190,7 @@ export default function Fit() {
           <div
             role="tablist"
             aria-label="xoFit form factors"
-            className="mt-14 grid grid-cols-1 gap-3 md:grid-cols-3"
+            className="mt-12 flex flex-wrap gap-3"
           >
             {FORM_FACTORS.map((f) => (
               <button
@@ -200,21 +200,14 @@ export default function Fit() {
                 data-testid={`fit-tab-${f.key}`}
                 onClick={() => setActive(f.key)}
                 className={cn(
-                  "group flex flex-col items-start gap-1 rounded-xl border px-6 py-5 text-left transition-[color,border-color,background-color] duration-300",
+                  "rounded-full border px-6 py-3 font-mono text-[11px] uppercase tracking-[0.15em] transition-[color,border-color,background-color] duration-300",
                   active === f.key
                     ? "border-acc bg-acc/10 text-acc"
-                    : "border-fg/15 text-fg/70 hover:border-fg/40 hover:text-fg",
+                    : "border-fg/15 text-fg/50 hover:border-fg/40 hover:text-fg",
                 )}
               >
-                <span className="font-display text-lg">{f.tab}</span>
-                <span
-                  className={cn(
-                    "text-[13px] leading-snug",
-                    active === f.key ? "text-acc/80" : "text-fg/45",
-                  )}
-                >
-                  {f.kind}
-                </span>
+                {f.tab}
+                <span className="ml-2 text-fg/30">{f.kind}</span>
               </button>
             ))}
           </div>
