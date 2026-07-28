@@ -143,10 +143,10 @@ export default function Footer() {
 
         {/* Bottom row: copyright | utility links */}
         <div className="mt-20 flex flex-col gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
-          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">
+          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-white/40">
             © 2022–2026 Xenon Ophthalmics Inc. All rights reserved.
           </p>
-          <ul className="flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-[11px] uppercase tracking-[0.15em] text-white/50">
+          <ul className="flex flex-wrap items-center gap-x-5 gap-y-3 font-mono text-[11px] uppercase tracking-[0.08em] text-white/50">
             <li>
               <button
                 type="button"
@@ -154,36 +154,40 @@ export default function Footer() {
                 data-testid="footer-cookie-preferences"
                 className="transition-colors hover:text-white"
               >
-                Cookie Preferences
+                COOKIE PREFERENCES
               </button>
             </li>
+            <li aria-hidden className="text-white/20">·</li>
             <li>
               <Link
                 to="/privacy-policy"
                 data-testid="footer-privacy"
                 className="transition-colors hover:text-white"
               >
-                Privacy Policy
+                PRIVACY POLICY
               </Link>
             </li>
+            <li aria-hidden className="text-white/20">·</li>
             <li>
               <Link
                 to="/terms-and-conditions"
                 data-testid="footer-terms"
                 className="transition-colors hover:text-white"
               >
-                Terms of Service
+                TERMS OF SERVICE
               </Link>
             </li>
+            <li aria-hidden className="text-white/20">·</li>
             <li>
               <a
-                href="mailto:info@xophthalmics.com?subject=Support%20Request"
+                href="mailto:support@xophthalmics.com?subject=Support%20Request"
                 data-testid="footer-support"
                 className="transition-colors hover:text-white"
               >
-                Support
+                SUPPORT
               </a>
             </li>
+            <li aria-hidden className="text-white/20">·</li>
             <li>
               <a
                 href="https://methodmarketinggroup.com/"
@@ -192,7 +196,7 @@ export default function Footer() {
                 data-testid="footer-method"
                 className="transition-colors hover:text-white"
               >
-                Powered by Method Marketing
+                POWERED BY METHOD MARKETING
               </a>
             </li>
           </ul>
@@ -204,9 +208,9 @@ export default function Footer() {
             type="button"
             onClick={openCookiePreferences}
             data-testid="footer-do-not-sell"
-            className="font-mono text-[11px] uppercase tracking-[0.15em] text-white/40 transition-colors hover:text-white/80"
+            className="font-mono text-[11px] uppercase tracking-[0.08em] text-white/40 transition-colors hover:text-white/80"
           >
-            Do Not Sell or Share My Personal Information
+            DO NOT SELL OR SHARE MY PERSONAL INFORMATION
           </button>
         </div>
       </div>

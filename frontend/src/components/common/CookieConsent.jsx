@@ -107,27 +107,32 @@ export default function CookieConsent() {
 
   return (
     <>
-      {/* First-visit banner */}
+      {/* First-visit banner — full-bleed strip, matches site aesthetic */}
       <AnimatePresence>
         {!decided && !showPrefs && (
           <motion.div
-            initial={{ y: 80, opacity: 0 }}
+            initial={{ y: 120, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 80, opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-x-4 bottom-4 z-[70] md:inset-x-6 md:bottom-6"
+            exit={{ y: 120, opacity: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-0 bottom-0 z-[70] border-t border-fg/10 bg-bg/85 backdrop-blur-2xl"
             role="dialog"
             aria-label="Cookie consent"
             data-testid="cookie-banner"
           >
-            <div className="mx-auto max-w-5xl overflow-hidden rounded-xl border border-fg/10 bg-bg/85 shadow-2xl ring-1 ring-fg/5 backdrop-blur-2xl">
-              <div className="grid gap-6 p-6 md:grid-cols-[1fr_auto] md:items-center md:gap-10 md:p-8">
+            {/* Hairline highlight on top edge for depth */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-fg/15 to-transparent"
+            />
+            <div className="xo-container py-6 md:py-7">
+              <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center md:gap-12">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-xo-blue">
                     <ShieldCheck className="h-3.5 w-3.5" />
                     Your choice, your controls
                   </div>
-                  <p className="mt-4 text-[13.5px] leading-relaxed text-fg/70">
+                  <p className="mt-3 max-w-3xl text-[13.5px] leading-relaxed text-fg/70">
                     We use cookies and similar technologies. Except for those
                     strictly necessary to run the site, none are active until
                     you consent — the default is off. You can accept all,
