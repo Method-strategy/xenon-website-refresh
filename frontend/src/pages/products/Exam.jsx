@@ -70,6 +70,7 @@ export default function Exam() {
         headlineLines={["The exam lane,", "in one", "wearable device."]}
         subhead="A medical-grade eye exam platform bringing 19 doctor-led vision tests into a single unit, administered in minutes, from virtually anywhere."
         image="/hero/xoexam-arm.webp"
+        imageSrcSet="/hero/xoexam-arm-1200.webp 1200w, /hero/xoexam-arm.webp 2000w"
         imageAlt="xoExam wearable eye exam device on articulated arm"
       />
 

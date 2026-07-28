@@ -14,6 +14,8 @@ export default function ProductHero({
   subhead,
   image,
   imageAlt = "",
+  imageSrcSet,
+  imageSizes = "(max-width: 1024px) 100vw, 70vw",
 }) {
   const ref = useRef(null);
   const { theme } = useTheme();
@@ -45,7 +47,10 @@ export default function ProductHero({
       >
         <img
           src={image}
+          srcSet={imageSrcSet}
+          sizes={imageSrcSet ? imageSizes : undefined}
           alt={imageAlt}
+          decoding="async"
           className="h-full w-full object-cover object-center opacity-20 dark:opacity-30"
         />
         {/* Left fade so headline stays clean */}

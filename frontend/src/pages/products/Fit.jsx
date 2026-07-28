@@ -100,7 +100,9 @@ export default function Fit() {
         role="Fit"
         headlineLines={["Measurements that", "arrive at the lab", "exactly as taken."]}
         subhead="Digital centration, frame measurement, and virtual try-on, captured in the same visit that produced the prescription."
-        image={IMAGES.clinic}
+        image="/hero/xofit-measure.webp"
+        imageSrcSet="/hero/xofit-measure-1200.webp 1200w, /hero/xofit-measure.webp 1920w"
+        imageAlt="Digital centration measurements — pupillary distance, frame geometry, segment height — overlaid on a patient's face"
         imageAlt="Optical fitting environment"
       />
 
