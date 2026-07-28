@@ -65,6 +65,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "build:netlify": "craco build && node scripts/strip-emergent-scripts.js",
     "test": "craco test"
   },
   "browserslist": {

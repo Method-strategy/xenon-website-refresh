@@ -1,0 +1,19 @@
+# Netlify build configuration for the Xenon Ophthalmics frontend.
+# The React app lives in /frontend; this repo also contains a FastAPI
+# backend in /backend which Netlify does NOT deploy (it needs its own
+# host - Railway, Render, Fly, etc). Point REACT_APP_BACKEND_URL (set
+# in Netlify's Site settings -> Environment variables) at that host.
+
+[build]
+  base = "frontend"
+  publish = "build"
+  command = "yarn build:netlify"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Single-page app: let React Router handle every route client-side.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
