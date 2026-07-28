@@ -103,8 +103,8 @@ const FORM_FACTORS = [
       "Compact, portable configuration",
       "Optional monopod support dock",
     ],
-    retailImage: null,
-    retailAlt: "",
+    retailImage: "/products/xofit/mobile-retail.webp",
+    retailAlt: "Optician using xoFit Mobile handheld device to measure a patient in a retail eyewear environment",
   },
   {
     key: "frame",
