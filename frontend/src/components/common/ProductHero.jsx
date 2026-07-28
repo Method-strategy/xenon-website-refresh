@@ -14,6 +14,7 @@ export default function ProductHero({
   subhead,
   image,
   imageAlt = "",
+  imagePosition,
 }) {
   const ref = useRef(null);
   const { theme } = useTheme();
@@ -45,6 +46,7 @@ export default function ProductHero({
         <img
           src={image}
           alt={imageAlt}
+          style={imagePosition ? { objectPosition: imagePosition } : undefined}
           className="h-full w-full object-cover opacity-20 dark:opacity-30"
         />
       </motion.div>
