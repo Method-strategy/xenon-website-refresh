@@ -51,7 +51,7 @@ export default function ProductHero({
           sizes={imageSrcSet ? imageSizes : undefined}
           alt={imageAlt}
           decoding="async"
-          className="h-full w-full object-cover object-center opacity-20 dark:opacity-30"
+          className="h-full w-full object-cover object-center opacity-25 dark:opacity-30"
         />
         {/* Left fade so headline stays clean */}
         <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/85 to-transparent lg:via-bg/60" />
