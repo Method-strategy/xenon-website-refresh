@@ -78,9 +78,9 @@ const FORM_FACTORS = [
     howItWorks: {
       subhead: "Simple, fast, and accurate frame fitting in just a few easy steps.",
       screens: [
-        { src: "/products/xofit/mobile-screen-1.webp", label: "Start" },
-        { src: "/products/xofit/mobile-screen-2.webp", label: "Modes" },
-        { src: "/products/xofit/mobile-screen-3.webp", label: "Results" },
+        { src: "/products/xofit/mobile-screen-1.png", label: "Start" },
+        { src: "/products/xofit/mobile-screen-2.png", label: "Modes" },
+        { src: "/products/xofit/mobile-screen-3.png", label: "Results" },
       ],
       steps: [
         "The patient's selected frame is clipped into the All-in-One Measurement Tool",
@@ -103,8 +103,8 @@ const FORM_FACTORS = [
       "Compact, portable configuration",
       "Optional monopod support dock",
     ],
-    retailImage: "/products/xofit/mobile-retail.webp",
-    retailAlt: "Optician using xoFit mobile handheld device to measure a patient in a retail environment",
+    retailImage: null,
+    retailAlt: "",
   },
   {
     key: "frame",
