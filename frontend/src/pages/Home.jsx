@@ -130,9 +130,9 @@ function Hero() {
           transition={{ duration: 0.8, delay: 0.7 }}
           className="mt-10 max-w-xl text-lg leading-relaxed text-fg/60"
         >
-          Scheduling, examination, fitting, and finishing as one system, so the
-          visit never stops between the steps, and the hours that used to
-          disappear come back.
+          One doctor-led system integrating scheduling, examination, fitting,
+          and finishing. Greater efficiency means more patients seen and more
+          revenue kept in your practice.
         </motion.p>
 
         <motion.div

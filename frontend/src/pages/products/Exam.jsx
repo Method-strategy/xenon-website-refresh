@@ -71,7 +71,6 @@ export default function Exam() {
         subhead="A medical-grade eye exam platform bringing 19 doctor-led vision tests into a single unit, administered in minutes, from virtually anywhere."
         image="/hero/xoexam-arm.webp"
         imageAlt="xoExam wearable eye exam device on articulated arm"
-        imagePosition="right center"
       />
 
       {/* Instrument, not an alternative */}
