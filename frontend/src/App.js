@@ -18,7 +18,10 @@ import Team from "@/pages/Team";
 import News from "@/pages/News";
 import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import TermsOfService from "@/pages/TermsOfService";
 import NotFound from "@/pages/NotFound";
+import CookieConsent from "@/components/common/CookieConsent";
 
 function Layout() {
   return (
@@ -28,6 +31,7 @@ function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <CookieConsent />
       <Toaster position="top-right" />
     </div>
   );
@@ -53,6 +57,9 @@ function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/request-a-demo" element={<Contact />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-and-conditions" element={<TermsOfService />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
