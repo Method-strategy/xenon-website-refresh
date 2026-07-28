@@ -1,37 +1,69 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Check } from "lucide-react";
 import ProductHero from "@/components/common/ProductHero";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import FAQ from "@/components/common/FAQ";
 import DemoCTA from "@/components/common/DemoCTA";
 import { cn } from "@/lib/utils";
-import { IMAGES } from "@/data/site";
 import { usePageMeta } from "@/lib/usePageMeta";
 
 const FORM_FACTORS = [
   {
     key: "core",
-    tab: "xoFit Core",
-    kind: "Fixed / wall-mounted",
-    headline: "Single-shot 3D capture. Built for throughput.",
-    body: "A 6-camera high-precision imaging system captures full centration in a single shot. Telescoping stand or wall-mounted, controlled from any browser, engineered in Germany for high-volume optical environments.",
-    features: [
-      "Single-shot 3D centration capture",
-      "6-camera high-precision imaging system",
-      "Telescoping stand or wall-mounted",
-      "Browser-based control (PC, tablet, phone)",
-      "Engineered in Germany",
+    tab: "xoFit",
+    kind: "Guided precision. Consistent results.",
+    intro: {
+      subhead: "Precision frame fitting. Digitally guided.",
+      body: "xoFit is a digital centration and measurement system designed to support accurate, repeatable frame fitting. Using advanced optical imaging and intelligent analysis, xoFit captures critical facial and frame data to support confident frame selection and produce lab-ready measurements for precise eyewear fabrication in retail and clinical environments.",
+    },
+    deviceImage: "/products/xofit/device.webp",
+    deviceAlt: "xoFit wall-mounted precision frame fitting device",
+    tiles: [
+      ["Accurate Digital Measurements", "Captures essential facial and frame parameters with consistent precision to support correct lens positioning and fabrication."],
+      ["Guided Patient Positioning", "Ensures natural posture and correct gaze alignment during measurement, reducing errors and remakes."],
+      ["Confident Frame Selection", "Supports real-time frame visualization and verification to help patients and staff confirm fit before production."],
+      ["Lab-Ready Output", "Generates complete, standardized measurement data compatible with downstream lab and finishing workflows."],
+      ["Repeatable Results", "Delivers consistent outcomes across staff, locations, and patient volumes."],
+      ["Space-Efficient Integration", "Wall-mounted design minimizes footprint while maintaining a clean, professional retail or clinical environment."],
     ],
+    howItWorks: {
+      subhead: "Simple, fast, and accurate frame fitting in just a few easy steps.",
+      screens: [
+        "/products/xofit/screen-1.webp",
+        "/products/xofit/screen-2.webp",
+        "/products/xofit/screen-3.webp",
+      ],
+      steps: [
+        "Patient stands in front of the wall-mounted xoFit unit at the guided distance",
+        "Facial position and posture are aligned using on-screen guidance",
+        "Optical imaging captures facial geometry and frame position",
+        "Digital centration and measurement data are calculated automatically",
+      ],
+    },
+    featureList: [
+      "Wall or stand mounted, vertical measurement system",
+      "Multi-camera optical imaging",
+      "Automated digital centration",
+      "Facial geometry and frame position analysis",
+      "Tablet-controlled user interface",
+      "Guided patient alignment workflow",
+      "Lab-ready measurement reports",
+      "Designed for retail and clinical environments",
+    ],
+    retailImage: "/products/xofit/retail.webp",
+    retailAlt: "Optician using xoFit device in a retail eyewear environment",
   },
   {
     key: "mobile",
-    tab: "xoFit Mobile",
-    kind: "iPad-based / portable",
-    headline: "Precision measurement. Wherever you fit.",
-    body: "An iPad-based centration workflow with a wearable optical alignment module and 4x German precision optics. Three operating modes (easy, advanced, expert) with results delivered by PDF or print.",
-    features: [
+    tab: "xoFit mobile",
+    kind: "Flexible precision. Confident fit.",
+    intro: {
+      subhead: "Precision measurement. Wherever you fit.",
+      body: "An iPad-based centration workflow with a wearable optical alignment module and 4x German precision optics. Three operating modes (easy, advanced, expert) with results delivered by PDF or print.",
+    },
+    featureList: [
       "iPad-based mobile centration workflow",
       "3 modes: easy, advanced, expert",
       "Wearable optical alignment module",
@@ -42,10 +74,12 @@ const FORM_FACTORS = [
   {
     key: "frame",
     tab: "xoFrame",
-    kind: "Virtual try-on",
-    headline: "Virtual try-on. Real confidence.",
-    body: "Every frame, tried on instantly. xoFrame brings virtual try-on to frame selection, showing patients exactly how they look in any frame in your collection, and capturing that selection alongside the measurement.",
-    features: [
+    kind: "Virtual try-on. Real confidence.",
+    intro: {
+      subhead: "Virtual try-on. Real confidence.",
+      body: "Every frame, tried on instantly. xoFrame brings virtual try-on to frame selection, showing patients exactly how they look in any frame in your collection, and capturing that selection alongside the measurement.",
+    },
+    featureList: [
       "Photorealistic virtual try-on",
       "Try any frame in the collection instantly",
       "Compare looks side by side",
@@ -139,14 +173,15 @@ export default function Fit() {
         </div>
       </section>
 
-      {/* Form factor tabs */}
+
+      {/* Form factor tabs — expanded per-tab detail */}
       <section className="border-t border-fg/10 bg-surface py-24 md:py-32">
         <div className="xo-container">
           <Reveal>
             <div className="eyebrow mb-6">The xoFit family · one precision standard</div>
           </Reveal>
           <MaskTextInView
-            lines={["Three ways a practice", "actually works."]}
+            lines={["Precise measurements. Confident fit.", "Three flexible form factors to choose from."]}
             as="span"
             className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
@@ -155,7 +190,7 @@ export default function Fit() {
           <div
             role="tablist"
             aria-label="xoFit form factors"
-            className="mt-12 flex flex-wrap gap-3"
+            className="mt-14 grid grid-cols-1 gap-3 md:grid-cols-3"
           >
             {FORM_FACTORS.map((f) => (
               <button
@@ -165,67 +200,200 @@ export default function Fit() {
                 data-testid={`fit-tab-${f.key}`}
                 onClick={() => setActive(f.key)}
                 className={cn(
-                  "rounded-full border px-6 py-3 font-mono text-[11px] uppercase tracking-[0.15em] transition-[color,border-color,background-color] duration-300",
+                  "group flex flex-col items-start gap-1 rounded-xl border px-6 py-5 text-left transition-[color,border-color,background-color] duration-300",
                   active === f.key
                     ? "border-acc bg-acc/10 text-acc"
-                    : "border-fg/15 text-fg/50 hover:border-fg/40 hover:text-fg",
+                    : "border-fg/15 text-fg/70 hover:border-fg/40 hover:text-fg",
                 )}
               >
-                {f.tab}
-                <span className="ml-2 text-fg/30">{f.kind}</span>
+                <span className="font-display text-lg">{f.tab}</span>
+                <span
+                  className={cn(
+                    "text-[13px] leading-snug",
+                    active === f.key ? "text-acc/80" : "text-fg/45",
+                  )}
+                >
+                  {f.kind}
+                </span>
               </button>
             ))}
           </div>
 
-          {/* Panels — all rendered in DOM; inactive hidden via CSS */}
-          <div className="mt-10">
-            {FORM_FACTORS.map((f) => (
-              <div
-                key={f.key}
-                role="tabpanel"
-                data-testid={`fit-panel-${f.key}`}
-                className={active === f.key ? "block" : "hidden"}
-              >
+          {/* Active panel */}
+          <div className="mt-16">
+            <AnimatePresence mode="wait">
+              {FORM_FACTORS.filter((f) => f.key === active).map((f) => (
                 <motion.div
-                  key={active}
-                  initial={{ opacity: 0, y: 16 }}
+                  key={f.key}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="grid grid-cols-1 gap-8 overflow-hidden rounded-md border border-fg/10 bg-bg lg:grid-cols-12"
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  data-testid={`fit-panel-${f.key}`}
                 >
-                  <div className="p-10 lg:col-span-6 lg:p-14">
-                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-acc">
-                      {f.tab} · {f.kind}
+                  {/* 1. Intro strip */}
+                  {f.intro && (
+                    <div className="grid grid-cols-1 items-center gap-10 rounded-2xl border border-fg/10 bg-bg p-8 md:gap-14 md:p-12 lg:grid-cols-12 lg:p-16">
+                      <div className="lg:col-span-7">
+                        <Reveal>
+                          <h3 className="font-display text-3xl font-medium leading-[1.08] text-fg md:text-4xl lg:text-5xl">
+                            {f.intro.subhead}
+                          </h3>
+                        </Reveal>
+                        <Reveal delay={0.1}>
+                          <p className="mt-6 max-w-xl text-[15.5px] leading-relaxed text-fg/60">
+                            {f.intro.body}
+                          </p>
+                        </Reveal>
+                      </div>
+                      {f.deviceImage && (
+                        <Reveal delay={0.15} className="lg:col-span-5">
+                          <div className="relative flex justify-center lg:justify-end">
+                            <div
+                              aria-hidden
+                              className="pointer-events-none absolute inset-0"
+                              style={{
+                                background:
+                                  "radial-gradient(50% 50% at 50% 45%, rgb(var(--acc) / 0.15), transparent 70%)",
+                              }}
+                            />
+                            <img
+                              src={f.deviceImage}
+                              alt={f.deviceAlt}
+                              className="relative h-[380px] w-auto max-w-full object-contain md:h-[460px] lg:h-[520px]"
+                            />
+                          </div>
+                        </Reveal>
+                      )}
                     </div>
-                    <h3 className="mt-6 font-display text-3xl leading-tight text-fg md:text-4xl">
-                      {f.headline}
-                    </h3>
-                    <p className="mt-6 max-w-md text-[15px] leading-relaxed text-fg/55">
-                      {f.body}
-                    </p>
-                    <ul className="mt-8 space-y-3">
-                      {f.features.map((feat) => (
-                        <li key={feat} className="flex items-start gap-3 text-[14px] text-fg/70">
-                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-acc" />
-                          {feat}
-                        </li>
+                  )}
+
+                  {/* 2. Six-tile feature grid */}
+                  {f.tiles && (
+                    <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
+                      {f.tiles.map(([label, body], i) => (
+                        <Reveal key={label} delay={i * 0.04}>
+                          <div
+                            data-testid={`fit-tile-${i}`}
+                            className="group flex h-full flex-col rounded-xl border border-fg/10 bg-bg p-7 transition-[transform,border-color] duration-500 hover:-translate-y-0.5 hover:border-acc/40"
+                          >
+                            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-acc/10 text-acc transition-colors duration-500 group-hover:bg-acc/20">
+                              <Check className="h-4 w-4" />
+                            </div>
+                            <h4 className="mt-6 font-display text-lg leading-snug text-fg">
+                              {label}
+                            </h4>
+                            <p className="mt-3 text-[14px] leading-relaxed text-fg/55">
+                              {body}
+                            </p>
+                          </div>
+                        </Reveal>
                       ))}
-                    </ul>
-                  </div>
-                  <div className="relative min-h-[280px] lg:col-span-6">
-                    <img
-                      src={f.key === "frame" ? IMAGES.professional : IMAGES.lab}
-                      alt={f.headline}
-                      className="h-full w-full object-cover opacity-40"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-bg to-transparent" />
-                  </div>
+                    </div>
+                  )}
+
+                  {/* 3. How it works */}
+                  {f.howItWorks && (
+                    <div className="mt-16 rounded-2xl border border-fg/10 bg-bg p-8 md:p-12 lg:p-16">
+                      <div className="text-center">
+                        <Reveal>
+                          <div className="eyebrow mb-5">How {f.tab} works</div>
+                        </Reveal>
+                        <MaskTextInView
+                          lines={["Simple. Fast. Accurate."]}
+                          as="span"
+                          className="font-display text-3xl font-medium tracking-tight text-fg md:text-4xl"
+                        />
+                        <Reveal delay={0.1}>
+                          <p className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-fg/55">
+                            {f.howItWorks.subhead}
+                          </p>
+                        </Reveal>
+                      </div>
+
+                      <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+                        {f.howItWorks.screens.map((src, i) => (
+                          <Reveal key={src} delay={i * 0.08}>
+                            <div className="relative">
+                              <div
+                                aria-hidden
+                                className="pointer-events-none absolute inset-0"
+                                style={{
+                                  background:
+                                    "radial-gradient(60% 55% at 50% 55%, rgb(var(--acc) / 0.10), transparent 75%)",
+                                }}
+                              />
+                              <img
+                                src={src}
+                                alt={`xoFit interface step ${i + 1}`}
+                                className="relative mx-auto h-auto w-full max-w-[280px] object-contain"
+                              />
+                            </div>
+                          </Reveal>
+                        ))}
+                      </div>
+
+                      <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-4">
+                        {f.howItWorks.steps.map((step, i) => (
+                          <Reveal key={i} delay={i * 0.05}>
+                            <div className="rounded-xl border border-fg/10 bg-surface p-6">
+                              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-acc font-mono text-[13px] font-medium text-white">
+                                {i + 1}
+                              </div>
+                              <p className="mt-5 text-[14px] leading-relaxed text-fg/70">
+                                {step}
+                              </p>
+                            </div>
+                          </Reveal>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 4. Features list + retail photo */}
+                  {f.featureList && (
+                    <div className="mt-12 overflow-hidden rounded-2xl bg-gradient-to-br from-xo-navy-deep to-xo-navy-deeper">
+                      <div className="grid grid-cols-1 items-stretch gap-0 lg:grid-cols-12">
+                        {f.retailImage && (
+                          <div className="relative min-h-[360px] lg:col-span-5">
+                            <img
+                              src={f.retailImage}
+                              alt={f.retailAlt}
+                              className="absolute inset-0 h-full w-full object-cover"
+                            />
+                            <div className="absolute inset-y-0 right-0 hidden w-40 bg-gradient-to-l from-xo-navy-deep to-transparent lg:block" />
+                          </div>
+                        )}
+                        <div
+                          className={cn(
+                            "p-10 md:p-14 lg:p-16",
+                            f.retailImage ? "lg:col-span-7" : "lg:col-span-12",
+                          )}
+                        >
+                          <div className="eyebrow mb-6 text-acc">Features</div>
+                          <ul className="grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-2">
+                            {f.featureList.map((item, i) => (
+                              <Reveal key={item} delay={i * 0.03}>
+                                <li className="flex items-start gap-3 text-[14.5px] leading-snug text-white/85">
+                                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-acc/15 text-acc">
+                                    <Check className="h-3 w-3" />
+                                  </span>
+                                  {item}
+                                </li>
+                              </Reveal>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </motion.div>
-              </div>
-            ))}
+              ))}
+            </AnimatePresence>
           </div>
         </div>
       </section>
+
 
       {/* Why precision matters */}
       <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
