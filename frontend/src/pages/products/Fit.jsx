@@ -231,36 +231,36 @@ export default function Fit() {
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   data-testid={`fit-panel-${f.key}`}
                 >
-                  {/* 1. Intro strip */}
+                  {/* 1. Intro — flowing copy on left, product moment on right, no wrapper */}
                   {f.intro && (
-                    <div className="grid grid-cols-1 items-center gap-10 rounded-2xl border border-fg/10 bg-bg p-8 md:gap-14 md:p-12 lg:grid-cols-12 lg:p-16">
-                      <div className="lg:col-span-7">
+                    <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-20">
+                      <div className="lg:col-span-6 lg:col-start-1">
                         <Reveal>
-                          <h3 className="font-display text-3xl font-medium leading-[1.08] text-fg md:text-4xl lg:text-5xl">
+                          <h3 className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg md:text-5xl lg:text-6xl">
                             {f.intro.subhead}
                           </h3>
                         </Reveal>
                         <Reveal delay={0.1}>
-                          <p className="mt-6 max-w-xl text-[15.5px] leading-relaxed text-fg/60">
+                          <p className="mt-8 max-w-xl text-lg leading-relaxed text-fg/60">
                             {f.intro.body}
                           </p>
                         </Reveal>
                       </div>
                       {f.deviceImage && (
-                        <Reveal delay={0.15} className="lg:col-span-5">
-                          <div className="relative flex justify-center lg:justify-end">
+                        <Reveal delay={0.15} className="lg:col-span-6">
+                          <div className="relative flex min-h-[520px] items-end justify-center md:min-h-[640px] lg:min-h-[760px]">
                             <div
                               aria-hidden
                               className="pointer-events-none absolute inset-0"
                               style={{
                                 background:
-                                  "radial-gradient(50% 50% at 50% 45%, rgb(var(--acc) / 0.15), transparent 70%)",
+                                  "radial-gradient(55% 45% at 50% 60%, rgb(var(--acc) / 0.18), transparent 72%), radial-gradient(40% 50% at 50% 40%, rgb(var(--fg) / 0.06), transparent 78%)",
                               }}
                             />
                             <img
                               src={f.deviceImage}
                               alt={f.deviceAlt}
-                              className="relative h-[380px] w-auto max-w-full object-contain md:h-[460px] lg:h-[520px]"
+                              className="relative h-full max-h-[520px] w-auto object-contain md:max-h-[640px] lg:max-h-[760px]"
                             />
                           </div>
                         </Reveal>
@@ -268,80 +268,27 @@ export default function Fit() {
                     </div>
                   )}
 
-                  {/* 2. Six-tile feature grid */}
+                  {/* 2. Tiles reimagined as an editorial 3-column text grid with hairline rules */}
                   {f.tiles && (
-                    <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
-                      {f.tiles.map(([label, body], i) => (
-                        <Reveal key={label} delay={i * 0.04}>
-                          <div
-                            data-testid={`fit-tile-${i}`}
-                            className="group flex h-full flex-col rounded-xl border border-fg/10 bg-bg p-7 transition-[transform,border-color] duration-500 hover:-translate-y-0.5 hover:border-acc/40"
-                          >
-                            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-acc/10 text-acc transition-colors duration-500 group-hover:bg-acc/20">
-                              <Check className="h-4 w-4" />
-                            </div>
-                            <h4 className="mt-6 font-display text-lg leading-snug text-fg">
-                              {label}
-                            </h4>
-                            <p className="mt-3 text-[14px] leading-relaxed text-fg/55">
-                              {body}
-                            </p>
-                          </div>
-                        </Reveal>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* 3. How it works */}
-                  {f.howItWorks && (
-                    <div className="mt-16 rounded-2xl border border-fg/10 bg-bg p-8 md:p-12 lg:p-16">
-                      <div className="text-center">
-                        <Reveal>
-                          <div className="eyebrow mb-5">How {f.tab} works</div>
-                        </Reveal>
-                        <MaskTextInView
-                          lines={["Simple. Fast. Accurate."]}
-                          as="span"
-                          className="font-display text-3xl font-medium tracking-tight text-fg md:text-4xl"
-                        />
-                        <Reveal delay={0.1}>
-                          <p className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-fg/55">
-                            {f.howItWorks.subhead}
-                          </p>
-                        </Reveal>
-                      </div>
-
-                      <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
-                        {f.howItWorks.screens.map((src, i) => (
-                          <Reveal key={src} delay={i * 0.08}>
-                            <div className="relative">
-                              <div
-                                aria-hidden
-                                className="pointer-events-none absolute inset-0"
-                                style={{
-                                  background:
-                                    "radial-gradient(60% 55% at 50% 55%, rgb(var(--acc) / 0.10), transparent 75%)",
-                                }}
-                              />
-                              <img
-                                src={src}
-                                alt={`xoFit interface step ${i + 1}`}
-                                className="relative mx-auto h-auto w-full max-w-[280px] object-contain"
-                              />
-                            </div>
-                          </Reveal>
-                        ))}
-                      </div>
-
-                      <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-4">
-                        {f.howItWorks.steps.map((step, i) => (
-                          <Reveal key={i} delay={i * 0.05}>
-                            <div className="rounded-xl border border-fg/10 bg-surface p-6">
-                              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-acc font-mono text-[13px] font-medium text-white">
-                                {i + 1}
+                    <div className="mt-32 border-t border-fg/10 pt-16">
+                      <Reveal>
+                        <div className="eyebrow mb-10">What xoFit delivers</div>
+                      </Reveal>
+                      <div className="grid grid-cols-1 gap-x-14 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+                        {f.tiles.map(([label, body], i) => (
+                          <Reveal key={label} delay={i * 0.04}>
+                            <div
+                              data-testid={`fit-tile-${i}`}
+                              className="border-t border-fg/10 pt-6"
+                            >
+                              <div className="font-mono text-[10.5px] uppercase tracking-[0.15em] text-acc">
+                                {String(i + 1).padStart(2, "0")}
                               </div>
-                              <p className="mt-5 text-[14px] leading-relaxed text-fg/70">
-                                {step}
+                              <h4 className="mt-4 font-display text-xl leading-snug text-fg">
+                                {label}
+                              </h4>
+                              <p className="mt-3 text-[14.5px] leading-relaxed text-fg/55">
+                                {body}
                               </p>
                             </div>
                           </Reveal>
@@ -350,40 +297,70 @@ export default function Fit() {
                     </div>
                   )}
 
-                  {/* 4. Features list + retail photo */}
-                  {f.featureList && (
-                    <div className="mt-12 overflow-hidden rounded-2xl bg-gradient-to-br from-xo-navy-deep to-xo-navy-deeper">
-                      <div className="grid grid-cols-1 items-stretch gap-0 lg:grid-cols-12">
-                        {f.retailImage && (
-                          <div className="relative min-h-[360px] lg:col-span-5">
-                            <img
-                              src={f.retailImage}
-                              alt={f.retailAlt}
-                              className="absolute inset-0 h-full w-full object-cover"
-                            />
-                            <div className="absolute inset-y-0 right-0 hidden w-40 bg-gradient-to-l from-xo-navy-deep to-transparent lg:block" />
-                          </div>
-                        )}
-                        <div
-                          className={cn(
-                            "p-10 md:p-14 lg:p-16",
-                            f.retailImage ? "lg:col-span-7" : "lg:col-span-12",
-                          )}
-                        >
-                          <div className="eyebrow mb-6 text-acc">Features</div>
-                          <ul className="grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-2">
-                            {f.featureList.map((item, i) => (
-                              <Reveal key={item} delay={i * 0.03}>
-                                <li className="flex items-start gap-3 text-[14.5px] leading-snug text-white/85">
-                                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-acc/15 text-acc">
-                                    <Check className="h-3 w-3" />
-                                  </span>
-                                  {item}
-                                </li>
-                              </Reveal>
-                            ))}
-                          </ul>
-                        </div>
+                  {/* 3. How it works — editorial, no wrapper. Small tablet cascade + numbered eyebrow steps */}
+                  {f.howItWorks && (
+                    <div className="mt-32 border-t border-fg/10 pt-20">
+                      <Reveal>
+                        <div className="eyebrow mb-8">How xoFit works</div>
+                      </Reveal>
+                      <MaskTextInView
+                        lines={["Simple. Fast. Accurate."]}
+                        as="span"
+                        className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg md:text-5xl"
+                      />
+                      <Reveal delay={0.1}>
+                        <p className="mt-8 max-w-xl text-lg leading-relaxed text-fg/55">
+                          {f.howItWorks.subhead}
+                        </p>
+                      </Reveal>
+
+                      {/* Tablet screens — smaller, cascaded stagger, floating on the page */}
+                      <div className="mt-20 flex flex-wrap items-end justify-center gap-6 md:justify-between md:gap-0">
+                        {f.howItWorks.screens.map((src, i) => (
+                          <Reveal key={src} delay={i * 0.1}>
+                            <div
+                              className="relative"
+                              style={{
+                                transform:
+                                  i === 0
+                                    ? "translateY(24px)"
+                                    : i === 2
+                                      ? "translateY(24px)"
+                                      : "none",
+                              }}
+                            >
+                              <div
+                                aria-hidden
+                                className="pointer-events-none absolute inset-0"
+                                style={{
+                                  background:
+                                    "radial-gradient(50% 45% at 50% 55%, rgb(var(--acc) / 0.08), transparent 78%)",
+                                }}
+                              />
+                              <img
+                                src={src}
+                                alt={`xoFit interface step ${i + 1}`}
+                                className="relative h-auto w-[180px] object-contain drop-shadow-2xl md:w-[200px] lg:w-[220px]"
+                              />
+                            </div>
+                          </Reveal>
+                        ))}
+                      </div>
+
+                      {/* Numbered steps flow as editorial paragraphs, no cards */}
+                      <div className="mt-24 grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2 lg:grid-cols-4">
+                        {f.howItWorks.steps.map((step, i) => (
+                          <Reveal key={i} delay={i * 0.05}>
+                            <div>
+                              <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-acc">
+                                Step {String(i + 1).padStart(2, "0")}
+                              </div>
+                              <p className="mt-4 text-[15.5px] leading-relaxed text-fg/70">
+                                {step}
+                              </p>
+                            </div>
+                          </Reveal>
+                        ))}
                       </div>
                     </div>
                   )}
@@ -394,8 +371,55 @@ export default function Fit() {
         </div>
       </section>
 
-
-      {/* Why precision matters */}
+      {/* 4. Features + retail photo — full-bleed editorial section per active tab */}
+      <AnimatePresence mode="wait">
+        {FORM_FACTORS.filter((f) => f.key === active && f.featureList).map((f) => (
+          <motion.section
+            key={f.key}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="relative overflow-hidden border-t border-fg/10 bg-gradient-to-br from-xo-navy-deep to-xo-navy-deeper"
+            data-testid={`fit-features-${f.key}`}
+          >
+            <div className="grid grid-cols-1 items-stretch lg:grid-cols-2">
+              {f.retailImage && (
+                <div className="relative min-h-[520px] lg:min-h-[720px]">
+                  <img
+                    src={f.retailImage}
+                    alt={f.retailAlt}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-y-0 right-0 hidden w-2/5 bg-gradient-to-l from-xo-navy-deep via-xo-navy-deep/60 to-transparent lg:block" />
+                  <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-xo-navy-deep/60 to-transparent lg:hidden" />
+                </div>
+              )}
+              <div className="flex items-center px-6 py-20 md:px-14 md:py-24 lg:px-20 lg:py-28">
+                <div className="w-full max-w-xl">
+                  <Reveal>
+                    <div className="eyebrow mb-10 text-acc">Features</div>
+                  </Reveal>
+                  <ul className="space-y-0">
+                    {f.featureList.map((item, i) => (
+                      <Reveal key={item} delay={i * 0.04}>
+                        <li className="flex items-baseline gap-6 border-t border-white/10 py-5 first:border-t-0 first:pt-0">
+                          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-acc">
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <span className="flex-1 text-[15.5px] leading-snug text-white/85">
+                            {item}
+                          </span>
+                        </li>
+                      </Reveal>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </motion.section>
+        ))}
+      </AnimatePresence>
       <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
         <div className="xo-container grid grid-cols-1 gap-16 lg:grid-cols-12">
           <div className="lg:col-span-6">
