@@ -148,12 +148,12 @@ export default function CookieConsent() {
                     .
                   </p>
                 </div>
-                <div className="flex flex-wrap items-center gap-3 md:flex-nowrap md:justify-end">
+                <div className="flex flex-wrap items-center gap-2.5 md:flex-nowrap md:justify-end">
                   <button
                     type="button"
                     onClick={() => setShowPrefs(true)}
                     data-testid="cookie-preferences-btn"
-                    className="font-mono text-[11px] uppercase tracking-[0.15em] text-fg/70 underline-offset-4 transition-colors hover:text-fg hover:underline"
+                    className="rounded-full border border-fg/20 px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.15em] text-fg/80 transition-colors duration-300 hover:border-fg/50 hover:text-fg"
                   >
                     Preferences
                   </button>
@@ -161,7 +161,7 @@ export default function CookieConsent() {
                     type="button"
                     onClick={declineAll}
                     data-testid="cookie-decline-btn"
-                    className="btn-secondary"
+                    className="rounded-full border border-fg/20 px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.15em] text-fg/80 transition-colors duration-300 hover:border-fg/50 hover:text-fg"
                   >
                     Decline all
                   </button>
@@ -169,7 +169,7 @@ export default function CookieConsent() {
                     type="button"
                     onClick={acceptAll}
                     data-testid="cookie-accept-btn"
-                    className="btn-primary"
+                    className="rounded-full border border-fg/20 px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.15em] text-fg/80 transition-colors duration-300 hover:border-fg/50 hover:text-fg"
                   >
                     Accept all
                   </button>
@@ -292,12 +292,12 @@ export default function CookieConsent() {
                 </p>
               </div>
 
-              <div className="flex flex-wrap items-center justify-end gap-3 border-t border-fg/10 px-8 py-5">
+              <div className="flex flex-wrap items-center justify-end gap-2.5 border-t border-fg/10 px-8 py-5">
                 <button
                   type="button"
                   onClick={declineAll}
                   data-testid="cookie-modal-decline"
-                  className="btn-secondary"
+                  className="rounded-full border border-fg/20 px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.15em] text-fg/80 transition-colors duration-300 hover:border-fg/50 hover:text-fg"
                 >
                   Decline all
                 </button>
@@ -305,7 +305,7 @@ export default function CookieConsent() {
                   type="button"
                   onClick={savePrefs}
                   data-testid="cookie-modal-save"
-                  className="font-mono text-[11px] uppercase tracking-[0.15em] text-fg/70 underline-offset-4 transition-colors hover:text-fg hover:underline"
+                  className="rounded-full border border-fg/20 px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.15em] text-fg/80 transition-colors duration-300 hover:border-fg/50 hover:text-fg"
                 >
                   Save preferences
                 </button>
@@ -313,7 +313,7 @@ export default function CookieConsent() {
                   type="button"
                   onClick={acceptAll}
                   data-testid="cookie-modal-accept"
-                  className="btn-primary"
+                  className="rounded-full border border-fg/20 px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.15em] text-fg/80 transition-colors duration-300 hover:border-fg/50 hover:text-fg"
                 >
                   Accept all
                 </button>

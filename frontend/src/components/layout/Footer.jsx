@@ -143,10 +143,10 @@ export default function Footer() {
 
         {/* Bottom row: copyright | utility links */}
         <div className="mt-20 flex flex-col gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
-          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-white/40">
+          <p className="whitespace-nowrap font-mono text-[10.5px] uppercase tracking-[0.1em] text-white/40">
             © 2022–2026 Xenon Ophthalmics Inc. All rights reserved.
           </p>
-          <ul className="flex flex-wrap items-center gap-x-5 gap-y-3 font-mono text-[11px] uppercase tracking-[0.08em] text-white/50">
+          <ul className="flex flex-wrap items-center gap-x-4 gap-y-3 font-mono text-[10.5px] uppercase tracking-[0.06em] text-white/50">
             <li>
               <button
                 type="button"
@@ -196,7 +196,7 @@ export default function Footer() {
                 data-testid="footer-method"
                 className="transition-colors hover:text-white"
               >
-                POWERED BY METHOD MARKETING
+                POWERED BY METHOD
               </a>
             </li>
           </ul>
@@ -208,7 +208,7 @@ export default function Footer() {
             type="button"
             onClick={openCookiePreferences}
             data-testid="footer-do-not-sell"
-            className="font-mono text-[11px] uppercase tracking-[0.08em] text-white/40 transition-colors hover:text-white/80"
+            className="font-mono text-[10.5px] uppercase tracking-[0.06em] text-white/40 transition-colors hover:text-white/80"
           >
             DO NOT SELL OR SHARE MY PERSONAL INFORMATION
           </button>
