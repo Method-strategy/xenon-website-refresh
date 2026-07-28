@@ -4,7 +4,7 @@ import uuid
 import pytest
 import requests
 
-BASE_URL = os.environ.get("REACT_APP_BACKEND_URL") or "https://trusting-buck-13.preview.emergentagent.com"
+BASE_URL = os.environ.get("REACT_APP_BACKEND_URL") or "https://kinetic-medtech-ui.preview.emergentagent.com"
 BASE_URL = BASE_URL.rstrip("/")
 API = f"{BASE_URL}/api"
 
