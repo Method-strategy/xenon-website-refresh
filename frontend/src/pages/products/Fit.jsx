@@ -13,7 +13,7 @@ const FORM_FACTORS = [
   {
     key: "core",
     tab: "xoFit Core",
-    kind: "Fixed / wall-mounted",
+    kind: "Stand / wall-mounted",
     intro: {
       subhead: "Precision frame fitting. Digitally guided.",
       body: "xoFit is a digital centration and measurement system designed to support accurate, repeatable frame fitting. Using advanced optical imaging and intelligent analysis, xoFit captures critical facial and frame data to support confident frame selection and produce lab-ready measurements for precise eyewear fabrication in retail and clinical environments.",
@@ -31,9 +31,9 @@ const FORM_FACTORS = [
     howItWorks: {
       subhead: "Simple, fast, and accurate frame fitting in just a few easy steps.",
       screens: [
-        "/products/xofit/screen-1.webp",
-        "/products/xofit/screen-2.webp",
-        "/products/xofit/screen-3.webp",
+        { src: "/products/xofit/screen-1.webp", label: "Start" },
+        { src: "/products/xofit/screen-2.webp", label: "Check" },
+        { src: "/products/xofit/screen-3.webp", label: "Results" },
       ],
       steps: [
         "Patient stands in front of the wall-mounted xoFit unit at the guided distance",
@@ -261,9 +261,51 @@ export default function Fit() {
                     </div>
                   )}
 
-                  {/* 2. Tiles reimagined as an editorial 3-column text grid with hairline rules */}
+                  {/* 2. The interface — tablets sit on same baseline with labels, associated with the product */}
+                  {f.howItWorks?.screens && (
+                    <div className="mt-28 border-t border-fg/10 pt-16">
+                      <div className="grid grid-cols-1 items-end gap-6 lg:grid-cols-12 lg:gap-8">
+                        <div className="lg:col-span-3">
+                          <Reveal>
+                            <div className="eyebrow mb-4">The interface</div>
+                          </Reveal>
+                          <Reveal delay={0.05}>
+                            <p className="max-w-xs text-[14px] leading-relaxed text-fg/55">
+                              A tablet is the control surface. Every step of the fit is guided from it, and the measurement lives with the record.
+                            </p>
+                          </Reveal>
+                        </div>
+                        {f.howItWorks.screens.map((screen, i) => (
+                          <Reveal key={screen.src} delay={0.1 + i * 0.08} className="lg:col-span-3">
+                            <div className="flex flex-col items-center">
+                              <div className="relative">
+                                <div
+                                  aria-hidden
+                                  className="pointer-events-none absolute inset-0"
+                                  style={{
+                                    background:
+                                      "radial-gradient(50% 45% at 50% 55%, rgb(var(--acc) / 0.10), transparent 78%)",
+                                  }}
+                                />
+                                <img
+                                  src={screen.src}
+                                  alt={`xoFit ${screen.label} screen`}
+                                  className="relative h-auto w-[200px] object-contain drop-shadow-2xl md:w-[220px]"
+                                />
+                              </div>
+                              <div className="mt-6 font-mono text-[10.5px] uppercase tracking-[0.2em] text-acc">
+                                {String(i + 1).padStart(2, "0")} · {screen.label}
+                              </div>
+                            </div>
+                          </Reveal>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 3. Tiles reimagined as an editorial 3-column text grid with hairline rules */}
                   {f.tiles && (
-                    <div className="mt-32 border-t border-fg/10 pt-16">
+                    <div className="mt-28 border-t border-fg/10 pt-16">
                       <Reveal>
                         <div className="eyebrow mb-10">What xoFit delivers</div>
                       </Reveal>
@@ -290,9 +332,9 @@ export default function Fit() {
                     </div>
                   )}
 
-                  {/* 3. How it works — editorial, no wrapper. Small tablet cascade + numbered eyebrow steps */}
+                  {/* 4. How it works — pure typography, no floating tablets competing */}
                   {f.howItWorks && (
-                    <div className="mt-32 border-t border-fg/10 pt-20">
+                    <div className="mt-28 border-t border-fg/10 pt-20">
                       <Reveal>
                         <div className="eyebrow mb-8">How xoFit works</div>
                       </Reveal>
@@ -307,41 +349,7 @@ export default function Fit() {
                         </p>
                       </Reveal>
 
-                      {/* Tablet screens — smaller, cascaded stagger, floating on the page */}
-                      <div className="mt-20 flex flex-wrap items-end justify-center gap-6 md:justify-between md:gap-0">
-                        {f.howItWorks.screens.map((src, i) => (
-                          <Reveal key={src} delay={i * 0.1}>
-                            <div
-                              className="relative"
-                              style={{
-                                transform:
-                                  i === 0
-                                    ? "translateY(24px)"
-                                    : i === 2
-                                      ? "translateY(24px)"
-                                      : "none",
-                              }}
-                            >
-                              <div
-                                aria-hidden
-                                className="pointer-events-none absolute inset-0"
-                                style={{
-                                  background:
-                                    "radial-gradient(50% 45% at 50% 55%, rgb(var(--acc) / 0.08), transparent 78%)",
-                                }}
-                              />
-                              <img
-                                src={src}
-                                alt={`xoFit interface step ${i + 1}`}
-                                className="relative h-auto w-[180px] object-contain drop-shadow-2xl md:w-[200px] lg:w-[220px]"
-                              />
-                            </div>
-                          </Reveal>
-                        ))}
-                      </div>
-
-                      {/* Numbered steps flow as editorial paragraphs, no cards */}
-                      <div className="mt-24 grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2 lg:grid-cols-4">
+                      <div className="mt-16 grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2 lg:grid-cols-4">
                         {f.howItWorks.steps.map((step, i) => (
                           <Reveal key={i} delay={i * 0.05}>
                             <div>
