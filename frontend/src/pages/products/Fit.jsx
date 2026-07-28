@@ -20,6 +20,7 @@ const FORM_FACTORS = [
     },
     deviceImage: "/products/xofit/device.webp",
     deviceAlt: "xoFit wall-mounted precision frame fitting device",
+    deviceLabel: "xoFit Core · Stand / Wall-mounted",
     tiles: [
       ["Accurate Digital Measurements", "Captures essential facial and frame parameters with consistent precision to support correct lens positioning and fabrication."],
       ["Guided Patient Positioning", "Ensures natural posture and correct gaze alignment during measurement, reducing errors and remakes."],
@@ -241,20 +242,27 @@ export default function Fit() {
                       </div>
                       {f.deviceImage && (
                         <Reveal delay={0.15} className="lg:col-span-6">
-                          <div className="relative flex min-h-[520px] items-end justify-center md:min-h-[640px] lg:min-h-[760px]">
-                            <div
-                              aria-hidden
-                              className="pointer-events-none absolute inset-0"
-                              style={{
-                                background:
-                                  "radial-gradient(55% 45% at 50% 60%, rgb(var(--acc) / 0.18), transparent 72%), radial-gradient(40% 50% at 50% 40%, rgb(var(--fg) / 0.06), transparent 78%)",
-                              }}
-                            />
-                            <img
-                              src={f.deviceImage}
-                              alt={f.deviceAlt}
-                              className="relative h-full max-h-[520px] w-auto object-contain md:max-h-[640px] lg:max-h-[760px]"
-                            />
+                          <div className="flex flex-col items-center">
+                            <div className="relative flex min-h-[520px] w-full items-end justify-center md:min-h-[640px] lg:min-h-[760px]">
+                              <div
+                                aria-hidden
+                                className="pointer-events-none absolute inset-0"
+                                style={{
+                                  background:
+                                    "radial-gradient(55% 45% at 50% 60%, rgb(var(--acc) / 0.18), transparent 72%), radial-gradient(40% 50% at 50% 40%, rgb(var(--fg) / 0.06), transparent 78%)",
+                                }}
+                              />
+                              <img
+                                src={f.deviceImage}
+                                alt={f.deviceAlt}
+                                className="relative h-full max-h-[520px] w-auto object-contain md:max-h-[640px] lg:max-h-[760px]"
+                              />
+                            </div>
+                            {f.deviceLabel && (
+                              <div className="mt-6 font-mono text-[10.5px] uppercase tracking-[0.2em] text-acc">
+                                {f.deviceLabel}
+                              </div>
+                            )}
                           </div>
                         </Reveal>
                       )}
