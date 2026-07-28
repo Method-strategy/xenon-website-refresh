@@ -18,7 +18,7 @@ const socials = [
   },
   {
     label: "X",
-    href: "https://x.com/xophthalmics",
+    href: "https://x.com/XOphthalmics",
     // Custom X wordmark since lucide's Twitter icon still uses the bird
     Icon: (props) => (
       <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
