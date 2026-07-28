@@ -114,7 +114,7 @@ const FAQS = [
   },
   {
     q: "What's the difference between xoFit Core and xoFit Mobile?",
-    a: "Both meet one precision standard. xoFit Core is a fixed or wall-mounted 6-camera station with single-shot 3D capture, built for high-throughput dispensaries. xoFit Mobile is an iPad-based unit with a wearable alignment module and 4x German optics, for practices that fit on the floor or need portability.",
+    a: "Both meet one precision standard. xoFit Core is a stand (optional accessory) or wall-mounted 6-camera station with single-shot 3D capture, built for high-throughput dispensaries. xoFit Mobile is an iPad-based unit with a wearable alignment module and 4x German optics, for practices that need a more portable solution.",
   },
 ];
 
