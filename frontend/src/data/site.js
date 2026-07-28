@@ -32,7 +32,7 @@ export const NAV = [
     ],
   },
   { label: "Contact", to: "/contact" },
-  { label: "User Login", to: "/login" },
+  { label: "User Login", to: "https://xoexam-uiux.netlify.app/", external: true },
 ];
 
 export const PRODUCTS = [

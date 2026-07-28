@@ -18,7 +18,6 @@ import Team from "@/pages/Team";
 import News from "@/pages/News";
 import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
-import Login from "@/pages/Login";
 import NotFound from "@/pages/NotFound";
 
 function Layout() {
@@ -54,7 +53,6 @@ function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/request-a-demo" element={<Contact />} />
-              <Route path="/login" element={<Login />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>

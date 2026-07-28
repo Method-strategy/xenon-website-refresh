@@ -102,6 +102,19 @@ export default function Navbar() {
                     {item.label}
                     <ChevronDown className="h-3 w-3" />
                   </button>
+                ) : item.external ? (
+                  <a
+                    href={item.to}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid={`nav-${item.label.replace(/\s+/g, "-").toLowerCase()}`}
+                    className={cn(
+                      "block px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors duration-300",
+                      linkCls,
+                    )}
+                  >
+                    {item.label}
+                  </a>
                 ) : (
                   <Link
                     to={item.to}
@@ -210,14 +223,27 @@ export default function Navbar() {
                       )),
                     ]
                   : [
-                      <Link
-                        key={item.label}
-                        to={item.to}
-                        data-testid={`mobile-nav-${item.label.replace(/\s+/g, "-").toLowerCase()}`}
-                        className="border-b border-fg/5 py-3 font-display text-lg text-fg/90"
-                      >
-                        {item.label}
-                      </Link>,
+                      item.external ? (
+                        <a
+                          key={item.label}
+                          href={item.to}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          data-testid={`mobile-nav-${item.label.replace(/\s+/g, "-").toLowerCase()}`}
+                          className="border-b border-fg/5 py-3 font-display text-lg text-fg/90"
+                        >
+                          {item.label}
+                        </a>
+                      ) : (
+                        <Link
+                          key={item.label}
+                          to={item.to}
+                          data-testid={`mobile-nav-${item.label.replace(/\s+/g, "-").toLowerCase()}`}
+                          className="border-b border-fg/5 py-3 font-display text-lg text-fg/90"
+                        >
+                          {item.label}
+                        </Link>
+                      ),
                     ],
               )}
               <Link
