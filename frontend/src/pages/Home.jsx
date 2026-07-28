@@ -65,6 +65,12 @@ function Hero() {
       >
         <motion.img
           src="/hero/xoexam-arm.webp"
+          srcSet="/hero/xoexam-arm-1200.webp 1200w, /hero/xoexam-arm.webp 2000w"
+          sizes="(max-width: 1024px) 100vw, 70vw"
+          width={2000}
+          height={1123}
+          fetchpriority="high"
+          decoding="async"
           alt=""
           initial={{ opacity: 0, scale: 1.08 }}
           animate={{ opacity: 1, scale: 1 }}
