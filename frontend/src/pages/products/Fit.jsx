@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Check } from "lucide-react";
+import { ArrowUpRight, Check, Loader2, PlayCircle } from "lucide-react";
+import { toast } from "sonner";
 import ProductHero from "@/components/common/ProductHero";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import FAQ from "@/components/common/FAQ";
 import DemoCTA from "@/components/common/DemoCTA";
 import { cn } from "@/lib/utils";
 import { usePageMeta } from "@/lib/usePageMeta";
+
+const VTO_MERCHANT_ID = "f3339032-dafa-47fe-bb1e-79a965fd4118";
+const VTO_WIDGET_SRC = "https://tintvto.com/xenonophthalmics/widget.js";
 
 const FORM_FACTORS = [
   {
@@ -111,15 +115,25 @@ const FORM_FACTORS = [
     tab: "xoFrame",
     kind: "Virtual try-on",
     intro: {
-      subhead: "Virtual try-on. Real confidence.",
-      body: "Every frame, tried on instantly. xoFrame brings virtual try-on to frame selection, showing patients exactly how they look in any frame in your collection, and capturing that selection alongside the measurement.",
+      subhead: "Every frame, tried on instantly.",
+      body: "xoFrame brings virtual try-on directly into the frame selection conversation, showing patients exactly how they look in any frame in the collection without pulling a single pair from the shelf. New frames join the virtual catalog in moments, and the instant a patient decides, that selection carries forward with the fitting record, straight through to xoLab for same-day finishing.",
     },
+    deviceImage: "/products/xofit/frame-tryon.png",
+    deviceAlt: "Split comparison of a patient's face wearing two different eyewear frames side by side, rendered through xoFrame virtual try-on",
+    deviceLabel: "xoFrame · Virtual Try-On",
+    deviceImageWide: true,
+    tiles: [
+      ["Try On Any Frame", "Patients see themselves in every frame in the collection instantly, making selection faster and decisions more confident."],
+      ["Effortless Catalog Growth", "New frames are added to the virtual collection in moments, keeping the try-on catalog current with inventory."],
+      ["Same-Day Eyewear via xoLab", "Completed selections are sent directly to xoLab, with finished eyewear delivered the same day, in office."],
+    ],
+    vto: true,
     featureList: [
-      "Photorealistic virtual try-on",
-      "Try any frame in the collection instantly",
-      "Compare looks side by side",
+      "Photorealistic, real-time virtual try-on",
+      "Full catalog available for instant try-on",
+      "Side-by-side frame comparison",
       "Selection captured with the fitting record",
-      "Shareable for at-home decisions",
+      "Shareable link for at-home decisions",
     ],
   },
 ];
@@ -160,6 +174,30 @@ export default function Fit() {
       "Digital centration and frame measurement in three form factors: wall-mounted station, handheld unit and a virtual try-on patients use themselves. Measurements pass straight to finishing.",
   });
   const [active, setActive] = useState("core");
+  const [vtoLoading, setVtoLoading] = useState(false);
+
+  const openVTO = () => {
+    const widget = document.querySelector("tint-vto");
+    if (!widget) return;
+    if (window.customElements && customElements.get("tint-vto")) {
+      widget.open();
+      return;
+    }
+    if (vtoLoading) return;
+    setVtoLoading(true);
+    const script = document.createElement("script");
+    script.type = "module";
+    script.src = VTO_WIDGET_SRC;
+    script.onerror = () => {
+      setVtoLoading(false);
+      toast.error("The virtual try-on widget couldn't load. Please try again in a moment.");
+    };
+    document.head.appendChild(script);
+    customElements.whenDefined("tint-vto").then(() => {
+      setVtoLoading(false);
+      widget.open();
+    });
+  };
 
   return (
     <div className="acc-fit">
@@ -277,7 +315,14 @@ export default function Fit() {
                       {f.deviceImage && (
                         <Reveal delay={0.15} className="lg:col-span-6">
                           <div className="flex flex-col items-center">
-                            <div className="relative flex min-h-[520px] w-full items-end justify-center md:min-h-[640px] lg:min-h-[760px]">
+                            <div
+                              className={cn(
+                                "relative flex w-full items-center justify-center",
+                                f.deviceImageWide
+                                  ? "min-h-[280px] py-4 md:min-h-[340px]"
+                                  : "min-h-[520px] items-end md:min-h-[640px] lg:min-h-[760px]",
+                              )}
+                            >
                               <div
                                 aria-hidden
                                 className="pointer-events-none absolute inset-0"
@@ -289,7 +334,12 @@ export default function Fit() {
                               <img
                                 src={f.deviceImage}
                                 alt={f.deviceAlt}
-                                className="relative h-full max-h-[520px] w-auto object-contain md:max-h-[640px] lg:max-h-[760px]"
+                                className={cn(
+                                  "relative object-contain",
+                                  f.deviceImageWide
+                                    ? "h-auto w-full max-w-[640px]"
+                                    : "h-full max-h-[520px] w-auto md:max-h-[640px] lg:max-h-[760px]",
+                                )}
                               />
                             </div>
                             {f.deviceLabel && (
@@ -371,6 +421,41 @@ export default function Fit() {
                           </Reveal>
                         ))}
                       </div>
+                    </div>
+                  )}
+
+                  {/* 3a. Virtual try-on trigger — xoFrame only. Widget script is deferred until click. */}
+                  {f.vto && (
+                    <div className="mt-28 border-t border-fg/10 pt-16 text-center">
+                      <Reveal>
+                        <div className="eyebrow mb-6">Try it yourself</div>
+                      </Reveal>
+                      <Reveal delay={0.05}>
+                        <button
+                          type="button"
+                          id="vto-trigger"
+                          data-testid="vto-trigger-button"
+                          onClick={openVTO}
+                          disabled={vtoLoading}
+                          className="btn-primary mx-auto"
+                        >
+                          {vtoLoading ? (
+                            <>
+                              <Loader2 className="h-4 w-4 animate-spin" /> Loading
+                            </>
+                          ) : (
+                            <>
+                              <PlayCircle className="h-4 w-4" /> Try xoFrame Demo
+                            </>
+                          )}
+                        </button>
+                      </Reveal>
+                      <Reveal delay={0.1}>
+                        <p className="mt-5 font-mono text-xs uppercase tracking-[0.15em] text-fg/40">
+                          See a live sample of the virtual try-on technology
+                        </p>
+                      </Reveal>
+                      <tint-vto merchant-id={VTO_MERCHANT_ID}></tint-vto>
                     </div>
                   )}
 

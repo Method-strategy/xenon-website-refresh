@@ -30,26 +30,38 @@ Editorial marketing site for Xenon Ophthalmics — the XO Vision Care System (xo
 - `/about`, `/team`, `/blog`, `/news`, `/contact`, `/request-a-demo`
 - `/privacy-policy`, `/terms-and-conditions`, `/terms-of-service`
 
-## xoFit tab page — current state (2026-07-28)
+## xoFit tab page — current state (2026-07-31)
 
 Three form-factor tabs powered by `FORM_FACTORS` array in `/app/frontend/src/pages/products/Fit.jsx`.
 
-**Tab labels (pill style, mono uppercase):**
+**Tab labels (pill style, mono uppercase) — unchanged, do not edit without explicit user request:**
 - `XOFIT CORE · STAND / WALL-MOUNTED`
 - `XOFIT MOBILE · IPAD-BASED / PORTABLE`
 - `XOFRAME · VIRTUAL TRY-ON`
 
 **Per-tab sub-sections (editorial, no boxes):**
-1. Intro strip — subhead + body on left, big device image on right, `deviceLabel` caption below in mono teal
-2. Interface strip — three tablet screens on same baseline with `01 · START / 02 · MODES / 03 · RESULTS` labels
+1. Intro strip — subhead + body on left, big device image on right, `deviceLabel` caption below in mono teal. Supports `deviceImageWide: true` flag (used by xoFrame) for landscape hero images that use a shorter, centered container instead of the tall bottom-aligned device-render treatment.
+2. Interface strip — three tablet screens on same baseline (Core/Mobile only)
 3. Six-tile editorial grid — "What xoFit delivers" — hairline separators, numbered
-4. How xoFit works — pure typography, big headline "Simple. Fast. Accurate.", subhead, N numbered STEP paragraphs
-5. Full-bleed features section — navy gradient background, retail lifestyle photo bleeds edge-to-edge on left, numbered features list on right
+3a. Virtual try-on trigger (xoFrame only, `f.vto: true`) — "Try xoFrame Demo" button + live `<tint-vto>` widget
+4. How xoFit works — numbered STEP paragraphs (Core/Mobile only)
+5. Full-bleed features section — navy gradient background, feature list on right (retail photo optional via `retailImage`)
 
 **Status by tab:**
 - ✅ xoFit Core — fully complete with all copy + images
 - ✅ xoFit Mobile — fully complete with all copy + images. ALL transparency issues resolved via chroma-key on 2026-07-28.
-- ❌ xoFrame — placeholder copy only. Waiting on user's copy + assets. Use same skeleton, plug data in.
+- ✅ xoFrame — fully built 2026-07-31. Copy adapted/improved from the client's old WordPress site (same substance, no features dropped) into editorial voice. Hero image is the split-face try-on comparison shot with background removed via `rembg` (was fully opaque before, now true alpha transparency, floats on the same radial-glow treatment as Core/Mobile — no white box). 3 tiles: Try On Any Frame / Effortless Catalog Growth / Same-Day Eyewear via xoLab. Feature list in the full-bleed navy section (no retail photo supplied for this tab, text-only, which is fine editorially).
+
+### xoFrame virtual try-on widget (Tint VTO / Banuba)
+
+- Third-party widget from `tintvto.com`, account slug `xenonophthalmics`, live/active per client confirmation (works correctly on old WP site).
+- `merchant-id="f3339032-dafa-47fe-bb1e-79a965fd4118"` — do not change unless client provides a new one.
+- **Lazy-load on click only** (privacy/perf: nothing from tintvto.com/Banuba loads until the visitor clicks "Try xoFrame Demo"), reimplemented as a React `openVTO()` handler in `Fit.jsx` (not the original WP vanilla-JS `DOMContentLoaded` binding, which doesn't fit SPA mount/unmount lifecycle).
+- Button: `id="vto-trigger"` / `data-testid="vto-trigger-button"`. On click: if `customElements.get('tint-vto')` is already defined, calls `.open()` directly; otherwise injects `<script type="module" src="https://tintvto.com/xenonophthalmics/widget.js">`, shows a loading state, and calls `.open()` once `customElements.whenDefined('tint-vto')` resolves.
+- Added `script.onerror` + `toast.error(...)` fallback (the original WP script had no error handling — a failed load left `loading` stuck `true` forever with no retry or user feedback; fixed here).
+- `<tint-vto merchant-id="...">` custom element renders inside the xoFrame panel only, alongside the button.
+- Verified end-to-end via screenshot tool: script only injects after click (confirmed via `document.querySelector('script[src=...]')` before/after), widget script successfully loads from the live tintvto.com CDN, no console errors. Did not verify the camera-permission overlay itself in headless testing (not testable without a real camera/browser context) — client should manually click "Try xoFrame Demo" on `/xofit-frame-fitting` to confirm the on-screen try-on UI opens as expected.
+- Browser requirements per Banuba docs: HTTPS (satisfied), WebRTC, WebGL2 (or WebGL1 + texture-float extension), Custom Elements v1 + ES modules (all satisfied by target browsers).
 
 ## Cookie consent + legal
 
@@ -86,15 +98,9 @@ Support email: `support@xophthalmics.com`
 
 ## Immediate next task (when user returns)
 
-xoFrame tab content — waiting on user to provide:
-- Product photo(s) with transparent background
-- Copy: intro subhead + body paragraph
-- Six-tile grid content
-- Interface / how-it-works content (if applicable to xoFrame)
-- Features list
-- Retail/lifestyle photo
-
-Use the same skeleton as Mobile. Data goes into `FORM_FACTORS[2]` in `Fit.jsx`.
+xoFrame tab is now complete (see above). Remaining known backlog:
+- Contact form: awaiting HubSpot Portal ID / Form GUID / region / custom-field mapping from client to wire `Contact.jsx` directly to HubSpot Forms API (no backend). Playbook already researched; implementation blocked on these credentials.
+- Manually click-test "Try xoFrame Demo" on a real browser/device to confirm the camera-permission overlay opens correctly (not testable headlessly).
 
 ## Pre-launch checklist
 
