@@ -298,7 +298,7 @@ export default function Fit() {
                   data-testid={`fit-panel-${f.key}`}
                 >
                   {/* 1. Intro — flowing copy on left, product moment on right, no wrapper */}
-                  {f.intro && (
+                  {f.intro && !f.deviceImageWide && (
                     <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-20">
                       <div className="lg:col-span-6 lg:col-start-1">
                         <Reveal>
@@ -315,14 +315,7 @@ export default function Fit() {
                       {f.deviceImage && (
                         <Reveal delay={0.15} className="lg:col-span-6">
                           <div className="flex flex-col items-center">
-                            <div
-                              className={cn(
-                                "relative flex w-full items-center justify-center",
-                                f.deviceImageWide
-                                  ? "min-h-[280px] py-4 md:min-h-[340px]"
-                                  : "min-h-[520px] items-end md:min-h-[640px] lg:min-h-[760px]",
-                              )}
-                            >
+                            <div className="relative flex min-h-[520px] w-full items-end justify-center md:min-h-[640px] lg:min-h-[760px]">
                               <div
                                 aria-hidden
                                 className="pointer-events-none absolute inset-0"
@@ -334,12 +327,7 @@ export default function Fit() {
                               <img
                                 src={f.deviceImage}
                                 alt={f.deviceAlt}
-                                className={cn(
-                                  "relative object-contain",
-                                  f.deviceImageWide
-                                    ? "h-auto w-full max-w-[640px]"
-                                    : "h-full max-h-[520px] w-auto md:max-h-[640px] lg:max-h-[760px]",
-                                )}
+                                className="relative h-full max-h-[520px] w-auto object-contain md:max-h-[640px] lg:max-h-[760px]"
                               />
                             </div>
                             {f.deviceLabel && (
@@ -350,6 +338,52 @@ export default function Fit() {
                           </div>
                         </Reveal>
                       )}
+                    </div>
+                  )}
+
+                  {/* 1b. Intro, wide-image variant — large image stacked on top (xoFrame), headline + body below in two columns */}
+                  {f.intro && f.deviceImageWide && (
+                    <div>
+                      {f.deviceImage && (
+                        <Reveal className="mx-auto mb-16 flex max-w-[1080px] flex-col items-center md:mb-20">
+                          <div className="relative w-full">
+                            <div
+                              aria-hidden
+                              className="pointer-events-none absolute inset-0"
+                              style={{
+                                background:
+                                  "radial-gradient(55% 55% at 50% 50%, rgb(var(--acc) / 0.18), transparent 72%), radial-gradient(40% 50% at 50% 40%, rgb(var(--fg) / 0.06), transparent 78%)",
+                              }}
+                            />
+                            <img
+                              src={f.deviceImage}
+                              alt={f.deviceAlt}
+                              className="relative h-auto w-full object-contain"
+                            />
+                          </div>
+                          {f.deviceLabel && (
+                            <div className="mt-6 font-mono text-[10.5px] uppercase tracking-[0.2em] text-acc">
+                              {f.deviceLabel}
+                            </div>
+                          )}
+                        </Reveal>
+                      )}
+                      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-20">
+                        <div className="lg:col-span-6">
+                          <Reveal>
+                            <h3 className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg md:text-5xl lg:text-6xl">
+                              {f.intro.subhead}
+                            </h3>
+                          </Reveal>
+                        </div>
+                        <div className="lg:col-span-6">
+                          <Reveal delay={0.1}>
+                            <p className="text-lg leading-relaxed text-fg/60">
+                              {f.intro.body}
+                            </p>
+                          </Reveal>
+                        </div>
+                      </div>
                     </div>
                   )}
 
