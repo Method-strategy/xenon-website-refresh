@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Check, Loader2, PlayCircle } from "lucide-react";
-import { toast } from "sonner";
+import { ArrowUpRight, Check, PlayCircle } from "lucide-react";
 import ProductHero from "@/components/common/ProductHero";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import FAQ from "@/components/common/FAQ";
@@ -12,8 +11,6 @@ import { usePageMeta } from "@/lib/usePageMeta";
 
 const VTO_MERCHANT_ID = "f3339032-dafa-47fe-bb1e-79a965fd4118";
 const VTO_WIDGET_SRC = "https://tintvto.com/xenonophthalmics/widget.js";
-const VTO_LOAD_TIMEOUT_MS = 15000;
-const VTO_STUCK_TIMEOUT_MS = 20000;
 
 const FORM_FACTORS = [
   {
@@ -176,85 +173,31 @@ export default function Fit() {
       "Digital centration and frame measurement in three form factors: wall-mounted station, handheld unit and a virtual try-on patients use themselves. Measurements pass straight to finishing.",
   });
   const [active, setActive] = useState("core");
-  const [vtoLoading, setVtoLoading] = useState(false);
-  const vtoStuckTimerRef = useRef(null);
 
-  const clearVtoStuckTimer = () => {
-    if (vtoStuckTimerRef.current) {
-      clearTimeout(vtoStuckTimerRef.current);
-      vtoStuckTimerRef.current = null;
-    }
-  };
-
-  // The vendor widget's `.open()` promise resolves as soon as its overlay is
-  // mounted (~1s) - it does NOT wait for the underlying camera/analysis
-  // pipeline to finish, which is where it can silently hang with the
-  // widget's own internal spinner and zero error surfaced anywhere (no
-  // console error, no failed request - confirmed via live reproduction).
-  // "analysisFinished" is the vendor-emitted event that fires once that
-  // pipeline actually completes, so it's the only reliable "it's alive"
-  // signal available; if it hasn't fired within VTO_STUCK_TIMEOUT_MS of
-  // opening, tell the user instead of leaving them staring at a dead spinner.
+  // Vendor-prescribed integration (tintvto.com/docs/integration.html):
+  // inject the widget script once on mount, mount <tint-vto> in its own
+  // container below, and call its .open() method on click.
   useEffect(() => {
-    const widget = document.querySelector("tint-vto");
-    if (!widget) return;
-    const handleAnalysisFinished = () => clearVtoStuckTimer();
-    widget.addEventListener("analysisFinished", handleAnalysisFinished);
-    return () => widget.removeEventListener("analysisFinished", handleAnalysisFinished);
-  }, []);
-
-  const armVtoStuckTimer = () => {
-    clearVtoStuckTimer();
-    vtoStuckTimerRef.current = setTimeout(() => {
-      vtoStuckTimerRef.current = null;
-      toast.error("The virtual try-on is taking longer than usual. If it doesn't finish shortly, close it with the X and try again.");
-    }, VTO_STUCK_TIMEOUT_MS);
-  };
-
-  const openVTO = () => {
-    const widget = document.querySelector("tint-vto");
-    if (!widget) return;
-    if (window.customElements && customElements.get("tint-vto")) {
-      armVtoStuckTimer();
-      Promise.resolve(widget.open()).catch(() => {
-        clearVtoStuckTimer();
-        toast.error("The virtual try-on widget couldn't open. Please try again in a moment.");
-      });
-      return;
-    }
-    if (vtoLoading) return;
-    setVtoLoading(true);
+    if (document.getElementById("tint-vto-script")) return;
     const script = document.createElement("script");
+    script.id = "tint-vto-script";
     script.type = "module";
     script.src = VTO_WIDGET_SRC;
-    script.onerror = () => {
-      setVtoLoading(false);
-      toast.error("The virtual try-on widget couldn't load. Please try again in a moment.");
-    };
     document.head.appendChild(script);
-    const defineTimer = setTimeout(() => {
-      setVtoLoading(false);
-      toast.error("The virtual try-on widget couldn't load. Please try again in a moment.");
-    }, VTO_LOAD_TIMEOUT_MS);
-    customElements.whenDefined("tint-vto").then(() => {
-      clearTimeout(defineTimer);
-      setVtoLoading(false);
-      armVtoStuckTimer();
-      Promise.resolve(widget.open()).catch(() => {
-        clearVtoStuckTimer();
-        toast.error("The virtual try-on widget couldn't open. Please try again in a moment.");
-      });
-    });
+  }, []);
+
+  const openVTO = () => {
+    document.getElementById("tint-vto-widget")?.open?.();
   };
 
   return (
     <div className="acc-fit">
-      {/* Persistent, page-level element — must be created exactly once and never
-          torn down across tab switches. The Tint/Banuba SDK attaches its .open()
-          method via internal singleton state in the custom element's constructor;
-          remounting a fresh <tint-vto> on every tab switch left later instances
-          without a working .open() method ("e.open is not a function"). */}
-      <tint-vto merchant-id={VTO_MERCHANT_ID}></tint-vto>
+      {/* Persistent, page-level container — must be created exactly once and
+          never torn down across tab switches, or the widget's .open() method
+          breaks on remount. */}
+      <div id="tint-vto-container">
+        <tint-vto id="tint-vto-widget" merchant-id={VTO_MERCHANT_ID}></tint-vto>
+      </div>
       <ProductHero
         eyebrow="xoFit™ · Fit"
         logo="/logos/xofit-dark.svg"
@@ -512,7 +455,7 @@ export default function Fit() {
                     </div>
                   )}
 
-                  {/* 3a. Virtual try-on trigger — xoFrame only. Widget script is deferred until click. */}
+                  {/* 3a. Virtual try-on trigger — xoFrame only. */}
                   {f.vto && (
                     <div className="mt-28 border-t border-fg/10 pt-16 text-center">
                       <Reveal>
@@ -524,18 +467,9 @@ export default function Fit() {
                           id="vto-trigger"
                           data-testid="vto-trigger-button"
                           onClick={openVTO}
-                          disabled={vtoLoading}
                           className="btn-primary mx-auto"
                         >
-                          {vtoLoading ? (
-                            <>
-                              <Loader2 className="h-4 w-4 animate-spin" /> Loading
-                            </>
-                          ) : (
-                            <>
-                              <PlayCircle className="h-4 w-4" /> Try xoFrame Demo
-                            </>
-                          )}
+                          <PlayCircle className="h-4 w-4" /> Try xoFrame Demo
                         </button>
                       </Reveal>
                       <Reveal delay={0.1}>
