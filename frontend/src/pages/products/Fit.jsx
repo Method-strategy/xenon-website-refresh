@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Check, Loader2, PlayCircle } from "lucide-react";
@@ -12,7 +12,8 @@ import { usePageMeta } from "@/lib/usePageMeta";
 
 const VTO_MERCHANT_ID = "f3339032-dafa-47fe-bb1e-79a965fd4118";
 const VTO_WIDGET_SRC = "https://tintvto.com/xenonophthalmics/widget.js";
-const VTO_OPEN_TIMEOUT_MS = 15000;
+const VTO_LOAD_TIMEOUT_MS = 15000;
+const VTO_STUCK_TIMEOUT_MS = 20000;
 
 const FORM_FACTORS = [
   {
@@ -176,38 +177,49 @@ export default function Fit() {
   });
   const [active, setActive] = useState("core");
   const [vtoLoading, setVtoLoading] = useState(false);
+  const vtoStuckTimerRef = useRef(null);
 
-  // The vendor widget's `.open()` returns a promise that only resolves once
-  // its internal iframe/config bridge finishes. That bridge occasionally
-  // never settles (vendor CDN hiccup, slow network), which previously left
-  // the widget's own overlay stuck on a permanent spinner with no feedback
-  // to the user and no way for us to recover. This wraps `.open()` with a
-  // hard timeout so a stuck bridge surfaces a toast instead of spinning
-  // forever.
-  const triggerVtoOpen = (widget) => {
-    let settled = false;
-    const stuckTimer = setTimeout(() => {
-      if (!settled) {
-        toast.error("The virtual try-on is taking longer than expected. Please try again in a moment.");
-      }
-    }, VTO_OPEN_TIMEOUT_MS);
-    Promise.resolve(widget.open())
-      .then(() => {
-        settled = true;
-        clearTimeout(stuckTimer);
-      })
-      .catch(() => {
-        settled = true;
-        clearTimeout(stuckTimer);
-        toast.error("The virtual try-on widget couldn't open. Please try again in a moment.");
-      });
+  const clearVtoStuckTimer = () => {
+    if (vtoStuckTimerRef.current) {
+      clearTimeout(vtoStuckTimerRef.current);
+      vtoStuckTimerRef.current = null;
+    }
+  };
+
+  // The vendor widget's `.open()` promise resolves as soon as its overlay is
+  // mounted (~1s) - it does NOT wait for the underlying camera/analysis
+  // pipeline to finish, which is where it can silently hang with the
+  // widget's own internal spinner and zero error surfaced anywhere (no
+  // console error, no failed request - confirmed via live reproduction).
+  // "analysisFinished" is the vendor-emitted event that fires once that
+  // pipeline actually completes, so it's the only reliable "it's alive"
+  // signal available; if it hasn't fired within VTO_STUCK_TIMEOUT_MS of
+  // opening, tell the user instead of leaving them staring at a dead spinner.
+  useEffect(() => {
+    const widget = document.querySelector("tint-vto");
+    if (!widget) return;
+    const handleAnalysisFinished = () => clearVtoStuckTimer();
+    widget.addEventListener("analysisFinished", handleAnalysisFinished);
+    return () => widget.removeEventListener("analysisFinished", handleAnalysisFinished);
+  }, []);
+
+  const armVtoStuckTimer = () => {
+    clearVtoStuckTimer();
+    vtoStuckTimerRef.current = setTimeout(() => {
+      vtoStuckTimerRef.current = null;
+      toast.error("The virtual try-on is taking longer than usual. If it doesn't finish shortly, close it with the X and try again.");
+    }, VTO_STUCK_TIMEOUT_MS);
   };
 
   const openVTO = () => {
     const widget = document.querySelector("tint-vto");
     if (!widget) return;
     if (window.customElements && customElements.get("tint-vto")) {
-      triggerVtoOpen(widget);
+      armVtoStuckTimer();
+      Promise.resolve(widget.open()).catch(() => {
+        clearVtoStuckTimer();
+        toast.error("The virtual try-on widget couldn't open. Please try again in a moment.");
+      });
       return;
     }
     if (vtoLoading) return;
@@ -223,11 +235,15 @@ export default function Fit() {
     const defineTimer = setTimeout(() => {
       setVtoLoading(false);
       toast.error("The virtual try-on widget couldn't load. Please try again in a moment.");
-    }, VTO_OPEN_TIMEOUT_MS);
+    }, VTO_LOAD_TIMEOUT_MS);
     customElements.whenDefined("tint-vto").then(() => {
       clearTimeout(defineTimer);
       setVtoLoading(false);
-      triggerVtoOpen(widget);
+      armVtoStuckTimer();
+      Promise.resolve(widget.open()).catch(() => {
+        clearVtoStuckTimer();
+        toast.error("The virtual try-on widget couldn't open. Please try again in a moment.");
+      });
     });
   };
 
