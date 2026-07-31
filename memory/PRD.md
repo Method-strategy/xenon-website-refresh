@@ -54,10 +54,13 @@ Three form-factor tabs powered by `FORM_FACTORS` array in `/app/frontend/src/pag
 
 ### KNOWN EXTERNAL BLOCKER: Tint VTO widget stuck on loading spinner (not an app bug)
 
-Diagnosed 2026-07-31. Our click-to-load implementation works correctly end to end (verified via live network trace): button click → script injects → `tint-vto` custom element registers → widget overlay opens. The overlay itself then hangs on a spinner forever because **Tint/Banuba's own CDN is serving the core WebAssembly engine file with the wrong `Content-Type` header**:
-- `https://tintvto.com/xenonophthalmics/assets/BanubaSDK.simd-d6b22068.wasm` returns `Content-Type: application/x-www-form-urlencoded` (should be `application/wasm`), combined with `X-Content-Type-Options: nosniff`. Browsers refuse to compile/run a WASM module under that combination, so the AR engine never initializes.
-- Confirmed via repeated `curl -I` (consistent across 3 requests, `x-cache: Hit from cloudfront`, `age: 35`) — this is a real, cached, reproducible misconfiguration on Tint/Banuba's hosting, not a fluke or something on our end.
-- This is entirely outside our codebase/control. Client needs to raise this with their Tint/Banuba account rep, referencing the exact asset URL and the wrong Content-Type header above.
+Diagnosed 2026-07-31, **re-verified live in this session (fork, current date)**. Our click-to-load implementation works correctly end to end (verified via live network trace + `testing_agent_v4` on two separate iterations, `iteration_9.json` and `iteration_10.json`): button click → script injects → `tint-vto` custom element registers → widget overlay opens (~1s). The overlay then hangs on its own internal spinner because **Tint/Banuba's own CDN is serving the core WebAssembly engine file with the wrong `Content-Type` header**:
+- `https://tintvto.com/xenonophthalmics/assets/BanubaSDK.simd-d6b22068.wasm` (11.9 MB) returns `Content-Type: application/x-www-form-urlencoded` instead of `application/wasm`. Re-confirmed via fresh `curl -I` in this session — still reproducing, same header, same CloudFront cache.
+- This disables the browser's fast `WebAssembly.instantiateStreaming()` path (which strictly requires `application/wasm`), forcing a fallback to downloading the full 11.9 MB into memory then compiling non-streamed — measurably slower, especially on weaker devices/connections. This explains why the widget shows zero console errors and zero failed (4xx/5xx) requests, yet can still take a very long time (or feel like an infinite spin) to finish initializing.
+- Client action: raise this with the Tint/Banuba account rep, referencing the exact asset URL and the wrong Content-Type header above, and ask them to serve `.wasm` assets with `Content-Type: application/wasm`.
+- This is entirely outside our codebase/control.
+
+**Mitigation shipped in this session (since we can't fix the vendor's CDN):** `Fit.jsx` now arms a 20s "stuck" timer (`VTO_STUCK_TIMEOUT_MS`) every time `.open()` is called, cleared only by the vendor's own `analysisFinished` custom event (the one reliable "the internal pipeline actually finished" signal — `widget.open()`'s own promise resolves as soon as the overlay is mounted, not when it's actually ready, which was the flaw in an earlier attempt this session that didn't fix anything). If 20s pass with no `analysisFinished` event, a toast tells the user it's taking longer than usual and to close/retry via the widget's own X. Verified via `testing_agent_v4` (`iteration_10.json`): toast fires reliably at ~20s across 3 runs, re-arms correctly on repeat clicks, zero regressions across 7 tab switches.
 
 ### xoFrame virtual try-on widget (Tint VTO / Banuba)
 
@@ -111,9 +114,14 @@ Support email: `support@xophthalmics.com`
 
 ## Immediate next task (when user returns)
 
-xoFrame tab is now complete (see above). Remaining known backlog:
+Netlify deploy-cancellation and VTO-hang investigation both closed out this session (see below). Remaining backlog:
 - Contact form: awaiting HubSpot Portal ID / Form GUID / region / custom-field mapping from client to wire `Contact.jsx` directly to HubSpot Forms API (no backend). Playbook already researched; implementation blocked on these credentials.
-- Manually click-test "Try xoFrame Demo" on a real browser/device to confirm the camera-permission overlay opens correctly (not testable headlessly).
+- SSG/prerendering choice pending from user: (a) `react-snap` (lightweight, prerenders existing CRA app, low risk) vs (b) full Astro migration (bigger rewrite, better long-term SEO/perf).
+- Ask client to raise the WASM `Content-Type` misconfiguration with their Tint/Banuba rep (see blocker note above) — this is the actual fix for the VTO hang; our toast is only a UX safety net.
+
+## Netlify build-cancellation fix (this session, current date)
+
+Root cause: Netlify's monorepo change-detection (`base = "frontend"`) only diffs inside that folder, and can misfire "no content change" even when new commits land (e.g. commits that only touch root-level files). Fixed by adding `ignore = "exit 1"` under `[build]` in `/netlify.toml` — Netlify's `ignore` command convention is inverted (exit 0 = skip build, exit 1 = proceed), so this forces a build on every push regardless of what changed. Verified `yarn build:netlify` still completes cleanly locally after the change (`Compiled successfully`, `[strip-emergent] Removed Emergent-specific scripts`).
 
 ## Pre-launch checklist
 
