@@ -8,6 +8,14 @@
   base = "frontend"
   publish = "build"
   command = "yarn build:netlify"
+  # Netlify's monorepo change-detection sometimes cancels deploys with
+  # "no content change" even when new commits land, because its diff
+  # only looks inside `base` and can miss root-level commits (e.g. this
+  # file, memory/docs, backend-only pushes bundled in the same commit).
+  # `exit 1` here means "do NOT ignore this build" - i.e. always build,
+  # on every push, regardless of what changed. (Netlify's ignore command
+  # convention is inverted: exit 0 = skip build, exit 1 = proceed.)
+  ignore = "exit 1"
 
 [build.environment]
   NODE_VERSION = "20"

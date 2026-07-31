@@ -12,6 +12,7 @@ import { usePageMeta } from "@/lib/usePageMeta";
 
 const VTO_MERCHANT_ID = "f3339032-dafa-47fe-bb1e-79a965fd4118";
 const VTO_WIDGET_SRC = "https://tintvto.com/xenonophthalmics/widget.js";
+const VTO_OPEN_TIMEOUT_MS = 15000;
 
 const FORM_FACTORS = [
   {
@@ -176,11 +177,37 @@ export default function Fit() {
   const [active, setActive] = useState("core");
   const [vtoLoading, setVtoLoading] = useState(false);
 
+  // The vendor widget's `.open()` returns a promise that only resolves once
+  // its internal iframe/config bridge finishes. That bridge occasionally
+  // never settles (vendor CDN hiccup, slow network), which previously left
+  // the widget's own overlay stuck on a permanent spinner with no feedback
+  // to the user and no way for us to recover. This wraps `.open()` with a
+  // hard timeout so a stuck bridge surfaces a toast instead of spinning
+  // forever.
+  const triggerVtoOpen = (widget) => {
+    let settled = false;
+    const stuckTimer = setTimeout(() => {
+      if (!settled) {
+        toast.error("The virtual try-on is taking longer than expected. Please try again in a moment.");
+      }
+    }, VTO_OPEN_TIMEOUT_MS);
+    Promise.resolve(widget.open())
+      .then(() => {
+        settled = true;
+        clearTimeout(stuckTimer);
+      })
+      .catch(() => {
+        settled = true;
+        clearTimeout(stuckTimer);
+        toast.error("The virtual try-on widget couldn't open. Please try again in a moment.");
+      });
+  };
+
   const openVTO = () => {
     const widget = document.querySelector("tint-vto");
     if (!widget) return;
     if (window.customElements && customElements.get("tint-vto")) {
-      widget.open();
+      triggerVtoOpen(widget);
       return;
     }
     if (vtoLoading) return;
@@ -193,9 +220,14 @@ export default function Fit() {
       toast.error("The virtual try-on widget couldn't load. Please try again in a moment.");
     };
     document.head.appendChild(script);
-    customElements.whenDefined("tint-vto").then(() => {
+    const defineTimer = setTimeout(() => {
       setVtoLoading(false);
-      widget.open();
+      toast.error("The virtual try-on widget couldn't load. Please try again in a moment.");
+    }, VTO_OPEN_TIMEOUT_MS);
+    customElements.whenDefined("tint-vto").then(() => {
+      clearTimeout(defineTimer);
+      setVtoLoading(false);
+      triggerVtoOpen(widget);
     });
   };
 
