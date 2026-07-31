@@ -201,6 +201,12 @@ export default function Fit() {
 
   return (
     <div className="acc-fit">
+      {/* Persistent, page-level element — must be created exactly once and never
+          torn down across tab switches. The Tint/Banuba SDK attaches its .open()
+          method via internal singleton state in the custom element's constructor;
+          remounting a fresh <tint-vto> on every tab switch left later instances
+          without a working .open() method ("e.open is not a function"). */}
+      <tint-vto merchant-id={VTO_MERCHANT_ID}></tint-vto>
       <ProductHero
         eyebrow="xoFit™ · Fit"
         logo="/logos/xofit-dark.svg"
@@ -489,7 +495,6 @@ export default function Fit() {
                           See a live sample of the virtual try-on technology
                         </p>
                       </Reveal>
-                      <tint-vto merchant-id={VTO_MERCHANT_ID}></tint-vto>
                     </div>
                   )}
 

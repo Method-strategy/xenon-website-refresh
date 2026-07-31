@@ -63,12 +63,18 @@ Diagnosed 2026-07-31. Our click-to-load implementation works correctly end to en
 
 - Third-party widget from `tintvto.com`, account slug `xenonophthalmics`, live/active per client confirmation (works correctly on old WP site).
 - `merchant-id="f3339032-dafa-47fe-bb1e-79a965fd4118"` — do not change unless client provides a new one.
-- **Lazy-load on click only** (privacy/perf: nothing from tintvto.com/Banuba loads until the visitor clicks "Try xoFrame Demo"), reimplemented as a React `openVTO()` handler in `Fit.jsx` (not the original WP vanilla-JS `DOMContentLoaded` binding, which doesn't fit SPA mount/unmount lifecycle).
+- **Lazy-load on click only** (privacy/perf: nothing from tintvto.com/Banuba loads until the visitor clicks "Try xoFrame Demo"), reimplemented as a React `openVTO()` handler in `Fit.jsx`.
 - Button: `id="vto-trigger"` / `data-testid="vto-trigger-button"`. On click: if `customElements.get('tint-vto')` is already defined, calls `.open()` directly; otherwise injects `<script type="module" src="https://tintvto.com/xenonophthalmics/widget.js">`, shows a loading state, and calls `.open()` once `customElements.whenDefined('tint-vto')` resolves.
-- Added `script.onerror` + `toast.error(...)` fallback (the original WP script had no error handling — a failed load left `loading` stuck `true` forever with no retry or user feedback; fixed here).
-- `<tint-vto merchant-id="...">` custom element renders inside the xoFrame panel only, alongside the button.
-- Verified end-to-end via screenshot tool: script only injects after click (confirmed via `document.querySelector('script[src=...]')` before/after), widget script successfully loads from the live tintvto.com CDN, no console errors. Did not verify the camera-permission overlay itself in headless testing (not testable without a real camera/browser context) — client should manually click "Try xoFrame Demo" on `/xofit-frame-fitting` to confirm the on-screen try-on UI opens as expected.
-- Browser requirements per Banuba docs: HTTPS (satisfied), WebRTC, WebGL2 (or WebGL1 + texture-float extension), Custom Elements v1 + ES modules (all satisfied by target browsers).
+- Added `script.onerror` + `toast.error(...)` fallback for genuine load failures.
+
+**BUG FOUND & FIXED 2026-07-31: "e.open is not a function" on repeat visits to the tab.**
+Root cause: `<tint-vto>` was rendered *inside* the xoFrame tab panel (conditionally mounted). Every time a user left and returned to the xoFrame tab, React unmounted and recreated the `<tint-vto>` DOM node. The Banuba SDK only wires up `.open()` (and other instance methods) correctly on first construction — it uses internal singleton/module-level state (same pattern seen in their own `gate.js`). A second instantiation left `.open` undefined, throwing `Uncaught TypeError: e.open is not a function` and leaving the widget stuck on an infinite loading spinner with the native camera-permission prompt never appearing (confirmed via `getUserMedia` monkey-patching that it was never invoked). WordPress never destroys this element (created once, forever, for a static page), so it never hit this.
+
+**Fix:** moved `<tint-vto merchant-id={VTO_MERCHANT_ID}>` out of the per-tab panel into the page-level wrapper in `Fit.jsx` (rendered once, unconditionally, for the whole page visit, regardless of active tab). Verified via automated test: switched Core → Mobile → Frame tabs twice, clicked the demo button twice, confirmed exactly one `<tint-vto>` element ever exists and `typeof widget.open === 'function'` throughout, with zero thrown errors.
+
+**Investigation dead ends (for future reference, do not re-chase these):** the WASM engine file (`BanubaSDK.simd-d6b22068.wasm`) is served by Tint's CDN with the wrong `Content-Type` header (`application/x-www-form-urlencoded` instead of `application/wasm`) — this is real and reproducible, but is NOT the blocker; their actual runtime code path doesn't hit the strict MIME check (confirmed via real browser console showing zero WASM-related errors on a successful WordPress load). Camera permission / browser settings were also ruled out (user confirmed default "Ask" settings).
+
+**Deployment note:** this fix exists in the codebase but required a Netlify redeploy (git push) to take effect on the live `xenon-website-refresh.netlify.app` site — confirm with user after their redeploy that the live site now works.
 
 ## Cookie consent + legal
 
