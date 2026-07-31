@@ -25,19 +25,3 @@
   from = "/*"
   to = "/index.html"
   status = 200
-
-# Cross-origin isolation headers, mirrors the dev-server headers in
-# frontend/craco.config.js. Some third-party WASM modules (e.g. the
-# Tint/Banuba VTO SDK's SIMD build) rely on SharedArrayBuffer, which
-# browsers only expose to a "cross-origin isolated" page - one that
-# sends both COOP and COEP. Without these, that WASM module can fail
-# to instantiate with no visible error, leaving its own UI stuck on a
-# spinner forever. `credentialless` (rather than `require-corp`) is
-# used for COEP so third-party assets that don't set their own
-# Cross-Origin-Resource-Policy header aren't blocked from loading.
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Cross-Origin-Opener-Policy = "same-origin"
-    Cross-Origin-Embedder-Policy = "credentialless"
-    Cross-Origin-Resource-Policy = "same-origin"
