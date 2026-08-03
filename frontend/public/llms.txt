@@ -1,0 +1,24 @@
+# Xenon Ophthalmics
+
+> The XO Vision Care System — one integrated system for eye care, from
+> appointment scheduling through the eye exam, frame fitting, and in-office
+> eyewear finishing.
+
+Xenon Ophthalmics builds medtech hardware and software for optometry and
+ophthalmology practices. The XO Vision Care System connects four products
+into one doctor-led workflow: scheduling, exams, frame fitting, and
+finishing, so a patient can walk in and leave with finished eyewear in a
+single visit.
+
+## Products
+
+- [xoIris — Scheduling](https://xenon-website-refresh.netlify.app/xoiris-scheduling): Automated booking, patient communication, no-show prediction, and cancellation fill.
+- [xoExam — Eye Exam](https://xenon-website-refresh.netlify.app/xoexam-eye-exam): Wearable, medical-grade eye exam platform running 19 doctor-led vision tests.
+- [xoFit — Frame Fitting](https://xenon-website-refresh.netlify.app/xofit-frame-fitting): Digital centration and frame measurement across a wall-mounted station, a handheld unit, and a virtual try-on.
+- [xoLab — Eyewear Finishing](https://xenon-website-refresh.netlify.app/xolab-eyewear-finishing): In-office frame tracing, blocking, and edging for same-day finished eyewear.
+
+## Company
+
+- [The XO Vision Care System](https://xenon-website-refresh.netlify.app/xo-vision-care-system): How the four products work together as one system.
+- [Contact](https://xenon-website-refresh.netlify.app/contact): Get in touch or request a demo.
+- [Request a Demo](https://xenon-website-refresh.netlify.app/request-a-demo)
