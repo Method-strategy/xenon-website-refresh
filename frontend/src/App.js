@@ -1,4 +1,5 @@
 import "@/App.css";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { ThemeProvider } from "@/lib/theme";
 import SmoothScroll from "@/components/layout/SmoothScroll";
@@ -7,20 +8,26 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
 
+// Home is the highest-traffic entry point and stays in the main bundle so
+// the very first page load never waits on a lazy chunk. Every other route
+// is code-split so visiting Home doesn't also download the code for
+// Fit/Iris/Exam/Lab/etc - this is what actually gates mobile LCP, since the
+// browser can't render anything until the JS for the matched route has
+// downloaded, parsed, and executed.
 import Home from "@/pages/Home";
-import System from "@/pages/System";
-import Iris from "@/pages/products/Iris";
-import Exam from "@/pages/products/Exam";
-import Fit from "@/pages/products/Fit";
-import Lab from "@/pages/products/Lab";
-import About from "@/pages/About";
-import Team from "@/pages/Team";
-import News from "@/pages/News";
-import Blog from "@/pages/Blog";
-import Contact from "@/pages/Contact";
-import PrivacyPolicy from "@/pages/PrivacyPolicy";
-import TermsOfService from "@/pages/TermsOfService";
-import NotFound from "@/pages/NotFound";
+const System = lazy(() => import("@/pages/System"));
+const Iris = lazy(() => import("@/pages/products/Iris"));
+const Exam = lazy(() => import("@/pages/products/Exam"));
+const Fit = lazy(() => import("@/pages/products/Fit"));
+const Lab = lazy(() => import("@/pages/products/Lab"));
+const About = lazy(() => import("@/pages/About"));
+const Team = lazy(() => import("@/pages/Team"));
+const News = lazy(() => import("@/pages/News"));
+const Blog = lazy(() => import("@/pages/Blog"));
+const Contact = lazy(() => import("@/pages/Contact"));
+const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
+const TermsOfService = lazy(() => import("@/pages/TermsOfService"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
 import CookieConsent from "@/components/common/CookieConsent";
 
 function Layout() {
@@ -28,7 +35,9 @@ function Layout() {
     <div className="App">
       <Navbar />
       <main>
-        <Outlet />
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
       <CookieConsent />
