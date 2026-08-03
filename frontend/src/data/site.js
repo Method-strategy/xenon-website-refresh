@@ -177,13 +177,24 @@ export const NEWS = [
   },
 ];
 
+// Values must match the "Profession" dropdown property exactly as configured on the
+// live HubSpot form (portal 245698072 / form cf605cae-ee6b-4a84-9783-ae35dd05bae2).
+// Do not change without checking the HubSpot form definition first.
 export const PROFESSIONS = [
-  "Optometrist (OD)",
-  "Ophthalmologist (MD)",
-  "Optician",
-  "Practice Owner / Manager",
-  "Buying Group / Network",
-  "NGO / Access Program",
-  "Investor",
+  "Optometrist",
+  "Ophthalmologist",
+  "Eye Care Professional",
+  "Academic Clinic",
+  "Mass Retailer",
+  "NGO",
   "Other",
+];
+
+// Values must match the "Company Size" dropdown property exactly as configured on the
+// same HubSpot form. Do not change without checking the HubSpot form definition first.
+export const COMPANY_SIZES = [
+  "1-10 Employees",
+  "11-25 Employees",
+  "26-50 Employees",
+  "50+ Employees",
 ];

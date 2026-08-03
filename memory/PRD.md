@@ -127,9 +127,32 @@ Full site audit targeting CLS < 0.1 and LCP < 2.5s, tested via `testing_agent_v4
 Not done (flagged, not applied): per-font `size-adjust` metric-matching for zero-shift font swap (diminishing returns given preload already makes the swap window very short); `mobile-device.webp` (348KB) left as-is since it was already WebP, just not re-compressed.
 
 Netlify deploy-cancellation and VTO-hang investigation both closed out this session (see below). Remaining backlog:
-- Contact form: awaiting HubSpot Portal ID / Form GUID / region / custom-field mapping from client to wire `Contact.jsx` directly to HubSpot Forms API (no backend). Playbook already researched; implementation blocked on these credentials.
 - SSG/prerendering choice pending from user: (a) `react-snap` (lightweight, prerenders existing CRA app, low risk) vs (b) full Astro migration (bigger rewrite, better long-term SEO/perf).
-- Ask client to raise the WASM `Content-Type` misconfiguration with their Tint/Banuba rep (see blocker note above) — this is the actual fix for the VTO hang; our toast is only a UX safety net.
+- Ask client to raise the WASM `Content-Type` misconfiguration with their Tint/Banuba rep (see blocker note above) — this is the actual fix for the VTO hang; our toast is only a UX safety net. Status per client (this session, current date): still waiting on Banuba to ship the fix.
+
+## HubSpot contact form wiring (this session, current date) — DONE
+
+`Contact.jsx` now submits directly to HubSpot's public unauthenticated Forms Submit API (`POST https://api.hsforms.com/submissions/v3/integration/submit/245698072/cf605cae-ee6b-4a84-9783-ae35dd05bae2`), no backend involved, fully custom-styled with the site's existing Input/Select/Textarea components (no iframe).
+
+**Critical correction from user this session:** the previous session's mocked form had invented fields (Practice size, Preferred time, Preferred date) that don't exist on the client's real, live HubSpot form. User pushed back hard ("NOOOO Use the fields that are in the Hubspot form and our look and feel") and shared screenshots of the actual old-site embed. Fetched the live rendered HTML from `xophthalmics.com/contact/` to read the real field structure directly out of the HubSpot iframe's DOM, then used curl probes against the two candidate submit endpoints to confirm the exact internal property names (the `forms-next multipart` endpoint seen in the DOM explicitly returned `"Do not integrate against this resource"`, confirming the legacy `api.hsforms.com/submissions/v3/integration/submit/...` endpoint from the playbook is the correct one; iteratively sent test payloads and read HubSpot's own `REQUIRED_FIELD` error messages to converge on exact names).
+
+**Confirmed real field set (do not add back the old invented fields):**
+- First name → `firstname` (contact, objectTypeId `0-1`), required
+- Last name → `lastname` (`0-1`), required
+- Email → `email` (`0-1`), required
+- Phone → `phone` (`0-1`), required
+- Profession → `profession` (`0-1`), required, dropdown — options MUST exactly match HubSpot's configured values: `Optometrist, Ophthalmologist, Eye Care Professional, Academic Clinic, Mass Retailer, NGO, Other` (now in `PROFESSIONS` in `data/site.js`, replacing the old made-up list)
+- Company name → `name` (company, objectTypeId `0-2`), required
+- Company size → `numberofemployees` (`0-2`), optional, dropdown — options: `1-10 Employees, 11-25 Employees, 26-50 Employees, 50+ Employees` (new `COMPANY_SIZES` export in `data/site.js`). Note: internal property name for this one field is a best-guess (standard HubSpot company property) since it returns HTTP 200 either way (this HubSpot account's unauthenticated endpoint does not strictly reject unknown/extra field names — verified by sending a deliberately bogus field name and getting 200 back too). If the client reports Company Size isn't landing in the right CRM field, this is the one property to double check with them directly in HubSpot's property settings.
+- Additional information → `comments` (`0-1`), optional textarea
+
+Sends `context: { pageUri, pageName, hutk (if hubspotutk cookie exists) }` per the playbook. No HubSpot tracking script installed (would add a 3rd-party cookie/script outside the site's own consent system and is out of scope; `hutk` just won't be present, which is a graceful no-op per HubSpot's own docs).
+
+Removed the now-dead backend `/api/demo-request` POST/GET endpoints, models, and `test_demo_request.py` (mocked local storage, fully superseded by the direct-to-HubSpot submission).
+
+**Verified end-to-end (this session):** curl probes against the live HubSpot API (200 + real contact/company created), then a full real-browser Playwright run filling every field, submitting, and confirming the "Request received" success state + toast render correctly with the new field layout, matching site aesthetic (no iframe, no rounded-box regressions beyond what already existed).
+
+**Action needed from user:** a handful of test contacts were created in the live HubSpot CRM while confirming field mappings (emails: `testagent-probe-donotuse@example.com`, `testagent-probe-donotuse2@example.com`, `testagent-probe-donotuse3@example.com`, `agentqa-smoketest-donotuse@example.com` / companies `ProbeCo`, `Probe Test Co`, `Probe Test Co 2`, `Probe Test Co 3`, `Agent QA Smoke Test Co`) — safe to delete from HubSpot Contacts/Companies.
 
 ## Netlify build-cancellation fix (this session, current date)
 

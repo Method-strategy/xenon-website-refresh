@@ -1,7 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
-import { format } from "date-fns";
-import { CalendarIcon, Check, Loader2 } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { MaskText, Reveal } from "@/components/common/Reveal";
 import { Input } from "@/components/ui/input";
@@ -14,20 +12,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { toast } from "sonner";
-import { PROFESSIONS } from "@/data/site";
-import { cn } from "@/lib/utils";
+import { PROFESSIONS, COMPANY_SIZES } from "@/data/site";
 import { usePageMeta } from "@/lib/usePageMeta";
-
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const FIELD =
   "border-fg/15 bg-fg/[0.03] text-fg placeholder:text-fg/30 focus-visible:ring-xo-blue focus-visible:border-xo-blue";
 
-const TIMES = ["Morning (8am–12pm)", "Afternoon (12pm–4pm)", "Late (4pm–6pm)"];
-const SIZES = ["Solo / 1 provider", "2–4 providers", "5–10 providers", "Multi-location / enterprise"];
+// HubSpot Forms Submit API. This form/portal pair matches the live "Request a Demo"
+// form on xophthalmics.com/contact (see hs-form-frame data-portal-id / data-form-id).
+// Do not change these IDs without a new form/portal from the client.
+const HUBSPOT_PORTAL_ID = "245698072";
+const HUBSPOT_FORM_GUID = "cf605cae-ee6b-4a84-9783-ae35dd05bae2";
+const HUBSPOT_SUBMIT_URL = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`;
+
+function getHubspotCookie() {
+  return document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("hubspotutk="))
+    ?.split("=")[1];
+}
 
 export default function Contact() {
   usePageMeta({
@@ -40,13 +44,11 @@ export default function Contact() {
     last_name: "",
     email: "",
     phone: "",
-    organization: "",
     profession: "",
-    practice_size: "",
-    preferred_time: "",
+    company_name: "",
+    company_size: "",
     message: "",
   });
-  const [date, setDate] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
 
@@ -54,16 +56,52 @@ export default function Contact() {
 
   const submit = async (e) => {
     e.preventDefault();
-    if (!form.first_name || !form.last_name || !form.email) {
-      toast.error("Please add your name and email.");
+    if (
+      !form.first_name ||
+      !form.last_name ||
+      !form.email ||
+      !form.phone ||
+      !form.profession ||
+      !form.company_name
+    ) {
+      toast.error("Please complete all required fields.");
       return;
     }
     setSubmitting(true);
     try {
-      await axios.post(`${API}/demo-request`, {
-        ...form,
-        preferred_date: date ? format(date, "yyyy-MM-dd") : "",
+      const fields = [
+        { objectTypeId: "0-1", name: "firstname", value: form.first_name },
+        { objectTypeId: "0-1", name: "lastname", value: form.last_name },
+        { objectTypeId: "0-1", name: "email", value: form.email },
+        { objectTypeId: "0-1", name: "phone", value: form.phone },
+        { objectTypeId: "0-1", name: "profession", value: form.profession },
+        { objectTypeId: "0-2", name: "name", value: form.company_name },
+      ];
+      if (form.company_size) {
+        fields.push({ objectTypeId: "0-2", name: "numberofemployees", value: form.company_size });
+      }
+      if (form.message) {
+        fields.push({ objectTypeId: "0-1", name: "comments", value: form.message });
+      }
+
+      const hutk = getHubspotCookie();
+      const res = await fetch(HUBSPOT_SUBMIT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fields,
+          context: {
+            ...(hutk ? { hutk } : {}),
+            pageUri: window.location.href,
+            pageName: document.title,
+          },
+        }),
       });
+      const result = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const details = (result.errors || []).map((err) => err.message).join(" ");
+        throw new Error(details || "Submission failed.");
+      }
       setDone(true);
       toast.success("Request received. We'll be in touch within one business day.");
     } catch (err) {
@@ -128,13 +166,10 @@ export default function Contact() {
                     <Field label="Email" required>
                       <Input data-testid="input-email" type="email" value={form.email} onChange={set("email")} className={FIELD} placeholder="jane@practice.com" />
                     </Field>
-                    <Field label="Phone">
-                      <Input data-testid="input-phone" value={form.phone} onChange={set("phone")} className={FIELD} placeholder="+1 (555) 000-0000" />
+                    <Field label="Phone" required>
+                      <Input data-testid="input-phone" type="tel" value={form.phone} onChange={set("phone")} className={FIELD} placeholder="+1 (555) 000-0000" />
                     </Field>
-                    <Field label="Organization">
-                      <Input data-testid="input-organization" value={form.organization} onChange={set("organization")} className={FIELD} placeholder="Practice or company" />
-                    </Field>
-                    <Field label="Profession">
+                    <Field label="Profession" required>
                       <Select value={form.profession} onValueChange={(v) => setForm((f) => ({ ...f, profession: v }))}>
                         <SelectTrigger data-testid="select-profession" className={FIELD}>
                           <SelectValue placeholder="Select profession" />
@@ -148,13 +183,16 @@ export default function Contact() {
                         </SelectContent>
                       </Select>
                     </Field>
-                    <Field label="Practice size">
-                      <Select value={form.practice_size} onValueChange={(v) => setForm((f) => ({ ...f, practice_size: v }))}>
-                        <SelectTrigger data-testid="select-size" className={FIELD}>
+                    <Field label="Company name" required>
+                      <Input data-testid="input-company-name" value={form.company_name} onChange={set("company_name")} className={FIELD} placeholder="Practice or company" />
+                    </Field>
+                    <Field label="Company size">
+                      <Select value={form.company_size} onValueChange={(v) => setForm((f) => ({ ...f, company_size: v }))}>
+                        <SelectTrigger data-testid="select-company-size" className={FIELD}>
                           <SelectValue placeholder="Select size" />
                         </SelectTrigger>
                         <SelectContent className="border-fg/10 bg-surface text-fg">
-                          {SIZES.map((s) => (
+                          {COMPANY_SIZES.map((s) => (
                             <SelectItem key={s} value={s} className="focus:bg-fg/5 focus:text-xo-blue">
                               {s}
                             </SelectItem>
@@ -162,51 +200,9 @@ export default function Contact() {
                         </SelectContent>
                       </Select>
                     </Field>
-                    <Field label="Preferred time">
-                      <Select value={form.preferred_time} onValueChange={(v) => setForm((f) => ({ ...f, preferred_time: v }))}>
-                        <SelectTrigger data-testid="select-time" className={FIELD}>
-                          <SelectValue placeholder="Select time" />
-                        </SelectTrigger>
-                        <SelectContent className="border-fg/10 bg-surface text-fg">
-                          {TIMES.map((t) => (
-                            <SelectItem key={t} value={t} className="focus:bg-fg/5 focus:text-xo-blue">
-                              {t}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </Field>
-                    <Field label="Preferred date">
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <button
-                            type="button"
-                            data-testid="date-trigger"
-                            className={cn(
-                              "flex h-10 w-full items-center justify-between rounded-md border px-3 py-2 text-sm transition-colors",
-                              FIELD,
-                              !date && "text-fg/30",
-                            )}
-                          >
-                            {date ? format(date, "PPP") : "Pick a date"}
-                            <CalendarIcon className="h-4 w-4 text-fg/40" />
-                          </button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto border-fg/10 bg-surface p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={date}
-                            onSelect={setDate}
-                            disabled={(d) => d < new Date(new Date().setHours(0, 0, 0, 0))}
-                            initialFocus
-                            className="text-fg"
-                          />
-                        </PopoverContent>
-                      </Popover>
-                    </Field>
                   </div>
 
-                  <Field label="What would you like to see?">
+                  <Field label="Additional information">
                     <Textarea
                       data-testid="input-message"
                       value={form.message}
