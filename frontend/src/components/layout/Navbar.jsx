@@ -67,7 +67,7 @@ export default function Navbar() {
       <nav className="xo-container flex items-center justify-between gap-6">
         <div className="flex items-center gap-4">
           <Link to="/" data-testid="nav-logo" className="relative z-10 flex items-center">
-            <img src={logo} alt="Xenon Ophthalmics" className="h-12 w-auto md:h-14" />
+            <img src={logo} alt="Xenon Ophthalmics" width={225} height={77} className="h-12 w-auto md:h-14" />
           </Link>
           <span
             className={cn(

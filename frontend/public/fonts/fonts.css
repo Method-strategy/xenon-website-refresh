@@ -1,0 +1,32 @@
+/* Self-hosted brand fonts (previously loaded from fonts.googleapis.com +
+   api.fontshare.com — the Fontshare "Clash Display" family was loaded but
+   never actually used anywhere in the app, a pure wasted request). Each
+   file is a variable font covering its full weight range in one download,
+   so a single @font-face per family (with a weight range) is enough — the
+   browser fetches it once and picks the right instance per font-weight.
+   font-display: swap shows the fallback immediately and swaps in the real
+   font once it's ready, so text is never invisible while it loads.
+   Kept as a plain, static stylesheet (served from /public, not processed
+   by webpack) so the relative url()s below resolve directly against this
+   file's own location — no build-time asset resolution needed. */
+@font-face {
+  font-family: "Manrope";
+  src: url("./Manrope-var.woff2") format("woff2");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Zalando Sans SemiExpanded";
+  src: url("./ZalandoSansSemiExpanded-var.woff2") format("woff2");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("./JetBrainsMono-var.woff2") format("woff2");
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+}

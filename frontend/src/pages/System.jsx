@@ -21,6 +21,8 @@ const STEPS = [
     id: "schedule",
     n: "01",
     logo: "/logos/xoiris-dark.svg",
+    logoWidth: 104,
+    logoHeight: 25,
     role: "Schedule · xoIris™",
     title: "The visit starts before the patient arrives.",
     body: "Booking is where the visit begins, not where it gets queued. xoIris manages booking, reminders, and patient communication, and works to keep the schedule full. When a cancellation opens a slot, it can identify patients nearby already due for care and reach them by text, filling the opening from your existing patient base.",
@@ -31,6 +33,8 @@ const STEPS = [
     id: "exam",
     n: "02",
     logo: "/logos/xoexam-dark.svg",
+    logoWidth: 154,
+    logoHeight: 24,
     role: "Exam · xoExam™",
     title: "One device, not a lane.",
     body: "xoExam brings 19 doctor-led vision tests into a single wearable device, replacing the autorefractor, phoropter, chart projector stack with one unit. Tests can be run by the patient, a technician, or under the doctor's guidance. It is a delegation choice, not a transfer of responsibility. No result leaves the device until the ECP certifies it.",
@@ -41,6 +45,8 @@ const STEPS = [
     id: "fit",
     n: "03",
     logo: "/logos/xofit-dark.svg",
+    logoWidth: 102,
+    logoHeight: 25,
     role: "Fit · xoFit™",
     title: "The prescription is there before the patient is.",
     body: "Frame selection begins with the exam results already loaded. The optician isn't waiting on a chart or re-asking answered questions. xoFit captures pupillary distance, segment height, vertical optical center, and frame geometry, all attached to the same record, across three form factors.",
@@ -51,6 +57,8 @@ const STEPS = [
     id: "finish",
     n: "04",
     logo: "/logos/xolab-dark.svg",
+    logoWidth: 119,
+    logoHeight: 24,
     role: "Finish · xoLab™",
     title: "The order is already written.",
     body: "Finishing receives a complete specification: nothing to assemble at the end of the sale. xoLab handles frame tracing, blocking, and edging on site, in a footprint sized for a practice. Single-vision work can be finished the same day, in the building. Jobs requiring surfacing go out as a complete lab-ready order with nothing re-keyed.",
@@ -154,12 +162,16 @@ export default function System() {
                       <img
                         src={step.logo.replace("-dark.svg", ".svg")}
                         alt={step.role}
+                        width={step.logoWidth}
+                        height={step.logoHeight}
                         className="mt-6 block h-6 w-auto dark:hidden"
                       />
                       <img
                         src={step.logo}
                         alt=""
                         aria-hidden="true"
+                        width={step.logoWidth}
+                        height={step.logoHeight}
                         className="mt-6 hidden h-6 w-auto dark:block"
                       />
                       <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40">

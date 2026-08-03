@@ -11,7 +11,9 @@ const EQUIPMENT = [
   {
     n: "01",
     name: "xoLab Trace",
-    img: "/products/xolab-trace.png",
+    img: "/products/xolab-trace.webp",
+    imgWidth: 800,
+    imgHeight: 1200,
     scale: 0.86,
     desc: "High-precision frame & pattern tracer with a 7\" TFT display and VCA/RS-232C connectivity, with drop-failure prevention for reliable, repeatable traces.",
     specs: ["7\" TFT display", "Binocular & monocular tracing", "VCA / RS-232C connectivity", "Drop-failure prevention"],
@@ -19,7 +21,9 @@ const EQUIPMENT = [
   {
     n: "02",
     name: "xoLab Block",
-    img: "/products/xolab-block.png",
+    img: "/products/xolab-block.webp",
+    imgWidth: 600,
+    imgHeight: 800,
     scale: 0.92,
     desc: "Precision blocking that positions the lens exactly to the traced spec before edging, protecting centration through the cut.",
     specs: ["Accurate axis & optical-center blocking", "Works from the shared job spec", "Compact benchtop footprint"],
@@ -27,7 +31,10 @@ const EQUIPMENT = [
   {
     n: "03",
     name: "xoLab Edge",
-    img: "/products/xolab-edge.png",
+    img: "/products/xolab-edge.webp",
+    imgSrcSet: "/products/xolab-edge-750.webp 750w, /products/xolab-edge.webp 1500w",
+    imgWidth: 1500,
+    imgHeight: 1800,
     scale: 1,
     desc: "High-precision patternless edger with a conical grinding wheel for beveling, grooving, and polishing across materials.",
     specs: ["Conical grinding wheel", "Bevel, groove & polish", "Handles glass, plastic, poly & Trivex", "Drilling & safety-bevel ready"],
@@ -56,6 +63,8 @@ export default function Lab() {
       <ProductHero
         eyebrow="xoLab™ · Finish"
         logo="/logos/xolab-dark.svg"
+        logoWidth={119}
+        logoHeight={24}
         role="Finish"
         headlineLines={["The last step", "is where", "the margin goes."]}
         subhead="Frame tracing, blocking, and edging in a footprint sized for a practice, with finished eyewear on site, as fast as same day."
@@ -167,6 +176,11 @@ export default function Lab() {
                     />
                     <img
                       src={e.img}
+                      srcSet={e.imgSrcSet}
+                      sizes={e.imgSrcSet ? "(max-width: 768px) 50vw, 33vw" : undefined}
+                      width={e.imgWidth}
+                      height={e.imgHeight}
+                      decoding="async"
                       alt={e.name}
                       style={{ height: `${e.scale * 100}%` }}
                       className="relative w-auto max-w-full object-contain object-bottom drop-shadow-2xl transition-transform duration-700 group-hover:-translate-y-1.5"

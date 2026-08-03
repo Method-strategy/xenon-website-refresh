@@ -66,6 +66,8 @@ export default function Exam() {
       <ProductHero
         eyebrow="xoExam™ · Exam"
         logo="/logos/xoexam-dark.svg"
+        logoWidth={154}
+        logoHeight={24}
         role="Exam"
         headlineLines={["The exam lane,", "in one", "wearable device."]}
         subhead="A medical-grade eye exam platform bringing 19 doctor-led vision tests into a single unit, administered in minutes, from virtually anywhere."

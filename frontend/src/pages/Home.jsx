@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
-import { MaskText, MaskTextInView, Reveal } from "@/components/common/Reveal";
+import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import SectionAnchors from "@/components/common/SectionAnchors";
 import DemoCTA from "@/components/common/DemoCTA";
 import { PRODUCTS, IMAGES } from "@/data/site";
@@ -63,7 +63,7 @@ function Hero() {
         aria-hidden
         className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-[70%]"
       >
-        <motion.img
+        <img
           src="/hero/xoexam-arm.webp"
           srcSet="/hero/xoexam-arm-1200.webp 1200w, /hero/xoexam-arm.webp 2000w"
           sizes="(max-width: 1024px) 100vw, 70vw"
@@ -72,9 +72,6 @@ function Hero() {
           fetchpriority="high"
           decoding="async"
           alt=""
-          initial={{ opacity: 0, scale: 1.08 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }}
           className="h-full w-full object-cover object-center opacity-90 lg:opacity-100"
         />
         {/* Deep left fade so headline stays legible */}
@@ -115,55 +112,31 @@ function Hero() {
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_35%,_rgb(var(--bg))_100%)] opacity-70" />
 
       <motion.div style={{ y: textY }} className="xo-container relative">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="eyebrow mb-8"
-        >
-          The XO™ Vision Care System
-        </motion.div>
+        <div className="eyebrow mb-8">The XO™ Vision Care System</div>
 
-        <MaskText
-          lines={["One system.", "From appointment", "to finished eyewear."]}
-          as="span"
-          className="max-w-[15ch] font-display text-[10vw] font-medium leading-[0.94] tracking-tight text-fg sm:text-5xl lg:text-7xl"
-        />
+        <span className="mask-line block max-w-[15ch] font-display text-[10vw] font-medium leading-[0.94] tracking-tight text-fg [text-wrap:balance] sm:text-5xl lg:text-7xl">
+          One system. From appointment to finished eyewear.
+        </span>
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="mt-10 max-w-xl text-lg leading-relaxed text-fg/60"
-        >
+        <p className="mt-10 max-w-xl text-lg leading-relaxed text-fg/60">
           One doctor-led system integrating scheduling, examination, fitting,
           and finishing. Greater efficiency means more patients seen and more
           revenue kept in your practice.
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-          className="mt-10 flex flex-wrap items-center gap-4"
-        >
+        <div className="mt-10 flex flex-wrap items-center gap-4">
           <Link to="/xo-vision-care-system" data-testid="hero-how-it-works" className="btn-primary">
             See How It Works
           </Link>
           <Link to="/request-a-demo" data-testid="hero-demo" className="btn-ghost">
             Request a Demo
           </Link>
-        </motion.div>
+        </div>
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
         <ArrowDown className="h-5 w-5 animate-bounce text-fg/40" />
-      </motion.div>
+      </div>
     </section>
   );
 }
@@ -390,12 +363,16 @@ export default function Home() {
                         <img
                           src={p.logo.replace("-dark.svg", ".svg")}
                           alt={p.name}
+                          width={p.logoWidth}
+                          height={p.logoHeight}
                           className="block h-6 w-auto dark:hidden"
                         />
                         <img
                           src={p.logo}
                           alt=""
                           aria-hidden="true"
+                          width={p.logoWidth}
+                          height={p.logoHeight}
                           className="hidden h-6 w-auto dark:block"
                         />
                         <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40">
@@ -466,12 +443,16 @@ export default function Home() {
                     <img
                       src="/partners/eyecare4kids-light.svg"
                       alt="EyeCare4Kids"
+                      width={648}
+                      height={195}
                       className="block h-12 w-auto md:h-14 dark:hidden"
                     />
                     <img
                       src="/partners/eyecare4kids-dark.svg"
                       alt="EyeCare4Kids"
                       aria-hidden="true"
+                      width={648}
+                      height={195}
                       className="hidden h-12 w-auto md:h-14 dark:block"
                     />
                   </a>

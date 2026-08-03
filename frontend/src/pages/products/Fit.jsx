@@ -22,6 +22,8 @@ const FORM_FACTORS = [
       body: "xoFit is a digital centration and measurement system designed to support accurate, repeatable frame fitting. Using advanced optical imaging and intelligent analysis, xoFit captures critical facial and frame data to support confident frame selection and produce lab-ready measurements for precise eyewear fabrication in retail and clinical environments.",
     },
     deviceImage: "/products/xofit/device.webp",
+    deviceWidth: 814,
+    deviceHeight: 1934,
     deviceAlt: "xoFit wall-mounted precision frame fitting device",
     deviceLabel: "xoFit Core · Stand / Wall-mounted",
     tiles: [
@@ -35,9 +37,9 @@ const FORM_FACTORS = [
     howItWorks: {
       subhead: "Simple, fast, and accurate frame fitting in just a few easy steps.",
       screens: [
-        { src: "/products/xofit/screen-1.webp", label: "Start" },
-        { src: "/products/xofit/screen-2.webp", label: "Check" },
-        { src: "/products/xofit/screen-3.webp", label: "Results" },
+        { src: "/products/xofit/screen-1.webp", label: "Start", width: 832, height: 1248 },
+        { src: "/products/xofit/screen-2.webp", label: "Check", width: 832, height: 1248 },
+        { src: "/products/xofit/screen-3.webp", label: "Results", width: 832, height: 1248 },
       ],
       steps: [
         "Patient stands in front of the wall-mounted xoFit unit at the guided distance",
@@ -57,6 +59,8 @@ const FORM_FACTORS = [
       "Designed for retail and clinical environments",
     ],
     retailImage: "/products/xofit/retail.webp",
+    retailWidth: 1200,
+    retailHeight: 1464,
     retailAlt: "Optician using xoFit device in a retail eyewear environment",
   },
   {
@@ -68,6 +72,8 @@ const FORM_FACTORS = [
       body: "xoFit mobile is a handheld digital centration and measurement system designed for flexible, on-the-floor use. Combining advanced optical imaging with intelligent software, xoFit mobile captures accurate facial and frame data wherever the fitting interaction occurs, supporting confident frame selection and producing lab-ready measurements without requiring fixed installation.",
     },
     deviceImage: "/products/xofit/mobile-device.webp",
+    deviceWidth: 1200,
+    deviceHeight: 1262,
     deviceAlt: "xoFit mobile handheld digital centration device",
     deviceLabel: "xoFit Mobile · iPad-based / portable",
     tiles: [
@@ -81,9 +87,9 @@ const FORM_FACTORS = [
     howItWorks: {
       subhead: "Simple, fast, and accurate frame fitting in just a few easy steps.",
       screens: [
-        { src: "/products/xofit/mobile-screen-1.png", label: "Start" },
-        { src: "/products/xofit/mobile-screen-2.png", label: "Modes" },
-        { src: "/products/xofit/mobile-screen-3.png", label: "Results" },
+        { src: "/products/xofit/mobile-screen-1.webp", label: "Start", width: 900, height: 724 },
+        { src: "/products/xofit/mobile-screen-2.webp", label: "Modes", width: 841, height: 646 },
+        { src: "/products/xofit/mobile-screen-3.webp", label: "Results", width: 900, height: 724 },
       ],
       steps: [
         "The patient's selected frame is clipped into the All-in-One Measurement Tool",
@@ -107,6 +113,8 @@ const FORM_FACTORS = [
       "Optional monopod support dock",
     ],
     retailImage: "/products/xofit/mobile-retail.webp",
+    retailWidth: 640,
+    retailHeight: 640,
     retailAlt: "Optician using xoFit Mobile handheld device to measure a patient in a retail eyewear environment",
   },
   {
@@ -117,7 +125,10 @@ const FORM_FACTORS = [
       subhead: "Every frame, tried on instantly.",
       body: "xoFrame brings virtual try-on directly into the frame selection conversation, showing patients exactly how they look in any frame in the collection without pulling a single pair from the shelf. New frames join the virtual catalog in moments, and the instant a patient decides, that selection carries forward with the fitting record, straight through to xoLab for same-day finishing.",
     },
-    deviceImage: "/products/xofit/frame-tryon.png",
+    deviceImage: "/products/xofit/frame-tryon.webp",
+    deviceImageSrcSet: "/products/xofit/frame-tryon-900.webp 900w, /products/xofit/frame-tryon.webp 1600w",
+    deviceWidth: 1600,
+    deviceHeight: 800,
     deviceAlt: "Split comparison of a patient's face wearing two different eyewear frames side by side, rendered through xoFrame virtual try-on",
     deviceLabel: "xoFrame · Virtual Try-On",
     deviceImageWide: true,
@@ -201,6 +212,8 @@ export default function Fit() {
       <ProductHero
         eyebrow="xoFit™ · Fit"
         logo="/logos/xofit-dark.svg"
+        logoWidth={102}
+        logoHeight={25}
         role="Fit"
         headlineLines={["Measurements that", "arrive at the lab", "exactly as taken."]}
         subhead="Digital centration, frame measurement, and virtual try-on, captured in the same visit that produced the prescription."
@@ -323,6 +336,9 @@ export default function Fit() {
                               />
                               <img
                                 src={f.deviceImage}
+                                width={f.deviceWidth}
+                                height={f.deviceHeight}
+                                decoding="async"
                                 alt={f.deviceAlt}
                                 className="relative h-full max-h-[520px] w-auto object-contain md:max-h-[640px] lg:max-h-[760px]"
                               />
@@ -343,7 +359,7 @@ export default function Fit() {
                     <div>
                       {f.deviceImage && (
                         <Reveal className="mx-auto mb-16 flex max-w-[1080px] flex-col items-center md:mb-20">
-                          <div className="relative w-full">
+                          <div className="relative w-full" style={{ aspectRatio: `${f.deviceWidth} / ${f.deviceHeight}` }}>
                             <div
                               aria-hidden
                               className="pointer-events-none absolute inset-0"
@@ -354,6 +370,11 @@ export default function Fit() {
                             />
                             <img
                               src={f.deviceImage}
+                              srcSet={f.deviceImageSrcSet}
+                              sizes={f.deviceImageSrcSet ? "(max-width: 768px) 100vw, 1080px" : undefined}
+                              width={f.deviceWidth}
+                              height={f.deviceHeight}
+                              decoding="async"
                               alt={f.deviceAlt}
                               className="relative h-auto w-full object-contain"
                             />
@@ -412,6 +433,9 @@ export default function Fit() {
                                 />
                                 <img
                                   src={screen.src}
+                                  width={screen.width}
+                                  height={screen.height}
+                                  decoding="async"
                                   alt={`xoFit ${screen.label} screen`}
                                   className="relative h-auto w-[200px] object-contain drop-shadow-2xl md:w-[220px]"
                                 />

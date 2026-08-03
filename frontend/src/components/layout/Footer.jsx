@@ -52,6 +52,8 @@ export default function Footer() {
             <img
               src="/logos/xenon-corp-dark.svg"
               alt="Xenon Ophthalmics"
+              width={225}
+              height={77}
               className="h-14 w-auto"
             />
             <p className="mt-6 text-[15px] leading-relaxed text-white/70">

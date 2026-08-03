@@ -1,14 +1,21 @@
 // Central content + config for the Xenon Ophthalmics site.
 
+// All decorative background photos are served directly from Unsplash/Pexels
+// at their original (multi-megabyte) full resolution when linked bare, even
+// though every usage renders them small and at low opacity. Appending each
+// provider's own resize/format params (auto=format on Unsplash serves
+// WebP/AVIF automatically per the browser's Accept header; auto=compress on
+// Pexels does the same) caps them at a sane width and cuts payload
+// dramatically with no visible quality loss at the sizes these are shown.
 export const IMAGES = {
-  heroProduct: "https://images.unsplash.com/photo-1702471897393-47ec1ba1192b",
-  clinic: "https://images.pexels.com/photos/5965843/pexels-photo-5965843.jpeg",
-  lab: "https://images.pexels.com/photos/5752264/pexels-photo-5752264.jpeg",
-  microscope: "https://images.pexels.com/photos/13949979/pexels-photo-13949979.jpeg",
-  doctor1: "https://images.pexels.com/photos/28516278/pexels-photo-28516278.jpeg",
-  doctor2: "https://images.pexels.com/photos/6749778/pexels-photo-6749778.jpeg",
-  professional: "https://images.unsplash.com/photo-1594824476967-48c8b964273f",
-  abstract: "https://images.unsplash.com/photo-1672750771479-5ea73e9439ce",
+  heroProduct: "https://images.unsplash.com/photo-1702471897393-47ec1ba1192b?auto=format&fit=crop&w=1600&q=70",
+  clinic: "https://images.pexels.com/photos/5965843/pexels-photo-5965843.jpeg?auto=compress&cs=tinysrgb&w=1600",
+  lab: "https://images.pexels.com/photos/5752264/pexels-photo-5752264.jpeg?auto=compress&cs=tinysrgb&w=1600",
+  microscope: "https://images.pexels.com/photos/13949979/pexels-photo-13949979.jpeg?auto=compress&cs=tinysrgb&w=1600",
+  doctor1: "https://images.pexels.com/photos/28516278/pexels-photo-28516278.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  doctor2: "https://images.pexels.com/photos/6749778/pexels-photo-6749778.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  professional: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=1200&q=70",
+  abstract: "https://images.unsplash.com/photo-1672750771479-5ea73e9439ce?auto=format&fit=crop&w=1600&q=70",
 };
 
 export const NAV = [
@@ -42,6 +49,8 @@ export const PRODUCTS = [
     role: "Schedule",
     to: "/xoiris-scheduling",
     logo: "/logos/xoiris-dark.svg",
+    logoWidth: 104,
+    logoHeight: 25,
     blurb:
       "Where the visit begins. xoIris automates booking and patient communication, predicts no-shows, and fills cancellations by reaching nearby patients already due for care.",
   },
@@ -51,6 +60,8 @@ export const PRODUCTS = [
     role: "Exam",
     to: "/xoexam-eye-exam",
     logo: "/logos/xoexam-dark.svg",
+    logoWidth: 154,
+    logoHeight: 24,
     blurb:
       "A wearable, medical-grade eye exam platform bringing 19 doctor-led vision tests into a single device. Run by the patient, a technician, or the doctor. Certified by the doctor in every case.",
   },
@@ -60,6 +71,8 @@ export const PRODUCTS = [
     role: "Fit",
     to: "/xofit-frame-fitting",
     logo: "/logos/xofit-dark.svg",
+    logoWidth: 102,
+    logoHeight: 25,
     blurb:
       "Digital centration and frame measurement in three form factors: a wall-mounted station, a handheld unit, and a virtual try-on patients use themselves. Measurements pass straight to finishing.",
   },
@@ -69,6 +82,8 @@ export const PRODUCTS = [
     role: "Finish",
     to: "/xolab-eyewear-finishing",
     logo: "/logos/xolab-dark.svg",
+    logoWidth: 119,
+    logoHeight: 24,
     blurb:
       "Frame tracing, blocking, and edging in a compact in-office footprint. Finished eyewear on site, as fast as same day, with the margin that would otherwise leave with the lab bill.",
   },
