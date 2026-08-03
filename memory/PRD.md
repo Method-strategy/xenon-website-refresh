@@ -148,3 +148,15 @@ Repo is wired for a permanent Netlify deploy while remaining fully iterable insi
 - Existing `yarn build` (used by Emergent's own deploy path) is unchanged/unaffected.
 - **User action required in Netlify dashboard:** set `REACT_APP_BACKEND_URL` env var to the production FastAPI backend's public URL (not committed to git, protected var). Netlify only hosts the frontend; the FastAPI backend in `/backend` needs its own host (Railway/Render/Fly/etc).
 - Verified locally: `cd frontend && CI=false yarn build:netlify` completes clean, `build/index.html` has zero `emergent.sh`/`posthog` references post-strip, redirects/title/fonts/root div all intact.
+
+## Lighthouse follow-up audit (this session, later same day)
+
+Full Lighthouse run (desktop + mobile) on the live Netlify deploy after the CLS/LCP audit above: **CLS 0/0, Desktop LCP 0.9s, Performance 99/92, Accessibility 96/100, Best Practices 96/100, SEO 92/92**. Tested via `testing_agent_v4` (`iteration_13.json`, 100% pass).
+
+- **Best Practices 96 (desktop) — not a real bug.** The 4 flagged console errors are the signature Chrome extension messaging error ("A listener indicated an asynchronous response..."), traced to the user's own installed browser extensions (Adobe Acrobat, Loom — visible elsewhere in the same report). Confirmed via the mobile run on the same deploy scoring a clean 100 with zero console errors. No code change needed/made.
+- **SEO 92 — real bug, fixed.** No `robots.txt` existed, so Netlify's SPA catch-all redirect served `index.html` at that path, flagged as invalid syntax. Added a real `frontend/public/robots.txt`.
+- **Agentic Browsing 2/3 — fixed.** No `llms.txt` existed. Added `frontend/public/llms.txt` with H1 + links to all 4 products and key pages.
+- **CSP / X-Frame-Options / Trusted Types flags** — intentionally left alone (marked "Unscored", don't move the number; a CSP is one of the most common things that silently breaks third-party embeds, too risky given the VTO integration's history). Backlog only.
+- **Mobile LCP was 3.3s (desktop 0.9s)** — bottleneck was JS bundle parse/execute time under throttling, not image loading. Fixed with route-based code-splitting in `App.js`: Home stays eagerly bundled, every other route is `React.lazy()` behind a single `<Suspense fallback={null}>` wrapping `<Outlet/>` inside `Layout` (Navbar/Footer/CookieConsent/Toaster are not lazy, never remount on navigation). Main bundle dropped ~245KB → ~167KB gzipped for Home.
+
+**Standing instruction from user: do not ship changes that regress CLS/LCP/these Lighthouse scores in significant ways going forward** — current levels (CLS 0, Desktop LCP <1s, the SEO/Agentic fixes above) are the performance baseline for all future work on this site.
