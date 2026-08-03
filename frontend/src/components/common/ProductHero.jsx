@@ -51,7 +51,7 @@ export default function ProductHero({
           srcSet={imageSrcSet}
           sizes={imageSrcSet ? imageSizes : undefined}
           alt={imageAlt}
-          fetchpriority="high"
+          fetchPriority="high"
           decoding="async"
           className="h-full w-full object-cover object-center opacity-[0.32] dark:opacity-30"
         />

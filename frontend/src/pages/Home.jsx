@@ -69,7 +69,7 @@ function Hero() {
           sizes="(max-width: 1024px) 100vw, 70vw"
           width={2000}
           height={1123}
-          fetchpriority="high"
+          fetchPriority="high"
           decoding="async"
           alt=""
           className="h-full w-full object-cover object-center opacity-90 lg:opacity-100"

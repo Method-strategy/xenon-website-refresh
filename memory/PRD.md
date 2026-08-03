@@ -112,7 +112,19 @@ Support email: `support@xophthalmics.com`
 - `/app/frontend/public/partners/` — EyeCare4Kids logo (light + dark SVG)
 - `/app/frontend/public/logos/` — full Xenon + product logo set (light + dark variants per product)
 
-## Immediate next task (when user returns)
+## CLS / LCP performance audit (this session, current date)
+
+Full site audit targeting CLS < 0.1 and LCP < 2.5s, tested via `testing_agent_v4` (`iteration_12.json`, 100% pass, zero regressions) across Home, System, and all 4 product pages.
+
+**Shifts found + fixes applied:**
+1. **Hero entrance animations delayed LCP the most.** Home hero image faded in over 2.2s (`opacity:0→1, scale:1.08→1`); the hero headline (word-by-word stagger reveal), subhead, and CTA buttons all faded in 0.6-1.4s after mount, on both the Home hero and `ProductHero.jsx` (shared by all 4 product pages). Fixed: removed all mount-triggered `initial`/`animate` motion props from both heroes — everything above the fold now paints immediately and statically. Scroll-linked parallax (unrelated to initial paint) was kept. The line-by-line mask-reveal treatment is preserved everywhere else on the site (triggers on scroll-into-view, so it never delays LCP).
+2. **Unsized images caused shift on load.** The xoFrame wide device image and Core/Mobile interface screenshots in `Fit.jsx` had no width/height/aspect-ratio, so their containers collapsed to 0 height until the image loaded, then jumped. Fixed with explicit `width`/`height` attributes (+ CSS `aspect-ratio` on the xoFrame container) sourced from each image's real pixel dimensions.
+3. **~40 logo `<img>` tags site-wide** (Navbar, Footer, Home product cards, System steps, ProductHero, EyeCare4Kids partner logo) used `h-X w-auto` with zero width/height attributes, so each logo's width only resolved after its SVG loaded, nudging neighboring text/elements. Fixed by adding width/height attributes (using each SVG's real viewBox ratio) to every instance.
+4. **Font-swap risk + 2 dead external requests.** Fonts were loaded from Google Fonts + Fontshare CDN (extra DNS/connection hop before text could paint), and Fontshare's "Clash Display" family was being loaded but never used anywhere in the app. Fixed: self-hosted the 3 real families (Manrope, Zalando Sans SemiExpanded, JetBrains Mono — one variable-font file each, ~95KB total) in `/public/fonts/`, declared via `@font-face` with `font-display: swap` in `/public/fonts/fonts.css`, preloaded in `index.html` (all 3 are used above the fold on every hero). Removed the Google Fonts + Fontshare `<link>` tags entirely.
+5. **Oversized PNGs.** `xolab-edge.png` was a 2.1MB PNG (worst offender) plus 6 others (400-430KB each) — `frame-tryon`, `mobile-screen-1/2/3`, `xolab-block`, `xolab-trace`. Converted all to WebP (alpha preserved): combined ~4.2MB → ~330KB. Added a mobile-sized (750-900px) WebP variant + `srcSet` for the two largest (`xolab-edge`, `frame-tryon`).
+6. **Hotlinked Unsplash/Pexels decorative images** were served at full original resolution with no format/size hints. Added each provider's own resize+format query params (`auto=format`/`auto=compress`, width caps) directly in `site.js`'s `IMAGES` object.
+
+Not done (flagged, not applied): per-font `size-adjust` metric-matching for zero-shift font swap (diminishing returns given preload already makes the swap window very short); `mobile-device.webp` (348KB) left as-is since it was already WebP, just not re-compressed.
 
 Netlify deploy-cancellation and VTO-hang investigation both closed out this session (see below). Remaining backlog:
 - Contact form: awaiting HubSpot Portal ID / Form GUID / region / custom-field mapping from client to wire `Contact.jsx` directly to HubSpot Forms API (no backend). Playbook already researched; implementation blocked on these credentials.
