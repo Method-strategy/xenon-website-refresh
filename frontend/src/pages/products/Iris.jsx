@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Plus } from "lucide-react";
 import ProductHero from "@/components/common/ProductHero";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import FAQ from "@/components/common/FAQ";
@@ -87,6 +87,102 @@ const FAQS = [
   },
 ];
 
+function FeatureIndex() {
+  const [openKey, setOpenKey] = useState(FEATURE_GROUPS[0].key);
+
+  return (
+    <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
+      <div className="xo-container">
+        <Reveal>
+          <div className="eyebrow mb-6">Full feature set</div>
+        </Reveal>
+        <MaskTextInView
+          lines={["Everything running", "behind the schedule."]}
+          as="span"
+          className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+        />
+        <Reveal delay={0.1}>
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
+            Four systems working as one: booking, conversation, intake, and the
+            security holding all of it together.
+          </p>
+        </Reveal>
+
+        <div className="mt-16 border-t border-fg/10">
+          {FEATURE_GROUPS.map((group, gi) => {
+            const isOpen = openKey === group.key;
+            return (
+              <div key={group.key} className="border-b border-fg/10">
+                <button
+                  type="button"
+                  onClick={() => setOpenKey(isOpen ? null : group.key)}
+                  data-testid={`iris-feature-group-${group.key}`}
+                  aria-expanded={isOpen}
+                  className="flex w-full items-center justify-between gap-6 py-8 text-left"
+                >
+                  <div className="flex items-baseline gap-5 sm:gap-8">
+                    <span className="font-mono text-xs text-fg/30 tabular-nums">
+                      {String(gi + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      className={cn(
+                        "font-display text-2xl font-medium tracking-tight transition-colors duration-300 sm:text-3xl",
+                        isOpen ? "text-fg" : "text-fg/50"
+                      )}
+                    >
+                      {group.label}
+                    </span>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-4">
+                    <span className="hidden font-mono text-[11px] uppercase tracking-[0.2em] text-fg/30 sm:inline">
+                      {group.items.length} features
+                    </span>
+                    <Plus
+                      className={cn(
+                        "h-4 w-4 shrink-0 text-acc transition-transform duration-300",
+                        isOpen && "rotate-45"
+                      )}
+                    />
+                  </div>
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="grid grid-cols-1 gap-x-12 pb-10 md:grid-cols-2">
+                        {group.items.map(([title, desc], ii) => (
+                          <div key={title} className="border-t border-fg/10 py-6">
+                            <div className="flex items-baseline gap-3">
+                              <span className="font-mono text-[11px] text-acc tabular-nums">
+                                {String(ii + 1).padStart(2, "0")}
+                              </span>
+                              <h4 className="font-display text-base font-medium leading-snug text-fg">
+                                {title}
+                              </h4>
+                            </div>
+                            <p className="mt-2 max-w-md text-sm leading-relaxed text-fg/55">
+                              {desc}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Iris() {
   usePageMeta({
     title: "xoIris: Scheduling",
@@ -160,37 +256,10 @@ export default function Iris() {
               call: it's filling the gap from patients it already has.
             </p>
           </Reveal>
-
-          <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-2">
-            <div>
-              <div className="eyebrow mb-6">Core platform features</div>
-              <ul className="space-y-4">
-                {CAPABILITIES.map((c, i) => (
-                  <Reveal key={c} delay={i * 0.05}>
-                    <li className="flex items-start gap-4 border-b border-fg/10 pb-4 text-[15px] text-fg/70">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-acc" />
-                      {c}
-                    </li>
-                  </Reveal>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <div className="eyebrow mb-6">Patient communication</div>
-              <ul className="space-y-4">
-                {COMMS.map((c, i) => (
-                  <Reveal key={c} delay={i * 0.05}>
-                    <li className="flex items-start gap-4 border-b border-fg/10 pb-4 text-[15px] text-fg/70">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-acc" />
-                      {c}
-                    </li>
-                  </Reveal>
-                ))}
-              </ul>
-            </div>
-          </div>
         </div>
       </section>
+
+      <FeatureIndex />
 
       {/* What it delivers */}
       <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
