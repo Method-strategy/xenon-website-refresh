@@ -487,7 +487,7 @@ export default function Home() {
 
       {/* SECTION 5 — See it work */}
       <div id="demo" className="scroll-mt-32">
-        <section className="relative overflow-hidden border-t border-fg/10 bg-bg py-24 md:py-32">
+        <section className="relative overflow-hidden border-t border-fg/10 bg-bg pb-4 pt-24 md:pt-32">
           <div className="xo-container">
             <Reveal>
               <div className="eyebrow mb-6">05 · See it work</div>
@@ -507,7 +507,7 @@ export default function Home() {
           </div>
         </section>
 
-        <DemoCTA />
+        <DemoCTA eyebrow="" topBorder={false} />
       </div>
     </>
   );
