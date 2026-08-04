@@ -5,13 +5,14 @@ import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import SectionAnchors from "@/components/common/SectionAnchors";
 import DemoCTA from "@/components/common/DemoCTA";
-import { PRODUCTS, IMAGES } from "@/data/site";
+import { PRODUCTS, IMAGES, SIX_OUTCOMES, SYSTEM_GOAL_STATEMENT } from "@/data/site";
 import { usePageMeta } from "@/lib/usePageMeta";
 
 const ANCHORS = [
   { id: "capacity", label: "Where capacity goes" },
   { id: "one-visit", label: "One visit" },
   { id: "components", label: "The components" },
+  { id: "outcomes", label: "The six outcomes" },
   { id: "proof", label: "Where it proves out" },
   { id: "demo", label: "See it work" },
 ];
@@ -112,7 +113,13 @@ function Hero() {
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_35%,_rgb(var(--bg))_100%)] opacity-70" />
 
       <motion.div style={{ y: textY }} className="xo-container relative">
-        <div className="eyebrow mb-8">The XO™ Vision Care System</div>
+        <img
+          src="/logos/xo-vision-care-system-dark.webp"
+          alt="The XO Vision Care System"
+          width={956}
+          height={344}
+          className="mb-8 h-12 w-auto md:h-14"
+        />
 
         <span className="mask-line block max-w-[15ch] font-display text-[10vw] font-medium leading-[0.94] tracking-tight text-fg [text-wrap:balance] sm:text-5xl lg:text-7xl">
           One system. From appointment to finished eyewear.
@@ -405,7 +412,41 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SECTION 4 — Proof */}
+        {/* SECTION 4 — Six outcomes */}
+        <section id="outcomes" className="scroll-mt-32 border-t border-fg/10 bg-bg py-24 md:py-32">
+          <div className="xo-container">
+            <Reveal>
+              <div className="eyebrow mb-6">04 · The six outcomes</div>
+            </Reveal>
+            <MaskTextInView
+              lines={["Every recommendation ties back", "to six measurable results."]}
+              as="span"
+              className="font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
+            />
+            <Reveal delay={0.1}>
+              <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
+                This is what the components above are for. Not features on a spec
+                sheet: outcomes a practice can measure, one visit at a time.
+              </p>
+            </Reveal>
+
+            <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-fg/10 bg-fg/10 sm:grid-cols-2 lg:grid-cols-3">
+              {SIX_OUTCOMES.map((o, i) => (
+                <Reveal key={o.key} delay={i * 0.05} className="bg-surface">
+                  <div className="group h-full p-8 transition-colors duration-500 hover:bg-fg/[0.02] md:p-10">
+                    <div className="font-mono text-sm text-xo-blue">
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <h3 className="mt-4 font-display text-2xl text-fg">{o.title}</h3>
+                    <p className="mt-4 text-[15px] leading-relaxed text-fg/50">{o.body}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 5 — Proof */}
         <section id="proof" className="scroll-mt-32 relative overflow-hidden border-t border-fg/10 py-24 md:py-32">
           <div aria-hidden className="pointer-events-none absolute inset-0">
             <img src={IMAGES.clinic} alt="" className="h-full w-full object-cover opacity-15" />
@@ -414,7 +455,7 @@ export default function Home() {
           <div className="xo-container relative grid grid-cols-1 gap-16 lg:grid-cols-12">
             <div className="lg:col-span-6">
               <Reveal>
-                <div className="eyebrow mb-6">04 · Where it proves out</div>
+                <div className="eyebrow mb-6">05 · Where it proves out</div>
               </Reveal>
               <MaskTextInView
                 lines={["If it works where", "there is no clinic,", "it works in yours."]}
@@ -530,6 +571,26 @@ export default function Home() {
           </div>
         </section>
       </div>
+
+      {/* Featured objective statement */}
+      <section className="relative overflow-hidden border-t border-fg/10 bg-bg py-24 md:py-32">
+        <div className="xo-container">
+          <Reveal>
+            <div className="relative overflow-hidden rounded-md bg-gradient-to-br from-xo-navy-deep to-xo-navy-deeper p-10 md:p-16">
+              <div aria-hidden className="pointer-events-none absolute inset-0 spotlight" />
+              <div className="relative">
+                <div className="font-mono text-xs uppercase tracking-[0.2em] text-white/50">Our goal</div>
+                <p
+                  data-testid="home-goal-statement"
+                  className="mt-6 max-w-3xl font-display text-3xl font-medium leading-snug tracking-tight text-white sm:text-4xl lg:text-5xl"
+                >
+                  {SYSTEM_GOAL_STATEMENT}
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
       <div id="demo" className="scroll-mt-32">
         <DemoCTA />

@@ -3,11 +3,12 @@ import { ArrowUpRight } from "lucide-react";
 import { MaskText, MaskTextInView, Reveal } from "@/components/common/Reveal";
 import SectionAnchors from "@/components/common/SectionAnchors";
 import DemoCTA from "@/components/common/DemoCTA";
-import { IMAGES } from "@/data/site";
+import { IMAGES, SIX_OUTCOMES, SYSTEM_GOAL_STATEMENT } from "@/data/site";
 import { usePageMeta } from "@/lib/usePageMeta";
 
 const ANCHORS = [
   { id: "problem", label: "The problem" },
+  { id: "outcomes", label: "The six outcomes" },
   { id: "schedule", label: "Schedule" },
   { id: "exam", label: "Exam" },
   { id: "fit", label: "Fit" },
@@ -28,6 +29,7 @@ const STEPS = [
     body: "Booking is where the visit begins, not where it gets queued. xoIris manages booking, reminders, and patient communication, and works to keep the schedule full. When a cancellation opens a slot, it can identify patients nearby already due for care and reach them by text, filling the opening from your existing patient base.",
     hand: "By the time the patient arrives: who they are, why they're here, and what happened last visit are already in front of the practice.",
     to: "/xoiris-scheduling",
+    outcomes: ["time", "practice-growth"],
   },
   {
     id: "exam",
@@ -40,6 +42,7 @@ const STEPS = [
     body: "xoExam brings 19 doctor-led vision tests into a single wearable device, replacing the autorefractor, phoropter, chart projector stack with one unit. Tests can be run by the patient, a technician, or under the doctor's guidance. It is a delegation choice, not a transfer of responsibility. No result leaves the device until the ECP certifies it.",
     hand: "By the time the patient reaches the dispensary: the prescription and full results are already loaded in xoFit.",
     to: "/xoexam-eye-exam",
+    outcomes: ["clinical-quality", "control"],
   },
   {
     id: "fit",
@@ -52,6 +55,7 @@ const STEPS = [
     body: "Frame selection begins with the exam results already loaded. The optician isn't waiting on a chart or re-asking answered questions. xoFit captures pupillary distance, segment height, vertical optical center, and frame geometry, all attached to the same record, across three form factors.",
     hand: "By the time the job reaches finishing: the specification is already written.",
     to: "/xofit-frame-fitting",
+    outcomes: ["patient-experience", "time"],
   },
   {
     id: "finish",
@@ -64,6 +68,7 @@ const STEPS = [
     body: "Finishing receives a complete specification: nothing to assemble at the end of the sale. xoLab handles frame tracing, blocking, and edging on site, in a footprint sized for a practice. Single-vision work can be finished the same day, in the building. Jobs requiring surfacing go out as a complete lab-ready order with nothing re-keyed.",
     hand: "What the patient leaves with: a finished pair, and margin that would otherwise have left with the lab bill.",
     to: "/xolab-eyewear-finishing",
+    outcomes: ["profitability", "practice-growth"],
   },
 ];
 
@@ -98,7 +103,21 @@ export default function System() {
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
         <div aria-hidden className="pointer-events-none absolute inset-0 spotlight" />
         <div className="xo-container relative">
-          <div className="eyebrow mb-8">The XO™ Vision Care System</div>
+          <img
+            src="/logos/xo-vision-care-system.webp"
+            alt="The XO Vision Care System"
+            width={956}
+            height={344}
+            className="mb-8 block h-12 w-auto md:h-14 dark:hidden"
+          />
+          <img
+            src="/logos/xo-vision-care-system-dark.webp"
+            alt=""
+            aria-hidden="true"
+            width={956}
+            height={344}
+            className="mb-8 hidden h-12 w-auto md:h-14 dark:block"
+          />
           <MaskText
             lines={["One system.", "From appointment", "to finished eyewear."]}
             as="span"
@@ -150,6 +169,31 @@ export default function System() {
               </Reveal>
             </section>
 
+            {/* Six outcomes legend */}
+            <section id="outcomes" className="mt-24 scroll-mt-32">
+              <Reveal>
+                <div className="rounded-md border border-fg/10 bg-surface/60 p-8 md:p-10">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40">
+                    The six outcomes
+                  </div>
+                  <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg/60">
+                    Every step below, from booking to finished eyewear, is built to
+                    move one or more of six measurable results:
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    {SIX_OUTCOMES.map((o) => (
+                      <span
+                        key={o.key}
+                        className="rounded-full border border-fg/15 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-fg/70"
+                      >
+                        {o.title}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+            </section>
+
             {/* Numbered workflow */}
             <div className="mt-24 space-y-24">
               {STEPS.map((step) => (
@@ -192,6 +236,22 @@ export default function System() {
                       <Reveal delay={0.15}>
                         <div className="mt-8 border-l-2 border-xo-blue/60 pl-6">
                           <p className="text-[15px] leading-relaxed text-fg/70">{step.hand}</p>
+                        </div>
+                      </Reveal>
+                      <Reveal delay={0.18}>
+                        <div className="mt-6 flex flex-wrap gap-2">
+                          {step.outcomes.map((key) => {
+                            const o = SIX_OUTCOMES.find((s) => s.key === key);
+                            return (
+                              <span
+                                key={key}
+                                data-testid={`outcome-tag-${step.id}-${key}`}
+                                className="rounded-full border border-xo-blue/30 bg-xo-blue/5 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-xo-blue"
+                              >
+                                {o.title}
+                              </span>
+                            );
+                          })}
                         </div>
                       </Reveal>
                       <Reveal delay={0.2}>
@@ -288,6 +348,26 @@ export default function System() {
           </div>
         </section>
       </div>
+
+      {/* Featured objective statement */}
+      <section className="relative overflow-hidden border-t border-fg/10 bg-bg py-24 md:py-32">
+        <div className="xo-container">
+          <Reveal>
+            <div className="relative overflow-hidden rounded-md bg-gradient-to-br from-xo-navy-deep to-xo-navy-deeper p-10 md:p-16">
+              <div aria-hidden className="pointer-events-none absolute inset-0 spotlight" />
+              <div className="relative">
+                <div className="font-mono text-xs uppercase tracking-[0.2em] text-white/50">Our goal</div>
+                <p
+                  data-testid="system-goal-statement"
+                  className="mt-6 max-w-3xl font-display text-3xl font-medium leading-snug tracking-tight text-white sm:text-4xl lg:text-5xl"
+                >
+                  {SYSTEM_GOAL_STATEMENT}
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
       <DemoCTA
         eyebrow="Request a demo"

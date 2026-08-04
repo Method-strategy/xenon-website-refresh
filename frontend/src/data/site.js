@@ -89,6 +89,26 @@ export const PRODUCTS = [
   },
 ];
 
+// The "Six Outcomes" framework, from the Xenon Practice Optimization Selling
+// System (sales methodology doc). This is the sales team's proven value
+// language for what the XO Vision Care System delivers to a practice. Keys
+// are referenced by product steps on the System overview page to link
+// features directly to the outcome(s) they drive. Do not edit wording
+// without checking against the source sales document first.
+export const SIX_OUTCOMES = [
+  { key: "time", title: "Time", body: "Give physicians and staff more productive time." },
+  { key: "profitability", title: "Profitability", body: "Increase efficiency while reducing operating costs." },
+  { key: "control", title: "Control", body: "Reduce dependence on staffing, space, and inefficient processes." },
+  { key: "patient-experience", title: "Patient Experience", body: "Create faster, easier, and more comfortable patient visits." },
+  { key: "clinical-quality", title: "Clinical Quality", body: "Improve consistency, documentation accuracy, and decision-making." },
+  { key: "practice-growth", title: "Practice Growth", body: "Enable practices to expand capacity without proportionally increasing overhead." },
+];
+
+// The objective statement from the same sales doc. Used as a featured
+// closing banner on the Homepage and System overview page.
+export const SYSTEM_GOAL_STATEMENT =
+  "Help every practice achieve better outcomes through intelligent workflow, innovative technology, and optimized operations.";
+
 export const TEAM_BOARD = [
   { name: "Zeshan A. Khan", title: "Founder & CEO", linkedin: "#", email: "#" },
   { name: "Dr. Robert Gilligan, OD", title: "Co-Founder, Medical Relations · Board of Directors", linkedin: "#", email: "#" },
