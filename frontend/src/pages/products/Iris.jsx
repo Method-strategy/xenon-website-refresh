@@ -97,14 +97,14 @@ function FeatureIndex() {
           <div className="eyebrow mb-6">Full feature set</div>
         </Reveal>
         <MaskTextInView
-          lines={["Everything running", "behind the schedule."]}
+          lines={["What xoIris", "does."]}
           as="span"
           className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
         />
         <Reveal delay={0.1}>
           <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
-            Four systems working as one: booking, conversation, intake, and the
-            security holding all of it together.
+            Scheduling, confirmation, patient communication, and intake, handled
+            without pulling staff off the floor.
           </p>
         </Reveal>
 
