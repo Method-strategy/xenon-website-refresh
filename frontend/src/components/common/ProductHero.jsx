@@ -84,7 +84,7 @@ export default function ProductHero({
         <span className="mask-line block max-w-5xl font-display text-[10vw] font-medium leading-[0.96] tracking-tight text-fg [text-wrap:balance] sm:text-5xl lg:text-6xl xl:text-7xl">
           {headlineLines?.join(" ")}
         </span>
-        <p className="mt-10 max-w-xl text-lg leading-relaxed text-fg/60">
+        <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/60">
           {subhead}
         </p>
         <div>

@@ -164,7 +164,7 @@ export default function Iris() {
           <MaskTextInView
             lines={["A full day is capacity", "you already own."]}
             as="span"
-            className="max-w-3xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
           <div className="mt-14 divide-y divide-fg/10 border-y border-fg/10">
             <div className="grid grid-cols-1 gap-4 py-10 md:grid-cols-12 md:items-baseline">
@@ -202,10 +202,10 @@ export default function Iris() {
             <MaskTextInView
               lines={["Cloud-based.", "Nothing to install."]}
               as="span"
-              className="font-display text-3xl font-medium leading-[1.06] tracking-tight text-fg sm:text-4xl"
+              className="max-w-3xl font-display text-3xl font-medium leading-[1.06] tracking-tight text-fg sm:text-4xl"
             />
             <Reveal delay={0.1}>
-              <p className="mt-8 max-w-md text-lg leading-relaxed text-fg/55">
+              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
                 xoIris runs in a HIPAA-compliant cloud and reaches patients over
                 conversational SMS, no app to download, no on-site servers to
                 maintain. Staff work from any browser or device.
@@ -241,7 +241,7 @@ export default function Iris() {
           <MaskTextInView
             lines={["What the exam room", "already knows."]}
             as="span"
-            className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
           <Reveal delay={0.1}>
             <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">

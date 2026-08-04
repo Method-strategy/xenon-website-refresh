@@ -123,7 +123,7 @@ export default function System() {
             as="span"
             className="max-w-[16ch] font-display text-[10vw] font-medium leading-[0.94] tracking-tight text-fg sm:text-5xl lg:text-7xl"
           />
-          <p className="mt-10 max-w-xl text-lg leading-relaxed text-fg/60">
+          <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/60">
             Four points of contact across a single visit: scheduling, examination,
             fitting, and finishing. Designed so the patient never waits for the
             practice to catch up.
@@ -226,7 +226,7 @@ export default function System() {
                       <MaskTextInView
                         lines={[step.title]}
                         as="span"
-                        className="font-display text-3xl font-medium leading-tight tracking-tight text-fg md:text-4xl"
+                        className="max-w-3xl font-display text-3xl font-medium leading-tight tracking-tight text-fg md:text-4xl"
                       />
                       <Reveal delay={0.1}>
                         <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-fg/55">
@@ -281,7 +281,7 @@ export default function System() {
             <MaskTextInView
               lines={["Fewer boxes. Fewer handoffs.", "Fewer places for the day to slow down."]}
               as="span"
-              className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+              className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
             />
 
             <Reveal className="mt-14">
@@ -323,10 +323,10 @@ export default function System() {
               <MaskTextInView
                 lines={["Configured to the practice,", "not the other way around."]}
                 as="span"
-                className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+                className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
               />
               <Reveal delay={0.1}>
-                <p className="mt-8 max-w-md text-lg leading-relaxed text-fg/55">
+                <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
                   The system is designed to work as a whole, and to be adopted in
                   stages. However many components are in place, they run as one system
                   rather than as separate purchases.

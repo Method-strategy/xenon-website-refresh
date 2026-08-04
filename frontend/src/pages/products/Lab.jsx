@@ -159,7 +159,7 @@ export default function Lab() {
           <MaskTextInView
             lines={["Three machines.", "One in-office lab."]}
             as="span"
-            className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
           <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
             {EQUIPMENT.map((e, i) => (
@@ -215,7 +215,7 @@ export default function Lab() {
           <MaskTextInView
             lines={["The margin that used to", "leave with the lab bill."]}
             as="span"
-            className="max-w-3xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
           <div className="mt-14 space-y-8">
             <Reveal>

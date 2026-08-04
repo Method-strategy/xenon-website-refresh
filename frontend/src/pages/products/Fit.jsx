@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Check, PlayCircle } from "lucide-react";
@@ -8,9 +8,6 @@ import FAQ from "@/components/common/FAQ";
 import DemoCTA from "@/components/common/DemoCTA";
 import { cn } from "@/lib/utils";
 import { usePageMeta } from "@/lib/usePageMeta";
-
-const VTO_MERCHANT_ID = "f3339032-dafa-47fe-bb1e-79a965fd4118";
-const VTO_WIDGET_SRC = "https://tintvto.com/xenonophthalmics/widget.js";
 
 const FORM_FACTORS = [
   {
@@ -185,30 +182,8 @@ export default function Fit() {
   });
   const [active, setActive] = useState("core");
 
-  // Vendor-prescribed integration (tintvto.com/docs/integration.html):
-  // inject the widget script once on mount, mount <tint-vto> in its own
-  // container below, and call its .open() method on click.
-  useEffect(() => {
-    if (document.getElementById("tint-vto-script")) return;
-    const script = document.createElement("script");
-    script.id = "tint-vto-script";
-    script.type = "module";
-    script.src = VTO_WIDGET_SRC;
-    document.head.appendChild(script);
-  }, []);
-
-  const openVTO = () => {
-    document.getElementById("tint-vto-widget")?.open?.();
-  };
-
   return (
     <div className="acc-fit">
-      {/* Persistent, page-level container — must be created exactly once and
-          never torn down across tab switches, or the widget's .open() method
-          breaks on remount. */}
-      <div id="tint-vto-container">
-        <tint-vto id="tint-vto-widget" merchant-id={VTO_MERCHANT_ID}></tint-vto>
-      </div>
       <ProductHero
         eyebrow="xoFit™ · Fit"
         logo="/logos/xofit-dark.svg"
@@ -266,7 +241,7 @@ export default function Fit() {
           <MaskTextInView
             lines={["Precise measurements. Confident fit.", "Three flexible form factors to choose from."]}
             as="span"
-            className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
 
           {/* Tab buttons */}
@@ -312,12 +287,12 @@ export default function Fit() {
                     <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-20">
                       <div className="lg:col-span-6 lg:col-start-1">
                         <Reveal>
-                          <h3 className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg md:text-5xl lg:text-6xl">
+                          <h3 className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg md:text-5xl lg:text-6xl">
                             {f.intro.subhead}
                           </h3>
                         </Reveal>
                         <Reveal delay={0.1}>
-                          <p className="mt-8 max-w-xl text-lg leading-relaxed text-fg/60">
+                          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/60">
                             {f.intro.body}
                           </p>
                         </Reveal>
@@ -479,26 +454,26 @@ export default function Fit() {
                     </div>
                   )}
 
-                  {/* 3a. Virtual try-on trigger — xoFrame only. */}
+                  {/* 3a. Virtual try-on — xoFrame only. Live widget temporarily
+                      removed while the vendor completes a platform migration;
+                      request a guided walkthrough instead. */}
                   {f.vto && (
                     <div className="mt-28 border-t border-fg/10 pt-16 text-center">
                       <Reveal>
-                        <div className="eyebrow mb-6">Try it yourself</div>
+                        <div className="eyebrow mb-6">See it in action</div>
                       </Reveal>
                       <Reveal delay={0.05}>
-                        <button
-                          type="button"
-                          id="vto-trigger"
-                          data-testid="vto-trigger-button"
-                          onClick={openVTO}
-                          className="btn-primary mx-auto"
+                        <Link
+                          to="/request-a-demo"
+                          data-testid="vto-request-demo-button"
+                          className="btn-primary mx-auto inline-flex"
                         >
-                          <PlayCircle className="h-4 w-4" /> Try xoFrame Demo
-                        </button>
+                          <PlayCircle className="h-4 w-4" /> Request Demo
+                        </Link>
                       </Reveal>
                       <Reveal delay={0.1}>
                         <p className="mt-5 font-mono text-xs uppercase tracking-[0.15em] text-fg/40">
-                          See a live sample of the virtual try-on technology
+                          See the virtual try-on technology walked through live
                         </p>
                       </Reveal>
                     </div>
@@ -513,10 +488,10 @@ export default function Fit() {
                       <MaskTextInView
                         lines={["Simple. Fast. Accurate."]}
                         as="span"
-                        className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg md:text-5xl"
+                        className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg md:text-5xl"
                       />
                       <Reveal delay={0.1}>
-                        <p className="mt-8 max-w-xl text-lg leading-relaxed text-fg/55">
+                        <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
                           {f.howItWorks.subhead}
                         </p>
                       </Reveal>
@@ -599,10 +574,10 @@ export default function Fit() {
             <MaskTextInView
               lines={["The lens is only as good", "as where it sits."]}
               as="span"
-              className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+              className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
             />
             <Reveal delay={0.1}>
-              <p className="mt-8 max-w-lg text-lg leading-relaxed text-fg/55">
+              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
                 Premium lens designs assume the position they will occupy in front of
                 the eye. When that position is estimated rather than measured, the
                 design falls back on assumed values and the patient pays for
@@ -642,7 +617,7 @@ export default function Fit() {
           <MaskTextInView
             lines={["Every measurement", "a lab-ready spec needs."]}
             as="span"
-            className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
           <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-fg/10 bg-fg/10 sm:grid-cols-2 lg:grid-cols-3">
             {MEASUREMENTS.map((m, i) => (

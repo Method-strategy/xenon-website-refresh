@@ -128,7 +128,7 @@ export default function Exam() {
           <MaskTextInView
             lines={["Count the boxes", "in your exam room."]}
             as="span"
-            className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
           <Reveal delay={0.1}>
             <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
@@ -164,7 +164,7 @@ export default function Exam() {
               <MaskTextInView
                 lines={["19 doctor-led tests.", "One device."]}
                 as="span"
-                className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+                className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
               />
             </div>
             <div className="font-display text-8xl font-semibold leading-none text-fg/5">19</div>
@@ -202,7 +202,7 @@ export default function Exam() {
           <MaskTextInView
             lines={["Delegated three ways.", "Certified one way."]}
             as="span"
-            className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
           <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
             {DELEGATION.map((d, i) => (
@@ -230,7 +230,7 @@ export default function Exam() {
           <MaskTextInView
             lines={["Delegated three ways.", "Consistent every time."]}
             as="span"
-            className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
           <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2">
             <Reveal>
@@ -269,10 +269,10 @@ export default function Exam() {
             <MaskTextInView
               lines={["Care that isn't", "anchored to a building."]}
               as="span"
-              className="font-display text-3xl font-medium leading-[1.06] tracking-tight text-fg sm:text-4xl"
+              className="max-w-3xl font-display text-3xl font-medium leading-[1.06] tracking-tight text-fg sm:text-4xl"
             />
             <Reveal delay={0.1}>
-              <p className="mt-8 max-w-lg text-lg leading-relaxed text-fg/55">
+              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
                 A portable, doctor-led exam platform can operate in a workplace, a
                 school, an assisted living facility, a community health center, or a
                 mobile unit serving a rural county. Designed for patients ages 10 and
