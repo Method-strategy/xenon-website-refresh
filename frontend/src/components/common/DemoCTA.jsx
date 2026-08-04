@@ -33,7 +33,7 @@ export default function DemoCTA({
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
-          <p className="mt-8 max-w-xl text-base leading-relaxed text-fg/55">
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
             {body}
           </p>
         </Reveal>

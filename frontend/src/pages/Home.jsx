@@ -118,7 +118,7 @@ function Hero() {
           One system. From appointment to finished eyewear.
         </span>
 
-        <p className="mt-10 max-w-xl text-lg leading-relaxed text-fg/60">
+        <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/60">
           One doctor-led system integrating scheduling, examination, fitting,
           and finishing. Greater efficiency means more patients seen and more
           revenue kept in your practice.
@@ -174,8 +174,9 @@ export default function Home() {
                 <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
                   Growth in eye care has always meant more lanes, more square
                   footage, more capital. But the real limit on what a practice
-                  can deliver isn't physical. It's the time that disappears
-                  between the steps of care. There are four places it goes.
+                  can deliver isn't physical. It's the capacity that quietly
+                  disappears before, between, and around the care itself.
+                  There are four places it goes.
                 </p>
               </Reveal>
 
@@ -252,17 +253,17 @@ export default function Home() {
               />
             </Reveal>
             <MaskTextInView
-              lines={["Every step starts where", "the last one ended."]}
+              lines={["Four gaps.", "One system built to close them."]}
               as="span"
-              className="font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
+              className="max-w-4xl font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
             />
             <Reveal delay={0.1}>
               <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
-                Most practices run on tools bought separately and connected
-                after the fact. Every seam between them costs time. The XO
-                Vision Care System was designed as one system across the
-                whole visit, so nothing waits on the step before it to catch
-                up.
+                All four have the same root cause: tools bought separately
+                and connected after the fact. The XO Vision Care System was
+                designed as one system across the whole visit, from the
+                appointment to the finished pair, so capacity that used to
+                disappear comes back to the practice.
               </p>
             </Reveal>
 
@@ -339,7 +340,7 @@ export default function Home() {
             <MaskTextInView
               lines={["Six results a practice", "can measure."]}
               as="span"
-              className="font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
+              className="max-w-4xl font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
             />
             <Reveal delay={0.1}>
               <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
@@ -375,10 +376,10 @@ export default function Home() {
               <MaskTextInView
                 lines={["If it works where", "there is no clinic,", "it works in yours."]}
                 as="span"
-                className="font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
+                className="max-w-4xl font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
               />
               <Reveal delay={0.1}>
-                <p className="mt-10 max-w-lg text-lg leading-relaxed text-fg/55">
+                <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
                   Most eye care technology assumes a building: a lane, a
                   darkroom, a licensed practitioner down the hall. That
                   assumption holds in a suburban practice. It doesn't hold in
@@ -495,7 +496,7 @@ export default function Home() {
             <MaskTextInView
               lines={["Built around how", "your practice runs."]}
               as="span"
-              className="max-w-3xl font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
+              className="max-w-4xl font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
             />
             <Reveal delay={0.1}>
               <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
