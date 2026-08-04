@@ -1,28 +1,14 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Check } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import ProductHero from "@/components/common/ProductHero";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import FAQ from "@/components/common/FAQ";
 import DemoCTA from "@/components/common/DemoCTA";
 import { IMAGES } from "@/data/site";
+import { cn } from "@/lib/utils";
 import { usePageMeta } from "@/lib/usePageMeta";
-
-const CAPABILITIES = [
-  "AI-powered, text-first appointment orchestration",
-  "Intelligent waitlist management with auto-backfill",
-  "Utilization optimization to reduce idle chair time",
-  "Rapid booking & rescheduling in ~90 seconds",
-  "Automated follow-up scheduling on practice rules",
-  "Real-time dashboard: revenue, wait times, utilization",
-];
-
-const COMMS = [
-  "Conversational SMS, no app to download",
-  "Automated reminders, confirmations & rescheduling",
-  "Routine question handling with staff escalation",
-  "Recall & lapsed-patient outreach",
-  "Professional, proactive patient communication",
-];
 
 const SPECS = [
   "Cloud-based, high-availability deployment",
@@ -33,6 +19,57 @@ const SPECS = [
   "Role-based access control (RBAC)",
   "Encrypted patient data transmission",
   "Auditable communication & scheduling logs",
+];
+
+// Verbatim feature set supplied by the client (XO Iris Features.pdf).
+// Grouped exactly as given; do not add or remove items without checking
+// the source doc first.
+const FEATURE_GROUPS = [
+  {
+    key: "schedule",
+    label: "Keeping the schedule full",
+    items: [
+      ["AI-managed scheduling", "Booking, confirmation, and rescheduling handled without staff time."],
+      ["Up to three confirmation notifications", "Sent automatically ahead of each appointment."],
+      ["Departure timing and directions", "Confirmed patients receive an estimated departure time based on local traffic, along with driving directions."],
+      ["Arrival estimates for the practice", "The front desk sees when each patient is expected."],
+      ["Automatic waitlist fill", "If a patient does not confirm, xoIris checks the waitlist and offers the slot to someone who can take it."],
+      ["Bulk cancellation and rescheduling", "Move an entire day at once when the practice has an emergency."],
+      ["Live activity notifications", "New bookings, cancellations, and escalations as they happen."],
+    ],
+  },
+  {
+    key: "communication",
+    label: "Patient communication",
+    items: [
+      ["Live AI conversation", "Patients get an answer immediately instead of a callback."],
+      ["Staff override at any time", "Any conversation can be taken over directly by a doctor or staff member."],
+      ["Six languages", "English, Spanish, French, Simplified Chinese, Haitian Creole, and Vietnamese."],
+      ["Two-way translation", "xoIris converses with the patient in their language and translates to the doctor's preferred language, and back again."],
+      ["Nothing for patients to download", "No app, no account setup."],
+      ["Confidential by default", "Patient conversations stay private."],
+    ],
+  },
+  {
+    key: "intake",
+    label: "Intake and records",
+    items: [
+      ["Digital onboarding", "Demographics and insurance collected before the visit."],
+      ["Card capture", "Data extracted from photographs of ID and insurance cards."],
+      ["Complete patient record", "Demographics, contacts, insurance, medical history, allergies and medications, visit history, and clinical imaging in one place."],
+      ["PHI masked by default", "Protected health information stays hidden until a staff member intentionally reveals it. Every reveal is logged."],
+    ],
+  },
+  {
+    key: "security",
+    label: "Security and access",
+    items: [
+      ["Full encryption", "Data encrypted in transit and at rest."],
+      ["Complete audit logs", "Who did what, and when."],
+      ["Multi-factor authentication", "Passkeys or an authenticator app."],
+      ["Browser-based", "A web interface for the practice, with nothing to install."],
+    ],
+  },
 ];
 
 const FAQS = [
