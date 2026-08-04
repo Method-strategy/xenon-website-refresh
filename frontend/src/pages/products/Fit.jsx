@@ -195,7 +195,6 @@ export default function Fit() {
         image="/hero/xofit-measure.webp"
         imageSrcSet="/hero/xofit-measure-1200.webp 1200w, /hero/xofit-measure.webp 1920w"
         imageAlt="Digital centration measurements — pupillary distance, frame geometry, segment height — overlaid on a patient's face"
-        imageAlt="Optical fitting environment"
       />
 
       {/* Overview */}
