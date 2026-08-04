@@ -283,6 +283,23 @@ export default function Home() {
               <Reveal>
                 <div className="eyebrow mb-6">02 · One visit, start to finish</div>
               </Reveal>
+              <Reveal delay={0.02}>
+                <img
+                  src="/logos/xo-vision-care-system-horiz.webp"
+                  alt="The XO Vision Care System"
+                  width={1390}
+                  height={253}
+                  className="mb-8 block h-[52.8px] w-auto md:h-[66px] dark:hidden"
+                />
+                <img
+                  src="/logos/xo-vision-care-system-horiz-dark.webp"
+                  alt=""
+                  aria-hidden="true"
+                  width={1390}
+                  height={253}
+                  className="mb-8 hidden h-[52.8px] w-auto md:h-[66px] dark:block"
+                />
+              </Reveal>
               <MaskTextInView
                 lines={["The visit doesn't stop", "between the steps."]}
                 as="span"
@@ -317,25 +334,7 @@ export default function Home() {
                 ))}
               </div>
 
-              <Reveal delay={0.1} className="mt-16">
-                <img
-                  src="/logos/xo-vision-care-system-horiz.webp"
-                  alt="The XO Vision Care System"
-                  width={1390}
-                  height={253}
-                  className="block h-8 w-auto md:h-10 dark:hidden"
-                />
-                <img
-                  src="/logos/xo-vision-care-system-horiz-dark.webp"
-                  alt=""
-                  aria-hidden="true"
-                  width={1390}
-                  height={253}
-                  className="hidden h-8 w-auto md:h-10 dark:block"
-                />
-              </Reveal>
-
-              <Reveal delay={0.12} className="mt-8">
+              <Reveal delay={0.1} className="mt-12">
                 <p className="max-w-2xl font-display text-2xl leading-snug text-fg/85 md:text-3xl">
                   One system. From appointment to finished eyewear. Not four
                   products that work together. A visit that never has to stop.
