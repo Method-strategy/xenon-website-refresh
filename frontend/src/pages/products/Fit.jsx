@@ -659,6 +659,37 @@ export default function Fit() {
         </div>
       </section>
 
+      {/* What it delivers */}
+      <section className="border-t border-fg/10 bg-surface py-24 md:py-32">
+        <div className="xo-container">
+          <Reveal>
+            <div className="eyebrow mb-10">What it delivers</div>
+          </Reveal>
+          <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
+            <Reveal>
+              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-acc">
+                Patient Experience
+              </span>
+              <p className="mt-6 font-display text-2xl leading-snug tracking-tight text-fg md:text-3xl">
+                The optician opens the record and the prescription is already
+                there. No chart to find, no history to re-ask, just the
+                fitting.
+              </p>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-acc">
+                Time
+              </span>
+              <p className="mt-6 font-display text-2xl leading-snug tracking-tight text-fg md:text-3xl">
+                Digital centration in minutes replaces a measurement that
+                used to mean a ruler, a second pass, and a remake when it
+                didn't land.
+              </p>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       {/* In the system */}
       <section className="border-t border-fg/10 bg-surface py-20">
         <div className="xo-container">

@@ -11,7 +11,7 @@ const CATEGORIES = [
     id: "necessary",
     label: "Strictly necessary",
     required: true,
-    body: "Required for the site to function — security, load balancing, and remembering your cookie choice. Always on.",
+    body: "Required for the site to function: security, load balancing, and remembering your cookie choice. Always on.",
   },
   {
     id: "analytics",
@@ -135,7 +135,7 @@ export default function CookieConsent() {
                   <p className="mt-3 max-w-3xl text-[13.5px] leading-relaxed text-fg/70">
                     We use cookies and similar technologies. Except for those
                     strictly necessary to run the site, none are active until
-                    you consent — the default is off. You can accept all,
+                    you consent; the default is off. You can accept all,
                     decline all, or choose which categories run, and you can
                     change or withdraw your choice at any time. Details are in
                     our{" "}

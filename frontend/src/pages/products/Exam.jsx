@@ -221,6 +221,44 @@ export default function Exam() {
         </div>
       </section>
 
+      {/* What it delivers */}
+      <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
+        <div className="xo-container">
+          <Reveal>
+            <div className="eyebrow mb-6">What it delivers</div>
+          </Reveal>
+          <MaskTextInView
+            lines={["Delegated three ways.", "Consistent every time."]}
+            as="span"
+            className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+          />
+          <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2">
+            <Reveal>
+              <div className="h-full rounded-md border border-fg/10 bg-surface p-8 md:p-10">
+                <div className="font-mono text-xs text-acc">01</div>
+                <h3 className="mt-4 font-display text-2xl text-fg">Clinical Quality</h3>
+                <p className="mt-4 text-[15px] leading-relaxed text-fg/55">
+                  Objective and subjective refraction run in the same device,
+                  the same workflow, every time. The result is a consistent
+                  standard of capture, whoever runs the test.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <div className="h-full rounded-md border border-fg/10 bg-surface p-8 md:p-10">
+                <div className="font-mono text-xs text-acc">02</div>
+                <h3 className="mt-4 font-display text-2xl text-fg">Control</h3>
+                <p className="mt-4 text-[15px] leading-relaxed text-fg/55">
+                  Delegate the test, not the judgment. Every result waits on
+                  the ECP's certification before it moves, so run rate goes
+                  up without the doctor's oversight going down.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       {/* Where it goes + Specs */}
       <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
         <div className="xo-container grid grid-cols-1 gap-16 lg:grid-cols-12">

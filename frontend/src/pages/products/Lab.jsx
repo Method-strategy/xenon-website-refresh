@@ -206,6 +206,48 @@ export default function Lab() {
         </div>
       </section>
 
+      {/* What it delivers */}
+      <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
+        <div className="xo-container">
+          <Reveal>
+            <div className="eyebrow mb-6">What it delivers</div>
+          </Reveal>
+          <MaskTextInView
+            lines={["The margin that used to", "leave with the lab bill."]}
+            as="span"
+            className="max-w-3xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+          />
+          <div className="mt-14 space-y-8">
+            <Reveal>
+              <div className="flex flex-col gap-2 border-t border-fg/10 pt-8 sm:flex-row sm:items-baseline sm:gap-8">
+                <div className="flex items-baseline gap-3 sm:w-64 sm:shrink-0">
+                  <span className="font-mono text-sm text-acc">01</span>
+                  <span className="font-display text-xl text-fg">Profitability</span>
+                </div>
+                <p className="text-[15px] leading-relaxed text-fg/55">
+                  The margin on a finished pair used to leave with the lab
+                  bill. Now it stays in the building on every single-vision
+                  job that used to go out.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={0.06}>
+              <div className="flex flex-col gap-2 border-t border-fg/10 pt-8 sm:flex-row sm:items-baseline sm:gap-8">
+                <div className="flex items-baseline gap-3 sm:w-64 sm:shrink-0">
+                  <span className="font-mono text-sm text-acc">02</span>
+                  <span className="font-display text-xl text-fg">Practice Growth</span>
+                </div>
+                <p className="text-[15px] leading-relaxed text-fg/55">
+                  Same-day finishing is capacity you didn't have to build
+                  for. The lab bay does more volume without a bigger
+                  footprint or a second technician.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       {/* What stays / goes out */}
       <section className="border-t border-fg/10 bg-surface py-24 md:py-32">
         <div className="xo-container">

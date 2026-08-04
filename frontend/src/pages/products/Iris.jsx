@@ -155,6 +155,43 @@ export default function Iris() {
         </div>
       </section>
 
+      {/* What it delivers */}
+      <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
+        <div className="xo-container">
+          <Reveal>
+            <div className="eyebrow mb-6">What it delivers</div>
+          </Reveal>
+          <MaskTextInView
+            lines={["A full day is capacity", "you already own."]}
+            as="span"
+            className="max-w-3xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+          />
+          <div className="mt-14 divide-y divide-fg/10 border-y border-fg/10">
+            <div className="grid grid-cols-1 gap-4 py-10 md:grid-cols-12 md:items-baseline">
+              <div className="md:col-span-3">
+                <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-acc">Time</span>
+              </div>
+              <p className="md:col-span-9 text-lg leading-relaxed text-fg/60">
+                Every gap xoIris fills is time your team doesn't spend chasing
+                a phone that never rings back. Recall and reminders run
+                continuously, so the schedule holds its shape without a
+                person watching it all day.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-4 py-10 md:grid-cols-12 md:items-baseline">
+              <div className="md:col-span-3">
+                <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-acc">Practice Growth</span>
+              </div>
+              <p className="md:col-span-9 text-lg leading-relaxed text-fg/60">
+                A full day is capacity you already own. xoIris turns the
+                schedule you have into the patient volume you're capable of,
+                before you add a chair or a room.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Platform & specifications */}
       <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
         <div className="xo-container grid grid-cols-1 gap-12 lg:grid-cols-12">

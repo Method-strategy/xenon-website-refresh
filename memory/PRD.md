@@ -130,6 +130,10 @@ Netlify deploy-cancellation and VTO-hang investigation both closed out this sess
 - SSG/prerendering choice pending from user: (a) `react-snap` (lightweight, prerenders existing CRA app, low risk) vs (b) full Astro migration (bigger rewrite, better long-term SEO/perf).
 - Ask client to raise the WASM `Content-Type` misconfiguration with their Tint/Banuba rep (see blocker note above) — this is the actual fix for the VTO hang; our toast is only a UX safety net. Status per client (this session, current date): still waiting on Banuba to ship the fix.
 
+## Product page outcomes + cookie banner dash fix (this session, current date) — DONE
+
+Added a tailored "What it delivers" section to each of the 4 product pages, deliberately varied in layout per user's instruction ("do not make it precisedly the same on each page"): xoIris uses stacked label/body rows (Time, Practice Growth); xoExam uses a 2-card bordered grid (Clinical Quality, Control); xoFit uses an editorial big-quote 2-column layout with no borders (Patient Experience, Time); xoLab uses numbered ledger-style rows matching its existing EQUIPMENT numbering convention (Profitability, Practice Growth). Copy is product-specific, not lifted verbatim from the Home.jsx six-outcome text. Fixed the two rendered em dashes in `CookieConsent.jsx` (replaced with a colon and semicolon respectively). Verified via screenshot across all 4 product pages + cookie banner.
+
 ## Homepage full restructure (this session, current date) — DONE
 
 User supplied two documents (an instruction spec `Emergent_Homepage_Prompt.md` + a verbatim copy file `Xenon_Homepage_Copy_v2.md`) requiring a full homepage restructure from "standalone Problem section + 6 anchored sections" down to **5 anchored sections, no standalone problem section**. Implemented verbatim (zero paraphrasing), with zero em/en dashes in any rendered text, preserving all existing visual system/dark-navy theme (content + structure change only, not a redesign).
