@@ -488,27 +488,10 @@ export default function Home() {
 
       {/* SECTION 5 — See it work */}
       <div id="demo" className="scroll-mt-32">
-        <section className="relative overflow-hidden border-t border-fg/10 bg-bg pb-4 pt-24 md:pt-32">
-          <div className="xo-container">
-            <Reveal>
-              <div className="eyebrow mb-6">05 · See it work</div>
-            </Reveal>
-            <MaskTextInView
-              lines={["Built around how", "your practice runs."]}
-              as="span"
-              className="max-w-4xl font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
-            />
-            <Reveal delay={0.1}>
-              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
-                No two practices lose capacity in the same place. The XO
-                Vision Care System starts from the workflow you already have
-                and closes the gaps in it.
-              </p>
-            </Reveal>
-          </div>
-        </section>
-
-        <DemoCTA eyebrow="" topBorder={false} />
+        <DemoCTA
+          eyebrow="05 · See it work"
+          body="No two practices lose capacity in the same place. We'll walk the XO Vision Care System through your practice's actual workflow, from the appointment to the finished pair, and show you where yours is going."
+        />
       </div>
     </>
   );
