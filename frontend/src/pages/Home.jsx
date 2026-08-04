@@ -10,7 +10,7 @@ import { usePageMeta } from "@/lib/usePageMeta";
 
 const ANCHORS = [
   { id: "capacity", label: "Where capacity goes" },
-  { id: "one-visit", label: "One visit" },
+  { id: "one-visit", label: "One system" },
   { id: "components", label: "The components" },
   { id: "outcomes", label: "The six outcomes" },
   { id: "proof", label: "Where it proves out" },
@@ -281,7 +281,7 @@ export default function Home() {
             {/* SECTION 2 — One visit */}
             <section id="one-visit" className="mt-40 scroll-mt-32">
               <Reveal>
-                <div className="eyebrow mb-6">02 · One visit, start to finish</div>
+                <div className="eyebrow mb-6">02 · One system, start to finish</div>
               </Reveal>
               <Reveal delay={0.02}>
                 <img
