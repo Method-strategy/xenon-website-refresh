@@ -113,13 +113,7 @@ function Hero() {
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_35%,_rgb(var(--bg))_100%)] opacity-70" />
 
       <motion.div style={{ y: textY }} className="xo-container relative">
-        <img
-          src="/logos/xo-vision-care-system-dark.webp"
-          alt="The XO Vision Care System"
-          width={956}
-          height={344}
-          className="mb-8 h-12 w-auto md:h-14"
-        />
+        <div className="eyebrow mb-8">The XO™ Vision Care System</div>
 
         <span className="mask-line block max-w-[15ch] font-display text-[10vw] font-medium leading-[0.94] tracking-tight text-fg [text-wrap:balance] sm:text-5xl lg:text-7xl">
           One system. From appointment to finished eyewear.
@@ -323,7 +317,25 @@ export default function Home() {
                 ))}
               </div>
 
-              <Reveal delay={0.1} className="mt-12">
+              <Reveal delay={0.1} className="mt-16">
+                <img
+                  src="/logos/xo-vision-care-system-horiz.webp"
+                  alt="The XO Vision Care System"
+                  width={1390}
+                  height={253}
+                  className="block h-8 w-auto md:h-10 dark:hidden"
+                />
+                <img
+                  src="/logos/xo-vision-care-system-horiz-dark.webp"
+                  alt=""
+                  aria-hidden="true"
+                  width={1390}
+                  height={253}
+                  className="hidden h-8 w-auto md:h-10 dark:block"
+                />
+              </Reveal>
+
+              <Reveal delay={0.12} className="mt-8">
                 <p className="max-w-2xl font-display text-2xl leading-snug text-fg/85 md:text-3xl">
                   One system. From appointment to finished eyewear. Not four
                   products that work together. A visit that never has to stop.
