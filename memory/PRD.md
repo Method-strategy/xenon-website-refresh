@@ -234,3 +234,20 @@ Full Lighthouse run (desktop + mobile) on the live Netlify deploy after the CLS/
 - **Mobile LCP was 3.3s (desktop 0.9s)** — bottleneck was JS bundle parse/execute time under throttling, not image loading. Fixed with route-based code-splitting in `App.js`: Home stays eagerly bundled, every other route is `React.lazy()` behind a single `<Suspense fallback={null}>` wrapping `<Outlet/>` inside `Layout` (Navbar/Footer/CookieConsent/Toaster are not lazy, never remount on navigation). Main bundle dropped ~245KB → ~167KB gzipped for Home.
 
 **Standing instruction from user: do not ship changes that regress CLS/LCP/these Lighthouse scores in significant ways going forward** — current levels (CLS 0, Desktop LCP <1s, the SEO/Agentic fixes above) are the performance baseline for all future work on this site.
+
+
+## xoIris custom feature section (2026-02, this session)
+
+Picked up from a forked session where the previous agent was interrupted mid-edit and had left `Iris.jsx` in a broken state (undefined references to `CAPABILITIES`, `COMMS`, and an unimported `Check` icon — a hard render-crashing bug on `/xoiris-scheduling`).
+
+- Removed the broken checkbox-list markup entirely.
+- Built a new `FeatureIndex` component (local to `Iris.jsx`) rendering the client's verbatim `FEATURE_GROUPS` data (from XO Iris Features.pdf) as a numbered (01-04), single-open accordion: "Keeping the schedule full" (7 items), "Patient communication" (6 items), "Intake and records" (4 items), "Security and access" (4 items). Each row expands via Framer Motion height/opacity animation, a `Plus` icon rotates 45deg into an "x" when open, and expanded content shows a 2-column grid of mono-indexed feature title + description pairs. No checkboxes, no rounded corners — matches the site's existing "Specifications" numbered-list visual language.
+- Mounted as `<FeatureIndex />` between the "A cancellation is a hole in the day" section and "What it delivers" on the xoIris page.
+- Verified via `testing_agent_v4` (`iteration_17.json`): 100% frontend pass — zero console/runtime errors, correct default-open state, correct expand/collapse/switch-between-groups behavior, no checkboxes/rounded corners, no regressions elsewhere on the page.
+
+**User explicitly deferred, do not pick up next without being asked again:**
+1. SSG/Prerendering (react-snap)
+2. Real imagery swap for News/Blog/Team pages
+3. VTO re-integration (blocked on vendor SDK)
+4. Font metric tuning
+5. Shared product page component refactor (Iris/Exam/Fit/Lab)
