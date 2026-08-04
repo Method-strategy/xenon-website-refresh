@@ -181,7 +181,7 @@ export default function Fit() {
   usePageMeta({
     title: "xoFit: Frame Fitting & Centration",
     description:
-      "Digital centration and frame measurement in three form factors: wall-mounted station, handheld unit and a virtual try-on patients use themselves. Measurements pass straight to finishing.",
+      "The optician opens xoFit and the prescription is already loaded. Digital centration and frame measurement in three form factors: a wall-mounted station, a handheld unit, and a virtual try-on patients use themselves.",
   });
   const [active, setActive] = useState("core");
 

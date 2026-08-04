@@ -59,7 +59,7 @@ export default function Exam() {
   usePageMeta({
     title: "xoExam: Wearable Eye Exam",
     description:
-      "xoExam brings 19 doctor-led vision tests into a single wearable device. Run by the patient, a technician or the doctor, certified by the doctor in every case.",
+      "An entire suite of doctor-led vision tests in one wearable device. Run it with the patient, a technician, or the doctor. You certify every result.",
   });
   return (
     <div className="acc-exam">

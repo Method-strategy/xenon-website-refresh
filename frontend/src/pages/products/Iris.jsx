@@ -54,7 +54,7 @@ export default function Iris() {
   usePageMeta({
     title: "xoIris: Scheduling",
     description:
-      "xoIris manages booking, reminders and patient communication, predicts no-shows and fills openings from patients already due, so the day starts full and stays full.",
+      "xoIris handles scheduling, reminders, and recall, predicts no-shows, and fills a cancellation by reaching patients nearby who are already due. The day starts full instead of catching up.",
   });
   return (
     <div className="acc-iris">

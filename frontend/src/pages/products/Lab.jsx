@@ -56,7 +56,7 @@ export default function Lab() {
   usePageMeta({
     title: "xoLab: In-Office Eyewear Finishing",
     description:
-      "Frame tracing, blocking and edging in a compact in-office footprint. Finished eyewear on site, as fast as same-day, with the margin that would otherwise leave with the lab bill.",
+      "Frame tracing, blocking, and edging in a footprint sized for a practice. Finished eyewear on site, as fast as same day, with the margin that would otherwise leave with the lab bill.",
   });
   return (
     <div className="acc-lab">
