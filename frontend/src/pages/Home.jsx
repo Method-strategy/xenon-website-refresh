@@ -5,14 +5,13 @@ import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import SectionAnchors from "@/components/common/SectionAnchors";
 import DemoCTA from "@/components/common/DemoCTA";
-import { PRODUCTS, IMAGES, SIX_OUTCOMES, SYSTEM_GOAL_STATEMENT } from "@/data/site";
+import { PRODUCTS, IMAGES, SIX_OUTCOMES } from "@/data/site";
 import { usePageMeta } from "@/lib/usePageMeta";
 
 const ANCHORS = [
   { id: "capacity", label: "Where capacity goes" },
-  { id: "one-visit", label: "One system" },
-  { id: "components", label: "The components" },
-  { id: "outcomes", label: "The six outcomes" },
+  { id: "system", label: "The system" },
+  { id: "delivers", label: "What it delivers" },
   { id: "proof", label: "Where it proves out" },
   { id: "demo", label: "See it work" },
 ];
@@ -21,22 +20,22 @@ const HIDDEN_SPACES = [
   {
     n: "01",
     title: "Schedule space",
-    body: "The gap between the appointments you could hold and the ones you actually keep. No-shows in U.S. optometric practices average roughly 25 percent, climbing past 38 percent when booked six months out. Once a slot passes, that capacity is gone.",
+    body: "The gap between the appointments you could hold and the ones you keep. No-shows in U.S. optometric practices average roughly 25 percent, climbing past 38 percent when booked six months out. Once a slot passes, that capacity is gone.",
   },
   {
     n: "02",
     title: "Workflow space",
-    body: "The friction between the steps of care. Check-in to pre-test to lane to exam to the dispensary. Five extra minutes per patient across thirty patients is two and a half hours, before counting the schedule compression that follows.",
+    body: "The friction between steps. Check-in to pre-test to lane to exam to the dispensary. Five extra minutes per patient across thirty patients is two and a half hours, before the schedule compression that follows.",
   },
   {
     n: "03",
     title: "Information space",
-    body: "The gap between the data you generate and the decisions it should drive. Physicians average 36 minutes in the record for every 30-minute visit. Scheduling, clinical, and optical systems rarely share what they know.",
+    body: "The distance between what you record and what you can use. Physicians average 36 minutes in the chart for every 30-minute visit, and scheduling, clinical, and optical systems rarely share what they know.",
   },
   {
     n: "04",
     title: "Office space",
-    body: "The gap between what your infrastructure was built to do and what it is actually used for. Outfitting a new practice runs $200,000 to $500,000, with exam lane equipment alone $100,000 to $250,000. That cost does not scale down when utilization does.",
+    body: "The gap between what your infrastructure was built for and what it does. A new practice runs $200,000 to $500,000 to outfit, with exam lane equipment alone $100,000 to $250,000. That cost doesn't shrink when utilization does.",
   },
 ];
 
@@ -153,56 +152,6 @@ export default function Home() {
     <>
       <Hero />
 
-      {/* MACRO THESIS — the "why", mirroring the launch film's opening */}
-      <section className="relative overflow-hidden border-b border-fg/10 bg-surface py-24 md:py-32">
-        <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
-        <div className="xo-container relative grid grid-cols-1 gap-16 lg:grid-cols-12">
-          <div className="lg:col-span-6">
-            <Reveal>
-              <div className="eyebrow mb-6">The problem</div>
-            </Reveal>
-            <MaskTextInView
-              lines={["Demand for eye care", "is rising. Delivery", "capacity is not."]}
-              as="span"
-              className="font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
-            />
-            <Reveal delay={0.1}>
-              <p className="mt-10 max-w-lg text-lg leading-relaxed text-fg/55">
-                More than a billion people live with vision impairment that is
-                preventable or unaddressed, and the gap keeps widening, not because
-                the science is missing, but because care is assembled from
-                disconnected tools, fixed to buildings most of the world will never
-                walk into.
-              </p>
-            </Reveal>
-            <Reveal delay={0.15}>
-              <p className="mt-6 max-w-lg font-display text-2xl leading-snug text-fg/85">
-                This isn't a doctor shortage. It's a system-design problem.
-              </p>
-            </Reveal>
-          </div>
-
-          <div className="lg:col-span-6 lg:pl-10">
-            <div className="grid grid-cols-1 gap-px overflow-hidden rounded-md border border-fg/10 bg-fg/10">
-              {[
-                ["1B+", "people with preventable or unaddressed vision impairment"],
-                ["Rising", "global demand for eye care, year over year"],
-                ["Flat", "delivery capacity under the conventional, building-bound model"],
-              ].map(([stat, label], i) => (
-                <Reveal key={label} delay={i * 0.06} className="bg-bg">
-                  <div className="p-8 md:p-10">
-                    <div className="font-display text-4xl font-semibold text-xo-blue md:text-5xl">
-                      {stat}
-                    </div>
-                    <div className="mt-3 text-[15px] leading-relaxed text-fg/55">{label}</div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Layout: sticky anchors + content */}
       <div className="bg-bg">
         <div className="xo-container grid grid-cols-1 gap-16 py-24 lg:grid-cols-12 lg:py-32">
@@ -214,7 +163,7 @@ export default function Home() {
             {/* SECTION 1 — Capacity */}
             <section id="capacity" className="scroll-mt-32">
               <Reveal>
-                <div className="eyebrow mb-6">01 · Where your capacity goes</div>
+                <div className="eyebrow mb-6">01 · Where capacity goes</div>
               </Reveal>
               <MaskTextInView
                 lines={["Some of the most expensive", "space in a practice isn't", "on the floor plan."]}
@@ -223,11 +172,10 @@ export default function Home() {
               />
               <Reveal delay={0.1}>
                 <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
-                  Eye care has always measured growth in physical terms. More
-                  patients meant more lanes; more lanes meant more square footage,
-                  capital, and overhead. But the largest constraints on what a
-                  practice can deliver aren't physical at all. They sit in the gaps
-                  between activity, hiding in plain sight. There are four of them.
+                  Growth in eye care has always meant more lanes, more square
+                  footage, more capital. But the real limit on what a practice
+                  can deliver isn't physical. It's the time that disappears
+                  between the steps of care. There are four places it goes.
                 </p>
               </Reveal>
 
@@ -272,100 +220,51 @@ export default function Home() {
               </Reveal>
               <Reveal>
                 <p className="mt-10 max-w-2xl font-display text-2xl leading-snug text-fg/80">
-                  Efficiency is not a cost argument in eye care. It is the only
+                  Efficiency isn't a cost argument in eye care. It's the only
                   growth available without building anything.
                 </p>
-              </Reveal>
-            </section>
-
-            {/* SECTION 2 — One visit */}
-            <section id="one-visit" className="mt-40 scroll-mt-32">
-              <Reveal>
-                <div className="eyebrow mb-6">02 · One system, start to finish</div>
-              </Reveal>
-              <Reveal delay={0.02}>
-                <img
-                  src="/logos/xo-vision-care-system-horiz.webp"
-                  alt="The XO Vision Care System"
-                  width={1390}
-                  height={253}
-                  className="mb-8 block h-[52.8px] w-auto md:h-[66px] dark:hidden"
-                />
-                <img
-                  src="/logos/xo-vision-care-system-horiz-dark.webp"
-                  alt=""
-                  aria-hidden="true"
-                  width={1390}
-                  height={253}
-                  className="mb-8 hidden h-[52.8px] w-auto md:h-[66px] dark:block"
-                />
-              </Reveal>
-              <MaskTextInView
-                lines={["The visit doesn't stop", "between the steps."]}
-                as="span"
-                className="font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
-              />
-              <Reveal delay={0.1}>
-                <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
-                  Care begins before the patient walks through the door, and then
-                  the waiting starts. Waiting for a lane. Waiting while the
-                  prescription makes its way to the dispensary. Waiting while an
-                  order is rebuilt from a chart. Those gaps are the day, and
-                  fewer handoffs means fewer places for the schedule to slip.
-                  The XO Vision Care System closes them: four steps designed as
-                  one system rather than assembled from four purchases. A day
-                  that holds its shape has room in it.
-                </p>
-              </Reveal>
-
-              <div className="mt-14 space-y-px overflow-hidden rounded-md border border-fg/10 bg-fg/10">
-                {[
-                  ["Before they arrive", "Care begins at booking, not at check-in. xoIris manages scheduling, reminders, and chair utilization, aligning demand with capacity and filling openings from patients already due, so the day starts full instead of catching up. It's the foundation everything after it is built on."],
-                  ["The exam experience", "One wearable device instead of a lane built from separate instruments. Objective and subjective refraction in the same workflow, with no stop between."],
-                  ["At the fitting", "The optician opens xoFit and the prescription is already loaded, along with the patient's history. Nothing to chase, nothing to re-ask."],
-                  ["At the finish", "The lab specification is complete the moment the sale closes, whether the job stays in the building or goes out."],
-                ].map(([t, b], i) => (
-                  <Reveal key={t} delay={i * 0.04} className="bg-surface">
-                    <div className="grid grid-cols-1 gap-4 p-8 transition-colors duration-500 hover:bg-fg/[0.02] md:grid-cols-12 md:p-10">
-                      <div className="font-display text-xl text-fg md:col-span-4">{t}</div>
-                      <p className="text-[15px] leading-relaxed text-fg/50 md:col-span-8">{b}</p>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-
-              <Reveal delay={0.1} className="mt-12">
-                <p className="max-w-2xl font-display text-2xl leading-snug text-fg/85 md:text-3xl">
-                  One system. From appointment to finished eyewear. Not four
-                  products that work together. A visit that never has to stop.
-                </p>
-              </Reveal>
-
-              <Reveal className="mt-10">
-                <Link
-                  to="/xo-vision-care-system"
-                  data-testid="home-system-link"
-                  className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-xo-blue"
-                >
-                  See how the system works
-                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </Link>
               </Reveal>
             </section>
           </div>
         </div>
 
-        {/* SECTION 3 — Components (full width) */}
-        <section id="components" className="scroll-mt-32 border-t border-fg/10 bg-surface py-24 md:py-32">
+        {/* SECTION 2 — The system (full width, merges old "one visit" + "components") */}
+        <section id="system" className="scroll-mt-32 border-t border-fg/10 bg-surface py-24 md:py-32">
           <div className="xo-container">
             <Reveal>
-              <div className="eyebrow mb-6">03 · The components</div>
+              <div className="eyebrow mb-6">02 · The system</div>
+            </Reveal>
+            <Reveal delay={0.02}>
+              <img
+                src="/logos/xo-vision-care-system-horiz.webp"
+                alt="The XO Vision Care System"
+                width={1390}
+                height={253}
+                className="mb-8 block h-[52.8px] w-auto md:h-[66px] dark:hidden"
+              />
+              <img
+                src="/logos/xo-vision-care-system-horiz-dark.webp"
+                alt=""
+                aria-hidden="true"
+                width={1390}
+                height={253}
+                className="mb-8 hidden h-[52.8px] w-auto md:h-[66px] dark:block"
+              />
             </Reveal>
             <MaskTextInView
-              lines={["Four points of contact.", "One patient journey."]}
+              lines={["Every step starts where", "the last one ended."]}
               as="span"
               className="font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
             />
+            <Reveal delay={0.1}>
+              <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
+                Most practices run on tools bought separately and connected
+                after the fact. Every seam between them costs time. The XO
+                Vision Care System was designed as one system across the
+                whole visit, so nothing waits on the step before it to catch
+                up.
+              </p>
+            </Reveal>
 
             <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
               {PRODUCTS.map((p, i) => (
@@ -411,33 +310,41 @@ export default function Home() {
             </div>
 
             <Reveal className="mt-16">
-              <p className="font-display text-3xl font-medium leading-snug tracking-tight text-fg md:text-4xl">
-                The system is the advantage.
+              <p className="max-w-2xl text-lg leading-relaxed text-fg/55">
+                Any one component earns its place. Together they compound, each
+                step handing the next a head start, so capacity builds across
+                the whole visit instead of leaking between the parts.
               </p>
-              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-fg/55">
-                Any one component earns its place. Together they compound, each step
-                handing the next a head start, so capacity builds across the whole
-                visit instead of leaking between the parts.
-              </p>
+            </Reveal>
+
+            <Reveal className="mt-10">
+              <Link
+                to="/xo-vision-care-system"
+                data-testid="home-system-link"
+                className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-xo-blue"
+              >
+                See how the system works
+                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </Link>
             </Reveal>
           </div>
         </section>
 
-        {/* SECTION 4 — Six outcomes */}
-        <section id="outcomes" className="scroll-mt-32 border-t border-fg/10 bg-bg py-24 md:py-32">
+        {/* SECTION 3 — What it delivers */}
+        <section id="delivers" className="scroll-mt-32 border-t border-fg/10 bg-bg py-24 md:py-32">
           <div className="xo-container">
             <Reveal>
-              <div className="eyebrow mb-6">04 · The six outcomes</div>
+              <div className="eyebrow mb-6">03 · What it delivers</div>
             </Reveal>
             <MaskTextInView
-              lines={["Every recommendation ties back", "to six measurable results."]}
+              lines={["Six results a practice", "can measure."]}
               as="span"
               className="font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
             />
             <Reveal delay={0.1}>
               <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
-                This is what the components above are for. Not features on a spec
-                sheet: outcomes a practice can measure, one visit at a time.
+                Not a spec sheet. Outcomes you can see in the schedule, in the
+                chart, and on the books.
               </p>
             </Reveal>
 
@@ -445,10 +352,7 @@ export default function Home() {
               {SIX_OUTCOMES.map((o, i) => (
                 <Reveal key={o.key} delay={i * 0.05} className="bg-surface">
                   <div className="group h-full p-8 transition-colors duration-500 hover:bg-fg/[0.02] md:p-10">
-                    <div className="font-mono text-sm text-xo-blue">
-                      {String(i + 1).padStart(2, "0")}
-                    </div>
-                    <h3 className="mt-4 font-display text-2xl text-fg">{o.title}</h3>
+                    <h3 className="font-display text-2xl text-fg">{o.title}</h3>
                     <p className="mt-4 text-[15px] leading-relaxed text-fg/50">{o.body}</p>
                   </div>
                 </Reveal>
@@ -457,7 +361,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SECTION 5 — Proof */}
+        {/* SECTION 4 — Proof */}
         <section id="proof" className="scroll-mt-32 relative overflow-hidden border-t border-fg/10 py-24 md:py-32">
           <div aria-hidden className="pointer-events-none absolute inset-0">
             <img src={IMAGES.clinic} alt="" className="h-full w-full object-cover opacity-15" />
@@ -466,7 +370,7 @@ export default function Home() {
           <div className="xo-container relative grid grid-cols-1 gap-16 lg:grid-cols-12">
             <div className="lg:col-span-6">
               <Reveal>
-                <div className="eyebrow mb-6">05 · Where it proves out</div>
+                <div className="eyebrow mb-6">04 · Where it proves out</div>
               </Reveal>
               <MaskTextInView
                 lines={["If it works where", "there is no clinic,", "it works in yours."]}
@@ -475,11 +379,11 @@ export default function Home() {
               />
               <Reveal delay={0.1}>
                 <p className="mt-10 max-w-lg text-lg leading-relaxed text-fg/55">
-                  Most eye care technology assumes a building: a lane, a darkroom, a
-                  licensed practitioner down the hall. That assumption holds in a
-                  suburban practice. It does not hold in most of the world. The
-                  global eye care workforce isn't evenly distributed. It's
-                  concentrated.
+                  Most eye care technology assumes a building: a lane, a
+                  darkroom, a licensed practitioner down the hall. That
+                  assumption holds in a suburban practice. It doesn't hold in
+                  most of the world, where the eye care workforce isn't spread
+                  thin so much as concentrated in a handful of places.
                 </p>
               </Reveal>
               <Reveal delay={0.15}>
@@ -509,7 +413,6 @@ export default function Home() {
                     />
                   </a>
                   <p className="text-[15px] leading-relaxed text-fg/70">
-                    This is why{" "}
                     <a
                       href="https://eyecare4kids.org/"
                       target="_blank"
@@ -519,11 +422,10 @@ export default function Home() {
                     >
                       EyeCare4Kids<sup className="ml-0.5 text-[0.55em] top-[-0.6em] relative">®</sup>
                     </a>{" "}
-                    partners with Xenon to help with its mission: our eye care
-                    delivery model lets them reach children a legacy system
-                    never could. In July 2026, Xenon introduced xoExam, our
-                    exam component of the XO Vision Care System, at Nelson
-                    Mandela Children's Hospital in South Africa with{" "}
+                    partners with Xenon because our delivery model reaches
+                    children a building-bound system never could. In July
+                    2026, Xenon introduced xoExam at Nelson Mandela
+                    Children's Hospital in South Africa with{" "}
                     <a
                       href="https://eyecare4kids.org/"
                       target="_blank"
@@ -563,8 +465,8 @@ export default function Home() {
           <div className="xo-container relative mt-20">
             <Reveal>
               <p className="max-w-3xl font-display text-2xl leading-snug tracking-tight text-fg md:text-3xl">
-                The structure stays the same. The scale changes. Integration
-                increases capacity, and capacity expands access.
+                The structure stays the same. Only the scale changes.
+                Integration increases capacity, and capacity expands access.
               </p>
             </Reveal>
             <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-fg/10 bg-fg/10 md:grid-cols-4">
@@ -583,27 +485,28 @@ export default function Home() {
         </section>
       </div>
 
-      {/* Featured objective statement */}
-      <section className="relative overflow-hidden border-t border-fg/10 bg-bg py-24 md:py-32">
-        <div className="xo-container">
-          <Reveal>
-            <div className="relative overflow-hidden rounded-md bg-gradient-to-br from-xo-navy-deep to-xo-navy-deeper p-10 md:p-16">
-              <div aria-hidden className="pointer-events-none absolute inset-0 spotlight" />
-              <div className="relative">
-                <div className="font-mono text-xs uppercase tracking-[0.2em] text-white/50">Our goal</div>
-                <p
-                  data-testid="home-goal-statement"
-                  className="mt-6 max-w-3xl font-display text-3xl font-medium leading-snug tracking-tight text-white sm:text-4xl lg:text-5xl"
-                >
-                  {SYSTEM_GOAL_STATEMENT}
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
+      {/* SECTION 5 — See it work */}
       <div id="demo" className="scroll-mt-32">
+        <section className="relative overflow-hidden border-t border-fg/10 bg-bg py-24 md:py-32">
+          <div className="xo-container">
+            <Reveal>
+              <div className="eyebrow mb-6">05 · See it work</div>
+            </Reveal>
+            <MaskTextInView
+              lines={["Built around how", "your practice runs."]}
+              as="span"
+              className="max-w-3xl font-display text-4xl font-medium leading-[1.02] tracking-tight text-fg sm:text-5xl lg:text-6xl"
+            />
+            <Reveal delay={0.1}>
+              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
+                No two practices lose capacity in the same place. The XO
+                Vision Care System starts from the workflow you already have
+                and closes the gaps in it.
+              </p>
+            </Reveal>
+          </div>
+        </section>
+
         <DemoCTA />
       </div>
     </>

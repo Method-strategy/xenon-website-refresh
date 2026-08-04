@@ -52,7 +52,7 @@ export const PRODUCTS = [
     logoWidth: 104,
     logoHeight: 25,
     blurb:
-      "Where the visit begins. xoIris automates booking and patient communication, predicts no-shows, and fills cancellations by reaching nearby patients already due for care.",
+      "The visit starts at booking. xoIris handles scheduling, reminders, and recall, predicts no-shows, and fills a cancellation by reaching patients nearby who are already due. The day starts full instead of catching up.",
   },
   {
     key: "xoexam",
@@ -63,7 +63,7 @@ export const PRODUCTS = [
     logoWidth: 154,
     logoHeight: 24,
     blurb:
-      "A wearable, medical-grade eye exam platform bringing 19 doctor-led vision tests into a single device. Run by the patient, a technician, or the doctor. Certified by the doctor in every case.",
+      "An entire suite of doctor-led vision tests in one wearable device, replacing a lane assembled from separate instruments. Objective and subjective refraction run in the same workflow. Run it with the patient, a technician, or yourself. You certify every result.",
   },
   {
     key: "xofit",
@@ -74,7 +74,7 @@ export const PRODUCTS = [
     logoWidth: 102,
     logoHeight: 25,
     blurb:
-      "Digital centration and frame measurement in three form factors: a wall-mounted station, a handheld unit, and a virtual try-on patients use themselves. Measurements pass straight to finishing.",
+      "The optician opens xoFit and the prescription is already loaded. Digital centration and frame measurement in three form factors: a wall-mounted station, a handheld unit, and a virtual try-on patients use themselves.",
   },
   {
     key: "xolab",
@@ -85,7 +85,7 @@ export const PRODUCTS = [
     logoWidth: 119,
     logoHeight: 24,
     blurb:
-      "Frame tracing, blocking, and edging in a compact in-office footprint. Finished eyewear on site, as fast as same day, with the margin that would otherwise leave with the lab bill.",
+      "Frame tracing, blocking, and edging in a footprint sized for a practice. The lab specification is written the moment the sale closes. Finished eyewear on site, as fast as same day, with the margin that would otherwise leave with the lab bill.",
   },
 ];
 
@@ -96,12 +96,12 @@ export const PRODUCTS = [
 // features directly to the outcome(s) they drive. Do not edit wording
 // without checking against the source sales document first.
 export const SIX_OUTCOMES = [
-  { key: "time", title: "Time", body: "Give physicians and staff more productive time." },
-  { key: "profitability", title: "Profitability", body: "Increase efficiency while reducing operating costs." },
-  { key: "control", title: "Control", body: "Reduce dependence on staffing, space, and inefficient processes." },
-  { key: "patient-experience", title: "Patient Experience", body: "Create faster, easier, and more comfortable patient visits." },
-  { key: "clinical-quality", title: "Clinical Quality", body: "Improve consistency, documentation accuracy, and decision-making." },
-  { key: "practice-growth", title: "Practice Growth", body: "Enable practices to expand capacity without proportionally increasing overhead." },
+  { key: "time", title: "Time", body: "Hours back in the day. Less spent on handoffs and documentation, more spent on patients." },
+  { key: "profitability", title: "Profitability", body: "More done with what you already own. Throughput rises without operating cost rising to match." },
+  { key: "control", title: "Control", body: "Less dependence on perfect staffing, an open room, and everything going to plan." },
+  { key: "patient-experience", title: "Patient Experience", body: "A visit that moves. Less waiting, fewer repeated questions, a clear path from exam to eyewear." },
+  { key: "clinical-quality", title: "Clinical Quality", body: "The same standard every time. Consistent capture, consistent documentation, consistent handoff." },
+  { key: "practice-growth", title: "Practice Growth", body: "Room to grow without building. Capacity expands ahead of overhead instead of behind it." },
 ];
 
 // The objective statement from the same sales doc. Used as a featured
