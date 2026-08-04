@@ -104,11 +104,6 @@ export const SIX_OUTCOMES = [
   { key: "practice-growth", title: "Practice Growth", body: "Room to grow without building. Capacity expands ahead of overhead instead of behind it." },
 ];
 
-// The objective statement from the same sales doc. Used as a featured
-// closing banner on the Homepage and System overview page.
-export const SYSTEM_GOAL_STATEMENT =
-  "Help every practice achieve better outcomes through intelligent workflow, innovative technology, and optimized operations.";
-
 export const TEAM_BOARD = [
   { name: "Zeshan A. Khan", title: "Founder & CEO", linkedin: "#", email: "#" },
   { name: "Dr. Robert Gilligan, OD", title: "Co-Founder, Medical Relations · Board of Directors", linkedin: "#", email: "#" },

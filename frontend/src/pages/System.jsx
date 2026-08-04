@@ -3,12 +3,12 @@ import { ArrowUpRight } from "lucide-react";
 import { MaskText, MaskTextInView, Reveal } from "@/components/common/Reveal";
 import SectionAnchors from "@/components/common/SectionAnchors";
 import DemoCTA from "@/components/common/DemoCTA";
-import { IMAGES, SIX_OUTCOMES, SYSTEM_GOAL_STATEMENT } from "@/data/site";
+import { IMAGES, SIX_OUTCOMES } from "@/data/site";
 import { usePageMeta } from "@/lib/usePageMeta";
 
 const ANCHORS = [
   { id: "problem", label: "The problem" },
-  { id: "outcomes", label: "The six outcomes" },
+  { id: "outcomes", label: "What it delivers" },
   { id: "schedule", label: "Schedule" },
   { id: "exam", label: "Exam" },
   { id: "fit", label: "Fit" },
@@ -169,12 +169,12 @@ export default function System() {
               </Reveal>
             </section>
 
-            {/* Six outcomes legend */}
+            {/* What it delivers legend */}
             <section id="outcomes" className="mt-24 scroll-mt-32">
               <Reveal>
                 <div className="rounded-md border border-fg/10 bg-surface/60 p-8 md:p-10">
                   <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40">
-                    The six outcomes
+                    What it delivers
                   </div>
                   <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg/60">
                     Every step below, from booking to finished eyewear, is built to
@@ -348,26 +348,6 @@ export default function System() {
           </div>
         </section>
       </div>
-
-      {/* Featured objective statement */}
-      <section className="relative overflow-hidden border-t border-fg/10 bg-bg py-24 md:py-32">
-        <div className="xo-container">
-          <Reveal>
-            <div className="relative overflow-hidden rounded-md bg-gradient-to-br from-xo-navy-deep to-xo-navy-deeper p-10 md:p-16">
-              <div aria-hidden className="pointer-events-none absolute inset-0 spotlight" />
-              <div className="relative">
-                <div className="font-mono text-xs uppercase tracking-[0.2em] text-white/50">Our goal</div>
-                <p
-                  data-testid="system-goal-statement"
-                  className="mt-6 max-w-3xl font-display text-3xl font-medium leading-snug tracking-tight text-white sm:text-4xl lg:text-5xl"
-                >
-                  {SYSTEM_GOAL_STATEMENT}
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
 
       <DemoCTA
         eyebrow="Request a demo"

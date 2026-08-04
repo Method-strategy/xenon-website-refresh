@@ -136,6 +136,8 @@ Added a tailored "What it delivers" section to each of the 4 product pages, deli
 
 ## Homepage full restructure (this session, current date) — DONE
 
+**System page brought in line with homepage (same session):** renamed "The six outcomes" → "What it delivers" (sidebar anchor + legend heading) to match the homepage's renamed section. Removed the closing "Our goal" navy banner (`SYSTEM_GOAL_STATEMENT`) since it no longer exists on the homepage after the restructure — page now flows Deployment → DemoCTA directly, mirroring Home.jsx. Removed the now-fully-unused `SYSTEM_GOAL_STATEMENT` export from `site.js`. Verified via screenshot.
+
 User supplied two documents (an instruction spec `Emergent_Homepage_Prompt.md` + a verbatim copy file `Xenon_Homepage_Copy_v2.md`) requiring a full homepage restructure from "standalone Problem section + 6 anchored sections" down to **5 anchored sections, no standalone problem section**. Implemented verbatim (zero paraphrasing), with zero em/en dashes in any rendered text, preserving all existing visual system/dark-navy theme (content + structure change only, not a redesign).
 
 **Removed entirely:** the standalone "The problem" section (headline "Demand for eye care is rising...", 1B+/Rising/Flat stat card), the old stage-list block ("Before they arrive / The exam experience / At the fitting / At the finish"), the old closing line "One system. From appointment to finished eyewear. Not four products...", and the "OUR GOAL" navy panel (removed from Home.jsx only — `SYSTEM_GOAL_STATEMENT` export kept in `site.js` since System.jsx still uses its own copy of this banner).
