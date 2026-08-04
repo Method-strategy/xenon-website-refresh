@@ -138,6 +138,8 @@ Netlify deploy-cancellation and VTO-hang investigation both closed out this sess
 
 **Verified via `testing_agent_v4` (`iteration_16.json`, 100% pass):** zero `tint-vto` elements/references/network calls remain, new button navigates correctly to a working `/request-a-demo`, width consistency confirmed via screenshots at 2560px/1440px/390px across all 6 pages, no regressions on tabs/FAQ/links/DemoCTA.
 
+**Follow-up (same session):** user asked to match the System page hero logo exactly to Home.jsx section 02's config — switched from the stacked lockup (956x344, `h-12 md:h-14`) to the horizontal lockup at the identical size used on Home (`width=1390 height=253`, `h-[52.8px] md:h-[66px]`). Deleted the now-fully-unused stacked `.webp` logo files. Verified via screenshot in both light and dark theme.
+
 ## Homepage August 2026 revision + width system (this session, current date) — DONE
 
 **Copy revision** (per user's `Xenon_Homepage_01-02_Revision.docx`, 3 verbatim find/replace patches): Section 01 lede now reads "...isn't physical. It's the capacity that quietly disappears before, between, and around the care itself. There are four places it goes." Section 02 H2 changed from "Every step starts where the last one ended." to "Four gaps. One system built to close them." Section 02 lede changed to "All four have the same root cause: tools bought separately and connected after the fact. The XO Vision Care System was designed as one system across the whole visit, from the appointment to the finished pair, so capacity that used to disappear comes back to the practice." Everything else in both sections left untouched per the doc's instruction.

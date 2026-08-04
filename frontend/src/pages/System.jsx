@@ -104,19 +104,19 @@ export default function System() {
         <div aria-hidden className="pointer-events-none absolute inset-0 spotlight" />
         <div className="xo-container relative">
           <img
-            src="/logos/xo-vision-care-system.webp"
+            src="/logos/xo-vision-care-system-horiz.webp"
             alt="The XO Vision Care System"
-            width={956}
-            height={344}
-            className="mb-8 block h-12 w-auto md:h-14 dark:hidden"
+            width={1390}
+            height={253}
+            className="mb-8 block h-[52.8px] w-auto md:h-[66px] dark:hidden"
           />
           <img
-            src="/logos/xo-vision-care-system-dark.webp"
+            src="/logos/xo-vision-care-system-horiz-dark.webp"
             alt=""
             aria-hidden="true"
-            width={956}
-            height={344}
-            className="mb-8 hidden h-12 w-auto md:h-14 dark:block"
+            width={1390}
+            height={253}
+            className="mb-8 hidden h-[52.8px] w-auto md:h-[66px] dark:block"
           />
           <MaskText
             lines={["One system.", "From appointment", "to finished eyewear."]}
