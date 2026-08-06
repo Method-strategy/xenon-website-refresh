@@ -106,7 +106,11 @@ async function runApplyLanguage(code) {
   }
 
   for (let attempt = 0; attempt < 25; attempt++) {
-    selectLanguage(code);
+    const combo = document.querySelector(".goog-te-combo");
+    const target = code === "en" ? "" : code;
+    if (combo && combo.value !== target) {
+      selectLanguage(code);
+    }
     await new Promise((r) => setTimeout(r, 250));
   }
 }
