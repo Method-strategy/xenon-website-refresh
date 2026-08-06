@@ -251,3 +251,16 @@ Picked up from a forked session where the previous agent was interrupted mid-edi
 3. VTO re-integration (blocked on vendor SDK)
 4. Font metric tuning
 5. Shared product page component refactor (Iris/Exam/Fit/Lab)
+
+
+## Privacy Policy / Cookie Policy text accuracy pass (2026-02, this session)
+
+User provided `Xenon Privacy and Cookie Policies 08-06-2026.docx` (source of truth, dated "Last updated: July 23, 2026" internally) and asked to (1) reconcile our legal pages against it, and (2) match our cookie-consent banner/modal wording to the live legacy site `xophthalmics.com` (design untouched, text only).
+
+- **New page:** `/cookie-policy` (`CookiePolicy.jsx`) — did not exist before. Full 7-section Cookie Policy + a 9-row cookie details table (desktop `<table>`, mobile stacked cards), covering Xenon/Cloudflare/Square (Strictly Necessary), Google Analytics (Analytics/Performance), Google Translate (Translation), and 4x HubSpot cookies (Marketing/Advertising).
+- **`PrivacyPolicy.jsx` corrections** (diffed word-for-word against the docx, 6 gaps found and fixed): added a missing "Our Cookie Policy names what that involves" reference, a missing paragraph in "Cookies and your consent" pointing to the new Cookie Policy, a missing middle passage in "How your choice works" (page-reload-clean / provider-domain-cookie removal / retired-tool cleanup), a missing Square privacy-policy link, a missing "(Europa)" typeface name + missing Adobe privacy-policy link in "Fonts", and removed an extra "in the footer" phrase not present in the source doc.
+- **New shared helper:** `components/common/RichText.jsx` — renders a paragraph built from plain strings + inline `{to}`/`{href}` link segments; used by `PrivacyPolicy.jsx`, `CookiePolicy.jsx`, and `CookieConsent.jsx` to keep rich inline links DRY.
+- **`CookieConsent.jsx` text rewrite to match the live site verbatim:** banner copy now matches xophthalmics.com's exact wording (including the "By continuing to use this site, you agree to our Terms of Service..." sentence that was previously missing entirely) with working links to Cookie Policy/Privacy Policy/Terms. Modal intro copy, all 4 category labels (`Analytics/Performance`, `Marketing/Advertising` — previously used "&" instead of "/"), and category body text now match the live site's Preferences modal (per user-provided screenshots) with per-category Cookie Policy links. Modal's decline button renamed `Reject all` (banner's stays `Decline all`) to match the legacy site's own — slightly inconsistent — labeling between its banner and modal.
+- **Intentional deviation (flagged to user, not silently done):** dropped the legacy site's trailing Translation-category sentence "Tapping the Translate control also offers to turn this on" — our site has no floating Google Translate button/control, so keeping that sentence would misrepresent this site's actual behavior.
+- **Footer:** added a `COOKIE POLICY` link (between Privacy Policy and Terms of Service).
+- Verified via `testing_agent_v4` (`iteration_18.json`): 100% pass, zero console errors, all new links/routes/table rows/toggle-persistence confirmed working, no regressions.
