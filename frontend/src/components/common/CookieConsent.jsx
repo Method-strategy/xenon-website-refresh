@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, ShieldCheck, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
+import { RichText } from "@/components/common/RichText";
 
 const STORAGE_KEY = "xo_consent_v1";
 const OPEN_EVENT = "xo:cookie-preferences";
@@ -11,22 +12,38 @@ const CATEGORIES = [
     id: "necessary",
     label: "Strictly necessary",
     required: true,
-    body: "Required for the site to function: security, load balancing, and remembering your cookie choice. Always on.",
+    bodyRich: [
+      "Required to run the site and remember your cookie choice. Always active, and cannot be turned off. See our ",
+      { to: "/cookie-policy", label: "Cookie Policy" },
+      " for details.",
+    ],
   },
   {
     id: "analytics",
-    label: "Analytics & performance",
-    body: "Aggregate, anonymized usage data so we can understand what's working. Off unless you switch it on.",
+    label: "Analytics/Performance",
+    bodyRich: [
+      "Helps us understand how the site is used. Off until you turn it on. See our ",
+      { to: "/cookie-policy", label: "Cookie Policy" },
+      " for the specific cookies, providers, and durations.",
+    ],
   },
   {
     id: "marketing",
-    label: "Marketing & advertising",
-    body: "May involve a \"sale\" or \"sharing\" of information under some US state laws. Off unless you switch it on.",
+    label: "Marketing/Advertising",
+    bodyRich: [
+      'Supports our follow-up and advertising, and may involve a "sale" or "sharing" of information under some US state laws. Off until you turn it on. See our ',
+      { to: "/cookie-policy", label: "Cookie Policy" },
+      " for the specific cookies, providers, and durations.",
+    ],
   },
   {
     id: "translation",
     label: "Translation",
-    body: "Loads third-party page translation. Off unless you switch it on.",
+    bodyRich: [
+      "Translates our pages into other languages. Off until you turn it on. See our ",
+      { to: "/cookie-policy", label: "Cookie Policy" },
+      " for the specific cookies, providers, and durations.",
+    ],
   },
 ];
 
@@ -133,12 +150,34 @@ export default function CookieConsent() {
                     Your choice, your controls
                   </div>
                   <p className="mt-3 max-w-3xl text-[13.5px] leading-relaxed text-fg/70">
-                    We use cookies and similar technologies. Except for those
-                    strictly necessary to run the site, none are active until
-                    you consent; the default is off. You can accept all,
-                    decline all, or choose which categories run, and you can
-                    change or withdraw your choice at any time. Details are in
-                    our{" "}
+                    We use cookies and similar technologies. Except for
+                    those strictly necessary to run the site, none are
+                    active until you consent - the default is off. You
+                    can accept all, decline all, or choose which
+                    categories run, and you can change or withdraw your
+                    choice anytime. Details on the categories, providers,
+                    and data involved are in our{" "}
+                    <Link
+                      to="/cookie-policy"
+                      className="text-fg underline decoration-fg/25 underline-offset-4 transition-colors hover:text-xo-blue"
+                    >
+                      Cookie Policy
+                    </Link>{" "}
+                    and{" "}
+                    <Link
+                      to="/privacy-policy"
+                      className="text-fg underline decoration-fg/25 underline-offset-4 transition-colors hover:text-xo-blue"
+                    >
+                      Privacy Policy
+                    </Link>
+                    . By continuing to use this site, you agree to our{" "}
+                    <Link
+                      to="/terms-and-conditions"
+                      className="text-fg underline decoration-fg/25 underline-offset-4 transition-colors hover:text-xo-blue"
+                    >
+                      Terms of Service
+                    </Link>{" "}
+                    and acknowledge our{" "}
                     <Link
                       to="/privacy-policy"
                       className="text-fg underline decoration-fg/25 underline-offset-4 transition-colors hover:text-xo-blue"
@@ -226,9 +265,18 @@ export default function CookieConsent() {
 
               <div className="max-h-[60vh] overflow-y-auto px-8 py-6">
                 <p className="text-[13.5px] leading-relaxed text-fg/60">
-                  Nothing in a category loads until you turn it on. Withdraw
-                  consent at any time and the category's cookies are deleted
-                  from your browser immediately.
+                  Everything except strictly necessary cookies is off by
+                  default. Turn on only the categories you want using the
+                  toggles. Full details on each category, the specific
+                  cookies, providers, data, and how long they last, are in
+                  our{" "}
+                  <Link
+                    to="/cookie-policy"
+                    className="text-fg underline decoration-fg/25 underline-offset-4 hover:text-xo-blue"
+                  >
+                    Cookie Policy
+                  </Link>
+                  . You can change or withdraw your choices anytime.
                 </p>
 
                 <div className="mt-6 space-y-4">
@@ -251,7 +299,7 @@ export default function CookieConsent() {
                               )}
                             </div>
                             <p className="mt-2 text-[13px] leading-relaxed text-fg/55">
-                              {cat.body}
+                              <RichText segments={cat.bodyRich} />
                             </p>
                           </div>
                           <button
@@ -283,6 +331,13 @@ export default function CookieConsent() {
                   <code className="font-mono text-fg/60">xo_consent_v1</code>)
                   and is never sent to our servers. See our{" "}
                   <Link
+                    to="/cookie-policy"
+                    className="text-fg underline decoration-fg/25 underline-offset-4 hover:text-xo-blue"
+                  >
+                    Cookie Policy
+                  </Link>{" "}
+                  and{" "}
+                  <Link
                     to="/privacy-policy"
                     className="text-fg underline decoration-fg/25 underline-offset-4 hover:text-xo-blue"
                   >
@@ -299,7 +354,7 @@ export default function CookieConsent() {
                   data-testid="cookie-modal-decline"
                   className="rounded-full border border-fg/20 px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.15em] text-fg/80 transition-colors duration-300 hover:border-fg/50 hover:text-fg"
                 >
-                  Decline all
+                  Reject all
                 </button>
                 <button
                   type="button"

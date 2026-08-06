@@ -172,6 +172,16 @@ export default function Footer() {
             <li aria-hidden className="text-white/20">·</li>
             <li>
               <Link
+                to="/cookie-policy"
+                data-testid="footer-cookie-policy"
+                className="transition-colors hover:text-white"
+              >
+                COOKIE POLICY
+              </Link>
+            </li>
+            <li aria-hidden className="text-white/20">·</li>
+            <li>
+              <Link
                 to="/terms-and-conditions"
                 data-testid="footer-terms"
                 className="transition-colors hover:text-white"

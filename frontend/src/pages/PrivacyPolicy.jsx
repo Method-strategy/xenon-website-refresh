@@ -1,4 +1,5 @@
 import { MaskText, Reveal } from "@/components/common/Reveal";
+import { RichText } from "@/components/common/RichText";
 import { usePageMeta } from "@/lib/usePageMeta";
 
 const SECTIONS = [
@@ -32,7 +33,13 @@ const SECTIONS = [
           ["Order and preorder forms.", "Contact and shipping details, your product choices, your signature where required, and payment through Square (see Payments below)."],
         ],
         body: [
-          "Form submissions are stored on our website's server and sent to us by email. We keep them as long as we need them to handle your request and to meet business and legal record-keeping obligations. If you have turned on Marketing/Advertising, HubSpot also receives form submissions so we can follow up properly.",
+          {
+            rich: [
+              "Form submissions are stored on our website's server and sent to us by email. We keep them as long as we need them to handle your request and to meet business and legal record-keeping obligations. If you have turned on Marketing/Advertising, HubSpot also receives form submissions so we can follow up properly. Our ",
+              { to: "/cookie-policy", label: "Cookie Policy" },
+              " names what that involves.",
+            ],
+          },
         ],
       },
       {
@@ -47,6 +54,13 @@ const SECTIONS = [
     heading: "Cookies and your consent",
     body: [
       "In short: when you first visit, nothing optional runs. A banner asks for your choice, with Accept all, Decline all, and Preferences carrying equal weight. Analytics/Performance, Marketing/Advertising, and Translation each have their own independent toggle, all off by default. Your choice is stored in your browser, not on our servers, and you can change it any time using the Cookie Preferences link in the footer of every page.",
+      {
+        rich: [
+          "Our ",
+          { to: "/cookie-policy", label: "Cookie Policy" },
+          " is the full account: every cookie we use, by category, with its provider, purpose, type, and how long it lasts. We keep the detail in that one document so it stays accurate, rather than repeating it here where the two could drift apart.",
+        ],
+      },
     ],
     subsections: [
       {
@@ -54,6 +68,13 @@ const SECTIONS = [
         body: [
           "Your decision lives in your browser in a single small entry named xo_consent_v1. It records which categories you turned on and when, identifies no one, and is never sent anywhere, including to us. We ask again after 12 months, or sooner if we add a new category. Declining is one click and never degrades the parts of the site we control.",
           "Nothing in a category loads until you turn that category on. We do not load tracking code in a paused or limited state, and we do not send anonymous pings while you have not decided. Withdrawing consent is immediate: turn a toggle off and that category's cookies are deleted from your browser on the spot, and its code stops loading.",
+          {
+            rich: [
+              "If it was running on the page you are on, the page reloads clean. Cookies that a provider set on its own domain can only be removed in your browser settings; the ",
+              { to: "/cookie-policy", label: "Cookie Policy" },
+              " names every provider so you know where to look. Our pages also tidy up after retired tools: cookies left behind by systems we no longer use are cleared automatically.",
+            ],
+          },
           "We honor recognized browser opt-out signals, including Global Privacy Control. If your browser sends one, we detect it, we say so in the Preferences Center, and nothing in Marketing/Advertising runs unless you turn it on there yourself.",
         ],
       },
@@ -62,7 +83,13 @@ const SECTIONS = [
   {
     heading: "Payments (Square)",
     body: [
-      "Payments on our order pages are processed by Square. The card fields are hosted by Square inside secure frames on the page: what you type in them goes directly to Square and never touches our servers. Square sets its own cookies inside those frames for payment security and fraud prevention; they are part of making the payment work.",
+      {
+        rich: [
+          "Payments on our order pages are processed by Square. The card fields are hosted by Square inside secure frames on the page: what you type in them goes directly to Square and never touches our servers. Square sets its own cookies inside those frames for payment security and fraud prevention; they are part of making the payment work. Square's privacy policy: ",
+          { href: "https://squareup.com/us/en/legal/general/privacy", label: "squareup.com/us/en/legal/general/privacy" },
+          ".",
+        ],
+      },
     ],
   },
   {
@@ -80,7 +107,13 @@ const SECTIONS = [
   {
     heading: "Fonts",
     body: [
-      "Our typeface is delivered by Adobe Fonts from Adobe's servers, as Adobe's license requires. To deliver the font files, Adobe receives your IP address and counts the page view for licensing purposes. Adobe states it does not use advertising cookies for this service.",
+      {
+        rich: [
+          "Our typeface (Europa) is delivered by Adobe Fonts from Adobe's servers, as Adobe's license requires. To deliver the font files, Adobe receives your IP address and counts the page view for licensing purposes. Adobe states it does not use advertising cookies for this service. Adobe's privacy policy: ",
+          { href: "https://www.adobe.com/privacy/policy.html", label: "adobe.com/privacy/policy.html" },
+          ".",
+        ],
+      },
     ],
   },
   {
@@ -95,7 +128,7 @@ const SECTIONS = [
     heading: "Your rights",
     body: [
       "If you are in the European Economic Area or the United Kingdom, the GDPR and UK GDPR give you the rights of access, rectification, erasure, restriction, portability, and objection, and the right to withdraw consent at any time (the footer's Cookie Preferences link does exactly that for cookies, instantly, no email needed). You also have the right to complain to your data protection authority, or in the UK, the ICO.",
-      'If you are a California resident, the CCPA/CPRA gives you the rights to know, correct, and delete the personal information we hold about you, and the right to opt out of sale or sharing. Because the Marketing/Advertising category may involve a "sale" or "sharing" under those laws, you can opt out at any time using the Do Not Sell or Share My Personal Information control in the footer, which turns that category off and deletes its cookies immediately. We also honor Global Privacy Control signals, and everything optional stays off unless you switch it on.',
+      'If you are a California resident, the CCPA/CPRA gives you the rights to know, correct, and delete the personal information we hold about you, and the right to opt out of sale or sharing. Because the Marketing/Advertising category may involve a "sale" or "sharing" under those laws, you can opt out at any time using the Do Not Sell or Share My Personal Information control, which turns that category off and deletes its cookies immediately. We also honor Global Privacy Control signals, and everything optional stays off unless you switch it on.',
       "To exercise any of these rights, email privacy@xophthalmics.com. We will verify the request and answer within the legal deadline that applies to you. We never discriminate against you for exercising a privacy right.",
     ],
   },
@@ -128,6 +161,13 @@ function Body({ items }) {
       return (
         <p key={i} className="text-[15.5px] leading-relaxed text-fg/70">
           {item}
+        </p>
+      );
+    }
+    if (item.rich) {
+      return (
+        <p key={i} className="text-[15.5px] leading-relaxed text-fg/70">
+          <RichText segments={item.rich} />
         </p>
       );
     }
