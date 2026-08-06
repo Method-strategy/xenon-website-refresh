@@ -47,6 +47,7 @@ export function loadGoogleTranslate() {
 export function mountWidget() {
   const host = ensureHost();
   if (host.dataset.mounted === "true" || !window.google?.translate?.TranslateElement) return;
+  host.dataset.mounted = "true"; // set before construction to close the race window
   // eslint-disable-next-line no-new
   new window.google.translate.TranslateElement(
     {
@@ -58,7 +59,6 @@ export function mountWidget() {
     },
     WIDGET_ID,
   );
-  host.dataset.mounted = "true";
 }
 
 export function selectLanguage(code) {
@@ -69,16 +69,44 @@ export function selectLanguage(code) {
   return true;
 }
 
-// Loads the widget (if needed) and applies the chosen language, retrying
-// briefly since Google renders the <select> asynchronously after init.
-export async function applyLanguage(code) {
-  if (code === "en" && !document.getElementById(WIDGET_ID)?.dataset.mounted) {
-    return; // never loaded, nothing to reset
+// Google reads this cookie itself on (re)init and auto-applies the target
+// language before we ever get a chance to drive the hidden <select> — far
+// more reliable than the select+event trick alone, especially right after
+// a page reload when the widget is constructing itself from scratch.
+function setGoogTransCookie(code) {
+  const value = code === "en" ? "" : `/en/${code}`;
+  const host = window.location.hostname;
+  document.cookie = `googtrans=${value}; path=/`;
+  if (host && host !== "localhost") {
+    document.cookie = `googtrans=${value}; path=/; domain=.${host.replace(/^www\./, "")}`;
   }
-  await loadGoogleTranslate();
-  mountWidget();
-  for (let attempt = 0; attempt < 20; attempt++) {
-    if (selectLanguage(code)) return;
-    await new Promise((r) => setTimeout(r, 150));
+}
+
+// Serializes calls so two near-simultaneous invocations (e.g. React
+// StrictMode's dev-only double effect invoke) never construct the widget
+// twice or dispatch selections against a half-initialized combo.
+let queue = Promise.resolve();
+
+export function applyLanguage(code) {
+  queue = queue.then(() => runApplyLanguage(code)).catch(() => {});
+  return queue;
+}
+
+async function runApplyLanguage(code) {
+  const alreadyMounted = document.getElementById(WIDGET_ID)?.dataset.mounted === "true";
+  if (code === "en" && !alreadyMounted) return; // nothing was ever loaded, nothing to reset
+
+  setGoogTransCookie(code);
+
+  if (!alreadyMounted) {
+    await loadGoogleTranslate();
+    mountWidget();
+    // Give the iframe/combo a moment to finish attaching before driving it.
+    await new Promise((r) => setTimeout(r, 500));
+  }
+
+  for (let attempt = 0; attempt < 25; attempt++) {
+    selectLanguage(code);
+    await new Promise((r) => setTimeout(r, 250));
   }
 }

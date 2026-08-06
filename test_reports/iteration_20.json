@@ -1,0 +1,41 @@
+{
+  "summary": "RETEST of the 3 Google Translate bugs from iteration_19.json plus new mobile-viewport check. All 3 previously-reported bugs are now confirmed FIXED. One new minor cosmetic issue observed (brief text flicker back to source language during the retry loop) that was not present as a distinct bug before but is a side effect of the new repeated re-dispatch fix. Regression checks (consent-gating, cookie-modal sync, dropdown outside-click, notranslate protection, console errors) all still pass.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "googleTranslate.js applyLanguage() retry loop",
+        "issue": "MINOR/NEW: While a language is actively applying (during the ~25x/6s retry loop), the translated page text intermittently flickers back to the original English for roughly 1 second before re-translating (observed consistently at ~t+7s on both desktop and mobile FR tests). Root cause is likely each repeated combo.value+dispatchEvent('change') call causing Google's widget to briefly reset/re-run its translation cycle even though the value hasn't changed. Not a functional blocker since it settles correctly, but is a visible flicker/flash for the end user.",
+        "selector": "[data-testid='language-switcher-toggle']",
+        "priority": "LOW"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "RETEST BUG 1 (CSS banner overlap): CONFIRMED FIXED. All '.skiptranslate' elements/iframes render display:none across the page; no overlap with navbar, body top stays 0px.",
+    "RETEST BUG 2 (reload restores wrong language): CONFIRMED FIXED for both French and Spanish on fully clean sessions (localStorage+cookies cleared). After reload, googtrans cookie, switcher button label, and visible page text all correctly match the originally-picked language (fr -> FR page in French; es -> ES page in Spanish, verified after allowing the ~8s retry window).",
+    "RETEST BUG 3 (immediate same-session translation): CONFIRMED FIXED. Picking French without reloading visually translates the entire page (navbar, hero, body) within ~6-7 seconds, no reload required.",
+    "Mobile viewport (390x844) check: PASSED. Two toggle instances exist in DOM (desktop nav one is hidden via CSS on mobile, mobile nav one is visible) - found via count()+is_visible() loop, not .first. The visible mobile toggle is tappable, dropdown opens with all 9 languages, French selection works and visually translates same as desktop.",
+    "Optional/nice-to-have: consider reducing flicker in the retry loop by checking `combo.value === code` before re-dispatching (skip redundant dispatch when already correctly selected) - this would avoid the ~1s revert-then-reapply flash seen mid-loop while still keeping the retry safety net for the cases where the selection didn't stick."
+  ],
+  "critical_code_review_comments": [
+    "googleTranslate.js: setGoogTransCookie() + mounted-before-construct + promise-queue serialization are all solid, verifiable fixes - cookie is set correctly with 'googtrans=/en/{code}' immediately, confirmed via document.cookie inspection in all test runs.",
+    "The 25x/250ms retry loop is effective for reliability (bug 2 and 3 both fixed) but has a UX side-effect: repeatedly dispatching 'change' on an already-correct combo value causes Google's widget to flicker the page back to source language briefly mid-loop. A value-check guard before dispatching would remove this without weakening the retry safety net.",
+    "index.css broader '.skiptranslate' + 'iframe.skiptranslate' + '.goog-te-banner-frame' selector correctly hides all banner variants observed in the live DOM (div.skiptranslate, iframe#:1.container.skiptranslate, div#goog-gt-tt, div.skiptranslate.goog-te-gadget, and the 2 extra dynamically-injected iframes) - much more robust than the previous stale selector.",
+    "Regression-confirmed still working correctly and unchanged: notranslate protection on switcher button/dropdown (button always showed correct EN/FR/ES/DE code, never mangled by Google), consent-gating (picking non-English sets xo_consent_v1.translation=true), dropdown outside-click-to-close behavior."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (frontend-only testing requested)", "frontend": "100% for the 3 targeted bug retests + mobile check; 1 new low-priority cosmetic flicker noted"},
+  "test_credentials": "N/A - no auth involved in this feature",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "All 3 bugs from iteration_19 are verified fixed via direct DOM/cookie inspection and screenshots on a fully clean browser session (localStorage+cookies cleared before each scenario): (1) no banner overlap - all skiptranslate elements confirmed display:none and body stays at top:0, (2) reload correctly restores fr AND es (tested both) instead of the previously-observed wrong zh-CN fallback, (3) same-session translation now visually applies within ~6-7s without needing a reload, confirmed with French text rendering across navbar+hero+body. Mobile viewport (390x844) newly verified: 2 toggle DOM instances exist (use count()+is_visible() to find the visible one, not .first, since desktop nav's copy is hidden via CSS but still in DOM) - mobile toggle/dropdown/translation all work identically to desktop. One new LOW priority cosmetic issue found: a brief (~1s) flicker back to English mid-way through the retry loop before settling on the target language - this is a side effect of the fix's repeated re-dispatch approach, not a regression of the 3 original bugs, and does not block any functionality. Regression areas (consent-gating, cookie-modal sync, notranslate protection, dropdown outside-click, console errors on home/team/cookie-policy/privacy-policy) all reconfirmed clean.",
+  "rca of the issue": "N/A - this was a retest confirming fixes; no unresolved RCA needed. The one new minor flicker issue's likely cause is documented above (redundant dispatchEvent calls during the 25x retry loop causing Google's widget to re-run its translate cycle even when the value is unchanged)."
+}
