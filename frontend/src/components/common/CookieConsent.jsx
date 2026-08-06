@@ -6,6 +6,7 @@ import { RichText } from "@/components/common/RichText";
 
 const STORAGE_KEY = "xo_consent_v1";
 const OPEN_EVENT = "xo:cookie-preferences";
+const UPDATE_EVENT = "xo:consent-updated";
 
 const CATEGORIES = [
   {
@@ -42,7 +43,7 @@ const CATEGORIES = [
     bodyRich: [
       "Translates our pages into other languages. Off until you turn it on. See our ",
       { to: "/cookie-policy", label: "Cookie Policy" },
-      " for the specific cookies, providers, and durations.",
+      " for the specific cookies, providers, and durations. Tapping the language control also offers to turn this on.",
     ],
   },
 ];
@@ -73,6 +74,19 @@ export function openCookiePreferences() {
   window.dispatchEvent(new CustomEvent(OPEN_EVENT));
 }
 
+export function getConsent() {
+  return { ...defaultState, ...(readStored() || {}) };
+}
+
+// Lets other controls (e.g. the language switcher) flip a single category
+// on/off and persist it through the same storage the banner/modal use, so
+// there's only ever one source of truth for consent.
+export function setConsentCategory(id, value) {
+  const next = writeStored({ ...getConsent(), [id]: value });
+  window.dispatchEvent(new CustomEvent(UPDATE_EVENT, { detail: next }));
+  return next;
+}
+
 export default function CookieConsent() {
   const [decided, setDecided] = useState(true); // start optimistic to avoid FOUC
   const [showPrefs, setShowPrefs] = useState(false);
@@ -94,6 +108,17 @@ export default function CookieConsent() {
     const handler = () => setShowPrefs(true);
     window.addEventListener(OPEN_EVENT, handler);
     return () => window.removeEventListener(OPEN_EVENT, handler);
+  }, []);
+
+  // Stay in sync when consent is updated from outside this component
+  // (e.g. picking a language flips the Translation category on).
+  useEffect(() => {
+    const handler = (e) => {
+      setPrefs((p) => ({ ...p, ...e.detail }));
+      setDecided(true);
+    };
+    window.addEventListener(UPDATE_EVENT, handler);
+    return () => window.removeEventListener(UPDATE_EVENT, handler);
   }, []);
 
   const acceptAll = () => {

@@ -1,0 +1,49 @@
+{
+  "summary": "Frontend-only testing of: (1) Team page typo fix, (2) new Google Translate LanguageSwitcher + cookie-consent gating integration. Team fix confirmed correct. LanguageSwitcher UI/UX, consent-gating, dropdown, notranslate protection, and cookie-modal sync all work correctly. Found 2 real integration bugs (not the documented 'Google servers blocked' environment caveat - translation DOES visually render in this env) plus 1 CSS bug.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "googleTranslate.js / index.css",
+        "issue": "Google's default translate banner bar (top strip: 'Google | Translated to: X ▼ | Show original | Options') is NOT hidden and remains fully visible, pushing page content down when a non-English language is active. The CSS in index.css targets '.goog-te-banner-frame' but the actual iframe rendered by Google in this app has class 'VIpgJd-ZVi9od-ORHb-OEVmcd skiptranslate' (id ':1.container') - a mismatch, so the hide rule never applies. Confirmed visually in screenshots (banner overlaps navbar).",
+        "selector": "iframe[id=':1.container']",
+        "priority": "HIGH"
+      }
+    ],
+    "integration_issues": [
+      {
+        "flow": "Reload persistence of chosen language (LanguageSwitcher.jsx useEffect auto-apply on mount)",
+        "issue": "CRITICAL: After selecting French and reloading, the page comes back translated into Chinese (zh-CN), NOT French, even though localStorage 'xo_language' correctly still reads 'fr' and the switcher button still shows 'FR'. Confirmed with a fully clean browser (cookies + localStorage cleared) so it isn't leftover state. Google's own 'googtrans' cookie ends up as '/en/zh-CN' after reload despite our applyLanguage('fr') retry loop running on mount. Manually re-opening the dropdown and re-clicking French immediately fixes it correctly (page renders proper French text, googtrans cookie becomes /en/fr) - proving the core selectLanguage()/applyLanguage() mechanism itself works fine; the bug is specific to the auto-restore-on-mount path racing against Google's own default/geo-based translation behavior on fresh widget init. Root cause likely: TranslateElement re-initializes on every reload and Google applies its own default target before our retry loop's dispatched 'change' event takes effect, or the retry loop finishes before Google's own init settles.",
+        "affected_selectors": ["[data-testid='language-switcher-toggle']"]
+      },
+      {
+        "flow": "Immediate (same-session, no reload) visual translation after picking a language from the dropdown",
+        "issue": "Selecting French from the dropdown (without a subsequent reload) correctly fires script request to translate.google.com, sets xo_consent_v1.translation=true, xo_language='fr', and button shows 'FR' - but the page's VISIBLE TEXT does NOT actually change to French in that same session (stays in English). No 'googtrans' cookie is set at that point either. Only after a full page reload does translation start rendering (to the wrong language, per bug above). Per the review's documented caveat this could be environment-dependent Google-server latency, but since translation DOES work later (proven when manually re-selecting), this suggests our retry loop's dispatched change event isn't being honored by Google in the very first widget init before a reload happens.",
+        "affected_selectors": ["[data-testid='language-option-fr']"]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Fix CSS selector in index.css to match the actual Google banner iframe class ('skiptranslate' + dynamically generated classes like 'VIpgJd-ZVi9od-ORHb-OEVmcd') rather than the outdated '.goog-te-banner-frame' class name, or use a more robust approach (e.g. hide any iframe whose src is the translate frame, or use '#\\:1\\.container' / attribute-based selector, or CSS like `.skiptranslate iframe { display: none !important; }` combined with body top reset).",
+    "Investigate and fix the auto-apply-on-mount race: on page load, applyLanguage(savedLanguage) should reliably restore the exact previously chosen language, not fall back to a different Google-default language. Consider explicitly setting the 'googtrans' cookie directly (document.cookie = 'googtrans=/en/' + code) before/alongside driving the hidden select, and/or increasing the settle delay before the first selectLanguage attempt after TranslateElement construction, and/or verifying combo.value actually stuck (re-check after a short delay and re-apply if it drifted).",
+    "Investigate why translation doesn't visually render in the very first same-session selection immediately after mounting the widget (works fine on manual re-selection after reload) - likely same root cause as above (race between our select and Google's own init)."
+  ],
+  "critical_code_review_comments": [
+    "LanguageSwitcher.jsx / googleTranslate.js: selectLanguage()'s retry-loop assumes the combo existing means the selection will register successfully; in practice Google's widget can silently ignore/overwrite an early selection during its own init sequence. A verification step (re-check combo.value after the change event fires, retry if mismatched) would make this considerably more robust.",
+    "index.css: the Google banner-hiding CSS selector is stale/incorrect for the Google Translate script version actually loading - should be validated against the live DOM rather than assumed from documentation, since Google's internal class names (VIpgJd-ZVi9od-*) are not the documented .goog-te-banner-frame in this instance.",
+    "Good practice observed: 'notranslate' class correctly applied to LanguageSwitcher's own button/dropdown - confirmed the button always renders 'EN'/'FR' correctly and is never mangled by Google's translation, even while other page text is actively translated.",
+    "Good practice observed: getConsent()/setConsentCategory() single-source-of-truth design in CookieConsent.jsx works correctly - cookie preferences modal's Translation toggle correctly reflects state set from the navbar LanguageSwitcher and vice versa, via the 'xo:consent-updated' CustomEvent."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (frontend-only testing requested)", "frontend": "80%"},
+  "test_credentials": "N/A - no auth involved in this feature",
+  "seed_data_creation": "None",
+  "retest_needed": true,
+  "main_agent_can_self_test": false,
+  "context_for_next_testing_agent": "Team page typo fix (David Meltzer, OD, MBA) verified correct - no further action needed there. LanguageSwitcher UI (globe pill, dropdown with 9 languages, outside-click-to-close, notranslate protection) all verified working on desktop. Consent-gating (picking non-English flips xo_consent_v1.translation=true, English restore, cookie-modal toggle sync in both directions) all verified working. Two real bugs found in the Google Translate INTEGRATION itself (not blocked-network environment issue, since translation clearly CAN render - confirmed via manual re-selection producing correct French text): (1) CSS selector to hide Google's own banner bar is stale/wrong, banner visibly shows at top of page when translated; (2) auto-restoring a saved language on page reload picks the wrong language (zh-CN observed) instead of the saved one (fr), while manual re-selection from the dropdown immediately corrects it. Did not test mobile viewport for LanguageSwitcher specifically (desktop only) - could be checked by next agent if needed. All console checks across home/team/cookie-policy/privacy-policy pages were clean (no errors)."
+}

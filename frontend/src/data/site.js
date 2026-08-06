@@ -120,7 +120,7 @@ export const TEAM_ADVISORY = [
   { name: "Gordon Epstein, OD", title: "Advisor", linkedin: "#" },
   { name: "Glenn S. Corbin, OD", title: "Advisor", linkedin: "#" },
   { name: "Nita Gala, OD", title: "Advisor", linkedin: "#" },
-  { name: "David Metzler, OD, MBA", title: "Advisor", linkedin: "#" },
+  { name: "David Meltzer, OD, MBA", title: "Advisor", linkedin: "#" },
   { name: "Kyle Hoedebecke, MD, MBA", title: "Advisor", linkedin: "#" },
   { name: "Gary Hopkins", title: "Marketing Strategist", linkedin: "#" },
   { name: "Mathew Gilligan, MBA", title: "Media Relations", linkedin: "#" },

@@ -5,6 +5,7 @@ import { ChevronDown, Menu, X, Sun, Moon } from "lucide-react";
 import { NAV } from "@/data/site";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
+import { LanguageSwitcher } from "@/components/common/LanguageSwitcher";
 
 function ThemeToggle({ light }) {
   const { theme, toggle } = useTheme();
@@ -170,12 +171,14 @@ export default function Navbar() {
             <Link to="/request-a-demo" data-testid="nav-demo-cta" className="btn-primary">
               Request a Demo
             </Link>
+            <LanguageSwitcher light={light} />
             <ThemeToggle light={light} />
           </div>
         </div>
 
         {/* Mobile controls */}
         <div className="flex items-center gap-2 lg:hidden">
+          <LanguageSwitcher light={light} />
           <ThemeToggle light={light} />
           <button
             data-testid="mobile-menu-toggle"
