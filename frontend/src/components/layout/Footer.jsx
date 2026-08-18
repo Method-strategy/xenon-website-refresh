@@ -186,7 +186,7 @@ export default function Footer() {
                 data-testid="footer-terms"
                 className="transition-colors hover:text-white"
               >
-                TERMS OF SERVICE
+                TERMS & CONDITIONS
               </Link>
             </li>
             <li aria-hidden className="text-white/20">·</li>

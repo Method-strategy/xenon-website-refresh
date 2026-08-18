@@ -281,3 +281,8 @@ User provided `Xenon Privacy and Cookie Policies 08-06-2026.docx` (source of tru
 User reported the floating side-nav on the homepage (01-05 numbered anchors) didn't remain available/update past the first section. Root cause: `SectionAnchors.jsx` used `position: sticky` scoped to a grid column that only spanned Section 1's height — sections 2-5 are full-width siblings outside that column (needed for edge-to-edge background bleed), so the sticky container ended after section 1 and the nav scrolled away for good. Same bug existed on `/xo-vision-care-system` (System.jsx), which reuses the same component.
 
 Fix: rewrote `SectionAnchors.jsx` to use JS-measured `position: fixed` (left/width read from a wrapper ref sitting in the original grid column, so horizontal alignment stays correct at any viewport width) with visibility gated by comparing the wrapper's top and the last tracked section's bottom against the fixed top offset — replicating what native sticky-within-a-tall-container would do, without restructuring the full-bleed section layouts. Verified via `testing_agent` (`iteration_21.json`): 100% pass on both Home and System pages, correct show/hide boundaries, no regressions.
+
+
+## Global rename: "Terms of Service" → "Terms & Conditions" (2026-02, this session)
+
+Renamed the last 2 remaining user-facing "Terms of Service" labels to "Terms & Conditions" for consistency with the Terms page itself (which already used "Terms & Conditions" as its title/heading): the footer link (`Footer.jsx`) and the cookie consent banner's inline link (`CookieConsent.jsx`). Confirmed via grep no other occurrences remain anywhere in `frontend/src`. Route paths (`/terms-and-conditions`, `/terms-of-service` alias) unchanged — only display text.

@@ -200,7 +200,7 @@ export default function CookieConsent() {
                       to="/terms-and-conditions"
                       className="text-fg underline decoration-fg/25 underline-offset-4 transition-colors hover:text-xo-blue"
                     >
-                      Terms of Service
+                      Terms & Conditions
                     </Link>{" "}
                     and acknowledge our{" "}
                     <Link
