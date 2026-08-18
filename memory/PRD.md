@@ -280,6 +280,11 @@ User provided `Xenon Privacy and Cookie Policies 08-06-2026.docx` (source of tru
 
 User reported the floating side-nav on the homepage (01-05 numbered anchors) didn't remain available/update past the first section. Root cause: `SectionAnchors.jsx` used `position: sticky` scoped to a grid column that only spanned Section 1's height — sections 2-5 are full-width siblings outside that column (needed for edge-to-edge background bleed), so the sticky container ended after section 1 and the nav scrolled away for good. Same bug existed on `/xo-vision-care-system` (System.jsx), which reuses the same component.
 
+
+## Follow-up fix: SectionAnchors z-index + background (2026-02, this session)
+
+User caught a real gap in the prior fix (iteration_21): the nav was made `position: fixed` correctly, but never given a z-index or backing, so it had no defined stacking order against page content and no visual backing when floating over full-width sections with dark/varied backgrounds. Fixed: added `z-30` (below Navbar's z-50 and CookieConsent's z-70/80), and a soft gradient backdrop (`bg-gradient-to-r from-bg via-bg/90 to-transparent backdrop-blur-xl`, negative-z locally within the nav, fading on the right rather than a hard box) so the anchor list stays legible against any section behind it. Verified via `testing_agent` (`iteration_22.json`): 100% pass across all sections on both Home and System pages, dark backgrounds specifically checked, no regression to the scroll-tracking fix.
+
 Fix: rewrote `SectionAnchors.jsx` to use JS-measured `position: fixed` (left/width read from a wrapper ref sitting in the original grid column, so horizontal alignment stays correct at any viewport width) with visibility gated by comparing the wrapper's top and the last tracked section's bottom against the fixed top offset — replicating what native sticky-within-a-tall-container would do, without restructuring the full-bleed section layouts. Verified via `testing_agent` (`iteration_21.json`): 100% pass on both Home and System pages, correct show/hide boundaries, no regressions.
 
 

@@ -62,35 +62,41 @@ export default function SectionAnchors({ sections }) {
 
   return (
     <div ref={wrapperRef} className="hidden lg:block">
-    <nav
-      data-testid="section-anchors"
-      style={pos ? { position: "fixed", left: pos.left, width: pos.width, top: TOP_OFFSET } : { visibility: "hidden" }}
-      className="hidden lg:block"
-    >
-      <ul className="space-y-4 border-l border-fg/10 pl-6">
-        {sections.map((s, i) => (
-          <li key={s.id}>
-            <button
-              data-testid={`anchor-${s.id}`}
-              onClick={() => go(s.id)}
-              className={cn(
-                "group flex items-center gap-3 text-left font-mono text-[11px] uppercase tracking-[0.18em] transition-colors duration-300",
-                active === s.id ? "text-xo-blue" : "text-fg/35 hover:text-fg/70",
-              )}
-            >
-              <span className="tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-              <span
-                className={cn(
-                  "h-px transition-all duration-300",
-                  active === s.id ? "w-8 bg-xo-blue" : "w-4 bg-fg/20 group-hover:w-6",
-                )}
-              />
-              {s.label}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </nav>
+      <nav
+        data-testid="section-anchors"
+        style={pos ? { position: "fixed", left: pos.left, width: pos.width, top: TOP_OFFSET } : { visibility: "hidden" }}
+        className="z-30 hidden lg:block"
+      >
+        <div className="relative py-4">
+          <div
+            aria-hidden
+            className="absolute -inset-y-4 -left-4 -right-12 -z-10 bg-gradient-to-r from-bg via-bg/90 to-transparent backdrop-blur-xl"
+          />
+          <ul className="relative space-y-4 border-l border-fg/10 pl-6">
+            {sections.map((s, i) => (
+              <li key={s.id}>
+                <button
+                  data-testid={`anchor-${s.id}`}
+                  onClick={() => go(s.id)}
+                  className={cn(
+                    "group flex items-center gap-3 text-left font-mono text-[11px] uppercase tracking-[0.18em] transition-colors duration-300",
+                    active === s.id ? "text-xo-blue" : "text-fg/35 hover:text-fg/70",
+                  )}
+                >
+                  <span className="tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                  <span
+                    className={cn(
+                      "h-px transition-all duration-300",
+                      active === s.id ? "w-8 bg-xo-blue" : "w-4 bg-fg/20 group-hover:w-6",
+                    )}
+                  />
+                  {s.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
     </div>
   );
 }
