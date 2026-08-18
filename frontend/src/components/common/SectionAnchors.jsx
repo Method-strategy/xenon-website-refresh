@@ -1,10 +1,41 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
 
-// Sticky left sidebar anchors that track scroll position.
+const TOP_OFFSET = 128; // matches top-32
+
+// Floating left sidebar anchors that track scroll position across every
+// tracked section, not just the first one. `position: sticky` alone only
+// stays pinned while its immediate grid column is in view — since sections
+// 2+ on these pages are full-width siblings outside that column (so their
+// backgrounds can bleed edge to edge), the sidebar would "unstick" and
+// scroll away after section 1. Instead we measure where the column would
+// have sat and hold the nav there with `position: fixed` for as long as the
+// scroll position is between the first and last tracked section.
 // sections: [{ id, label }]
 export default function SectionAnchors({ sections }) {
   const [active, setActive] = useState(sections[0]?.id);
+  const [pos, setPos] = useState(null);
+  const wrapperRef = useRef(null);
+
+  const measure = useCallback(() => {
+    const wrapper = wrapperRef.current;
+    const lastEl = document.getElementById(sections[sections.length - 1]?.id);
+    if (!wrapper || !lastEl) return;
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const lastRect = lastEl.getBoundingClientRect();
+    const withinRange = wrapperRect.top <= TOP_OFFSET && lastRect.bottom > TOP_OFFSET;
+    setPos(withinRange ? { left: wrapperRect.left, width: wrapperRect.width } : null);
+  }, [sections]);
+
+  useEffect(() => {
+    measure();
+    window.addEventListener("scroll", measure, { passive: true });
+    window.addEventListener("resize", measure);
+    return () => {
+      window.removeEventListener("scroll", measure);
+      window.removeEventListener("resize", measure);
+    };
+  }, [measure]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -30,9 +61,11 @@ export default function SectionAnchors({ sections }) {
   };
 
   return (
+    <div ref={wrapperRef} className="hidden lg:block">
     <nav
       data-testid="section-anchors"
-      className="sticky top-32 hidden lg:block"
+      style={pos ? { position: "fixed", left: pos.left, width: pos.width, top: TOP_OFFSET } : { visibility: "hidden" }}
+      className="hidden lg:block"
     >
       <ul className="space-y-4 border-l border-fg/10 pl-6">
         {sections.map((s, i) => (
@@ -58,5 +91,6 @@ export default function SectionAnchors({ sections }) {
         ))}
       </ul>
     </nav>
+    </div>
   );
 }
