@@ -291,3 +291,10 @@ Fix: rewrote `SectionAnchors.jsx` to use JS-measured `position: fixed` (left/wid
 ## Global rename: "Terms of Service" → "Terms & Conditions" (2026-02, this session)
 
 Renamed the last 2 remaining user-facing "Terms of Service" labels to "Terms & Conditions" for consistency with the Terms page itself (which already used "Terms & Conditions" as its title/heading): the footer link (`Footer.jsx`) and the cookie consent banner's inline link (`CookieConsent.jsx`). Confirmed via grep no other occurrences remain anywhere in `frontend/src`. Route paths (`/terms-and-conditions`, `/terms-of-service` alias) unchanged — only display text.
+
+
+## Full-site responsive audit (2026-02, this session)
+
+User asked to confirm the whole site is built responsively and fix any breaks found. Confirmed the desktop-only floating side-nav (SectionAnchors) correctly disappears below 1024px. Code review across all 14 pages found the site already follows mobile-first Tailwind conventions consistently (grid-cols-1 with md:/lg: overrides, flex-wrap tab lists, etc.) with only 2 minor gaps: Exam.jsx's decorative "19" watermark and System.jsx's step numbers weren't scaling down for mobile (both fixed — hidden below md / scaled via text-4xl md:text-7xl respectively).
+
+`testing_agent` (iteration_23.json) then ran the real visual sweep (390px mobile + 768px tablet across all 14 routes) since the main agent's own screenshot tool wasn't respecting custom viewport sizes this session. It found and fixed a bigger site-wide bug: **Footer.jsx caused ~22-29px of clipped/overflowing content on every single page at both breakpoints** — a `whitespace-nowrap` copyright line, an unbreakable contact email string, and a `gap-14` too wide for the md breakpoint. Fixed with `min-w-0`/`break-all` on the email link and `md:gap-8 lg:gap-14`. Re-verified: 28/28 route×breakpoint checks pass with zero overflow. `body { overflow-x: hidden }` already existed in `index.css` as a safety net (masked the scrollbar but not the underlying clipped-content bug, which is why it went unnoticed visually until this audit).

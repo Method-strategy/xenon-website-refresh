@@ -200,7 +200,7 @@ export default function System() {
                 <section key={step.id} id={step.id} className="scroll-mt-32">
                   <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
                     <div className="lg:col-span-3">
-                      <div className="font-display text-7xl font-semibold leading-none text-fg/10">
+                      <div className="font-display text-4xl font-semibold leading-none text-fg/10 md:text-7xl">
                         {step.n}
                       </div>
                       <img

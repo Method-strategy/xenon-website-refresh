@@ -167,7 +167,7 @@ export default function Exam() {
                 className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
               />
             </div>
-            <div className="font-display text-8xl font-semibold leading-none text-fg/5">19</div>
+            <div className="hidden font-display text-8xl font-semibold leading-none text-fg/5 md:block">19</div>
           </div>
 
           <Reveal className="mt-14">

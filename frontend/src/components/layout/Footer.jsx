@@ -46,7 +46,7 @@ export default function Footer() {
     >
       <div className="xo-container py-20">
         {/* Top row: brand column + Products + Company + Contact */}
-        <div className="grid grid-cols-1 gap-14 md:grid-cols-12">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 lg:gap-14">
           {/* Brand column */}
           <div className="md:col-span-4">
             <img
@@ -129,12 +129,12 @@ export default function Footer() {
                   United States
                 </span>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 min-w-0">
                 <Mail className="h-4 w-4 shrink-0 text-white/40" />
                 <a
                   href="mailto:info@xophthalmics.com"
                   data-testid="footer-email"
-                  className="text-white/80 underline-offset-4 transition-colors hover:text-xo-blue hover:underline"
+                  className="min-w-0 break-all text-white/80 underline-offset-4 transition-colors hover:text-xo-blue hover:underline"
                 >
                   info@xophthalmics.com
                 </a>
@@ -145,7 +145,7 @@ export default function Footer() {
 
         {/* Bottom row: copyright | utility links */}
         <div className="mt-20 flex flex-col gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
-          <p className="whitespace-nowrap font-mono text-[10.5px] uppercase tracking-[0.1em] text-white/40">
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-white/40">
             © 2022–2026 Xenon Ophthalmics Inc. All rights reserved.
           </p>
           <ul className="flex flex-wrap items-center gap-x-4 gap-y-3 font-mono text-[10.5px] uppercase tracking-[0.06em] text-white/50">
