@@ -491,7 +491,7 @@ export default function Fit() {
                         <tint-vto
                           ref={vtoRef}
                           publishable-key={TINT_PUBLISHABLE_KEY}
-                          variant-id={TINT_VARIANT_ID}
+                          variant-id={TINT_VARIANT_ID?.trim() || undefined}
                           style={{ display: "block", width: 0, height: 0, overflow: "hidden" }}
                         />
                       )}
