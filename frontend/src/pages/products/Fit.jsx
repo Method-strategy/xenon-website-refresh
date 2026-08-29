@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Check, PlayCircle } from "lucide-react";
@@ -8,6 +8,10 @@ import FAQ from "@/components/common/FAQ";
 import DemoCTA from "@/components/common/DemoCTA";
 import { cn } from "@/lib/utils";
 import { usePageMeta } from "@/lib/usePageMeta";
+import { loadTintWidget } from "@/lib/tintVto";
+
+const TINT_PUBLISHABLE_KEY = process.env.REACT_APP_TINT_PUBLISHABLE_KEY;
+const TINT_VARIANT_ID = process.env.REACT_APP_TINT_VARIANT_ID;
 
 const FORM_FACTORS = [
   {
@@ -181,6 +185,28 @@ export default function Fit() {
       "The optician opens xoFit and the prescription is already loaded. Digital centration and frame measurement in three form factors: a wall-mounted station, a handheld unit, and a virtual try-on patients use themselves.",
   });
   const [active, setActive] = useState("core");
+  const vtoRef = useRef(null);
+  const [vtoStatus, setVtoStatus] = useState("idle"); // idle | loading | ready | error
+
+  const openVto = async () => {
+    setVtoStatus("loading");
+    try {
+      await loadTintWidget();
+      setVtoStatus("ready");
+      // Guards against the script/open() call itself hanging (e.g. network
+      // issues). Note: Tint's open() resolves even when its own internal
+      // init fails (e.g. an unrecognized origin or variant), so this can't
+      // catch every vendor-side failure — those surface inside the widget's
+      // own overlay, outside our control.
+      await Promise.race([
+        vtoRef.current?.open(),
+        new Promise((_, reject) => setTimeout(() => reject(new Error("Tint VTO timed out")), 10000)),
+      ]);
+    } catch (err) {
+      console.error("Tint VTO failed to open", err);
+      setVtoStatus("error");
+    }
+  };
 
   return (
     <div className="acc-fit">
@@ -453,26 +479,45 @@ export default function Fit() {
                     </div>
                   )}
 
-                  {/* 3a. Virtual try-on — xoFrame only. Live widget temporarily
-                      removed while the vendor completes a platform migration;
-                      request a guided walkthrough instead. */}
+                  {/* 3a. Virtual try-on — xoFrame only. Live Tint (Banuba) VTO
+                      widget, loaded on demand when the try-on button is pressed. */}
                   {f.vto && (
                     <div className="mt-28 border-t border-fg/10 pt-16 text-center">
                       <Reveal>
                         <div className="eyebrow mb-6">See it in action</div>
                       </Reveal>
+                      {TINT_PUBLISHABLE_KEY && (
+                        // eslint-disable-next-line react/no-unknown-property
+                        <tint-vto
+                          ref={vtoRef}
+                          publishable-key={TINT_PUBLISHABLE_KEY}
+                          variant-id={TINT_VARIANT_ID}
+                          style={{ display: "block", width: 0, height: 0, overflow: "hidden" }}
+                        />
+                      )}
                       <Reveal delay={0.05}>
-                        <Link
-                          to="/request-a-demo"
-                          data-testid="vto-request-demo-button"
-                          className="btn-primary mx-auto inline-flex"
+                        <button
+                          type="button"
+                          onClick={openVto}
+                          disabled={vtoStatus === "loading"}
+                          data-testid="vto-trigger-button"
+                          className="btn-primary mx-auto inline-flex disabled:opacity-60"
                         >
-                          <PlayCircle className="h-4 w-4" /> Request Demo
-                        </Link>
+                          <PlayCircle className="h-4 w-4" />
+                          {vtoStatus === "loading" ? "Loading…" : "Try xoFrame VTO"}
+                        </button>
                       </Reveal>
+                      {vtoStatus === "error" && (
+                        <p
+                          data-testid="vto-error-message"
+                          className="mt-4 text-sm text-red-400"
+                        >
+                          Unable to open the virtual try-on right now. Please try again in a moment.
+                        </p>
+                      )}
                       <Reveal delay={0.1}>
                         <p className="mt-5 font-mono text-xs uppercase tracking-[0.15em] text-fg/40">
-                          See the virtual try-on technology walked through live
+                          A live try-on window will open — look for the × in its corner to close it
                         </p>
                       </Reveal>
                     </div>

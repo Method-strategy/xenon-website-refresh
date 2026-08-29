@@ -1,0 +1,34 @@
+{
+  "summary": "Frontend-only test of the Tint (Banuba) VTO integration on /xofit-frame-fitting. Our integration code works as designed: the xoFrame tab's 'See it in action' block now shows 'Try xoFrame VTO' (data-testid=vto-trigger-button, no 'Request Demo' link left), the button shows a disabled 'Loading…' state, https://tintvto.com/widget.js is fetched exactly once (verified across repeated tab switches + 3 button clicks -> 1 <script> tag in <head>), the <tint-vto> custom element upgrades (customElements.get('tint-vto') true, typeof el.open === 'function'), .open() resolves and the vendor's full-screen modal appears. No React crash, zero pageerrors, zero app-side console errors. Core/Mobile tabs correctly render no VTO section; rest of the Fit page (hero, panels, features, journey link, DemoCTA, footer) unaffected. Mobile 390px layout of the VTO block is fine. BEHAVIORAL FINDING re: the user's question: the widget does NOT get far enough to validate variant-id. Its config call POST https://api.tintvto.com/api/v1/public/resolve returns 403 {\"code\":\"origin_denied\",\"message\":\"Origin is not allowed for this project.\"} — i.e. the preview domain is not allowlisted on the Tint project — followed by console '[best-match WebAR] Failed to initialize player: {kind: sdkError, message: Missing client token}'. So MERCHANT_VARIANT_ID could not be proven invalid behaviorally (the origin gate fires first); it remains a documented placeholder. The vendor modal then hangs on an infinite spinner with no vendor error UI, and our own vto-error-message never shows (because open() resolves successfully). The vendor's X (top-right) does close the modal and the page becomes fully interactive again; Escape does NOT close it.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Fit.jsx VTO block", "issue": "Vendor modal shows an indefinite spinner when Tint's /public/resolve fails (403 origin_denied). Our code cannot detect this because tint-vto.open() resolves fine, so data-testid='vto-error-message' never renders and the user is left on a blank spinner (only the vendor X escapes it; Escape key does nothing). Consider a watchdog/timeout or listening for a vendor error event to surface our fallback message.", "selector": "[data-testid=\"vto-trigger-button\"] / [data-testid=\"vto-error-message\"]", "priority": "MEDIUM"},
+      {"component": "Fit.jsx 'See it in action' caption", "issue": "Caption under the new button still reads 'See the virtual try-on technology walked through live' — leftover copy from the removed 'Request Demo' CTA; now misleading since the button launches the widget rather than booking a walkthrough.", "selector": "text=See the virtual try-on technology walked through live", "priority": "LOW"}
+    ],
+    "integration_issues": [
+      {"flow": "Try xoFrame VTO -> Tint widget init", "issue": "Vendor-side config resolve rejected: POST https://api.tintvto.com/api/v1/public/resolve -> 403 {'code':'origin_denied','message':'Origin is not allowed for this project.'} (fires twice, widget retries), then 'Missing client token' sdkError. This is a Tint account/domain-allowlist gap, NOT our code. Ask Banuba/Tint to allowlist the preview + production domains before the variant-id can even be validated.", "affected_selectors": ["[data-testid=\"vto-trigger-button\"]"]}
+    ],
+    "design_issues": [
+      {"screen": "xoFrame tab 'See it in action'", "issues": ["Large empty vertical gap between the caption and the next dark FEATURES section (~150px of dead space) at 1920px — likely reserved space from the 0x0 tint-vto element; cosmetic only."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Get Tint/Banuba to allowlist the site origins (preview + prod) for this publishable key — currently every open() attempt is blocked at POST /api/v1/public/resolve with 403 origin_denied, so the widget can never initialize regardless of variant-id.",
+    "Variant-id verdict: still unproven behaviorally (origin gate fires first). Placeholder assumption stands; obtain the real variant-id from the client, then retest once the origin is allowlisted.",
+    "Add a timeout/error-event watchdog so a stuck vendor modal surfaces data-testid='vto-error-message' instead of an endless spinner (open() resolving is not proof the widget initialized).",
+    "Update the caption copy under the 'Try xoFrame VTO' button (still references a live walkthrough)."
+  ],
+  "critical_code_review_comments": [
+    "tintVto.js singleton verified correct — one script tag, promise reuse, resolves via customElements.whenDefined. No duplicate insertion across tab remounts.",
+    "openVto() sets vtoStatus='ready' then awaits vtoRef.current?.open(); since Tint's open() resolves even when its internal init fails, the error branch is effectively unreachable for config/auth failures — the only real failure it catches is a script-load network error."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped per request)", "frontend": "Our integration: 100% of testable assertions passed (button label, gating per tab, loading state, single script load, element upgrade, no crashes, no regressions). Vendor widget end-to-end: 0% — blocked by Tint origin_denied 403."},
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Re-test only after (a) Tint allowlists the origin and (b) a real variant-id is supplied. Reproduce: /xofit-frame-fitting -> dismiss cookie banner -> click [data-testid=fit-tab-frame] -> scroll to [data-testid=vto-trigger-button] -> click. Watch POST api.tintvto.com/api/v1/public/resolve. The vendor modal renders inside <tint-vto> (closed shadow DOM, 0x0 host rect) as a full-viewport overlay that blocks all Playwright clicks — close it with page.mouse.click(1896, 24) at 1920x1080 (screenshots are downscaled to 1568px, so don't use screenshot coords). Escape does not close it.",
+  "rca_of_the_issue": "Tint's widget requests its runtime config/client token from POST https://api.tintvto.com/api/v1/public/resolve using the publishable key + Referer/Origin. The project has an origin allowlist that does not include the preview host, so the call returns 403 origin_denied, the WebAR player never receives a client token ('Missing client token'), and the widget stays on its loading spinner. Because the vendor's open() promise resolves regardless, our catch block never fires, hiding the failure from our error UI. Variant-id validity is therefore untestable at this stage."
+}
