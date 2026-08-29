@@ -1,0 +1,30 @@
+{
+  "summary": "Focused frontend retest of the Tint (Banuba) VTO widget on /xofit-frame-fitting after the client reported the Banuba/Tint domain allowlist was updated. VERDICT: the allowlist fix IS confirmed working — the previous `403 {\"code\":\"origin_denied\"}` on POST https://api.tintvto.com/api/v1/public/resolve is GONE. The vendor now fails one step later with `404 {\"code\":\"product_not_found\",\"message\":\"Product was not found.\"}`, which behaviorally PROVES the placeholder variant-id is the only remaining blocker. Captured request payload confirms it: {\"idempotencyKey\":\"...\",\"includeCatalogPreload\":true,\"locale\":\"en\",\"publishableKey\":\"pk_live_IYyrrt3UVJlY4ogS1rsQkOpb5hPMSyodJB9dhszNeKQ\",\"variantId\":\"MERCHANT_VARIANT_ID\"} — the publishable key is now accepted (no origin/key rejection), only variantId resolution fails. All 26 tintvto.com asset requests (widget.js, webar-sdk, player, camera-permission, effects, fonts, close.svg) returned 200, i.e. the SDK bootstraps fully now; console shows '[tint-vto] Banuba WebAR SDK version: 1.18.4' then, after the 404, '[best-match WebAR] Failed to initialize player: {kind: sdkError, message: Missing client token}' (resolve is retried once, same 404). No camera-permission prompt, no frame selector, no vendor-visible error text — the modal is a blank white panel with an infinite spinner (vendor renders no error UI for product_not_found). Our side: zero React crashes, zero pageerrors, zero app-side console errors; the only other console output is a pre-existing benign preload warning for /hero/xoexam-arm.webp. Our data-testid='vto-error-message' still never renders (open() resolves regardless, as documented in iteration_24). Modal close via the vendor's × at (1896,24) on 1920x1080 works, and the page is fully interactive afterward (successfully clicked fit-tab-core post-close). Verified twice (two independent runs), identical results.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Fit.jsx VTO block", "issue": "Vendor modal still shows an indefinite blank spinner when Tint's /public/resolve fails (now 404 product_not_found instead of 403 origin_denied). Our 10s open() race does not fire because tint-vto.open() resolves successfully, so [data-testid='vto-error-message'] never renders. Only the vendor × escapes the modal. Same MEDIUM issue carried over from iteration_24 — unchanged behavior, different vendor error code.", "selector": "[data-testid=\"vto-trigger-button\"] / [data-testid=\"vto-error-message\"]", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [
+      {"flow": "Try xoFrame VTO -> Tint widget init", "issue": "origin_denied RESOLVED (allowlist confirmed). Remaining blocker is purely the placeholder variantId: POST /api/v1/public/resolve -> 404 {'code':'product_not_found'} with variantId='MERCHANT_VARIANT_ID'. Widget cannot obtain a client token, so the WebAR player never starts. Requires the real variant-id from the client in REACT_APP_TINT_VARIANT_ID; no code change needed.", "affected_selectors": ["[data-testid=\"vto-trigger-button\"]"]}
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Obtain the real Tint/Banuba variant-id from the client and set REACT_APP_TINT_VARIANT_ID (currently 'MERCHANT_VARIANT_ID'), then restart frontend and retest — this is now the ONLY thing blocking a live try-on. Origin allowlist is confirmed fixed.",
+    "Optional (carry-over): surface data-testid='vto-error-message' on vendor init failure. open() resolving is not proof of init; a viable hook is to intercept/observe the resolve failure or poll for the widget's ready state, since the 10s open() race does not catch this."
+  ],
+  "critical_code_review_comments": [
+    "Confirmed again: our integration sends exactly the right payload (publishableKey + variantId from env, no hardcoding) and loads widget.js once. The only invalid input is the env placeholder variantId.",
+    "The new 10s timeout race in openVto() is ineffective for this failure mode because Tint's open() promise resolves immediately; the timeout never wins. Consider a post-open readiness watchdog instead."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped per request)", "frontend": "Our integration: 100% (button, tab gating, script load, element upgrade, modal open/close, page interactivity post-close, no console/runtime errors). Vendor widget end-to-end: 0% — now blocked solely on placeholder variant-id (404 product_not_found), origin gate passed."},
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "test_credentials": "not required",
+  "context_for_next_testing_agent": "Origin allowlist for pk_live_IYyrrt3... is now working on the preview host — do not re-report origin_denied. Next retest is only warranted once a real REACT_APP_TINT_VARIANT_ID is supplied. Repro: /xofit-frame-fitting -> dismiss cookie banner (button:has-text('Accept')) -> click [data-testid=fit-tab-frame] -> scroll to and click [data-testid=vto-trigger-button] -> watch POST api.tintvto.com/api/v1/public/resolve (expect 200 + client token once variant-id is real). The vendor modal lives in <tint-vto> (0x0 host, no accessible shadowRoot) as a full-viewport overlay that blocks Playwright clicks; close with page.mouse.click(1896, 24) at 1920x1080. Escape does not close it.",
+  "rca_of_the_issue": "Two-stage vendor gate. Stage 1 (origin allowlist) previously returned 403 origin_denied and is now fixed by Banuba/Tint. Stage 2 (product/variant lookup) now returns 404 product_not_found because the widget posts variantId='MERCHANT_VARIANT_ID', a documented placeholder. Without a resolved product the vendor never issues a client token, so the Banuba WebAR SDK (1.18.4, fully downloaded) logs 'Missing client token' and the modal spins forever. Vendor renders no error UI, and our error branch is unreachable since open() resolves. Fix is data-only: supply the real variant-id."
+}
