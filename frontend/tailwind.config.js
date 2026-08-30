@@ -8,9 +8,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Zalando Sans SemiExpanded"', 'Manrope', 'sans-serif'],
-        sans: ['Manrope', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
+        display: ['"Zalando Sans SemiExpanded"', '"Zalando Sans SemiExpanded Fallback"', 'Manrope', '"Manrope Fallback"', 'sans-serif'],
+        sans: ['Manrope', '"Manrope Fallback"', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', '"JetBrains Mono Fallback"', 'monospace'],
       },
       colors: {
         bg: 'rgb(var(--bg) / <alpha-value>)',

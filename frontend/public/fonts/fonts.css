@@ -30,3 +30,35 @@
   font-style: normal;
   font-display: swap;
 }
+
+/* Metric-matched fallback faces — sized against the actual box metrics of
+   each webfont (via ascent/descent/line-gap/size-adjust overrides on a local
+   system font) so the pre-swap fallback occupies the exact same footprint
+   as the real font. This removes the reflow/CLS a font swap would otherwise
+   cause on slow connections, without needing a JS-measured shim.
+   Metrics: capsizecss/metrics font data, calculated against Arial
+   (sans fallback) and Courier New (mono fallback). */
+@font-face {
+  font-family: "Manrope Fallback";
+  src: local("Arial");
+  ascent-override: 103.31%;
+  descent-override: 29.07%;
+  line-gap-override: 0%;
+  size-adjust: 103.19%;
+}
+@font-face {
+  font-family: "Zalando Sans SemiExpanded Fallback";
+  src: local("Arial");
+  ascent-override: 85.27%;
+  descent-override: 22.11%;
+  line-gap-override: 0%;
+  size-adjust: 113.05%;
+}
+@font-face {
+  font-family: "JetBrains Mono Fallback";
+  src: local("Courier New");
+  ascent-override: 102.02%;
+  descent-override: 30%;
+  line-gap-override: 0%;
+  size-adjust: 99.98%;
+}

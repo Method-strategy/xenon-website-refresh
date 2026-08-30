@@ -95,7 +95,7 @@ html {
 
 body {
   margin: 0;
-  font-family: "Manrope", system-ui, sans-serif;
+  font-family: "Manrope", "Manrope Fallback", system-ui, sans-serif;
   background-color: rgb(var(--bg));
   color: rgb(var(--fg));
   overflow-x: hidden;
@@ -123,10 +123,15 @@ html.lenis body {
 }
 
 .font-display {
-  font-family: "Zalando Sans SemiExpanded", "Manrope", sans-serif;
+  font-family:
+    "Zalando Sans SemiExpanded",
+    "Zalando Sans SemiExpanded Fallback",
+    "Manrope",
+    "Manrope Fallback",
+    sans-serif;
 }
 .font-mono {
-  font-family: "JetBrains Mono", monospace;
+  font-family: "JetBrains Mono", "JetBrains Mono Fallback", monospace;
 }
 
 ::selection {
@@ -153,7 +158,7 @@ html.lenis body {
     @apply mx-auto w-full max-w-[1400px] px-6 md:px-10 lg:px-16;
   }
   .eyebrow {
-    font-family: "JetBrains Mono", monospace;
+    font-family: "JetBrains Mono", "JetBrains Mono Fallback", monospace;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.25em;
@@ -176,7 +181,7 @@ html.lenis body {
     gap: 0.5rem;
     padding: 0.6rem 1.3rem;
     border-radius: 9999px;
-    font-family: "JetBrains Mono", monospace;
+    font-family: "JetBrains Mono", "JetBrains Mono Fallback", monospace;
     font-size: 0.6rem;
     font-weight: 500;
     text-transform: uppercase;
@@ -206,7 +211,7 @@ html.lenis body {
     gap: 0.5rem;
     padding: 0.6rem 1.3rem;
     border-radius: 9999px;
-    font-family: "JetBrains Mono", monospace;
+    font-family: "JetBrains Mono", "JetBrains Mono Fallback", monospace;
     font-size: 0.6rem;
     font-weight: 500;
     text-transform: uppercase;
