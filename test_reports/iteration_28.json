@@ -1,0 +1,23 @@
+{
+  "summary": "Frontend-only retest of two LCP/payload fixes. (1) Route-scoped hero preload: VERIFIED — on '/' a <link rel=preload as=image href=/hero/xoexam-arm.webp> with imagesrcset + fetchpriority=high is injected by the inline head script (hero fetched at 192ms, 93.5KB, LCP = 1309ms on IMG xoexam-arm.webp, i.e. no regression vs ~1334ms in iteration_27). On /xo-vision-care-system and /about there is NO hero preload link and NO xoexam-arm request at all — the cross-route waste is fixed. (2) Fit page lazy images: markup VERIFIED — device.webp, screen-1/2/3.webp and retail.webp all now carry loading='lazy' and decoding='async'. Measured desktop (1920x1080) initial image payload on /xofit-frame-fitting dropped from ~570KB+ to ~410KB; mobile (390x844) initial payload is ~296KB with only device.webp + screen-1.webp fetched. Scrolling loads retail.webp (fetched at 3581ms, only after scroll) and all 5 images render with correct naturalWidth, zero broken images. No console/page errors on Home, About, System, or Fit. Tint/Banuba sanity: zero tint/banuba network requests on Fit default 'xoFit Core' tab load (VTO trigger lives on the separate xoFrame tab, so unaffected).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "OPTIONAL/LOW: On desktop 1920x1080, Chrome's lazy-loading viewport-distance heuristic still fetches device.webp (172KB) and screen-1/2/3.webp (~162KB) in the initial burst (startTime ~1112ms, i.e. after LCP and at low priority) even though loading='lazy' is set. Only retail.webp (154KB) is truly deferred. If a further reduction of the first-viewport payload is desired, consider serving a smaller/responsive srcset for device.webp (172KB for an 814px-wide render is heavy) or gating the 'How it works' screens block behind an IntersectionObserver."
+  ],
+  "critical_code_review_comments": [
+    "index.html inline preload script is correct and runs during head parse; it only matches exact pathname '/' — acceptable since the hero is Home-only, but note a trailing-slash-free variant or '/index.html' entry would not match (not an issue for the SPA router as served)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "not tested", "frontend": "100% of requested checks passed"},
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Both iteration_27 findings are fixed and verified in iteration_28. Home LCP 1309ms (hero img). Other routes no longer preload the Home hero. Fit page desktop initial image payload ~410KB (was ~570KB+); remaining eager-ish fetches are browser lazy-load heuristics, not markup bugs. VTO/Banuba still only loads on explicit user action.",
+  "rca_of_the_issue": "N/A - both fixes confirmed working; remaining payload is due to Chrome's lazy-load near-viewport threshold on large desktop viewports, which is expected behavior and low priority."
+}

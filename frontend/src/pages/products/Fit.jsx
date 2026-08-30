@@ -339,6 +339,7 @@ export default function Fit() {
                                 width={f.deviceWidth}
                                 height={f.deviceHeight}
                                 decoding="async"
+                                loading="lazy"
                                 alt={f.deviceAlt}
                                 className="relative h-full max-h-[520px] w-auto object-contain md:max-h-[640px] lg:max-h-[760px]"
                               />
@@ -436,6 +437,7 @@ export default function Fit() {
                                   width={screen.width}
                                   height={screen.height}
                                   decoding="async"
+                                  loading="lazy"
                                   alt={`xoFit ${screen.label} screen`}
                                   className="relative h-auto w-[200px] object-contain drop-shadow-2xl md:w-[220px]"
                                 />
@@ -581,6 +583,8 @@ export default function Fit() {
                   <img
                     src={f.retailImage}
                     alt={f.retailAlt}
+                    decoding="async"
+                    loading="lazy"
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                   <div className="absolute inset-y-0 right-0 hidden w-2/5 bg-gradient-to-l from-xo-navy-deep via-xo-navy-deep/60 to-transparent lg:block" />

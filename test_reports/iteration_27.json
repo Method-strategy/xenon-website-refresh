@@ -1,0 +1,31 @@
+{
+  "summary": "Frontend-only empirical verification of Tint/Banuba VTO lazy-loading on /xofit-frame-fitting via Playwright network + PerformanceObserver instrumentation (fresh load, cookies cleared, 1920x1080). RESULT: the lazy-loading requirement is FULLY SATISFIED — zero tintvto.com/banuba requests on initial load, zero on 'xoFit Mobile' tab, zero on 'xoFrame' tab activation; the very first request to https://tintvto.com/widget.js fires +0.07s AFTER clicking data-testid='vto-trigger-button'. No VTO requests on Home (/) either. However, two genuine LCP/weight issues NOT related to VTO were found (unused global hero preload on every page, and heavy eager images on the Fit page), which most likely explain the user's perceived slowdown.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "All pages (public/index.html)", "issues": ["Global <link rel=preload as=image href=/hero/xoexam-arm.webp> (93 KB) is injected in index.html for EVERY route. On /xofit-frame-fitting the browser fetches it at t=70ms at high priority and never uses it — console warns 'preloaded using link preload but not used'. It competes with the real LCP image (/hero/xofit-measure.webp, which only starts at t=720ms, LCP paints at 1334ms). Moving this preload to be Home-only (or injecting per-route) should measurably improve Fit-page LCP."]},
+      {"screen": "/xofit-frame-fitting initial load", "issues": ["Initial load pulls 570 KB of images before any interaction: xofit-measure.webp 79 KB (hero) + xoexam-arm.webp 93 KB (unused preload) + core-tab assets device.webp 172 KB, retail.webp 154 KB, screen-1/2/3.webp 161 KB combined. The below-the-fold core-tab imagery is not lazy-loaded (all start ~830ms, i.e. eagerly) — candidates for loading='lazy'.", "Hero LCP element is a decorative, aria-hidden, opacity-0.32 background image. LCP is therefore gated on a purely decorative asset rather than the headline text — consider a lower-resolution/LQIP hero or letting text be the LCP element."]},
+      {"screen": "VTO overlay (post-click, third-party)", "issues": ["Tint widget pulls in www.googletagmanager.com, www.google-analytics.com, fonts.gstatic.com, telemetry.banuba.cloud and cloudfront — i.e. GA/GTM load even though the site's own cookie banner is still un-actioned ('default is off'). Post-click only, but a consent/privacy concern worth reviewing.", "Banuba WebGL preview rendered as a flat green frame in the headless test browser (no camera/GPU); expected in CI, not treated as a bug."]}
+    ]
+  },
+  "test_report_links": ["/root/.emergent/automation_output/20260830_124214/console_20260830_124214.log"],
+  "action_items": [
+    "No VTO lazy-loading fix needed — verified empirically that nothing Tint/Banuba-related is requested or in the DOM until the 'Try xoFrame VTO' click.",
+    "Scope the /hero/xoexam-arm.webp preload in public/index.html to the Home route only; it is currently wasted 93 KB high-priority bandwidth on Fit and all other pages (browser explicitly warns).",
+    "Add loading='lazy' (or intersection-based mounting) to the below-the-fold xoFit core-tab images (device.webp 172 KB, retail.webp 154 KB, screen-1/2/3.webp) so initial payload drops from ~570 KB of images to ~80 KB.",
+    "Explain to the user: the measured slowdown they perceive cannot come from Tint — likely they included the post-click load (93 extra requests, +561 KB) in their 'page load' measurement, or hit the Netlify build. Preview numbers below are from a CRA dev build (bundle.js 540 KB unminified) so production weight will be substantially lower."
+  ],
+  "critical_code_review_comments": [
+    "lib/tintVto.js correctly gates the <script> insertion behind loadTintWidget() with a module-scope promise singleton; Fit.jsx line 301 FORM_FACTORS.filter(active) means <tint-vto> is only mounted on the active xoFrame tab. Verified: document.querySelector('tint-vto') === null on core/mobile tabs, non-null on frame tab with 0 network requests and customElements.get('tint-vto') === undefined.",
+    "index.html hero preload is route-agnostic — the only real eager-loading gap found in this audit (image, not script)."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "not tested (frontend-only request)", "frontend": "100% of the 6 requested verification steps executed and passed" },
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Measured numbers (preview, CRA dev build, 1920x1080): /xofit-frame-fitting initial load = 29 resources / 1.33 MB encoded / DCL 421ms / FCP 634ms / LCP 1334ms (LCP element IMG /hero/xofit-measure.webp). After clicking vto-trigger-button = 77 resources / 1.90 MB (+93 requests, +561 KB), first tintvto.com/widget.js at +0.07s, Banuba WASM+data+effect zips at +5.1s to +6.5s, widget fully interactive ~7s. Home (/) = 32 resources / 816 KB / imageBytes 88 KB / LCP 1822ms (IMG /hero/xoexam-arm.webp) / 0 tint scripts. Tab-by-tab DOM state: core {tintEl:false,scripts:0}, mobile {tintEl:false}, frame {tintEl:true, scripts:0, ceDefined:false}.",
+  "rca_of_the_issue": "No eager loading of the Tint/Banuba widget exists — the user's perceived slowdown is not caused by VTO. Two real contributors to Fit-page LCP were identified: (1) an unconditional high-priority preload of the Home hero image (/hero/xoexam-arm.webp, 93 KB) in public/index.html that is unused on the Fit page and delays the actual hero image, and (2) ~490 KB of eagerly loaded below-the-fold core-tab imagery."
+}
