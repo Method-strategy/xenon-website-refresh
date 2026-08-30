@@ -19,6 +19,10 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  # Tint (Banuba) VTO widget publishable key — safe to commit: it's a
+  # public/client-side key by design, secured via domain-allowlisting on
+  # Tint's side rather than secrecy (same model as a Stripe publishable key).
+  REACT_APP_TINT_PUBLISHABLE_KEY = "pk_live_IYyrrt3UVJlY4ogS1rsQkOpb5hPMSyodJB9dhszNeKQ"
 
 # Single-page app: let React Router handle every route client-side.
 [[redirects]]
