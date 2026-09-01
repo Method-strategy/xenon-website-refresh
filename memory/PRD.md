@@ -400,3 +400,7 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 ## Homepage xoExam card: new blurb (2026-09-01, this session)
 
 - Updated `PRODUCTS.xoexam.blurb` in `site.js` with the user's new copy (mentions functional testing, remote + practice modes, async review/confirm, downstream fitting/finishing). Verified via build + screenshot on the homepage system card grid — renders cleanly, no overflow.
+
+## xoExam workflow table: ECP-directed copy update (2026-09-01, this session)
+
+- Updated the "ECP-directed" card's description to "The practitioner conducts exams, reviews, and confirms in real time or asynchronously, from anywhere." (adds the async option alongside real-time). Verified clean build.

@@ -32,7 +32,7 @@ const FUTURE_TESTS = [
 const WORKFLOW = [
   { mode: "Self-administered", who: "The patient follows on-screen prompts", role: "ECP reviews and confirms" },
   { mode: "Technician-guided", who: "A technician assists the workflow", role: "ECP reviews and confirms" },
-  { mode: "ECP-directed", who: "The practitioner conducts exams, reviews, and confirms in real time, from anywhere.", role: null },
+  { mode: "ECP-directed", who: "The practitioner conducts exams, reviews, and confirms in real time or asynchronously, from anywhere.", role: null },
 ];
 
 const REMOTE_EXAMPLES = [
