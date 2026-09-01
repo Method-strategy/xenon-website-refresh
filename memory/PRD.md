@@ -1,6 +1,6 @@
 # Xenon Ophthalmics — Product Requirements & Session State
 
-Last handoff: 2026-08-30 (font metric matching / fallback CLS session)
+Last handoff: 2026-09-01 (Contact form: product-interest checkboxes added)
 
 ---
 
@@ -324,3 +324,11 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 - **Task 2 (font metric matching, P2) — implemented.** Generated metric-matched fallback `@font-face` declarations for all 3 brand fonts using `fonttools` (python) + `@capsizecss/metrics` (node, used only to compute static constants then removed, not a runtime dependency) to calculate `ascent-override`/`descent-override`/`line-gap-override`/`size-adjust` against Arial (Manrope, Zalando Sans SemiExpanded) and Courier New (JetBrains Mono). Added `"Manrope Fallback"`, `"Zalando Sans SemiExpanded Fallback"`, `"JetBrains Mono Fallback"` faces in `/app/frontend/public/fonts/fonts.css` (all `src: local(...)`, zero extra network requests) and wired them into the font stacks in `index.css` (body, `.font-display`, `.font-mono`, `.eyebrow`, `.btn-primary`, `.btn-ghost`) and `tailwind.config.js`'s `fontFamily`. This removes the text reflow a `font-display: swap` webfont swap would otherwise cause on slow connections, without a JS-measured shim — pure progressive-enhancement CSS (unsupported browsers just ignore the descriptors, same as before).
 - Verified via screenshot + CLS re-check on Home post-change: CLS still 0, no visual regression.
 - Remaining backlog (P2, deferred by user this session): Task 4 (refactor Iris/Exam/Fit/Lab into shared component), Task 5 (draft FDA Clearance Callout section). SSG/prerendering and remaining placeholder-image swap are explicitly **not** this app's responsibility (handled server-side/deploy-side by another team, confirmed by user 2026-08-30).
+
+## Contact form: product-interest checkboxes (2026-09-01, this session) — DONE
+
+- **Context:** user updated the live HubSpot form (portal `245698072`, form GUID `cf605cae-ee6b-4a84-9783-ae35dd05bae2`) to add a "which products are you interested in" checkbox field, and shared the raw embed snippet, asking whether the site already used it.
+- **Important architectural note:** `Contact.jsx` does **not** use HubSpot's raw embed script/iframe — it's a fully custom-coded React form (matching the editorial design system) that POSTs fields directly to HubSpot's Forms Submit API (`https://api.hsforms.com/submissions/v3/integration/submit/{portalId}/{formGuid}`). Portal/form IDs already matched the user's snippet, but new fields added in HubSpot's form editor do **not** automatically appear on the site — each field must be manually added to the React form and wired to its HubSpot internal property name.
+- Got the internal property name from user: `xenon_website_form_product_interest_choice` (Contact object, multiple checkboxes). Options/CRM values: `xoExam™`, `xoIris™`, `xoFit™`, `xoLab™`. Required field, HubSpot multi-checkbox values submitted as a `;`-joined string.
+- Added `products_interested` array to form state, a `Checkbox`-based group (square, `rounded-none`, matches editorial no-rounded-corner rule) positioned above "Additional information" per user's request, with the exact copy "Please select the products you'd like to demo. Select all that apply.", and required-field validation (blocks submit if none selected).
+- Verified: screenshot confirms checkboxes render/toggle correctly in the site's visual language; a live curl POST to the HubSpot Forms API with the new field returned `200 {"inlineMessage":""}`, confirming the property name is accepted.

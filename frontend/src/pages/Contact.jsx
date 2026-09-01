@@ -5,6 +5,7 @@ import { MaskText, Reveal } from "@/components/common/Reveal";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -15,6 +16,10 @@ import {
 import { toast } from "sonner";
 import { PROFESSIONS, COMPANY_SIZES } from "@/data/site";
 import { usePageMeta } from "@/lib/usePageMeta";
+
+// HubSpot property: "xenon_website_form_product_interest_choice" (Contact,
+// multiple checkboxes). Label and CRM value are identical for each option.
+const PRODUCTS_INTERESTED = ["xoExam™", "xoIris™", "xoFit™", "xoLab™"];
 
 const FIELD =
   "border-fg/15 bg-fg/[0.03] text-fg placeholder:text-fg/30 focus-visible:ring-xo-blue focus-visible:border-xo-blue";
@@ -47,12 +52,22 @@ export default function Contact() {
     profession: "",
     company_name: "",
     company_size: "",
+    products_interested: [],
     message: "",
   });
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
+
+  const toggleProduct = (product) => (checked) => {
+    setForm((f) => ({
+      ...f,
+      products_interested: checked
+        ? [...f.products_interested, product]
+        : f.products_interested.filter((p) => p !== product),
+    }));
+  };
 
   const submit = async (e) => {
     e.preventDefault();
@@ -62,7 +77,8 @@ export default function Contact() {
       !form.email ||
       !form.phone ||
       !form.profession ||
-      !form.company_name
+      !form.company_name ||
+      form.products_interested.length === 0
     ) {
       toast.error("Please complete all required fields.");
       return;
@@ -75,6 +91,11 @@ export default function Contact() {
         { objectTypeId: "0-1", name: "email", value: form.email },
         { objectTypeId: "0-1", name: "phone", value: form.phone },
         { objectTypeId: "0-1", name: "profession", value: form.profession },
+        {
+          objectTypeId: "0-1",
+          name: "xenon_website_form_product_interest_choice",
+          value: form.products_interested.join(";"),
+        },
         { objectTypeId: "0-2", name: "name", value: form.company_name },
       ];
       if (form.company_size) {
@@ -201,6 +222,27 @@ export default function Contact() {
                       </Select>
                     </Field>
                   </div>
+
+                  <Field label="Please select the products you'd like to demo. Select all that apply." required>
+                    <div data-testid="products-interested-group" className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                      {PRODUCTS_INTERESTED.map((product) => (
+                        <label
+                          key={product}
+                          htmlFor={`product-${product}`}
+                          className="flex cursor-pointer items-center gap-3 border border-fg/15 bg-fg/[0.03] px-4 py-3 transition-colors hover:border-fg/30"
+                        >
+                          <Checkbox
+                            id={`product-${product}`}
+                            data-testid={`checkbox-product-${product.replace(/[^a-zA-Z]/g, "").toLowerCase()}`}
+                            checked={form.products_interested.includes(product)}
+                            onCheckedChange={toggleProduct(product)}
+                            className="rounded-none border-fg/30 data-[state=checked]:border-xo-blue data-[state=checked]:bg-xo-blue"
+                          />
+                          <span className="text-sm text-fg/80">{product}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </Field>
 
                   <Field label="Additional information">
                     <Textarea
