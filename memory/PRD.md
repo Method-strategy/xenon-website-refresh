@@ -392,3 +392,7 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 
 - User reviewed the wireframe globe animation and felt it "did not land at all" / not worth the effort to iterate further. Removed entirely: deleted `RemoteGlobe.jsx`, its import/usage in `Exam.jsx`'s Remote Exams section, and the `globe-meridian-sweep` keyframe from `index.css`. Remote Exams section is back to text-only (copy corrections from earlier this session — workflow table renames, remote-exam emphasis on rural review/confirm — remain in place, only the graphic was reverted).
 - Verified clean build after removal.
+
+## xoExam: removed "Retinal imaging capability" spec (2026-09-01, this session)
+
+- Removed from `SPECS` array in `Exam.jsx` (its only occurrence sitewide, confirmed via grep). List renumbers automatically (now 11 items). Verified clean build.

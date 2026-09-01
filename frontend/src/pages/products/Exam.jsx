@@ -44,7 +44,6 @@ const REMOTE_EXAMPLES = [
 const SPECS = [
   "Objective and subjective refraction in one device",
   "Visual field patterns 10-2, 24-2, 24-2C, 30-2",
-  "Retinal imaging capability",
   "Pupillometry and biometric tracking",
   "Real-time eye tracking",
   "Wavefront-based imaging",
