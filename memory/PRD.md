@@ -1,6 +1,6 @@
 # Xenon Ophthalmics — Product Requirements & Session State
 
-Last handoff: 2026-09-01 (xoExam: workflow copy fix + remote globe visual)
+Last handoff: 2026-09-01 (RemoteGlobe visual removed)
 
 ---
 
@@ -387,3 +387,8 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 - **Remote Exams copy sharpened** to equally emphasize both remote capabilities: the ECP directing an exam remotely, *and* an ECP reviewing/confirming a technician-run exam remotely. Rewrote the section body and all 3 examples around the specific "rural community clinic, technician on site + ECP confirming from anywhere" scenario the user described, and updated FAQ #4 ("How does a remote exam work?") to match.
 - **New `RemoteGlobe` component** (`components/common/RemoteGlobe.jsx`): a pure-SVG wireframe globe (static circle + equator + 2 latitude chords, all thin line-art) with 3 meridian ellipses that continuously "sweep" via a CSS keyframe (`globe-meridian-sweep`, added to `index.css`) to suggest slow rotation without a literal 3D transform. Layered on top: a Framer Motion reveal (origin dot with pulsing ring → dashed arc drawn via `pathLength` → destination dot with its own pulse), triggered once on scroll-into-view, in the page's `--acc` blue. Placed in the Remote Exams section's left column (previously empty space below the headline on desktop, `lg:` only). No photography, no real map data — abstract line art matching the site's understated visual language.
 - Verified via build + screenshot: table renders correctly, globe animates in cleanly on scroll (dot → dashed line → dot).
+
+## RemoteGlobe visual removed (2026-09-01, this session)
+
+- User reviewed the wireframe globe animation and felt it "did not land at all" / not worth the effort to iterate further. Removed entirely: deleted `RemoteGlobe.jsx`, its import/usage in `Exam.jsx`'s Remote Exams section, and the `globe-meridian-sweep` keyframe from `index.css`. Remote Exams section is back to text-only (copy corrections from earlier this session — workflow table renames, remote-exam emphasis on rural review/confirm — remain in place, only the graphic was reverted).
+- Verified clean build after removal.

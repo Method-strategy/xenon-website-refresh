@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import ProductHero from "@/components/common/ProductHero";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
-import { RemoteGlobe } from "@/components/common/RemoteGlobe";
 import FAQ from "@/components/common/FAQ";
 import DemoCTA from "@/components/common/DemoCTA";
 import { usePageMeta } from "@/lib/usePageMeta";
@@ -284,7 +283,6 @@ export default function Exam() {
               as="span"
               className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
             />
-            <RemoteGlobe className="mx-auto mt-14 hidden h-[260px] w-[260px] lg:block" />
           </div>
           <div className="lg:col-span-7">
             <Reveal>
