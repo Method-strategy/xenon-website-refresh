@@ -196,9 +196,16 @@ export default function Exam() {
               hardware and no replacement cycle. A practice that buys xoExam today
               gains capability over time rather than watching a fixed instrument age.
             </p>
-            <p data-testid="future-tests-list" className="mt-6 max-w-3xl text-[13.5px] leading-relaxed text-fg/35">
-              {FUTURE_TESTS.join(" · ")}
-            </p>
+            <div data-testid="future-tests-list" className="mt-6 flex max-w-3xl flex-wrap gap-2.5">
+              {FUTURE_TESTS.map((t) => (
+                <span
+                  key={t}
+                  className="border border-fg/10 bg-fg/[0.02] px-3 py-1.5 font-mono text-[11px] uppercase tracking-wide text-fg/45 transition-colors duration-300 hover:border-fg/25 hover:text-fg/70"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
           </Reveal>
         </div>
       </section>

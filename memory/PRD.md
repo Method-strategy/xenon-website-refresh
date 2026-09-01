@@ -1,6 +1,6 @@
 # Xenon Ophthalmics — Product Requirements & Session State
 
-Last handoff: 2026-09-01 (xoExam: wrap fix + new hero image)
+Last handoff: 2026-09-01 (xoExam: future-tests chip list + hero zoom)
 
 ---
 
@@ -353,3 +353,9 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 - **Bad wrap fix:** on wide viewports (reproduced at 2560px, matching user's 30" monitor), the "The Workflow" section headline ("Run it three ways. The practitioner confirms every result.") was rendered as one `text-wrap:balance` flow, which pulled the word "The" up onto the first line ("Run it three ways. The" / "practitioner confirms every result."), splitting a sentence awkwardly. Root cause: the shared `MaskTextInView`/word-reveal always re-joins words with a plain breakable space regardless of source punctuation, so there's no way to "glue" words together within one call. Fix: split into two separate stacked `MaskTextInView` calls (one per sentence) so each sentence balances independently and can never merge onto the same line. Verified fixed at 2560px. Audited other headlines sitewide for the same two-sentence pattern — a few exist (About.jsx, Home.jsx, Iris.jsx, Lab.jsx, System.jsx) but weren't reported as broken, so left untouched per scope (not proactively rewritten).
 - **New hero image:** user supplied a new hero photo for the xoExam page (woman seated wearing the device, arm extending off-frame). Optimized via PIL (quality 82, method 6): saved as `/hero/xoexam-wearing.webp` (2000×1123, 45KB) + `/hero/xoexam-wearing-1200.webp` (1200×674, 22.6KB) responsive variant — both smaller than the previous hero asset. Old `/hero/xoexam-arm.webp` left untouched since it's still used on `Home.jsx`. Wired into `Exam.jsx`'s `ProductHero` `image`/`imageSrcSet`/`imageAlt` props. Renders correctly with the existing ghosted/right-anchored hero treatment, no code changes needed to `ProductHero.jsx` itself.
 - Verified via `CI=true yarn build` (clean) + screenshot at 2560px viewport.
+
+## xoExam: future-tests chip list + hero zoom (2026-09-01, this session) — DONE
+
+- **"Also in development" list redesign:** the 12-item future test list read as a run-together sentence (mid-dot separated inline text). Replaced with a `flex-wrap` grid of individually bordered tag chips (sharp corners, muted `text-fg/45` mono uppercase, hover state) — each test is now a clearly separated, scannable item, still visually secondary to the main 7-test bordered grid above it (smaller, lighter, no numbering) but no longer "run together."
+- **Hero image zoom:** re-cropped the new xoExam hero photo ~20% tighter (centered on the device/face, source crop box computed via PIL then upscaled back to 2000×1123 via Lanczos) so the subject fills more of the frame at the default (pre-scroll) hero state. Regenerated both `/hero/xoexam-wearing.webp` (51KB) and `-1200.webp` (27KB) variants. No changes to `ProductHero.jsx`'s shared scroll-scale logic (kept scoped to this one image, not a sitewide zoom change).
+- Verified via build + screenshot at 1920px: chip list renders cleanly wrapped, hero crop visibly tighter/closer.
