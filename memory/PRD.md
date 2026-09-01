@@ -1,6 +1,6 @@
 # Xenon Ophthalmics — Product Requirements & Session State
 
-Last handoff: 2026-09-01 (Netlify deploy fix: missing yarn.lock)
+Last handoff: 2026-09-01 (xoExam page full copy overhaul, 9 sections)
 
 ---
 
@@ -338,3 +338,12 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 - **Symptom:** Netlify build failed on `Attempted import error: 'ExternalLink' is not exported from 'lucide-react'` (used in `CookieConsent.jsx`).
 - **Root cause:** `frontend/yarn.lock` was never committed to git (untracked this whole project). Confirmed `lucide-react@0.516.0` genuinely exports `ExternalLink` and a local `yarn build` succeeds cleanly with the exact same deps — so this wasn't a real code bug, it was Netlify resolving/caching a non-deterministic (and apparently stale/corrupted) `node_modules` with no lockfile to hash for cache invalidation.
 - **Fix:** `git add`ed `frontend/yarn.lock` so it's now tracked. User needs to push via "Save to GitHub" and run one "Clear cache and deploy" on Netlify to purge the stale cache.
+
+## xoExam page full copy overhaul (2026-09-01, this session) — DONE
+
+- User supplied 3 successive `.docx` drafts refining xoExam page copy ahead of launch (product moving closer to solidified clinical/regulatory details). Reviewed each draft, asked clarifying questions before touching code each time (per user's explicit request), and implemented only on the final approved draft.
+- **Final structure (`Exam.jsx`), 9 sections + hero, in order:** Hero (restored "wearable device" language, confirmed by user) → The Device (lane-vs-one-unit comparison, 4-bullet grid) → The Exam (7 shipping tests in a numbered grid + "Also in development" inline mid-dot list of 12 future tests, replaces old "19 tests" claim entirely — test count now split shipping/future) → The Workflow (3-mode delegation cards: Patient-guided / Technician-run / ECP-directed, all "Reviews and confirms", role-based access control language) → **Remote Exams (brand new section)**: live remote/telehealth-style supervised exams, HIPAA-compliant cloud platform, 3 numbered use-case examples → In the System (new: xoFit/xoLab integration story + relocated "See the full patient journey" link) → The Setting + Specifications (paired two-column, specs expanded 9→12 items) → Scope (new: houses the old "boundary statement" callout, now its own section) → FAQ (expanded 3→6 questions, new remote-exam and "who can use it" questions).
+- Terminology shift throughout: "doctor" → "ECP"/"practitioner", "certifies" → "confirms". Old standalone "Your patient/your exam/your judgment" intro section removed (content merged into new Scope section).
+- Design system fully preserved as instructed ("not a redo"): same hairline `border-t` sections, `eyebrow` labels, `MaskTextInView` headlines, `rounded-md border-fg/10` card/grid treatment reused as-is for new Workflow/Remote Exams sections. New "In the System" section reuses the exact pattern already established at the bottom of `Fit.jsx`.
+- Verified: `CI=true yarn build` compiles clean, full-page screenshot pass across all 9 sections confirms no layout breaks, test grid filler-cell math still closes correctly (7 items % 3 cols = same remainder as old 19-item grid). CTA row (hero button, DemoCTA) confirmed untouched throughout, per user instruction.
+- Self-tested only (no backend/API involved, pure static content page) — no testing_agent run for this change.
