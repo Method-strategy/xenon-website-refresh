@@ -144,7 +144,12 @@ export default function System() {
                 <div className="eyebrow mb-6">The problem this solves</div>
               </Reveal>
               <MaskTextInView
-                lines={["Eye care is delivered in steps.", "The waiting happens between them."]}
+                lines={["Eye care is delivered in steps."]}
+                as="span"
+                className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+              />
+              <MaskTextInView
+                lines={["The waiting happens between them."]}
                 as="span"
                 className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
               />
@@ -279,7 +284,12 @@ export default function System() {
               <div className="eyebrow mb-6">What it replaces</div>
             </Reveal>
             <MaskTextInView
-              lines={["Fewer boxes. Fewer handoffs.", "Fewer places for the day to slow down."]}
+              lines={["Fewer boxes. Fewer handoffs."]}
+              as="span"
+              className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+            />
+            <MaskTextInView
+              lines={["Fewer places for the day to slow down."]}
               as="span"
               className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
             />

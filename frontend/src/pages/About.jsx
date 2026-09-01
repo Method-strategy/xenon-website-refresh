@@ -93,7 +93,12 @@ export default function About() {
             <div className="eyebrow mb-6">The access gap</div>
           </Reveal>
           <MaskTextInView
-            lines={["The need is enormous.", "The workforce is concentrated."]}
+            lines={["The need is enormous."]}
+            as="span"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+          />
+          <MaskTextInView
+            lines={["The workforce is concentrated."]}
             as="span"
             className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />

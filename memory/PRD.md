@@ -1,6 +1,6 @@
 # Xenon Ophthalmics — Product Requirements & Session State
 
-Last handoff: 2026-09-01 (Home "Proof" section: new background photo)
+Last handoff: 2026-09-01 (wide-monitor headline wrap audit)
 
 ---
 
@@ -365,3 +365,10 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 - User supplied a custom photo (rural community eye-care setup, patients wearing xoExam devices under a shade structure) to use as the background for the "If it works where there is no clinic, it works in yours." row on the homepage.
 - This row already had an established pattern for exactly this: a full-bleed absolute background `<img>` at `opacity-15` with a `bg-bg/80` overlay on top (previously a generic Pexels stock clinic photo, `IMAGES.clinic`). Simply replaced that image source — optimized the new photo to `/photos/proof-community-eyecare.webp` (1600w, 78 quality, ~128KB) and swapped `IMAGES.clinic` in `data/site.js` from the Pexels URL to this local asset. No JSX/layout changes needed since the hint-only treatment was already exactly right for this use case.
 - Verified via build + screenshot: photo is visibly present but subtle, doesn't compete with text legibility.
+
+## Wide-monitor headline wrap audit (2026-09-01, this session) — DONE
+
+- Audited every two-sentence `MaskTextInView` headline sitewide (found via grep for `lines={[` items ending in a period followed by another item) at 2560px viewport, since that's the pattern that caused the Exam.jsx bug fixed earlier this session.
+- **Confirmed broken (same "orphaned word" bug) and fixed:** `About.jsx` ("The need is enormous. The workforce is concentrated." — "The" was jumping to line 1), `System.jsx` ×2 ("Eye care is delivered in steps. The waiting happens between them." — "The" orphaned; "Fewer boxes. Fewer handoffs. Fewer places for the day to slow down." — 3rd "Fewer" orphaned). All fixed with the same technique: split into two independent stacked `MaskTextInView` calls so each sentence balances on its own.
+- **Checked, not broken, left untouched:** `Home.jsx` ("Four gaps. One system built to close them." — wraps cleanly, sentence starter stays intact), `Iris.jsx` ×2 ("Cloud-based. Nothing to install." — fits without wrapping; "A cancellation is a hole in the day. It doesn't have to be." — wraps mid-phrase but not mid-sentence-starter, minor/acceptable), `Lab.jsx` ("Three machines. One in-office lab." — fits on one line), `Fit.jsx` ("Simple. Fast. Accurate." — fits on one line).
+- Verified via build + screenshots at 2560px on all 3 fixed pages.
