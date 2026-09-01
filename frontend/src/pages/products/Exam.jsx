@@ -48,7 +48,7 @@ const SPECS = [
   "Real-time eye tracking",
   "Wavefront-based imaging",
   "Xenon Ophthalmics patented Liquid Lens optical system",
-  "Live remote exam with encrypted connection",
+  "Live and asynchronous remote exam over an encrypted connection",
   "Cloud SaaS data platform, HIPAA-compliant",
   "Comfort-optimized wearable design",
   "Wireless connectivity",
@@ -62,7 +62,7 @@ const FAQS = [
   },
   {
     q: "Does xoExam replace a comprehensive eye exam?",
-    a: "No. xoExam covers the refraction and functional vision testing portion of the exam. Anterior segment examination, tonometry, and retinal health assessment remain part of the comprehensive exam, and so does the clinical judgment that completes it. The device is an instrument the practitioner uses, in the same sense that an autorefractor or a perimeter is.",
+    a: "No. xoExam covers the refraction and functional vision testing portion of the exam. It does not screen for or diagnose eye disease. Anterior segment examination, tonometry, and retinal health assessment remain part of the comprehensive exam, and so does the clinical judgment that completes it. xoExam is used by a licensed practitioner, on that practitioner's patient, as part of care the practitioner directs.",
   },
   {
     q: "Who confirms the results?",
@@ -70,7 +70,7 @@ const FAQS = [
   },
   {
     q: "How does a remote exam work?",
-    a: "Two ways. The ECP can direct the exam in real time from anywhere, or a technician can administer it on site while the ECP reviews and confirms the result remotely, over an encrypted connection. Either way, the result carries the same practitioner sign-off it would in the exam room.",
+    a: "Two ways. The ECP can direct the exam in real time from anywhere, or a technician can administer it on site while the ECP reviews and confirms the result remotely, over an encrypted connection. Either way, the result gets the same practitioner review it would in the exam room.",
   },
   {
     q: "Who can use it?",
@@ -120,8 +120,8 @@ export default function Exam() {
               phoropter, and an acuity chart. Practices that also perform wavefront
               aberrometry or visual field testing add those as separate instruments,
               each with its own purchase price, its own maintenance, and its own
-              place in the room. The lane gets built one instrument at a time, and it
-              grows in the only direction it can. xoExam is one unit. Objective and
+              place in the room. Every instrument added is another footprint to
+              house and another handoff to manage. xoExam is one unit. Objective and
               subjective refraction happen in the same device and the same workflow,
               which means the objective starting point is already there when the
               subjective portion begins. Nobody reads a number off one screen and
@@ -158,11 +158,11 @@ export default function Exam() {
             <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
               xoExam performs objective and subjective refraction, wavefront
               aberrometry, visual field, color vision, extraocular motility, and
-              pupillometry. Two of those are worth pausing on. Wavefront aberrometry
+              pupillometry. Wavefront aberrometry
               and visual field testing typically require dedicated instruments that
               many practices either refer out or go without, so for a lot of offices
-              this is added capability rather than consolidated capability. And
-              extraocular motility is still done by hand in most practices, with a
+              this is added capability rather than consolidated capability.
+              Extraocular motility is still done by hand in most practices, with a
               penlight and the practitioner's own time, which xoExam gives back.
             </p>
           </Reveal>
@@ -289,11 +289,11 @@ export default function Exam() {
                 xoExam supports two kinds of remote exam. The ECP can direct a
                 test in real time from anywhere, or a technician can administer
                 it on site while the ECP reviews and confirms the result from
-                anywhere else, over an encrypted connection. Either way, the
-                clinical signature on the result comes from the practitioner,
-                not the location. That is what lets one ECP's judgment reach a
-                community clinic in a rural county they may never visit in
-                person.
+                anywhere else, either as the exam happens or afterward, over an
+                encrypted connection. Either way, the clinical judgment stays
+                with the practitioner, wherever they are. That is what lets one
+                ECP's judgment reach a community clinic in a rural county they
+                may never visit in person.
               </p>
             </Reveal>
             <div className="mt-8 space-y-0">
@@ -371,10 +371,8 @@ export default function Exam() {
               <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
                 Because xoExam does not require a fixed lane, a darkened room, or a
                 bank of separate instruments, it can operate wherever the
-                practitioner needs it to. That includes a workplace running a vision
-                benefit day, a school, an assisted living facility, a community
-                health center, or a mobile unit serving a rural county where the
-                nearest practice is an hour away. The device is designed for
+                practitioner needs it to, including settings that have never been
+                able to support an exam lane. The device is designed for
                 patients ages 10 and older, with an adjustable fit and a guided,
                 patient-paced interaction that does not assume familiarity with
                 clinical equipment.
@@ -398,32 +396,6 @@ export default function Exam() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Scope */}
-      <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
-        <div className="xo-container">
-          <Reveal>
-            <div className="eyebrow mb-6">Scope</div>
-          </Reveal>
-          <MaskTextInView
-            lines={["Where xoExam fits", "in the exam."]}
-            as="span"
-            className="max-w-3xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
-          />
-          <Reveal delay={0.1}>
-            <div data-testid="scope-statement" className="mt-10 max-w-2xl rounded-md border border-fg/10 bg-surface p-8">
-              <p className="text-[15px] leading-relaxed text-fg/60">
-                xoExam covers the refraction and functional vision testing portion
-                of the eye exam. It does not screen for or diagnose eye disease, and
-                it does not replace anterior segment examination, tonometry, or
-                retinal health assessment. It is used by a licensed practitioner, on
-                that practitioner's patient, as part of care the practitioner
-                directs.
-              </p>
-            </div>
-          </Reveal>
         </div>
       </section>
 

@@ -404,3 +404,9 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 ## xoExam workflow table: ECP-directed copy update (2026-09-01, this session)
 
 - Updated the "ECP-directed" card's description to "The practitioner conducts exams, reviews, and confirms in real time or asynchronously, from anywhere." (adds the async option alongside real-time). Verified clean build.
+
+## xoExam: precision find-and-replace edits from doc (2026-09-01, this session)
+
+- Implemented all 7 numbered edits from `Emergent_xoExam_Prompt.docx` verbatim: The Device sentence swap, The Exam "Two of those" count fix, Remote Exams signature-language softening + async-review addition, Specifications item 07 update, full Scope section deletion (content preserved via FAQ #2 update), and The Setting's duplicated-venue-list removal.
+- **Also caught and fixed a standing-rule violation** not in the numbered list: FAQ #4 answer used the banned word "sign-off" — removed it (now "the result gets the same practitioner review it would in the exam room"). Audited the whole file for the standing rules (headset/certify/certified/sign off/screening, em/en dashes in rendered text) — no other violations found (the one em dash present is inside a JSX code comment, never rendered).
+- Verified via build + screenshots: Scope section confirmed removed (0 occurrences), Setting flows directly into Specifications/FAQ, all edited paragraphs render correctly.
