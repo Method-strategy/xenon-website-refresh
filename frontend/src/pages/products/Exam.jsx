@@ -70,7 +70,7 @@ const FAQS = [
   },
   {
     q: "How does a remote exam work?",
-    a: "Two ways. The ECP can direct the exam in real time from anywhere, or a technician can administer it on site while the ECP reviews and confirms the result remotely, over an encrypted connection. Either way, the result gets the same practitioner review it would in the exam room.",
+    a: "Two ways. The ECP can direct the exam in real time from anywhere, or a technician can administer it on site while the ECP reviews and confirms the result remotely, either as the exam happens or afterward, over an encrypted connection. Either way, the result gets the same practitioner review it would in the exam room.",
   },
   {
     q: "Who can use it?",

@@ -414,3 +414,7 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 ## Homepage xoExam card: edited-down blurb (2026-09-01, this session)
 
 - Replaced `PRODUCTS.xoexam.blurb` with the user's shorter edit (drops the "transcription step"/"results continue to fitting and finishing" clauses). Verified clean build.
+
+## xoExam FAQ #4 copy tweak (2026-09-01, this session)
+
+- Added "either as the exam happens or afterward" to the "How does a remote exam work?" answer, matching the phrasing already used in the Remote Exams section body. Verified clean build.
