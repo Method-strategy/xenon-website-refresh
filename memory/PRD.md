@@ -1,6 +1,6 @@
 # Xenon Ophthalmics — Product Requirements & Session State
 
-Last handoff: 2026-09-01 (Contact form: product-interest checkboxes added)
+Last handoff: 2026-09-01 (Netlify deploy fix: missing yarn.lock)
 
 ---
 
@@ -332,3 +332,9 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 - Got the internal property name from user: `xenon_website_form_product_interest_choice` (Contact object, multiple checkboxes). Options/CRM values: `xoExam™`, `xoIris™`, `xoFit™`, `xoLab™`. Required field, HubSpot multi-checkbox values submitted as a `;`-joined string.
 - Added `products_interested` array to form state, a `Checkbox`-based group (square, `rounded-none`, matches editorial no-rounded-corner rule) positioned above "Additional information" per user's request, with the exact copy "Please select the products you'd like to demo. Select all that apply.", and required-field validation (blocks submit if none selected).
 - Verified: screenshot confirms checkboxes render/toggle correctly in the site's visual language; a live curl POST to the HubSpot Forms API with the new field returned `200 {"inlineMessage":""}`, confirming the property name is accepted.
+
+## Netlify deploy fix: missing yarn.lock (2026-09-01, this session) — DONE
+
+- **Symptom:** Netlify build failed on `Attempted import error: 'ExternalLink' is not exported from 'lucide-react'` (used in `CookieConsent.jsx`).
+- **Root cause:** `frontend/yarn.lock` was never committed to git (untracked this whole project). Confirmed `lucide-react@0.516.0` genuinely exports `ExternalLink` and a local `yarn build` succeeds cleanly with the exact same deps — so this wasn't a real code bug, it was Netlify resolving/caching a non-deterministic (and apparently stale/corrupted) `node_modules` with no lockfile to hash for cache invalidation.
+- **Fix:** `git add`ed `frontend/yarn.lock` so it's now tracked. User needs to push via "Save to GitHub" and run one "Clear cache and deploy" on Netlify to purge the stale cache.
