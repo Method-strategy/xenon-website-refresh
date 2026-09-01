@@ -1,6 +1,6 @@
 # Xenon Ophthalmics — Product Requirements & Session State
 
-Last handoff: 2026-09-01 (xoExam page full copy overhaul, 9 sections)
+Last handoff: 2026-09-01 (xoExam: wrap fix + new hero image)
 
 ---
 
@@ -347,3 +347,9 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 - Design system fully preserved as instructed ("not a redo"): same hairline `border-t` sections, `eyebrow` labels, `MaskTextInView` headlines, `rounded-md border-fg/10` card/grid treatment reused as-is for new Workflow/Remote Exams sections. New "In the System" section reuses the exact pattern already established at the bottom of `Fit.jsx`.
 - Verified: `CI=true yarn build` compiles clean, full-page screenshot pass across all 9 sections confirms no layout breaks, test grid filler-cell math still closes correctly (7 items % 3 cols = same remainder as old 19-item grid). CTA row (hero button, DemoCTA) confirmed untouched throughout, per user instruction.
 - Self-tested only (no backend/API involved, pure static content page) — no testing_agent run for this change.
+
+## xoExam: headline wrap fix + new hero image (2026-09-01, this session) — DONE
+
+- **Bad wrap fix:** on wide viewports (reproduced at 2560px, matching user's 30" monitor), the "The Workflow" section headline ("Run it three ways. The practitioner confirms every result.") was rendered as one `text-wrap:balance` flow, which pulled the word "The" up onto the first line ("Run it three ways. The" / "practitioner confirms every result."), splitting a sentence awkwardly. Root cause: the shared `MaskTextInView`/word-reveal always re-joins words with a plain breakable space regardless of source punctuation, so there's no way to "glue" words together within one call. Fix: split into two separate stacked `MaskTextInView` calls (one per sentence) so each sentence balances independently and can never merge onto the same line. Verified fixed at 2560px. Audited other headlines sitewide for the same two-sentence pattern — a few exist (About.jsx, Home.jsx, Iris.jsx, Lab.jsx, System.jsx) but weren't reported as broken, so left untouched per scope (not proactively rewritten).
+- **New hero image:** user supplied a new hero photo for the xoExam page (woman seated wearing the device, arm extending off-frame). Optimized via PIL (quality 82, method 6): saved as `/hero/xoexam-wearing.webp` (2000×1123, 45KB) + `/hero/xoexam-wearing-1200.webp` (1200×674, 22.6KB) responsive variant — both smaller than the previous hero asset. Old `/hero/xoexam-arm.webp` left untouched since it's still used on `Home.jsx`. Wired into `Exam.jsx`'s `ProductHero` `image`/`imageSrcSet`/`imageAlt` props. Renders correctly with the existing ghosted/right-anchored hero treatment, no code changes needed to `ProductHero.jsx` itself.
+- Verified via `CI=true yarn build` (clean) + screenshot at 2560px viewport.

@@ -99,9 +99,9 @@ export default function Exam() {
         role="Exam"
         headlineLines={["Refraction and", "functional testing,", "in one wearable device."]}
         subhead="A medical-grade platform bringing practitioner-led vision testing into a single unit, administered in minutes, from virtually anywhere."
-        image="/hero/xoexam-arm.webp"
-        imageSrcSet="/hero/xoexam-arm-1200.webp 1200w, /hero/xoexam-arm.webp 2000w"
-        imageAlt="xoExam wearable eye exam device on articulated arm"
+        image="/hero/xoexam-wearing.webp"
+        imageSrcSet="/hero/xoexam-wearing-1200.webp 1200w, /hero/xoexam-wearing.webp 2000w"
+        imageAlt="Woman seated and wearing the xoExam device, its adjustable arm extended to the side"
       />
 
       {/* The Device */}
@@ -210,7 +210,12 @@ export default function Exam() {
             <div className="eyebrow mb-6">The Workflow</div>
           </Reveal>
           <MaskTextInView
-            lines={["Run it three ways.", "The practitioner confirms every result."]}
+            lines={["Run it three ways."]}
+            as="span"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+          />
+          <MaskTextInView
+            lines={["The practitioner confirms every result."]}
             as="span"
             className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
