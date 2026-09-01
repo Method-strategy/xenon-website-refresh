@@ -96,7 +96,7 @@ export default function Exam() {
         logoWidth={154}
         logoHeight={24}
         role="Exam"
-        headlineLines={["Refraction and", "functional testing,", "in one wearable device."]}
+        headlineLines={["Refraction and", "functional testing,", "in one wearable instrument."]}
         subhead="A medical-grade platform bringing practitioner-led vision testing into a single unit, administered in minutes, from virtually anywhere."
         image="/hero/xoexam-wearing.webp"
         imageSrcSet="/hero/xoexam-wearing-1200.webp 1200w, /hero/xoexam-wearing.webp 2000w"
@@ -121,7 +121,7 @@ export default function Exam() {
               aberrometry or visual field testing add those as separate instruments,
               each with its own purchase price, its own maintenance, and its own
               place in the room. Every instrument added is another footprint to
-              house and another handoff to manage. xoExam is one unit. Objective and
+              house and another handoff to manage. xoExam is one instrument. Objective and
               subjective refraction happen in the same device and the same workflow,
               which means the objective starting point is already there when the
               subjective portion begins. Nobody reads a number off one screen and

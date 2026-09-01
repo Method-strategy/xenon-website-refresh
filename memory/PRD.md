@@ -424,3 +424,7 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 - **Remote Exams:** replaced the single opening paragraph with two paragraphs (new lead paragraph distinguishing xoExam's full remote exam from typical async-review/remote-refraction-only approaches, then the existing "works two ways" mechanics). The 3 numbered example cards and closing HIPAA line left untouched, per instruction.
 - **The Setting:** replaced the single body paragraph with three: a shorter opening line, a new middle paragraph listing 6 concrete settings (FQHC/rural clinic, mobile unit, satellite office, employer vision day, school, retail optical), and the original patient-age/fit closing line. H2 headline unchanged.
 - Verified no standing-rule violations (banned words, em/en dashes) introduced; clean build + screenshots confirm both sections render correctly.
+
+## xoExam: instrument language edits (2026-09-01, this session)
+
+- 3 verbatim find-and-replace edits: Hero H1 "wearable device" → "wearable instrument", The Device body "xoExam is one unit" → "xoExam is one instrument", homepage xoExam card "wearable device" → "wearable instrument". All other "device" instances (specs table + elsewhere) confirmed untouched, per instruction. Clean build + screenshot verified.
