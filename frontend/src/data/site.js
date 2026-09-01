@@ -63,7 +63,7 @@ export const PRODUCTS = [
     logoWidth: 154,
     logoHeight: 24,
     blurb:
-      "Objective and subjective refraction, plus functional testing, in one wearable device, replacing the inefficiencies of a conventional exam lane and the transcription step between instruments. Run it with the patient, a technician, or the ECP, in the practice or remotely. The practitioner supervises live or reviews and confirms asynchronously, then results continue through the system to fitting and finishing.",
+      "Objective and subjective refraction, plus functional testing, in one wearable device, replacing the inefficiencies of a conventional exam lane. Run it with the patient, a technician, or the ECP, in the practice or remotely, with the practitioner supervising live or confirming asynchronously.",
   },
   {
     key: "xofit",

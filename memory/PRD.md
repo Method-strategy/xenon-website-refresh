@@ -410,3 +410,7 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 - Implemented all 7 numbered edits from `Emergent_xoExam_Prompt.docx` verbatim: The Device sentence swap, The Exam "Two of those" count fix, Remote Exams signature-language softening + async-review addition, Specifications item 07 update, full Scope section deletion (content preserved via FAQ #2 update), and The Setting's duplicated-venue-list removal.
 - **Also caught and fixed a standing-rule violation** not in the numbered list: FAQ #4 answer used the banned word "sign-off" — removed it (now "the result gets the same practitioner review it would in the exam room"). Audited the whole file for the standing rules (headset/certify/certified/sign off/screening, em/en dashes in rendered text) — no other violations found (the one em dash present is inside a JSX code comment, never rendered).
 - Verified via build + screenshots: Scope section confirmed removed (0 occurrences), Setting flows directly into Specifications/FAQ, all edited paragraphs render correctly.
+
+## Homepage xoExam card: edited-down blurb (2026-09-01, this session)
+
+- Replaced `PRODUCTS.xoexam.blurb` with the user's shorter edit (drops the "transcription step"/"results continue to fitting and finishing" clauses). Verified clean build.
