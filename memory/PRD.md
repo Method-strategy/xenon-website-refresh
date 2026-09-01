@@ -1,6 +1,6 @@
 # Xenon Ophthalmics — Product Requirements & Session State
 
-Last handoff: 2026-09-01 (xoExam: future-tests chip list + hero zoom)
+Last handoff: 2026-09-01 (Home "Proof" section: new background photo)
 
 ---
 
@@ -359,3 +359,9 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 - **"Also in development" list redesign:** the 12-item future test list read as a run-together sentence (mid-dot separated inline text). Replaced with a `flex-wrap` grid of individually bordered tag chips (sharp corners, muted `text-fg/45` mono uppercase, hover state) — each test is now a clearly separated, scannable item, still visually secondary to the main 7-test bordered grid above it (smaller, lighter, no numbering) but no longer "run together."
 - **Hero image zoom:** re-cropped the new xoExam hero photo ~20% tighter (centered on the device/face, source crop box computed via PIL then upscaled back to 2000×1123 via Lanczos) so the subject fills more of the frame at the default (pre-scroll) hero state. Regenerated both `/hero/xoexam-wearing.webp` (51KB) and `-1200.webp` (27KB) variants. No changes to `ProductHero.jsx`'s shared scroll-scale logic (kept scoped to this one image, not a sitewide zoom change).
 - Verified via build + screenshot at 1920px: chip list renders cleanly wrapped, hero crop visibly tighter/closer.
+
+## Home "Proof" section: new background photo (2026-09-01, this session) — DONE
+
+- User supplied a custom photo (rural community eye-care setup, patients wearing xoExam devices under a shade structure) to use as the background for the "If it works where there is no clinic, it works in yours." row on the homepage.
+- This row already had an established pattern for exactly this: a full-bleed absolute background `<img>` at `opacity-15` with a `bg-bg/80` overlay on top (previously a generic Pexels stock clinic photo, `IMAGES.clinic`). Simply replaced that image source — optimized the new photo to `/photos/proof-community-eyecare.webp` (1600w, 78 quality, ~128KB) and swapped `IMAGES.clinic` in `data/site.js` from the Pexels URL to this local asset. No JSX/layout changes needed since the hint-only treatment was already exactly right for this use case.
+- Verified via build + screenshot: photo is visibly present but subtle, doesn't compete with text legibility.

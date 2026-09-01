@@ -9,7 +9,7 @@
 // dramatically with no visible quality loss at the sizes these are shown.
 export const IMAGES = {
   heroProduct: "https://images.unsplash.com/photo-1702471897393-47ec1ba1192b?auto=format&fit=crop&w=1600&q=70",
-  clinic: "https://images.pexels.com/photos/5965843/pexels-photo-5965843.jpeg?auto=compress&cs=tinysrgb&w=1600",
+  clinic: "/photos/proof-community-eyecare.webp",
   lab: "https://images.pexels.com/photos/5752264/pexels-photo-5752264.jpeg?auto=compress&cs=tinysrgb&w=1600",
   microscope: "https://images.pexels.com/photos/13949979/pexels-photo-13949979.jpeg?auto=compress&cs=tinysrgb&w=1600",
   doctor1: "https://images.pexels.com/photos/28516278/pexels-photo-28516278.jpeg?auto=compress&cs=tinysrgb&w=1200",
