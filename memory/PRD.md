@@ -1,6 +1,6 @@
 # Xenon Ophthalmics — Product Requirements & Session State
 
-Last handoff: 2026-09-01 (sitewide voice audit)
+Last handoff: 2026-09-01 (xoExam: workflow copy fix + remote globe visual)
 
 ---
 
@@ -380,3 +380,10 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 - **The one genuine outlier: `Fit.jsx`'s `FORM_FACTORS` data** (intro bodies, `tiles`, and the "How xoFit works" headline/subhead for Core/Mobile/Frame). This was written in a noticeably weaker generic-marketing register ("Accurate Digital Measurements", "Confident Frame Selection", "Simple, fast, and accurate frame fitting in just a few easy steps.") that stood out against the rest of the page's own narrative sections. Rewrote all 15 tiles (6 Core + 6 Mobile + 3 Frame), both Core/Mobile intro bodies, and the "Simple. Fast. Accurate." headline (→ "No ruler. No transcribing.") into the xoExam voice — same claims/facts per tile, reusing facts already established elsewhere on the same page (six-camera/single-shot capture, lab-ready export format) rather than inventing anything new. `featureList` spec arrays left untouched (already terse/factual, consistent with the sitewide Specifications-list pattern).
 - **Found and fixed 2 stale factual references** left over from the earlier xoExam content revision (test count / terminology no longer matched the live xoExam page): `site.js` `PRODUCTS.xoexam` teaser blurb ("An entire suite... 19 tests... You certify" → aligned with current 7-tests/ECP language), and `System.jsx`'s exam workflow step body/REPLACES row (same "19 doctor-led tests"/"chart projector" staleness).
 - Verified via build + screenshots across all 3 Fit.jsx tabs.
+
+## xoExam: workflow copy fix + remote globe visual (2026-09-01, this session) — DONE
+
+- **Workflow table correction:** renamed modes (Patient-guided → Self-administered, Technician-run → Technician-guided), changed role label to "ECP reviews and confirms" for rows 1–2, and collapsed row 3 (ECP-directed) into a single unified line ("The practitioner conducts exams, reviews, and confirms in real time, from anywhere.") instead of the who/role split — the card component (`workflow-mode-*`) now conditionally renders the role footer only when present.
+- **Remote Exams copy sharpened** to equally emphasize both remote capabilities: the ECP directing an exam remotely, *and* an ECP reviewing/confirming a technician-run exam remotely. Rewrote the section body and all 3 examples around the specific "rural community clinic, technician on site + ECP confirming from anywhere" scenario the user described, and updated FAQ #4 ("How does a remote exam work?") to match.
+- **New `RemoteGlobe` component** (`components/common/RemoteGlobe.jsx`): a pure-SVG wireframe globe (static circle + equator + 2 latitude chords, all thin line-art) with 3 meridian ellipses that continuously "sweep" via a CSS keyframe (`globe-meridian-sweep`, added to `index.css`) to suggest slow rotation without a literal 3D transform. Layered on top: a Framer Motion reveal (origin dot with pulsing ring → dashed arc drawn via `pathLength` → destination dot with its own pulse), triggered once on scroll-into-view, in the page's `--acc` blue. Placed in the Remote Exams section's left column (previously empty space below the headline on desktop, `lg:` only). No photography, no real map data — abstract line art matching the site's understated visual language.
+- Verified via build + screenshot: table renders correctly, globe animates in cleanly on scroll (dot → dashed line → dot).

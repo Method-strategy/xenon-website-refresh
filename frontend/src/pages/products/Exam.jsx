@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import ProductHero from "@/components/common/ProductHero";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
+import { RemoteGlobe } from "@/components/common/RemoteGlobe";
 import FAQ from "@/components/common/FAQ";
 import DemoCTA from "@/components/common/DemoCTA";
 import { usePageMeta } from "@/lib/usePageMeta";
@@ -30,15 +31,15 @@ const FUTURE_TESTS = [
 ];
 
 const WORKFLOW = [
-  { mode: "Patient-guided", who: "The patient follows on-screen prompts", role: "Reviews and confirms" },
-  { mode: "Technician-run", who: "A technician assists the workflow", role: "Reviews and confirms" },
-  { mode: "ECP-directed", who: "The ECP monitors in real time", role: "Reviews and confirms" },
+  { mode: "Self-administered", who: "The patient follows on-screen prompts", role: "ECP reviews and confirms" },
+  { mode: "Technician-guided", who: "A technician assists the workflow", role: "ECP reviews and confirms" },
+  { mode: "ECP-directed", who: "The practitioner conducts exams, reviews, and confirms in real time, from anywhere.", role: null },
 ];
 
 const REMOTE_EXAMPLES = [
-  "A second location can run exams without a practitioner on site that day.",
-  "A mobile unit can operate in a rural county while the supervising ECP stays at the practice.",
-  "A community health center, a school, or an employer program can deliver a practitioner-supervised exam without a practitioner present.",
+  "A technician runs the exam at a rural community clinic. The supervising ECP reviews and confirms every result from the practice, or from anywhere else.",
+  "A mobile unit can serve a county with no ophthalmic practice at all, with a practitioner confirming results the same day, remotely.",
+  "A school, an employer program, or an assisted living facility can host the exam without a practitioner on site, and still get a practitioner-confirmed result.",
 ];
 
 const SPECS = [
@@ -71,7 +72,7 @@ const FAQS = [
   },
   {
     q: "How does a remote exam work?",
-    a: "A technician administers the test at the patient's location while the supervising ECP participates in real time from wherever they are, over an encrypted connection. The practitioner reviews and confirms results as the exam proceeds, the same way they would in the room.",
+    a: "Two ways. The ECP can direct the exam in real time from anywhere, or a technician can administer it on site while the ECP reviews and confirms the result remotely, over an encrypted connection. Either way, the result carries the same practitioner sign-off it would in the exam room.",
   },
   {
     q: "Who can use it?",
@@ -250,9 +251,11 @@ export default function Exam() {
                   <div className="font-mono text-xs text-acc">{String(i + 1).padStart(2, "0")}</div>
                   <h3 className="mt-4 font-display text-2xl text-fg">{d.mode}</h3>
                   <p className="mt-3 text-[15px] leading-relaxed text-fg/50">{d.who}</p>
-                  <div className="mt-auto pt-6 font-mono text-[11px] uppercase tracking-[0.15em] text-fg/70">
-                    {d.role}
-                  </div>
+                  {d.role && (
+                    <div className="mt-auto pt-6 font-mono text-[11px] uppercase tracking-[0.15em] text-fg/70">
+                      {d.role}
+                    </div>
+                  )}
                 </div>
               </Reveal>
             ))}
@@ -281,15 +284,19 @@ export default function Exam() {
               as="span"
               className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
             />
+            <RemoteGlobe className="mx-auto mt-14 hidden h-[260px] w-[260px] lg:block" />
           </div>
           <div className="lg:col-span-7">
             <Reveal>
               <p className="text-lg leading-relaxed text-fg/60">
-                xoExam supports live remote exams. A technician can administer the
-                test at one location while the ECP supervises in real time from
-                another, over an encrypted connection, with the practitioner
-                reviewing and confirming results as the exam proceeds. That changes
-                what a practice can cover.
+                xoExam supports two kinds of remote exam. The ECP can direct a
+                test in real time from anywhere, or a technician can administer
+                it on site while the ECP reviews and confirms the result from
+                anywhere else, over an encrypted connection. Either way, the
+                clinical signature on the result comes from the practitioner,
+                not the location. That is what lets one ECP's judgment reach a
+                community clinic in a rural county they may never visit in
+                person.
               </p>
             </Reveal>
             <div className="mt-8 space-y-0">

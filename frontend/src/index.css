@@ -361,3 +361,21 @@ body {
 #google_translate_element.skiptranslate {
   display: block !important;
 }
+
+/* Wireframe-globe meridian sweep — used by RemoteGlobe.jsx. Squishes each
+   meridian ellipse from edge-on to full-width and back, staggered across
+   3 instances, to suggest slow rotation without a literal 3D transform. */
+@keyframes globe-meridian-sweep {
+  0%,
+  100% {
+    transform: scaleX(0.04);
+  }
+  50% {
+    transform: scaleX(1);
+  }
+}
+.globe-meridian {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: globe-meridian-sweep 14s ease-in-out infinite;
+}
