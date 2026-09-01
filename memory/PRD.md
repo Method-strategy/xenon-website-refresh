@@ -396,3 +396,7 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 ## xoExam: removed "Retinal imaging capability" spec (2026-09-01, this session)
 
 - Removed from `SPECS` array in `Exam.jsx` (its only occurrence sitewide, confirmed via grep). List renumbers automatically (now 11 items). Verified clean build.
+
+## Homepage xoExam card: new blurb (2026-09-01, this session)
+
+- Updated `PRODUCTS.xoexam.blurb` in `site.js` with the user's new copy (mentions functional testing, remote + practice modes, async review/confirm, downstream fitting/finishing). Verified via build + screenshot on the homepage system card grid — renders cleanly, no overflow.
