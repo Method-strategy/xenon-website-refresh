@@ -63,7 +63,7 @@ export const PRODUCTS = [
     logoWidth: 154,
     logoHeight: 24,
     blurb:
-      "An entire suite of doctor-led vision tests in one wearable device, replacing a lane assembled from separate instruments. Objective and subjective refraction run in the same workflow. Run it with the patient, a technician, or yourself. You certify every result.",
+      "Refraction and functional testing in one wearable device, replacing a lane assembled from separate instruments. Objective and subjective refraction run in the same workflow. Run it with the patient, a technician, or the ECP. Every result is reviewed and confirmed before it moves.",
   },
   {
     key: "xofit",

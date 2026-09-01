@@ -39,7 +39,7 @@ const STEPS = [
     logoHeight: 24,
     role: "Exam · xoExam™",
     title: "One device, not a lane.",
-    body: "xoExam brings 19 doctor-led vision tests into a single wearable device, replacing the autorefractor, phoropter, chart projector stack with one unit. Tests can be run by the patient, a technician, or under the doctor's guidance. It is a delegation choice, not a transfer of responsibility. No result leaves the device until the ECP certifies it.",
+    body: "xoExam brings refraction and functional vision testing into a single wearable device, replacing the autorefractor, phoropter, and acuity chart stack with one unit. Tests can be run by the patient, a technician, or the ECP directly. It is a delegation choice, not a transfer of responsibility. No result leaves the device until the ECP reviews and confirms it.",
     hand: "By the time the patient reaches the dispensary: the prescription and full results are already loaded in xoFit.",
     to: "/xoexam-eye-exam",
     outcomes: ["clinical-quality", "control"],
@@ -74,7 +74,7 @@ const STEPS = [
 
 const REPLACES = [
   ["Scheduling", "Software with no line of sight into the visit", "The visit begins at booking"],
-  ["Exam", "Autorefractor, phoropter, chart projector & supporting instruments", "One wearable exam device"],
+  ["Exam", "Autorefractor, phoropter, acuity chart & supporting instruments", "One wearable exam device"],
   ["Refraction", "A stop between objective and subjective refraction", "One continuous refraction workflow"],
   ["Fitting", "Ruler or a standalone centration device", "Measurement taken in the same visit, already attached"],
   ["Finishing", "A lab order rebuilt at the end of the sale", "A specification finished when the sale is"],

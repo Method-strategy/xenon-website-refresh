@@ -19,8 +19,8 @@ const FORM_FACTORS = [
     tab: "xoFit Core",
     kind: "Stand / wall-mounted",
     intro: {
-      subhead: "Precision frame fitting. Digitally guided.",
-      body: "xoFit is a digital centration and measurement system designed to support accurate, repeatable frame fitting. Using advanced optical imaging and intelligent analysis, xoFit captures critical facial and frame data to support confident frame selection and produce lab-ready measurements for precise eyewear fabrication in retail and clinical environments.",
+      subhead: "One shot. Every measurement.",
+      body: "xoFit Core is a wall-mounted station built for the dispensary that sees the most volume. A six-camera array captures facial and frame geometry in a single shot, so the patient holds one position instead of several, and the measurement is calculated the moment the shot is taken, ready for the lab before the patient has left the chair.",
     },
     deviceImage: "/products/xofit/device.webp",
     deviceWidth: 814,
@@ -28,15 +28,15 @@ const FORM_FACTORS = [
     deviceAlt: "xoFit wall-mounted precision frame fitting device",
     deviceLabel: "xoFit Core · Stand / Wall-mounted",
     tiles: [
-      ["Accurate Digital Measurements", "Captures essential facial and frame parameters with consistent precision to support correct lens positioning and fabrication."],
-      ["Guided Patient Positioning", "Ensures natural posture and correct gaze alignment during measurement, reducing errors and remakes."],
-      ["Confident Frame Selection", "Supports real-time frame visualization and verification to help patients and staff confirm fit before production."],
-      ["Lab-Ready Output", "Generates complete, standardized measurement data compatible with downstream lab and finishing workflows."],
-      ["Repeatable Results", "Delivers consistent outcomes across staff, locations, and patient volumes."],
-      ["Space-Efficient Integration", "Wall-mounted design minimizes footprint while maintaining a clean, professional retail or clinical environment."],
+      ["One capture, not an estimate", "The six-camera array measures pupillary distance, segment height, and frame geometry in a single shot, so the number that reaches the lab is what was actually measured, not what a ruler approximated."],
+      ["The patient holds one position", "On-screen guidance keeps posture and gaze aligned for the one shot the measurement needs, so a patient who fidgets doesn't turn into a remake."],
+      ["The fit is confirmed before it's cut", "Real-time visualization lets the patient and the optician agree on how a frame sits before the order goes anywhere, catching a bad fit before it becomes a returned pair."],
+      ["The output is already a spec", "Measurements export in the format the lab, or xoLab, already expects, so nobody retypes a number from one system into another."],
+      ["The same measurement, whoever runs it", "Because the capture is automated rather than judged by eye, the numbers don't shift with which optician is on shift or how many patients came in that day."],
+      ["It mounts on a wall, not a room", "A wall-mounted footprint fits into the dispensary you already have, with no dedicated fitting bay required."],
     ],
     howItWorks: {
-      subhead: "Simple, fast, and accurate frame fitting in just a few easy steps.",
+      subhead: "From the patient stepping into position to a lab-ready number, with nothing written down by hand in between.",
       screens: [
         { src: "/products/xofit/screen-1.webp", label: "Start", width: 832, height: 1248 },
         { src: "/products/xofit/screen-2.webp", label: "Check", width: 832, height: 1248 },
@@ -70,7 +70,7 @@ const FORM_FACTORS = [
     kind: "iPad-based / portable",
     intro: {
       subhead: "Precision measurements. Anywhere fitting happens.",
-      body: "xoFit mobile is a handheld digital centration and measurement system designed for flexible, on-the-floor use. Combining advanced optical imaging with intelligent software, xoFit mobile captures accurate facial and frame data wherever the fitting interaction occurs, supporting confident frame selection and producing lab-ready measurements without requiring fixed installation.",
+      body: "xoFit Mobile is the same measurement, unbolted from the wall. An iPad-based unit with a wearable alignment module and 4x optical zoom, it goes wherever the frame conversation is already happening, so the optician isn't walking the patient to a fixed station to get an accurate number.",
     },
     deviceImage: "/products/xofit/mobile-device.webp",
     deviceWidth: 1200,
@@ -78,12 +78,12 @@ const FORM_FACTORS = [
     deviceAlt: "xoFit mobile handheld digital centration device",
     deviceLabel: "xoFit Mobile · iPad-based / portable",
     tiles: [
-      ["Mobile Measurement Flexibility", "Enables precise frame fitting and measurement anywhere in the retail environment without dedicated wall space."],
-      ["Natural Patient Interaction", "Supports face-to-face fitting conversations while capturing accurate digital measurements."],
-      ["Guided Accuracy", "Software-guided positioning and visual feedback help ensure correct posture, alignment, and image capture."],
-      ["Lab-Ready Results", "Generates complete centration and measurement data compatible with downstream lab and finishing workflows."],
-      ["Multiple Measurement Modes", "Offers easy, advanced, and expert workflows to match staff experience and prescription complexity."],
-      ["Minimal Setup", "Handheld design with optional dock stand allows fast deployment without permanent installation."],
+      ["Fitting happens wherever the frame is", "There's no wall unit to walk the patient to. xoFit Mobile goes to whichever chair, table, or corner of the floor the frame conversation is already happening in."],
+      ["The conversation doesn't stop for the measurement", "The optician stays face to face with the patient through the capture, instead of stepping behind a fixed station to take it."],
+      ["Accuracy travels with the device", "The same on-screen guidance that keeps posture and alignment correct on a fixed station runs on the handheld unit, so portability doesn't cost precision."],
+      ["Every mode ends the same way", "Whichever workflow the optician chooses (easy, advanced, or expert) the result lands in the same lab-ready format, ready for xoLab or an outside lab."],
+      ["Three modes, one for every staff member", "A newer optician can run the easy workflow. A senior optician can go to expert for a complex prescription. The device adjusts to the person using it, not the other way around."],
+      ["Nothing to install", "It's a handheld unit with an optional dock, not a fixture. A practice can start using it the day it arrives."],
     ],
     howItWorks: {
       subhead: "Simple, fast, and accurate frame fitting in just a few easy steps.",
@@ -134,9 +134,9 @@ const FORM_FACTORS = [
     deviceLabel: "xoFrame · Virtual Try-On",
     deviceImageWide: true,
     tiles: [
-      ["Try On Any Frame", "Patients see themselves in every frame in the collection instantly, making selection faster and decisions more confident."],
-      ["Effortless Catalog Growth", "New frames are added to the virtual collection in moments, keeping the try-on catalog current with inventory."],
-      ["Same-Day Eyewear via xoLab", "Completed selections are sent directly to xoLab, with finished eyewear delivered the same day, in office."],
+      ["Every frame, without leaving the chair", "A patient can see themselves in a frame that isn't in the case that day, or isn't in the case at all, cutting the back-and-forth of physically trying on option after option."],
+      ["The catalog keeps up with inventory", "A new frame joins the virtual collection in moments, so the try-on catalog never lags behind what's actually on the floor."],
+      ["The selection doesn't end at try-on", "The instant a patient decides, that choice carries into the fitting record and on to xoLab, so same-day finishing starts before the patient leaves the chair."],
     ],
     vto: true,
     featureList: [
@@ -532,7 +532,7 @@ export default function Fit() {
                         <div className="eyebrow mb-8">How xoFit works</div>
                       </Reveal>
                       <MaskTextInView
-                        lines={["Simple. Fast. Accurate."]}
+                        lines={["No ruler. No transcribing."]}
                         as="span"
                         className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg md:text-5xl"
                       />

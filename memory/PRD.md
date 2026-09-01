@@ -1,6 +1,6 @@
 # Xenon Ophthalmics — Product Requirements & Session State
 
-Last handoff: 2026-09-01 (wide-monitor headline wrap audit)
+Last handoff: 2026-09-01 (sitewide voice audit)
 
 ---
 
@@ -372,3 +372,11 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 - **Confirmed broken (same "orphaned word" bug) and fixed:** `About.jsx` ("The need is enormous. The workforce is concentrated." — "The" was jumping to line 1), `System.jsx` ×2 ("Eye care is delivered in steps. The waiting happens between them." — "The" orphaned; "Fewer boxes. Fewer handoffs. Fewer places for the day to slow down." — 3rd "Fewer" orphaned). All fixed with the same technique: split into two independent stacked `MaskTextInView` calls so each sentence balances on its own.
 - **Checked, not broken, left untouched:** `Home.jsx` ("Four gaps. One system built to close them." — wraps cleanly, sentence starter stays intact), `Iris.jsx` ×2 ("Cloud-based. Nothing to install." — fits without wrapping; "A cancellation is a hole in the day. It doesn't have to be." — wraps mid-phrase but not mid-sentence-starter, minor/acceptable), `Lab.jsx` ("Three machines. One in-office lab." — fits on one line), `Fit.jsx` ("Simple. Fast. Accurate." — fits on one line).
 - Verified via build + screenshots at 2560px on all 3 fixed pages.
+
+## Sitewide voice audit vs. xoExam (2026-09-01, this session) — DONE
+
+- User asked whether the refined xoExam voice could be reapplied across the whole site (Home, About, System, Team, News, Blog, Contact, Iris, Fit, Lab) without changing narrative/content/intent. Legal pages (Privacy/Cookie/Terms) explicitly excluded.
+- **Read every in-scope page closely before writing anything.** Finding: Home, About, System, Team, News, Blog, Contact, and Iris/Lab were **already** written in the same voice as the final xoExam draft (short declarative openers unpacked by a causal clause, concrete specificity, no hype adjectives, no em-dashes) — these were left untouched rather than force unnecessary rewrites of already-strong copy.
+- **The one genuine outlier: `Fit.jsx`'s `FORM_FACTORS` data** (intro bodies, `tiles`, and the "How xoFit works" headline/subhead for Core/Mobile/Frame). This was written in a noticeably weaker generic-marketing register ("Accurate Digital Measurements", "Confident Frame Selection", "Simple, fast, and accurate frame fitting in just a few easy steps.") that stood out against the rest of the page's own narrative sections. Rewrote all 15 tiles (6 Core + 6 Mobile + 3 Frame), both Core/Mobile intro bodies, and the "Simple. Fast. Accurate." headline (→ "No ruler. No transcribing.") into the xoExam voice — same claims/facts per tile, reusing facts already established elsewhere on the same page (six-camera/single-shot capture, lab-ready export format) rather than inventing anything new. `featureList` spec arrays left untouched (already terse/factual, consistent with the sitewide Specifications-list pattern).
+- **Found and fixed 2 stale factual references** left over from the earlier xoExam content revision (test count / terminology no longer matched the live xoExam page): `site.js` `PRODUCTS.xoexam` teaser blurb ("An entire suite... 19 tests... You certify" → aligned with current 7-tests/ECP language), and `System.jsx`'s exam workflow step body/REPLACES row (same "19 doctor-led tests"/"chart projector" staleness).
+- Verified via build + screenshots across all 3 Fit.jsx tabs.
