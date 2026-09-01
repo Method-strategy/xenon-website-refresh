@@ -418,3 +418,9 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 ## xoExam FAQ #4 copy tweak (2026-09-01, this session)
 
 - Added "either as the exam happens or afterward" to the "How does a remote exam work?" answer, matching the phrasing already used in the Remote Exams section body. Verified clean build.
+
+## xoExam: Remote Exams + The Setting rewrites (2026-09-01, this session)
+
+- **Remote Exams:** replaced the single opening paragraph with two paragraphs (new lead paragraph distinguishing xoExam's full remote exam from typical async-review/remote-refraction-only approaches, then the existing "works two ways" mechanics). The 3 numbered example cards and closing HIPAA line left untouched, per instruction.
+- **The Setting:** replaced the single body paragraph with three: a shorter opening line, a new middle paragraph listing 6 concrete settings (FQHC/rural clinic, mobile unit, satellite office, employer vision day, school, retail optical), and the original patient-age/fit closing line. H2 headline unchanged.
+- Verified no standing-rule violations (banned words, em/en dashes) introduced; clean build + screenshots confirm both sections render correctly.

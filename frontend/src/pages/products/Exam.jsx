@@ -286,14 +286,23 @@ export default function Exam() {
           <div className="lg:col-span-7">
             <Reveal>
               <p className="text-lg leading-relaxed text-fg/60">
-                xoExam supports two kinds of remote exam. The ECP can direct a
-                test in real time from anywhere, or a technician can administer
-                it on site while the ECP reviews and confirms the result from
-                anywhere else, either as the exam happens or afterward, over an
-                encrypted connection. Either way, the clinical judgment stays
-                with the practitioner, wherever they are. That is what lets one
-                ECP's judgment reach a community clinic in a rural county they
-                may never visit in person.
+                Remote capability in ophthalmic diagnostics usually means one of
+                two things: asynchronous data review, where images and
+                measurements are uploaded for a practitioner to look at later,
+                or remote refraction alone, where a single test is graded off
+                site. xoExam does something different. It supports a full
+                remote exam, with the ECP participating in the complete
+                diagnostic session rather than reviewing a file after the fact.
+              </p>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <p className="mt-5 text-lg leading-relaxed text-fg/60">
+                That works two ways. The ECP can direct the exam in real time
+                from anywhere, or a technician can administer it on site while
+                the ECP reviews and confirms the results from anywhere else,
+                either as the exam happens or afterward, over an encrypted
+                connection. Either way, the clinical judgment stays with the
+                practitioner, wherever they are.
               </p>
             </Reveal>
             <div className="mt-8 space-y-0">
@@ -370,12 +379,29 @@ export default function Exam() {
             <Reveal delay={0.1}>
               <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
                 Because xoExam does not require a fixed lane, a darkened room, or a
-                bank of separate instruments, it can operate wherever the
-                practitioner needs it to, including settings that have never been
-                able to support an exam lane. The device is designed for
-                patients ages 10 and older, with an adjustable fit and a guided,
-                patient-paced interaction that does not assume familiarity with
-                clinical equipment.
+                bank of separate instruments, it goes where the exam is needed
+                rather than requiring the patient to come to it.
+              </p>
+            </Reveal>
+            <Reveal delay={0.15}>
+              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-fg/55">
+                That opens settings a conventional lane cannot serve. A
+                Federally Qualified Health Center or rural clinic can offer
+                refraction and visual field testing without building an exam
+                room. A mobile unit can cover a county where the nearest
+                practice is an hour away. A practice with multiple locations
+                can run exams at a satellite office on a day the practitioner
+                is somewhere else. An employer can host a vision benefit day
+                on site. A school can run exams for students without
+                transporting them anywhere. A retail optical location can add
+                exam capacity without adding a lane.
+              </p>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-fg/55">
+                The device is designed for patients ages 10 and older, with an
+                adjustable fit and a guided, patient-paced interaction that
+                does not assume familiarity with clinical equipment.
               </p>
             </Reveal>
           </div>
