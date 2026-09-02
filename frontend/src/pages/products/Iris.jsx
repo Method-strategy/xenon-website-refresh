@@ -1,5 +1,18 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  MessageCircle,
+  Headset,
+  Languages,
+  ArrowLeftRight,
+  Zap,
+  EyeOff,
+  Lock,
+  FileClock,
+  KeyRound,
+  UserCog,
+  Globe,
+} from "lucide-react";
 import ProductHero from "@/components/common/ProductHero";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import FAQ from "@/components/common/FAQ";
@@ -31,12 +44,12 @@ const FILLING_THE_DAY = [
 ];
 
 const PATIENT_COMMUNICATION = [
-  ["Live AI conversation", "Patients get an answer immediately rather than waiting for a callback."],
-  ["Staff override at any time", "Any conversation can be taken over directly by a doctor or staff member."],
-  ["Six languages", "English, Spanish, French, Simplified Chinese, Haitian Creole, and Vietnamese."],
-  ["Two-way translation", "xoIris converses with the patient in their language and translates to the practice's preferred language, and back again."],
-  ["Nothing for patients to download", "No app, no account setup. Conversation happens over text."],
-  ["Confidential by default", "Patient conversations stay private."],
+  ["Live AI conversation", "Patients get an answer immediately rather than waiting for a callback.", MessageCircle],
+  ["Staff override at any time", "Any conversation can be taken over directly by a doctor or staff member.", Headset],
+  ["Six languages", "English, Spanish, French, Simplified Chinese, Haitian Creole, and Vietnamese.", Languages],
+  ["Two-way translation", "xoIris converses with the patient in their language and translates to the practice's preferred language, and back again.", ArrowLeftRight],
+  ["Nothing for patients to download", "No app, no account setup. Conversation happens over text.", Zap],
+  ["Confidential by default", "Patient conversations stay private.", EyeOff],
 ];
 
 const INTAKE_RECORDS = [
@@ -47,11 +60,11 @@ const INTAKE_RECORDS = [
 ];
 
 const SECURITY_ACCESS = [
-  ["Full encryption", "Data encrypted in transit and at rest."],
-  ["Complete audit logs", "Who did what, and when."],
-  ["Multi-factor authentication", "Passkeys or an authenticator app."],
-  ["Role-based access control", "Permissions matched to the role."],
-  ["Browser-based", "A web interface for the practice, with nothing to install."],
+  ["Full encryption", "Data encrypted in transit and at rest.", Lock],
+  ["Complete audit logs", "Who did what, and when.", FileClock],
+  ["Multi-factor authentication", "Passkeys or an authenticator app.", KeyRound],
+  ["Role-based access control", "Permissions matched to the role.", UserCog],
+  ["Browser-based", "A web interface for the practice, with nothing to install.", Globe],
 ];
 
 const FAQS = [
@@ -84,11 +97,15 @@ const FAQS = [
 function FeatureList({ items }) {
   return (
     <div className="mt-10 divide-y divide-fg/10 border-t border-fg/10">
-      {items.map(([title, desc], i) => (
+      {items.map(([title, desc, Icon], i) => (
         <Reveal key={title} delay={i * 0.04}>
           <div data-testid="feature-list-item" className="grid grid-cols-1 gap-2 py-6 sm:grid-cols-12 sm:items-baseline">
-            <div className="flex items-baseline gap-3 sm:col-span-4">
-              <span className="font-mono text-[11px] text-acc tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+            <div className="flex items-center gap-3 sm:col-span-4">
+              {Icon ? (
+                <Icon className="h-[15px] w-[15px] shrink-0 text-acc" strokeWidth={1.5} />
+              ) : (
+                <span className="font-mono text-[11px] text-acc tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+              )}
               <span className="font-display text-base font-medium leading-snug text-fg">{title}</span>
             </div>
             <p className="text-[15px] leading-relaxed text-fg/60 sm:col-span-8">{desc}</p>
@@ -356,9 +373,7 @@ export default function Iris() {
               {SPECS.map((s, i) => (
                 <Reveal key={s} delay={i * 0.03}>
                   <div className="flex items-center gap-4 border-b border-fg/5 px-6 py-4 text-[14px] text-fg/70 last:border-0">
-                    <span className="font-mono text-xs text-fg/30 tabular-nums">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
+                    <span aria-hidden="true" className="h-px w-3 shrink-0 bg-acc/60" />
                     {s}
                   </div>
                 </Reveal>

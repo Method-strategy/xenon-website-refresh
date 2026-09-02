@@ -325,6 +325,10 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 - Verified via screenshot + CLS re-check on Home post-change: CLS still 0, no visual regression.
 - Remaining backlog (P2, deferred by user this session): Task 4 (refactor Iris/Exam/Fit/Lab into shared component), Task 5 (draft FDA Clearance Callout section). SSG/prerendering and remaining placeholder-image swap are explicitly **not** this app's responsibility (handled server-side/deploy-side by another team, confirmed by user 2026-08-30).
 
+## xoIris feature-list icons + spec bullets (2026-09-02, this session) — DONE
+
+User asked to break up the "onslaught of numbered cards" further. Added icons (replacing the numbered index) to 2 of the 4 `FeatureList` sections: Patient Communication (MessageCircle/Headset/Languages/ArrowLeftRight/Zap/EyeOff) and Security and Access (Lock/FileClock/KeyRound/UserCog/Globe). `FeatureList` now accepts an optional 3rd tuple element (icon component); falls back to the mono number badge when absent, so Filling the Day and Intake and Records correctly kept their numbers (not requested). Specifications list (10 items) switched from numbers to a plain short tick-mark bullet (`h-px w-3 bg-acc/60`), per request. Verified via screenshot.
+
 ## xoIris full copy + structure rewrite (2026-09-02, this session) — DONE
 
 User supplied `xoIris_Page_Copy.docx`. Per ask_human: broke the previous single-open `FeatureIndex` accordion apart into 4 separate full sections (Filling the Day / Patient Communication / Intake and Records / Security and Access), each with its own eyebrow + H2 + intro paragraph + a plain non-collapsible numbered `FeatureList` (local component, replaces old accordion). New structure: Hero → Overview → Filling the Day (7 features) → Patient Communication (6) → Intake and Records (4) → **Working with Your EHR** (brand new section, FHIR/HL7/Direct Secure Messaging, no list) → Security and Access (5) → What it delivers (Time/Practice Growth) → Platform + Specifications (grew 8→10 items) → In the system (now notes xoIris is "first of four components") → FAQ (grew 3→6 questions) → DemoCTA.
