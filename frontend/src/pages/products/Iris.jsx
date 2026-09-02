@@ -12,6 +12,10 @@ import {
   KeyRound,
   UserCog,
   Globe,
+  ClipboardCheck,
+  ScanLine,
+  BookUser,
+  ShieldCheck,
 } from "lucide-react";
 import ProductHero from "@/components/common/ProductHero";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
@@ -53,10 +57,10 @@ const PATIENT_COMMUNICATION = [
 ];
 
 const INTAKE_RECORDS = [
-  ["Digital onboarding", "Demographics and insurance collected before the visit."],
-  ["Card capture", "Data extracted from photographs of ID and insurance cards."],
-  ["Complete patient record", "Demographics, contacts, insurance, medical history, allergies and medications, visit history, and clinical imaging in one place."],
-  ["Protected health information masked by default", "Records stay hidden until intentionally revealed, and every reveal is logged."],
+  ["Digital onboarding", "Demographics and insurance collected before the visit.", ClipboardCheck],
+  ["Card capture", "Data extracted from photographs of ID and insurance cards.", ScanLine],
+  ["Complete patient record", "Demographics, contacts, insurance, medical history, allergies and medications, visit history, and clinical imaging in one place.", BookUser],
+  ["Protected health information masked by default", "Records stay hidden until intentionally revealed, and every reveal is logged.", ShieldCheck],
 ];
 
 const SECURITY_ACCESS = [

@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, ArrowUpRight, CalendarClock, Workflow, ClipboardList, Building2 } from "lucide-react";
+import { ArrowDown, ArrowUpRight, CalendarClock, Workflow, ClipboardList, Building2, Network, Flag, Globe } from "lucide-react";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import SectionAnchors from "@/components/common/SectionAnchors";
 import DemoCTA from "@/components/common/DemoCTA";
@@ -492,12 +492,15 @@ export default function Home() {
               </p>
             </Reveal>
             <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-fg/10 bg-fg/10 md:grid-cols-4">
-              {["Single practice", "Multi-location", "National", "Global"].map((s, i) => (
+              {[
+                ["Single practice", Building2],
+                ["Multi-location", Network],
+                ["National", Flag],
+                ["Global", Globe],
+              ].map(([s, Icon], i) => (
                 <Reveal key={s} delay={i * 0.06} className="bg-bg">
                   <div className="group flex h-full flex-col justify-between p-6 md:p-8">
-                    <div className="font-mono text-xs text-xo-blue">
-                      {String(i + 1).padStart(2, "0")}
-                    </div>
+                    <Icon className="h-5 w-5 text-xo-blue" strokeWidth={1.5} />
                     <div className="mt-8 font-display text-lg text-fg md:text-xl">{s}</div>
                   </div>
                 </Reveal>

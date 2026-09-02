@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Clock, TrendingUp, SlidersHorizontal, HeartHandshake, ShieldCheck, BarChart3 } from "lucide-react";
+import { ArrowUpRight, Clock, TrendingUp, SlidersHorizontal, HeartHandshake, ShieldCheck, BarChart3, Building2, Network, Store, Truck } from "lucide-react";
 import { MaskText, MaskTextInView, Reveal } from "@/components/common/Reveal";
 import SectionAnchors from "@/components/common/SectionAnchors";
 import DemoCTA from "@/components/common/DemoCTA";
@@ -126,10 +126,10 @@ const REPLACES = [
 ];
 
 const DEPLOYMENT_SCENARIOS = [
-  "A single practice consolidates its instrument stack, fills its schedule, and keeps finishing work in the building.",
-  "A multi-location group runs exams at satellite offices on days a practitioner is elsewhere, with the ECP reviewing and confirming results remotely.",
-  "A retail optical location adds exam capacity without adding a lane, and finishes eyewear on site rather than sending it out.",
-  "A mobile unit or community program delivers a practitioner-supervised exam where no clinic exists, with the practitioner participating live or reviewing afterward.",
+  ["A single practice consolidates its instrument stack, fills its schedule, and keeps finishing work in the building.", Building2],
+  ["A multi-location group runs exams at satellite offices on days a practitioner is elsewhere, with the ECP reviewing and confirming results remotely.", Network],
+  ["A retail optical location adds exam capacity without adding a lane, and finishes eyewear on site rather than sending it out.", Store],
+  ["A mobile unit or community program delivers a practitioner-supervised exam where no clinic exists, with the practitioner participating live or reviewing afterward.", Truck],
 ];
 
 export default function System() {
@@ -456,10 +456,10 @@ export default function System() {
                 </div>
                 <div className="lg:col-span-7 lg:pl-10">
                   <div className="divide-y divide-fg/10 border-t border-fg/10">
-                    {DEPLOYMENT_SCENARIOS.map((scenario, i) => (
+                    {DEPLOYMENT_SCENARIOS.map(([scenario, Icon], i) => (
                       <Reveal key={scenario} delay={i * 0.05}>
                         <div data-testid={`deployment-scenario-${i + 1}`} className="flex items-start gap-4 py-6">
-                          <span className="mt-1 font-mono text-xs text-xo-blue">{String(i + 1).padStart(2, "0")}</span>
+                          <Icon className="mt-0.5 h-[15px] w-[15px] shrink-0 text-xo-blue" strokeWidth={1.5} />
                           <span className="text-[15px] leading-relaxed text-fg/75">{scenario}</span>
                         </div>
                       </Reveal>

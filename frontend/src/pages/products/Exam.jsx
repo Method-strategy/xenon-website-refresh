@@ -1,5 +1,20 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  Focus,
+  Eye,
+  Waves,
+  Palette,
+  ScanEye,
+  Move,
+  CircleDot,
+  User,
+  Headset,
+  Stethoscope,
+  Users,
+  Truck,
+  Building2,
+} from "lucide-react";
 import ProductHero from "@/components/common/ProductHero";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import FAQ from "@/components/common/FAQ";
@@ -14,13 +29,13 @@ const DEVICE_BULLETS = [
 ];
 
 const TESTS = [
-  "Wavefront Optimized Refraction",
-  "Visual Acuity",
-  "Wavefront Aberrometry",
-  "Color Vision",
-  "Visual Field (10-2, 24-2, 24-2C, 30-2)",
-  "Extraocular Motility",
-  "Pupillometry",
+  ["Wavefront Optimized Refraction", Focus],
+  ["Visual Acuity", Eye],
+  ["Wavefront Aberrometry", Waves],
+  ["Color Vision", Palette],
+  ["Visual Field (10-2, 24-2, 24-2C, 30-2)", ScanEye],
+  ["Extraocular Motility", Move],
+  ["Pupillometry", CircleDot],
 ];
 
 const FUTURE_TESTS = [
@@ -30,15 +45,15 @@ const FUTURE_TESTS = [
 ];
 
 const WORKFLOW = [
-  { mode: "Self-administered", who: "The patient follows on-screen prompts", role: "ECP reviews and confirms" },
-  { mode: "Technician-guided", who: "A technician assists the workflow", role: "ECP reviews and confirms" },
-  { mode: "ECP-directed", who: "The practitioner conducts exams, reviews, and confirms in real time or asynchronously, from anywhere.", role: null },
+  { mode: "Self-administered", who: "The patient follows on-screen prompts", role: "ECP reviews and confirms", icon: User },
+  { mode: "Technician-guided", who: "A technician assists the workflow", role: "ECP reviews and confirms", icon: Headset },
+  { mode: "ECP-directed", who: "The practitioner conducts exams, reviews, and confirms in real time or asynchronously, from anywhere.", role: null, icon: Stethoscope },
 ];
 
 const REMOTE_EXAMPLES = [
-  "A technician runs the exam at a rural community clinic. The supervising ECP reviews and confirms every result from the practice, or from anywhere else.",
-  "A mobile unit can serve a county with no ophthalmic practice at all, with a practitioner confirming results the same day, remotely.",
-  "A school, an employer program, or an assisted living facility can host the exam without a practitioner on site, and still get a practitioner-confirmed result.",
+  ["A technician runs the exam at a rural community clinic. The supervising ECP reviews and confirms every result from the practice, or from anywhere else.", Users],
+  ["A mobile unit can serve a county with no ophthalmic practice at all, with a practitioner confirming results the same day, remotely.", Truck],
+  ["A school, an employer program, or an assisted living facility can host the exam without a practitioner on site, and still get a practitioner-confirmed result.", Building2],
 ];
 
 const SPECS = [
@@ -54,6 +69,7 @@ const SPECS = [
   "Wireless connectivity",
   "12-hour rechargeable battery",
 ];
+
 
 const FAQS = [
   {
@@ -169,15 +185,13 @@ export default function Exam() {
 
           <Reveal className="mt-14">
             <div className="grid grid-cols-1 overflow-hidden rounded-md border border-fg/10 sm:grid-cols-2 lg:grid-cols-3">
-              {TESTS.map((t, i) => (
+              {TESTS.map(([t, Icon], i) => (
                 <div
                   key={t}
                   data-testid={`test-${i + 1}`}
                   className="group flex items-center gap-4 border-b border-r border-fg/10 px-6 py-6 transition-colors duration-300 hover:bg-fg/[0.03]"
                 >
-                  <span className="font-mono text-xs text-acc tabular-nums">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                  <Icon className="h-[16px] w-[16px] shrink-0 text-acc" strokeWidth={1.5} />
                   <span className="text-[15px] text-fg/75 transition-colors group-hover:text-fg">
                     {t}
                   </span>
@@ -246,7 +260,7 @@ export default function Exam() {
                   data-testid={`workflow-mode-${i}`}
                   className="flex h-full flex-col rounded-md border border-fg/10 bg-surface p-8 transition-[transform,border-color] duration-500 hover:-translate-y-1 hover:border-acc/40"
                 >
-                  <div className="font-mono text-xs text-acc">{String(i + 1).padStart(2, "0")}</div>
+                  <d.icon className="h-5 w-5 text-acc" strokeWidth={1.5} />
                   <h3 className="mt-4 font-display text-2xl text-fg">{d.mode}</h3>
                   <p className="mt-3 text-[15px] leading-relaxed text-fg/50">{d.who}</p>
                   {d.role && (
@@ -315,15 +329,13 @@ export default function Exam() {
               </p>
             </Reveal>
             <div className="mt-8 space-y-0">
-              {REMOTE_EXAMPLES.map((ex, i) => (
+              {REMOTE_EXAMPLES.map(([ex, Icon], i) => (
                 <Reveal key={ex} delay={0.05 + i * 0.05}>
                   <div
                     data-testid={`remote-example-${i}`}
                     className="flex items-start gap-4 border-t border-fg/10 py-5 first:border-t-0 first:pt-0"
                   >
-                    <span className="mt-0.5 font-mono text-[11px] text-acc tabular-nums">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
+                    <Icon className="mt-0.5 h-[15px] w-[15px] shrink-0 text-acc" strokeWidth={1.5} />
                     <span className="text-[15px] leading-relaxed text-fg/65">{ex}</span>
                   </div>
                 </Reveal>
@@ -422,9 +434,7 @@ export default function Exam() {
               {SPECS.map((s, i) => (
                 <Reveal key={s} delay={i * 0.03}>
                   <div className="flex items-center gap-4 border-b border-fg/5 px-6 py-4 text-[14px] text-fg/70 last:border-0">
-                    <span className="font-mono text-xs text-fg/30 tabular-nums">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
+                    <span aria-hidden="true" className="h-px w-3 shrink-0 bg-acc/60" />
                     {s}
                   </div>
                 </Reveal>

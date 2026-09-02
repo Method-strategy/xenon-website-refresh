@@ -1,7 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Check, PlayCircle } from "lucide-react";
+import {
+  ArrowUpRight,
+  Check,
+  PlayCircle,
+  Aperture,
+  UserCheck,
+  CheckCircle2,
+  FileCheck,
+  Repeat,
+  PanelTop,
+  MapPin,
+  MessageCircle,
+  Gauge,
+  Users,
+  Zap,
+  Glasses,
+  RefreshCw,
+  Share2,
+} from "lucide-react";
 import ProductHero from "@/components/common/ProductHero";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import FAQ from "@/components/common/FAQ";
@@ -28,12 +46,12 @@ const FORM_FACTORS = [
     deviceAlt: "xoFit wall-mounted precision frame fitting device",
     deviceLabel: "xoFit Core · Stand / Wall-mounted",
     tiles: [
-      ["One capture, not an estimate", "The six-camera array measures pupillary distance, segment height, and frame geometry in a single shot, so the number that reaches the lab is what was actually measured, not what a ruler approximated."],
-      ["The patient holds one position", "On-screen guidance keeps posture and gaze aligned for the one shot the measurement needs, so a patient who fidgets doesn't turn into a remake."],
-      ["The fit is confirmed before it's cut", "Real-time visualization lets the patient and the optician agree on how a frame sits before the order goes anywhere, catching a bad fit before it becomes a returned pair."],
-      ["The output is already a spec", "Measurements export in the format the lab, or xoLab, already expects, so nobody retypes a number from one system into another."],
-      ["The same measurement, whoever runs it", "Because the capture is automated rather than judged by eye, the numbers don't shift with which optician is on shift or how many patients came in that day."],
-      ["It mounts on a wall, not a room", "A wall-mounted footprint fits into the dispensary you already have, with no dedicated fitting bay required."],
+      ["One capture, not an estimate", "The six-camera array measures pupillary distance, segment height, and frame geometry in a single shot, so the number that reaches the lab is what was actually measured, not what a ruler approximated.", Aperture],
+      ["The patient holds one position", "On-screen guidance keeps posture and gaze aligned for the one shot the measurement needs, so a patient who fidgets doesn't turn into a remake.", UserCheck],
+      ["The fit is confirmed before it's cut", "Real-time visualization lets the patient and the optician agree on how a frame sits before the order goes anywhere, catching a bad fit before it becomes a returned pair.", CheckCircle2],
+      ["The output is already a spec", "Measurements export in the format the lab, or xoLab, already expects, so nobody retypes a number from one system into another.", FileCheck],
+      ["The same measurement, whoever runs it", "Because the capture is automated rather than judged by eye, the numbers don't shift with which optician is on shift or how many patients came in that day.", Repeat],
+      ["It mounts on a wall, not a room", "A wall-mounted footprint fits into the dispensary you already have, with no dedicated fitting bay required.", PanelTop],
     ],
     howItWorks: {
       subhead: "From the patient stepping into position to a lab-ready number, with nothing written down by hand in between.",
@@ -78,12 +96,12 @@ const FORM_FACTORS = [
     deviceAlt: "xoFit mobile handheld digital centration device",
     deviceLabel: "xoFit Mobile · iPad-based / portable",
     tiles: [
-      ["Fitting happens wherever the frame is", "There's no wall unit to walk the patient to. xoFit Mobile goes to whichever chair, table, or corner of the floor the frame conversation is already happening in."],
-      ["The conversation doesn't stop for the measurement", "The optician stays face to face with the patient through the capture, instead of stepping behind a fixed station to take it."],
-      ["Accuracy travels with the device", "The same on-screen guidance that keeps posture and alignment correct on a fixed station runs on the handheld unit, so portability doesn't cost precision."],
-      ["Every mode ends the same way", "Whichever workflow the optician chooses (easy, advanced, or expert) the result lands in the same lab-ready format, ready for xoLab or an outside lab."],
-      ["Three modes, one for every staff member", "A newer optician can run the easy workflow. A senior optician can go to expert for a complex prescription. The device adjusts to the person using it, not the other way around."],
-      ["Nothing to install", "It's a handheld unit with an optional dock, not a fixture. A practice can start using it the day it arrives."],
+      ["Fitting happens wherever the frame is", "There's no wall unit to walk the patient to. xoFit Mobile goes to whichever chair, table, or corner of the floor the frame conversation is already happening in.", MapPin],
+      ["The conversation doesn't stop for the measurement", "The optician stays face to face with the patient through the capture, instead of stepping behind a fixed station to take it.", MessageCircle],
+      ["Accuracy travels with the device", "The same on-screen guidance that keeps posture and alignment correct on a fixed station runs on the handheld unit, so portability doesn't cost precision.", Gauge],
+      ["Every mode ends the same way", "Whichever workflow the optician chooses (easy, advanced, or expert) the result lands in the same lab-ready format, ready for xoLab or an outside lab.", FileCheck],
+      ["Three modes, one for every staff member", "A newer optician can run the easy workflow. A senior optician can go to expert for a complex prescription. The device adjusts to the person using it, not the other way around.", Users],
+      ["Nothing to install", "It's a handheld unit with an optional dock, not a fixture. A practice can start using it the day it arrives.", Zap],
     ],
     howItWorks: {
       subhead: "Simple, fast, and accurate frame fitting in just a few easy steps.",
@@ -134,9 +152,9 @@ const FORM_FACTORS = [
     deviceLabel: "xoFrame · Virtual Try-On",
     deviceImageWide: true,
     tiles: [
-      ["Every frame, without leaving the chair", "A patient can see themselves in a frame that isn't in the case that day, or isn't in the case at all, cutting the back-and-forth of physically trying on option after option."],
-      ["The catalog keeps up with inventory", "A new frame joins the virtual collection in moments, so the try-on catalog never lags behind what's actually on the floor."],
-      ["The selection doesn't end at try-on", "The instant a patient decides, that choice carries into the fitting record and on to xoLab, so same-day finishing starts before the patient leaves the chair."],
+      ["Every frame, without leaving the chair", "A patient can see themselves in a frame that isn't in the case that day, or isn't in the case at all, cutting the back-and-forth of physically trying on option after option.", Glasses],
+      ["The catalog keeps up with inventory", "A new frame joins the virtual collection in moments, so the try-on catalog never lags behind what's actually on the floor.", RefreshCw],
+      ["The selection doesn't end at try-on", "The instant a patient decides, that choice carries into the fitting record and on to xoLab, so same-day finishing starts before the patient leaves the chair.", Share2],
     ],
     vto: true,
     featureList: [
@@ -497,15 +515,13 @@ export default function Fit() {
                         <div className="eyebrow mb-10">What xoFit delivers</div>
                       </Reveal>
                       <div className="grid grid-cols-1 gap-x-14 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
-                        {f.tiles.map(([label, body], i) => (
+                        {f.tiles.map(([label, body, Icon], i) => (
                           <Reveal key={label} delay={i * 0.04}>
                             <div
                               data-testid={`fit-tile-${i}`}
                               className="border-t border-fg/10 pt-6"
                             >
-                              <div className="font-mono text-[10.5px] uppercase tracking-[0.15em] text-acc">
-                                {String(i + 1).padStart(2, "0")}
-                              </div>
+                              <Icon className="h-[18px] w-[18px] text-acc" strokeWidth={1.5} />
                               <h4 className="mt-4 font-display text-xl leading-snug text-fg">
                                 {label}
                               </h4>
@@ -638,9 +654,7 @@ export default function Fit() {
                     {f.featureList.map((item, i) => (
                       <Reveal key={item} delay={i * 0.04}>
                         <li className="flex items-baseline gap-6 border-t border-white/10 py-5 first:border-t-0 first:pt-0">
-                          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-acc">
-                            {String(i + 1).padStart(2, "0")}
-                          </span>
+                          <span aria-hidden="true" className="h-px w-3 shrink-0 bg-acc/60" />
                           <span className="flex-1 text-[15.5px] leading-snug text-white/85">
                             {item}
                           </span>
@@ -709,9 +723,7 @@ export default function Fit() {
             {MEASUREMENTS.map((m, i) => (
               <Reveal key={m} delay={(i % 3) * 0.05} className="bg-surface">
                 <div className="flex items-center gap-4 p-6">
-                  <span className="font-mono text-xs text-acc tabular-nums">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                  <span aria-hidden="true" className="h-px w-3 shrink-0 bg-acc/60" />
                   <span className="text-[15px] text-fg/75">{m}</span>
                 </div>
               </Reveal>

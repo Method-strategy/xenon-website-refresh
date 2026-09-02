@@ -1,0 +1,29 @@
+{
+  "summary": "Frontend-only verification of the site-wide numbered-card -> lucide icon / line-tick bullet conversion across Home, System, Exam, Fit, Iris and Lab. All 5 target pages verified at 1920px and 390px in light and dark theme with zero console/page errors. Every list called out in the request now renders an icon (svg) or a line-tick bullet, and no residual number badges were found. Sequential/ordered numbering was confirmed still intact (Fit interface carousel '01 · Start/02/03', Fit 'Step 01..' walkthroughs for core (4) and mobile (7), System sidebar anchors 01-09 and eyebrows 01-09, Home section eyebrows). Links, journey links, Request-a-Demo CTAs and FAQ accordions on all pages still work.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Iris (/xoiris-scheduling) Specifications block", "issues": ["Container uses plain 'overflow-hidden border border-fg/10' with no rounded-md, while the equivalent Exam Specifications block uses 'overflow-hidden rounded-md border'. Iris page has zero rounded-md usages overall, so this is likely intentional from the earlier Iris rewrite, but it is an inter-page inconsistency worth a conscious decision."]},
+      {"screen": "Fit (/xofit-frame-fitting) - pre-existing en/em dashes", "issues": ["Fit.jsx L279 image alt 'Digital centration measurements — pupillary distance...' and L576 VTO copy 'A live try-on window will open — look for the ×' contain em dashes; en dashes remain in numeric ranges (Fit L191/L693 '0.09–0.24mm', Lab L47/L119 '$5–$15'). None were introduced by this icon/bullet pass, but they violate the stated no-em/en-dash rule."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Optional: decide whether numeric-range en dashes ('0.09–0.24mm', '$5–$15') and the two em dashes in Fit.jsx (L279 alt text, L576 VTO copy) should be replaced with hyphens/'to' per the no-dash rule (pre-existing, not from this change).",
+    "Optional: align Iris Specifications container border-radius with Exam (or confirm Iris is intentionally square-cornered)."
+  ],
+  "critical_code_review_comments": [
+    "Iris FeatureList correctly falls back icon -> bullet -> number; the number branch is now dead for all four Iris lists. Keep it only if another consumer needs numbering, otherwise it is unreachable code.",
+    "Line-tick bullets are decorative and correctly marked aria-hidden='true' in Exam, Fit and Iris - accessibility handled.",
+    "Fit.jsx is large (~800 lines) and holds data + VTO logic + 3 panel layouts; consider extracting FORM_FACTORS data and the VTO block into separate modules (>700 line guideline)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "not tested (static content pages, per request)", "frontend": "100%"},
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Verified counts: Exam test-1..7 all have icons + no numbers, workflow-mode-0/1/2 icons, remote-example-0/1/2 icons, Specifications 11 line ticks, future-tests chip cloud 12 chips unchanged. Fit: core 6 tiles / mobile 6 tiles / frame 3 tiles all with icons, featureLists 8/9/5 items each with a matching line tick, MEASUREMENTS 11 rows / 11 ticks; carousel '01 · Start' and 'Step 01..' numbering intact for core+mobile (xoFrame legitimately has neither section). Iris: 22 feature-list-items across the 4 lists (7 bullets + 6/4/5 icons), 0 numbered; SPECS (10) use ticks. System: deployment-scenario-1..4 have icons, sidebar 01-09 and step numbers 03-06 intact. Home: 4 scale-ladder tiles have icons. NOTE for future runs: the Lab route is /xolab-eyewear-finishing (NOT /xolab-lens-finishing, which silently renders NotFound); FAQ accordions must be targeted via [data-testid^='faq-item-'] because the header language selector also exposes aria-expanded; Fit tabs are [data-testid=fit-tab-core|mobile|frame].",
+  "rca_of_the_issue": "No defects found. Two initial test failures were test-harness artifacts, not app bugs: (1) 'Step 01' text was reported missing because Playwright inner_text only returns visible text and the Reveal-animated steps had not entered the viewport - after scrolling into view the labels were present; (2) a numbered-item false positive on the Fit mobile featureList item '3 operating modes: easy, advanced...' which is copy, not a number badge."
+}

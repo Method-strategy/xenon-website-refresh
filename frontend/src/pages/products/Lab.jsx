@@ -193,7 +193,7 @@ export default function Lab() {
                     <ul className="mt-6 space-y-2">
                       {e.specs.map((s) => (
                         <li key={s} className="flex items-start gap-3 text-[13px] text-fg/60">
-                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-acc" />
+                          <span aria-hidden="true" className="mt-2 h-px w-3 shrink-0 bg-acc/60" />
                           {s}
                         </li>
                       ))}
