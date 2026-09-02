@@ -119,7 +119,7 @@ function Hero() {
         </span>
 
         <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/60">
-          One doctor-led system integrating scheduling, examination, fitting,
+          One practitioner-led system integrating scheduling, examination, fitting,
           and finishing. Greater efficiency means more patients seen and more
           revenue kept in your practice.
         </p>
@@ -178,6 +178,16 @@ export default function Home() {
                   disappears before, between, and around the care itself.
                   There are four places it goes.
                 </p>
+              </Reveal>
+              <Reveal delay={0.13}>
+                <p className="mt-6 max-w-2xl text-lg leading-relaxed text-fg/55">
+                  Demand is not the problem. Roughly 20 million more eye exams
+                  are needed annually than a decade ago, and the practices that
+                  meet that demand will not be the ones that build the most
+                  square footage. They will be the ones that stop losing the
+                  capacity they already have.
+                </p>
+                <p className="mt-4 font-mono text-xs text-fg/40">Source: VSP Vision, 2026</p>
               </Reveal>
 
               <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-md border border-fg/10 bg-fg/10 md:grid-cols-2">
@@ -259,11 +269,13 @@ export default function Home() {
             />
             <Reveal delay={0.1}>
               <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
-                All four have the same root cause: tools bought separately
-                and connected after the fact. The XO Vision Care System was
-                designed as one system across the whole visit, from the
-                appointment to the finished pair, so capacity that used to
-                disappear comes back to the practice.
+                All four have the same root cause. Practices are organized as
+                separate rooms and functions, each optimized in isolation,
+                with tools bought separately and connected after the fact.
+                The XO Vision Care System was designed as one integrated
+                system across the whole visit, from the appointment to the
+                finished pair, so capacity that used to disappear comes back
+                to the practice.
               </p>
             </Reveal>
 
@@ -381,10 +393,14 @@ export default function Home() {
               <Reveal delay={0.1}>
                 <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
                   Most eye care technology assumes a building: a lane, a
-                  darkroom, a licensed practitioner down the hall. That
+                  darkened room, a licensed practitioner down the hall. That
                   assumption holds in a suburban practice. It doesn't hold in
                   most of the world, where the eye care workforce isn't spread
-                  thin so much as concentrated in a handful of places.
+                  thin so much as concentrated in a handful of places. The
+                  same capability that reaches a rural county in South Africa
+                  is what lets a practice here run exams at a satellite
+                  office, or keep a patient's care going after they leave the
+                  building.
                 </p>
               </Reveal>
               <Reveal delay={0.15}>
