@@ -305,6 +305,15 @@ export default function Exam() {
                 practitioner, wherever they are.
               </p>
             </Reveal>
+            <Reveal delay={0.08}>
+              <p className="mt-5 text-lg leading-relaxed text-fg/60">
+                This is the direction the field is moving. Pre-testing is no
+                longer confined to a single room. It is becoming a flexible
+                function that can move through the practice or beyond it, with
+                components of the exam conducted remotely or by staff who are
+                not clinicians.
+              </p>
+            </Reveal>
             <div className="mt-8 space-y-0">
               {REMOTE_EXAMPLES.map((ex, i) => (
                 <Reveal key={ex} delay={0.05 + i * 0.05}>
