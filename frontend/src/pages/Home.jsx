@@ -369,7 +369,8 @@ export default function Home() {
               {SIX_OUTCOMES.map((o, i) => (
                 <Reveal key={o.key} delay={i * 0.05} className="bg-surface">
                   <div className="group h-full p-8 transition-colors duration-500 hover:bg-fg/[0.02] md:p-10">
-                    <h3 className="font-display text-2xl text-fg">{o.title}</h3>
+                    <o.icon className="h-6 w-6 text-xo-blue" strokeWidth={1.5} />
+                    <h3 className="mt-4 font-display text-2xl text-fg">{o.title}</h3>
                     <p className="mt-4 text-[15px] leading-relaxed text-fg/50">{o.body}</p>
                   </div>
                 </Reveal>

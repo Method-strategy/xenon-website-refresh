@@ -1,4 +1,6 @@
 // Central content + config for the Xenon Ophthalmics site.
+import { Clock, TrendingUp, SlidersHorizontal, HeartHandshake, ShieldCheck, BarChart3 } from "lucide-react";
+
 
 // All decorative background photos are served directly from Unsplash/Pexels
 // at their original (multi-megabyte) full resolution when linked bare, even
@@ -96,12 +98,12 @@ export const PRODUCTS = [
 // features directly to the outcome(s) they drive. Do not edit wording
 // without checking against the source sales document first.
 export const SIX_OUTCOMES = [
-  { key: "time", title: "Time", body: "Hours back in the day. Less spent on handoffs and documentation, more spent on patients." },
-  { key: "profitability", title: "Profitability", body: "More done with what you already own. Throughput rises without operating cost rising to match." },
-  { key: "control", title: "Control", body: "Less dependence on perfect staffing, an open room, and everything going to plan." },
-  { key: "patient-experience", title: "Patient Experience", body: "A visit that moves. Less waiting, fewer repeated questions, a clear path from exam to eyewear." },
-  { key: "clinical-quality", title: "Clinical Quality", body: "The same standard every time. Consistent capture, consistent documentation, consistent handoff." },
-  { key: "practice-growth", title: "Practice Growth", body: "Room to grow without building. Capacity expands ahead of overhead instead of behind it." },
+  { key: "time", title: "Time", icon: Clock, body: "Hours back in the day. Less spent on handoffs and documentation, more spent on patients." },
+  { key: "profitability", title: "Profitability", icon: TrendingUp, body: "More done with what you already own. Throughput rises without operating cost rising to match." },
+  { key: "control", title: "Control", icon: SlidersHorizontal, body: "Less dependence on perfect staffing, an open room, and everything going to plan." },
+  { key: "patient-experience", title: "Patient Experience", icon: HeartHandshake, body: "A visit that moves. Less waiting, fewer repeated questions, a clear path from exam to eyewear." },
+  { key: "clinical-quality", title: "Clinical Quality", icon: ShieldCheck, body: "The same standard every time. Consistent capture, consistent documentation, consistent handoff." },
+  { key: "practice-growth", title: "Practice Growth", icon: BarChart3, body: "Room to grow without building. Capacity expands ahead of overhead instead of behind it." },
 ];
 
 export const TEAM_BOARD = [

@@ -348,6 +348,10 @@ Re-verified via screenshot at 2560px: sidebar no longer overlaps section 07/08 h
 
 User supplied `Emergent_xoExam_Prompt_4.docx`, 1 verbatim insert on `Exam.jsx`'s Remote Exams section: new paragraph "This is the direction the field is moving. Pre-testing is no longer confined to a single room..." inserted between the existing "clinical judgment stays with the practitioner" paragraph and the 3 numbered `REMOTE_EXAMPLES` cards. No source line, cards/closing HIPAA line unchanged. Verified via screenshot.
 
+## Homepage "Six results" icons synced with System page (2026-09-02, this session) — DONE
+
+User asked for the homepage's "03 What it delivers" 6-tile grid to use the same icons as System.jsx's grid. Since both pages render the shared `SIX_OUTCOMES` export from `site.js`, added an `icon` field there (Clock/TrendingUp/SlidersHorizontal/HeartHandshake/ShieldCheck/BarChart3 for Time/Profitability/Control/Patient Experience/Clinical Quality/Practice Growth, matching System.jsx's local set exactly) instead of duplicating a separate array, so both pages stay in sync automatically. `Home.jsx`'s tile now renders `<o.icon strokeWidth={1.5} />` above the title. Verified via screenshot.
+
 ## Homepage "hidden spaces" icons (2026-09-02, this session) — DONE
 
 User asked to apply the same number-to-icon treatment (used on System.jsx's "What it delivers" grid) to the 4 "Where capacity goes" cards in Section 01 (Schedule/Workflow/Information/Office space) to reduce number-badge overlap with the section's other numbering (eyebrow, sidebar anchors). Replaced each card's `01`-`04` mono number with a matching lucide-react line icon: CalendarClock (Schedule space), Workflow (Workflow space), ClipboardList (Information space), Building2 (Office space), `strokeWidth={1.5}`, same elegant non-cartoony treatment. Verified via screenshot.
