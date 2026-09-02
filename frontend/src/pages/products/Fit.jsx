@@ -186,12 +186,50 @@ export default function Fit() {
   });
   const [active, setActive] = useState("core");
   const vtoRef = useRef(null);
+  const vtoReadyPromiseRef = useRef(null);
   const [vtoStatus, setVtoStatus] = useState("idle"); // idle | loading | ready | error
+
+  // Eagerly start loading the Tint script the moment the xoFrame tab becomes
+  // active, instead of waiting for the button click. This moves the slow
+  // part (script fetch + widget's own init) into the background while the
+  // patron reads the section, instead of stacking it behind a click.
+  useEffect(() => {
+    if (active === "frame" && TINT_PUBLISHABLE_KEY) {
+      loadTintWidget().catch(() => {});
+    }
+  }, [active]);
+
+  // Tint's element fires a "ready" event once its own internal init
+  // (fetching merchant config, booting the AR engine) is actually done.
+  // customElements.whenDefined() only tells us the class is registered, not
+  // that a given instance is ready, so calling open() right after that can
+  // silently no-op if the widget isn't finished booting yet, requiring a
+  // second click. Track the element's own "ready" event and wait on it too.
+  useEffect(() => {
+    if (active !== "frame" || !vtoRef.current) return;
+    const el = vtoRef.current;
+    let resolveReady;
+    vtoReadyPromiseRef.current = new Promise((resolve) => {
+      resolveReady = resolve;
+      el.addEventListener("ready", resolve, { once: true });
+    });
+    return () => el.removeEventListener("ready", resolveReady);
+  }, [active]);
 
   const openVto = async () => {
     setVtoStatus("loading");
     try {
+      const minLoadingState = new Promise((resolve) => setTimeout(resolve, 250));
       await loadTintWidget();
+      // Wait for the widget's own "ready" event, with a fallback in case a
+      // given Tint version doesn't emit it, so we never block forever.
+      await Promise.race([
+        vtoReadyPromiseRef.current ?? new Promise(() => {}),
+        new Promise((resolve) => setTimeout(resolve, 4000)),
+      ]);
+      // Keeps the button's "Loading…" state visible for a beat so the click
+      // always registers visually, even when the widget is already warm.
+      await minLoadingState;
       setVtoStatus("ready");
       // Guards against the script/open() call itself hanging (e.g. network
       // issues). Note: Tint's open() resolves even when its own internal

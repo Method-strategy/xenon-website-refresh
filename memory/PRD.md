@@ -428,3 +428,11 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 ## xoExam: instrument language edits (2026-09-01, this session)
 
 - 3 verbatim find-and-replace edits: Hero H1 "wearable device" → "wearable instrument", The Device body "xoExam is one unit" → "xoExam is one instrument", homepage xoExam card "wearable device" → "wearable instrument". All other "device" instances (specs table + elsewhere) confirmed untouched, per instruction. Clean build + screenshot verified.
+
+## Bug fix: Tint VTO slow load + double-click (2026-09-02)
+
+- **Reported:** VTO widget on `/xofit-frame-fitting` (xoFrame tab) was slow to load and needed 2 clicks to open.
+- **Root cause (confirmed via Tint's official API docs):** `openVto()` called `.open()` immediately after `customElements.whenDefined()` resolved, but the widget's own internal async init (fetching merchant config) wasn't done yet, so the first `.open()` call silently no-op'd. Tint docs confirm a `ready` event exists specifically to detect true readiness, which the code wasn't listening for.
+- **Fix in `Fit.jsx`:** (1) eagerly call `loadTintWidget()` as soon as the `frame` tab becomes active, not gated behind the button click, so the script/network load happens in the background while the user reads the section; (2) listen for the widget's `ready` event (with a 4s fallback) before calling `.open()`, re-attached fresh on every tab re-entry.
+- **Testing agent verified (iteration_29.json):** 4/4 single-click opens (desktop ×3, mobile ×1, including after switching tabs away and back), 0.31s-1.45s open time, zero errors. Bug confirmed fixed.
+- **Addressed testing agent's low-priority polish notes** (self-tested, no retest needed per their report): added event-listener cleanup on effect teardown, defensive fallback if the ready-promise ref is ever unset, and a 250ms minimum "Loading…" state so the click always registers visually.

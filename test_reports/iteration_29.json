@@ -1,0 +1,28 @@
+{
+  "summary": "Frontend-only retest of the Tint/Banuba VTO double-click + slowness bug on /xofit-frame-fitting (xoFrame tab). Verified eager script preload on tab activation and single-click open across 4 attempts (3 desktop 1920x1080, 1 mobile 390x844). Widget overlay opened on the FIRST click every time: 1.45s (first open after tab activation), 0.72s (after switching core->mobile->frame re-entry), 0.31s (same-tab re-entry), 0.49s (mobile). No vto-error-message, no JS/page errors, no failed requests. Bug appears FIXED.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "xoFit /xofit-frame-fitting - xoFrame VTO trigger", "issues": ["The button's 'Loading…' label never actually paints (state transitions loading->ready inside one React batch because script+ready promise are already resolved). For the ~0.3-1.5s before the vendor overlay appears the button gives no visual feedback. Vendor overlay does show its own spinner once mounted, so impact is low, but consider a minimum ~250ms loading state for perceived responsiveness."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "No functional fix required for the reported bug - single-click open verified reliably on desktop and mobile, including after tab switch-away/re-entry.",
+    "Optional polish: enforce a minimum visible 'Loading…' state on data-testid='vto-trigger-button' so the click registers visually before the vendor overlay paints."
+  ],
+  "critical_code_review_comments": [
+    "Fit.jsx ready-event effect: the promise in vtoReadyPromiseRef is created in a useEffect keyed only on `active`; the listener is never removed on unmount/cleanup. Harmless today ({once:true} + element unmounts with the tab), but add a cleanup returning el.removeEventListener('ready', resolve) to avoid leaking on rapid tab toggling.",
+    "Fit.jsx openVto: vtoReadyPromiseRef.current can be undefined if openVto somehow runs before the effect; Promise.race handles undefined (resolves immediately) so the 4s fallback would be bypassed - consider defaulting to a rejected/never promise for clarity.",
+    "Vendor overlay is rendered outside our DOM tree (tint-vto keeps a 0x0 rect and no accessible shadow children), so automated detection must use document.elementFromPoint(center).tagName === 'TINT-VTO'. Noted for future testers - a data-testid cannot be added to vendor overlay."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "not tested (skipped per request)", "frontend": "100% (4/4 single-click opens)"},
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "VTO open detection trick: poll document.elementFromPoint(innerWidth/2, innerHeight/2).tagName === 'TINT-VTO' (baseline is 'SPAN'); tint-vto's own rect stays 0x0 and it has no open shadowRoot, so children/rect/iframe based probes give false negatives. Close the vendor overlay by clicking the x at real viewport coords ~(1896, 23) at 1920x1080 (beware screenshot scaling ~0.817). Cookie banner must be dismissed via [data-testid=cookie-accept-btn] (text-based selectors do not dismiss it). Camera permission was never prompted in the automation browser; the widget shows its own catalog/upload fallback, which is expected vendor behaviour.",
+  "rca_of_the_issue": "Previously openVto() called vtoRef.current.open() right after customElements.whenDefined() resolved, before the widget instance finished its own async init, so the first call silently no-op'd. The fix (eager loadTintWidget() on frame-tab activation + awaiting the element's 'ready' event with a 4s fallback) resolves it: measured opens of 0.31-1.45s are all well under the 4s fallback, proving the vendor 'ready' event does fire and is being awaited correctly, and the listener re-attaches on every tab re-entry."
+}
