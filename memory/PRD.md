@@ -325,6 +325,23 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 - Verified via screenshot + CLS re-check on Home post-change: CLS still 0, no visual regression.
 - Remaining backlog (P2, deferred by user this session): Task 4 (refactor Iris/Exam/Fit/Lab into shared component), Task 5 (draft FDA Clearance Callout section). SSG/prerendering and remaining placeholder-image swap are explicitly **not** this app's responsibility (handled server-side/deploy-side by another team, confirmed by user 2026-08-30).
 
+## System.jsx full copy + structure rewrite (2026-09-02, this session) — DONE
+
+User supplied `XO_Vision_Care_System_Page.docx` with a complete rewrite of `/xo-vision-care-system`. Implemented verbatim per user's ask_human answers: (1) new local `SYSTEM_OUTCOMES` array added inline in `System.jsx` only, shared `SIX_OUTCOMES` in `site.js` left untouched (new copy for Home.jsx's version pending separately from user); (2) hero buttons ("Request a Demo"/"See the components") deliberately omitted — user confirmed this was a mistake in the doc; (3) section eyebrows numbered 01-09 to match the sidebar `ANCHORS` order.
+
+**New structure:** Hero (updated subhead only) → `01 What it is` (NEW section replacing old "The problem", 4-component list + integration narrative + bordered pull-quote) → `02 What it delivers` (NEW 6-tile grid with full body copy, replaces old pill-chip legend) → `03-06` Schedule/Exam/Fit/Finish (rewritten body copy, `hand`/`outcomes`/`to` unchanged) → `07 What it replaces` (new intro paragraph, table grew 6→7 rows) → `08 Deployment` (new intro + 4 scenario paragraphs replacing old 6-item short-phrase grid, new closing paragraph) → `09 See it work` (DemoCTA wrapped in `id="demo"`, new headline/body).
+
+**Numbering fix (user-flagged):** the 4 step big-numeral badges used to hardcode `n: "01".."04"` independent of the page-wide anchor order, creating a mismatch once "What it is"/"What it delivers" were inserted before them (sidebar said "03 Schedule" but the numeral said "01"). Fixed by removing the hardcoded `n` field entirely and deriving the numeral at render time via `ANCHORS.findIndex(a => a.id === step.id) + 1`, so it's now self-healing if sections are ever reordered.
+
+**Bugs found by `testing_agent` (`iteration_30.json`) and fixed same session:**
+- Removed stray `rounded-md` from the "What it replaces" table wrapper (only remaining rounded box on the page).
+- Fixed floating `SectionAnchors` sidebar overlapping the "07 What it replaces" / "08 Deployment" headlines at lg+ — root cause: those 2 sections are full-width `xo-container` siblings (for edge-to-edge backgrounds) whose text starts at the same left offset as the sidebar's own column, and the 9-item nav (~330px tall) is taller than it was when this pattern was designed against Home.jsx's 5-item nav. Fixed by adding a matching empty `lg:col-span-3` spacer column before the text content in both sections, mirroring the grid split used everywhere else on the page.
+- Widened the 2 "Fewer instruments..." / "Fewer places..." headline spans from `max-w-4xl` to `max-w-5xl` so the second line doesn't wrap at 2560px.
+- Fixed a pre-existing en dash in `Footer.jsx`'s copyright year range (`2022–2026` → `2022-2026`), flagged as a site-wide no-dash violation.
+- Code-review cleanup: guarded `SIX_OUTCOMES.find(...)` outcome-tag lookup against a typo returning `undefined` (would have thrown), added `data-testid`s to the new component rows/outcome tiles/replaces rows/deployment scenarios/step numerals (previously uninstrumented).
+
+Re-verified via screenshot at 2560px: sidebar no longer overlaps section 07/08 headlines, both headline pairs stay on 1 balanced line each, table has `border-radius: 0px`.
+
 ## Contact form: product-interest checkboxes (2026-09-01, this session) — DONE
 
 - **Context:** user updated the live HubSpot form (portal `245698072`, form GUID `cf605cae-ee6b-4a84-9783-ae35dd05bae2`) to add a "which products are you interested in" checkbox field, and shared the raw embed snippet, asking whether the site already used it.

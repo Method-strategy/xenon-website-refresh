@@ -1,0 +1,45 @@
+{
+  "summary": "Frontend-only test of the rewritten /xo-vision-care-system page (System.jsx). Verified at 1920px, 2560px and 390px: page loads with 0 console errors and 0 failed network requests / broken images. All 9 sidebar anchors render in the correct numbered order (01 What it is ... 09 See it work) with correct data-testids, and clicking each smoothly scrolls the matching section to y~228. All 4 workflow step big numerals are synced to page-wide numbering (Schedule 03, Exam 04, Fit 05, Finish 06). All 4 'In detail' links have the correct hrefs and navigating (schedule -> /xoiris-scheduling) plus browser back works. All new copy blocks verified present: two-line 01 headline, 4-row component list (xoIris/xoExam/xoFit/xoLab), bordered pull-quote, 6-tile 'What it delivers' grid (SYSTEM_OUTCOMES body copy), 8 outcome tag pills from the untouched SIX_OUTCOMES, 7-row comparison table, new replaces intro paragraph, new Deployment headline + intro + 4 numbered scenarios + closing paragraph, and the new DemoCTA headline/body with working /request-a-demo link. Hero contains 0 links/buttons as required. No em/en dashes in page copy (only the pre-existing footer copyright). Mobile 390px: no horizontal overflow, sidebar hidden, all 7 'XO:' mobile labels render inline, footer + CTA intact. Dark/light theme toggle works (dark body bg rgb(6,16,36) navy, not black). Two design-rule deviations found (rounded table wrapper, sidebar overlapping section 07 headline).",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "System.jsx - '07 What it replaces' comparison table wrapper",
+        "issue": "Violates the 'no rounded-box card wrappers' design rule: the table container still has `rounded-md` (computed border-radius 4.4px). A DOM audit of #whatitis, #outcomes, #replaces, #deployment found this as the ONLY rounded element (outcome tag pills excluded as intentional). Fix: drop `rounded-md` from the wrapper at System.jsx line ~391.",
+        "selector": "#replaces div.overflow-hidden.rounded-md",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "/xo-vision-care-system at >=1024px (1920 and 2560 verified)",
+        "issues": [
+          "Fixed SectionAnchors sidebar overlays the '07 What it replaces' headline. Because the nav now has 9 items (~330px tall vs 5 items / ~180px on Home.jsx) and sections 07/08/09 are full-width `xo-container` blocks whose text starts at the container's left edge, the nav's blurred gradient panel sits directly on top of the eyebrow + 'Fewer instruments. Fewer vendors.' line after clicking anchor 07 (see screenshot). Headline is unreadable while the nav is pinned. Same collision risk for 08 Deployment. Suggested fix: left-pad / grid-offset the full-width sections' content on lg+, or cap nav height / offset the scroll target.",
+          "At 2560px, 'Fewer instruments. Fewer vendors.' stays on 1 line but 'Fewer places for the day to slow down.' wraps to 2 lines ('Fewer places for the / day to slow down.') because both MaskTextInView spans are capped at max-w-4xl (896px). No stray word merges across the two sentences, but the pair reads unbalanced on wide screens. Suggest max-w-5xl or text-wrap:balance for these two headline lines.",
+          "Footer copyright renders an en dash: '© 2022–2026 XENON OPHTHALMICS INC.' This is in the shared Footer (pre-existing, not part of this rewrite) but contradicts the site-wide no en/em dash copy rule."
+        ]
+      }
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Remove `rounded-md` from the '07 What it replaces' table wrapper in System.jsx (only remaining rounded box on the page).",
+    "Fix the fixed sidebar nav overlapping the '07 What it replaces' headline at lg+ (9-item nav is taller than the Home.jsx 5-item nav it was designed against).",
+    "Optional: widen/balance the two 'Fewer ...' headline lines so the second does not wrap at 2560px.",
+    "Optional: replace the en dash in the Footer copyright year range with a hyphen to honour the no-dash copy rule."
+  ],
+  "critical_code_review_comments": [
+    "System.jsx is 474 lines with all copy inline; acceptable, but consider moving the SYSTEM_OUTCOMES / REPLACES / DEPLOYMENT_SCENARIOS data into a page-local data module if it grows further.",
+    "STEPS[].n is a hardcoded string ('03'..'06') that must be manually kept in sync with the ANCHORS array order; deriving it from ANCHORS.findIndex(a => a.id === step.id) + 1 would make the numbering self-healing and prevent the exact mismatch that was just fixed.",
+    "SIX_OUTCOMES.find((s) => s.key === key) is dereferenced as o.title without a guard; a typo in STEPS[].outcomes would throw a runtime TypeError and blank the page. Add optional chaining or a fallback.",
+    "Most new content elements lack data-testid (section eyebrows, component rows, outcome tiles, replaces rows, deployment scenario rows, big step numerals). Only outcome tags and 'In detail' links are instrumented, which forced DOM/structural selectors in this run."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "not tested (frontend-only request)", "frontend": "95%" },
+  "seed_data_creation": "none",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "System.jsx rewrite is functionally correct: anchors, numbering (03-06 synced), In detail links, all copy blocks, mobile 390 and dark mode all pass with zero console errors. Note the SectionAnchors nav is `visibility:hidden` until the scroll position enters the tracked range, so Playwright must scroll into #whatitis before clicking any [data-testid=anchor-*]. Open items are cosmetic: rounded-md on the #replaces table, sidebar overlaying the #replaces headline at lg+, second 'Fewer ...' headline wrapping at 2560px, footer en dash.",
+  "rca_of_the_issue": "Sidebar overlap RCA: SectionAnchors renders position:fixed at top:128px over the measured grid-column left/width. Sections 07-09 in System.jsx are full-width siblings using xo-container (so backgrounds bleed edge to edge), so their text column starts at the same left offset the nav occupies. With 9 nav items the nav is ~330px tall and its bottom now falls inside the eyebrow/headline band of the section scrolled to (scrollTo offset -100), unlike Home.jsx where 5 items clear the headline."
+}

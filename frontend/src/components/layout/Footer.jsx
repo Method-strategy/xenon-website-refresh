@@ -146,7 +146,7 @@ export default function Footer() {
         {/* Bottom row: copyright | utility links */}
         <div className="mt-20 flex flex-col gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
           <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-white/40">
-            © 2022–2026 Xenon Ophthalmics Inc. All rights reserved.
+            © 2022-2026 Xenon Ophthalmics Inc. All rights reserved.
           </p>
           <ul className="flex flex-wrap items-center gap-x-4 gap-y-3 font-mono text-[10.5px] uppercase tracking-[0.06em] text-white/50">
             <li>

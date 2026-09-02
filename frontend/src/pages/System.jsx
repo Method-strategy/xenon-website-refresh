@@ -7,7 +7,7 @@ import { IMAGES, SIX_OUTCOMES } from "@/data/site";
 import { usePageMeta } from "@/lib/usePageMeta";
 
 const ANCHORS = [
-  { id: "problem", label: "The problem" },
+  { id: "whatitis", label: "What it is" },
   { id: "outcomes", label: "What it delivers" },
   { id: "schedule", label: "Schedule" },
   { id: "exam", label: "Exam" },
@@ -15,57 +15,94 @@ const ANCHORS = [
   { id: "finish", label: "Finish" },
   { id: "replaces", label: "What it replaces" },
   { id: "deployment", label: "Deployment" },
+  { id: "demo", label: "See it work" },
+];
+
+const COMPONENTS = [
+  { name: "xoIris™", desc: "The software that runs scheduling, patient communication, and engagement." },
+  { name: "xoExam™", desc: "The instrument that performs refraction and functional vision testing." },
+  { name: "xoFit™", desc: "Captures digital centration and frame measurement, in three form factors." },
+  { name: "xoLab™", desc: "Finishes eyewear on site." },
+];
+
+const SYSTEM_OUTCOMES = [
+  {
+    key: "time",
+    title: "Time",
+    body: "Hours returned to the practitioner and to staff. Less time lost to handoffs, re-entry, and waiting on the step before.",
+  },
+  {
+    key: "profitability",
+    title: "Profitability",
+    body: "More revenue from the same footprint. Capacity filled, margin retained, capital not spent on instruments the system replaces.",
+  },
+  {
+    key: "control",
+    title: "Control",
+    body: "Less dependence on perfect staffing, an available room, and everything running to plan. Delegation without loss of clinical authority.",
+  },
+  {
+    key: "patient-experience",
+    title: "Patient Experience",
+    body: "A visit that moves. Less waiting between steps, fewer repeated questions, and eyewear that fits correctly the first time.",
+  },
+  {
+    key: "clinical-quality",
+    title: "Clinical Quality",
+    body: "Consistent capture regardless of who administers a test, and measurements taken rather than estimated.",
+  },
+  {
+    key: "practice-growth",
+    title: "Practice Growth",
+    body: "Capacity added without construction. More patients through the practice you already have, and services you previously referred out.",
+  },
 ];
 
 const STEPS = [
   {
     id: "schedule",
-    n: "01",
     logo: "/logos/xoiris-dark.svg",
     logoWidth: 104,
     logoHeight: 25,
     role: "Schedule · xoIris™",
-    title: "The visit starts before the patient arrives.",
-    body: "Booking is where the visit begins, not where it gets queued. xoIris manages booking, reminders, and patient communication, and works to keep the schedule full. When a cancellation opens a slot, it can identify patients nearby already due for care and reach them by text, filling the opening from your existing patient base.",
+    title: "A full schedule, and more patients through it.",
+    body: "xoIris manages booking, reminders, and patient communication, and works continuously to keep clinical hours filled. When a cancellation opens a slot, it identifies patients nearby who are already due for care and reaches them by text, filling the opening from the patient base you already have. A full schedule means maximizing the revenue potential of the hours your practice is already staffing.",
     hand: "By the time the patient arrives: who they are, why they're here, and what happened last visit are already in front of the practice.",
     to: "/xoiris-scheduling",
     outcomes: ["time", "practice-growth"],
   },
   {
     id: "exam",
-    n: "02",
     logo: "/logos/xoexam-dark.svg",
     logoWidth: 154,
     logoHeight: 24,
     role: "Exam · xoExam™",
-    title: "One device, not a lane.",
-    body: "xoExam brings refraction and functional vision testing into a single wearable device, replacing the autorefractor, phoropter, and acuity chart stack with one unit. Tests can be run by the patient, a technician, or the ECP directly. It is a delegation choice, not a transfer of responsibility. No result leaves the device until the ECP reviews and confirms it.",
+    title: "One instrument in place of a lane of them.",
+    body: "xoExam brings refraction and functional vision testing into a single wearable instrument, consolidating the autorefractor, phoropter, and acuity chart, along with the wavefront aberrometer and visual field analyzer that many practices either refer out or go without. Tests can be run by the patient, a technician, or the ECP directly, in the practice or remotely, with the practitioner supervising live or confirming asynchronously. The ECP reviews and confirms every result. One instrument means less capital tied up in the exam room, less to maintain, and exam capacity that is not limited by how many lanes you can build.",
     hand: "By the time the patient reaches the dispensary: the prescription and full results are already loaded in xoFit.",
     to: "/xoexam-eye-exam",
     outcomes: ["clinical-quality", "control"],
   },
   {
     id: "fit",
-    n: "03",
     logo: "/logos/xofit-dark.svg",
     logoWidth: 102,
     logoHeight: 25,
     role: "Fit · xoFit™",
-    title: "The prescription is there before the patient is.",
-    body: "Frame selection begins with the exam results already loaded. The optician isn't waiting on a chart or re-asking answered questions. xoFit captures pupillary distance, segment height, vertical optical center, and frame geometry, all attached to the same record, across three form factors.",
+    title: "The right measurements the first time.",
+    body: "Centration measured rather than estimated. xoFit captures pupillary distance, segment height, vertical optical center, and frame geometry digitally, which is what premium lens designs assume and what a ruler cannot reliably deliver. Three form factors cover the ways a practice actually works. Accurate measurements mean fewer remakes, fewer adaptation complaints, and lenses that perform the way the patient paid for them to.",
     hand: "By the time the job reaches finishing: the specification is already written.",
     to: "/xofit-frame-fitting",
     outcomes: ["patient-experience", "time"],
   },
   {
     id: "finish",
-    n: "04",
     logo: "/logos/xolab-dark.svg",
     logoWidth: 119,
     logoHeight: 24,
     role: "Finish · xoLab™",
-    title: "The order is already written.",
-    body: "Finishing receives a complete specification: nothing to assemble at the end of the sale. xoLab handles frame tracing, blocking, and edging on site, in a footprint sized for a practice. Single-vision work can be finished the same day, in the building. Jobs requiring surfacing go out as a complete lab-ready order with nothing re-keyed.",
+    title: "Keep the lab bill in the building.",
+    body: "xoLab handles frame tracing, blocking, and edging on site, in a footprint sized for a practice rather than a lab. Single-vision work can be finished the same day, in the building. Jobs requiring surfacing go out as a complete lab-ready order with nothing re-keyed. Finishing in house means the margin on every job you keep stays in the practice, and the patient waits days less for eyewear.",
     hand: "What the patient leaves with: a finished pair, and margin that would otherwise have left with the lab bill.",
     to: "/xolab-eyewear-finishing",
     outcomes: ["profitability", "practice-growth"],
@@ -73,21 +110,20 @@ const STEPS = [
 ];
 
 const REPLACES = [
-  ["Scheduling", "Software with no line of sight into the visit", "The visit begins at booking"],
-  ["Exam", "Autorefractor, phoropter, acuity chart & supporting instruments", "One wearable exam device"],
-  ["Refraction", "A stop between objective and subjective refraction", "One continuous refraction workflow"],
-  ["Fitting", "Ruler or a standalone centration device", "Measurement taken in the same visit, already attached"],
-  ["Finishing", "A lab order rebuilt at the end of the sale", "A specification finished when the sale is"],
-  ["Infrastructure", "A vendor relationship per instrument", "One system"],
+  ["Scheduling", "Practice management software with no visibility into what happens after booking", "Scheduling that opens the visit and hands it forward"],
+  ["Examination", "Autorefractor, phoropter, acuity chart, plus a wavefront aberrometer and visual field analyzer if the practice has them", "One wearable instrument"],
+  ["Refraction workflow", "Objective values read off one screen and entered into another", "Objective and subjective refraction in one continuous workflow"],
+  ["Remote capability", "Asynchronous data review, or remote refraction alone", "A full remote exam, live or asynchronous"],
+  ["Fitting", "Ruler or a standalone centration device, measured separately from the exam", "Digital centration captured in the same visit, attached to the same record"],
+  ["Finishing", "A lab order rebuilt at the end of the sale, and a lab bill on every job", "A specification already written, and single-vision work finished in the building"],
+  ["Infrastructure", "A vendor relationship, service contract, and replacement cycle per instrument", "One integrated system, one relationship"],
 ];
 
-const ENVIRONMENTS = [
-  "Clinical practice & exam lane",
-  "Optical retail floor",
-  "Multi-location & enterprise",
-  "Mobile & community deployment",
-  "Schools & workplaces",
-  "Community health settings",
+const DEPLOYMENT_SCENARIOS = [
+  "A single practice consolidates its instrument stack, fills its schedule, and keeps finishing work in the building.",
+  "A multi-location group runs exams at satellite offices on days a practitioner is elsewhere, with the ECP reviewing and confirming results remotely.",
+  "A retail optical location adds exam capacity without adding a lane, and finishes eyewear on site rather than sending it out.",
+  "A mobile unit or community program delivers a practitioner-supervised exam where no clinic exists, with the practitioner participating live or reviewing afterward.",
 ];
 
 export default function System() {
@@ -125,8 +161,8 @@ export default function System() {
           />
           <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/60">
             Four points of contact across a single visit: scheduling, examination,
-            fitting, and finishing. Designed so the patient never waits for the
-            practice to catch up.
+            fitting, and finishing. Fully integrated, so the patient never waits
+            for the practice to catch up.
           </p>
         </div>
       </section>
@@ -138,75 +174,127 @@ export default function System() {
           </div>
 
           <div className="lg:col-span-9">
-            {/* Problem */}
-            <section id="problem" className="scroll-mt-32">
+            {/* What it is */}
+            <section id="whatitis" className="scroll-mt-32">
               <Reveal>
-                <div className="eyebrow mb-6">The problem this solves</div>
+                <div className="eyebrow mb-6">01 · What it is</div>
               </Reveal>
               <MaskTextInView
-                lines={["Eye care is delivered in steps."]}
+                lines={["Four components of patient care."]}
                 as="span"
                 className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
               />
               <MaskTextInView
-                lines={["The waiting happens between them."]}
+                lines={["One integrated system."]}
                 as="span"
                 className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
               />
               <Reveal delay={0.1}>
                 <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
-                  A patient books in one system. Pre-testing runs on one instrument,
-                  refraction on another. The exam is charted somewhere else. Frame
-                  selection happens with a ruler or a separate device. The order goes
-                  to a lab in a different format again. Each transition is a stop.
-                  Multiply it across every patient in a day and it is the difference
-                  between the schedule you planned and the one you actually ran.
+                  Eye care practices are typically organized as a series of separate
+                  rooms and functions, each optimized on its own. Scheduling
+                  software with no visibility into the exam. Instruments that do
+                  not speak to each other. A dispensary working from a printed
+                  prescription. A lab order rebuilt by hand at the end of the sale.
                 </p>
               </Reveal>
               <Reveal delay={0.15}>
                 <p className="mt-6 max-w-2xl text-lg leading-relaxed text-fg/55">
-                  This is not a failure of clinical skill. It is a structural property
-                  of a care model assembled from separate tools, joined by connections
-                  that pass job files between machines rather than carrying a patient
-                  through a visit. The XO Vision Care System was built the other way
-                  around.
+                  The XO Vision Care System was built the other way around. It
+                  covers the patient's visit from the moment they book to the
+                  moment they collect their eyewear, through four fully integrated
+                  components:
                 </p>
+              </Reveal>
+
+              <div className="mt-10 divide-y divide-fg/10 border-t border-fg/10">
+                {COMPONENTS.map((c, i) => (
+                  <Reveal key={c.name} delay={0.05 * i}>
+                    <div
+                      data-testid={`system-component-row-${c.name.replace(/[™\s]/g, "").toLowerCase()}`}
+                      className="grid grid-cols-1 gap-2 py-6 sm:grid-cols-12 sm:items-baseline"
+                    >
+                      <div className="sm:col-span-3 font-mono text-sm uppercase tracking-[0.15em] text-xo-blue">
+                        {c.name}
+                      </div>
+                      <div className="sm:col-span-9 text-[15px] leading-relaxed text-fg/70">{c.desc}</div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+
+              <Reveal delay={0.1}>
+                <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
+                  That integration is where the time, the cost, and the errors go.
+                  Every handoff a practice manages by hand is time it pays for.
+                  Every re-entry is a chance for a number to be wrong. An
+                  integrated system removes both by never breaking the chain.
+                </p>
+              </Reveal>
+              <Reveal delay={0.15}>
+                <p className="mt-6 max-w-2xl text-lg leading-relaxed text-fg/55">
+                  A practice can adopt the whole system or start with a single
+                  component. Whatever is in place runs as one integrated system
+                  rather than as separate purchases.
+                </p>
+              </Reveal>
+
+              <Reveal delay={0.2}>
+                <blockquote className="mt-14 max-w-3xl border-l-2 border-xo-blue/60 pl-6 md:pl-8">
+                  <p className="font-display text-2xl font-medium leading-snug tracking-tight text-fg md:text-3xl">
+                    No other company in eye care builds all four. The XO Vision
+                    Care System is the only platform where scheduling,
+                    examination, fitting, and finishing are integrated by design
+                    rather than connected after the fact.
+                  </p>
+                </blockquote>
               </Reveal>
             </section>
 
-            {/* What it delivers legend */}
+            {/* What it delivers */}
             <section id="outcomes" className="mt-24 scroll-mt-32">
               <Reveal>
-                <div className="rounded-md border border-fg/10 bg-surface/60 p-8 md:p-10">
-                  <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40">
-                    What it delivers
-                  </div>
-                  <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg/60">
-                    Every step below, from booking to finished eyewear, is built to
-                    move one or more of six measurable results:
-                  </p>
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    {SIX_OUTCOMES.map((o) => (
-                      <span
-                        key={o.key}
-                        className="rounded-full border border-fg/15 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-fg/70"
-                      >
-                        {o.title}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <div className="eyebrow mb-6">02 · What it delivers</div>
               </Reveal>
+              <MaskTextInView
+                lines={["Six results a practice can measure."]}
+                as="span"
+                className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+              />
+              <Reveal delay={0.1}>
+                <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
+                  The system exists to move six numbers. Every component
+                  contributes to at least two of them, and the tags on each step
+                  below show which.
+                </p>
+              </Reveal>
+
+              <div className="mt-14 grid grid-cols-1 gap-px overflow-hidden border border-fg/10 bg-fg/10 sm:grid-cols-2 lg:grid-cols-3">
+                {SYSTEM_OUTCOMES.map((o, i) => (
+                  <Reveal key={o.key} delay={i * 0.05} className="bg-surface">
+                    <div data-testid={`system-outcome-tile-${o.key}`} className="flex h-full flex-col p-6 md:p-8">
+                      <span className="font-mono text-xs text-xo-blue">{String(i + 1).padStart(2, "0")}</span>
+                      <div className="mt-4 font-display text-lg text-fg">{o.title}</div>
+                      <p className="mt-3 text-[14px] leading-relaxed text-fg/55">{o.body}</p>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
             </section>
 
             {/* Numbered workflow */}
             <div className="mt-24 space-y-24">
-              {STEPS.map((step) => (
+              {STEPS.map((step) => {
+                const stepNumber = ANCHORS.findIndex((a) => a.id === step.id) + 1;
+                return (
                 <section key={step.id} id={step.id} className="scroll-mt-32">
                   <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
                     <div className="lg:col-span-3">
-                      <div className="font-display text-4xl font-semibold leading-none text-fg/10 md:text-7xl">
-                        {step.n}
+                      <div
+                        data-testid={`step-number-${step.id}`}
+                        className="font-display text-4xl font-semibold leading-none text-fg/10 md:text-7xl"
+                      >
+                        {String(stepNumber).padStart(2, "0")}
                       </div>
                       <img
                         src={step.logo.replace("-dark.svg", ".svg")}
@@ -247,6 +335,7 @@ export default function System() {
                         <div className="mt-6 flex flex-wrap gap-2">
                           {step.outcomes.map((key) => {
                             const o = SIX_OUTCOMES.find((s) => s.key === key);
+                            if (!o) return null;
                             return (
                               <span
                                 key={key}
@@ -272,50 +361,64 @@ export default function System() {
                     </div>
                   </div>
                 </section>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
 
         {/* What it replaces */}
         <section id="replaces" className="scroll-mt-32 border-t border-fg/10 bg-surface py-24 md:py-32">
-          <div className="xo-container">
-            <Reveal>
-              <div className="eyebrow mb-6">What it replaces</div>
-            </Reveal>
-            <MaskTextInView
-              lines={["Fewer boxes. Fewer handoffs."]}
-              as="span"
-              className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
-            />
-            <MaskTextInView
-              lines={["Fewer places for the day to slow down."]}
-              as="span"
-              className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
-            />
+          <div className="xo-container grid grid-cols-1 gap-16 lg:grid-cols-12">
+            <div className="hidden lg:col-span-3 lg:block" aria-hidden="true" />
+            <div className="lg:col-span-9">
+              <Reveal>
+                <div className="eyebrow mb-6">07 · What it replaces</div>
+              </Reveal>
+              <MaskTextInView
+                lines={["Fewer instruments. Fewer vendors."]}
+                as="span"
+                className="max-w-5xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+              />
+              <MaskTextInView
+                lines={["Fewer places for the day to slow down."]}
+                as="span"
+                className="max-w-5xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+              />
+              <Reveal delay={0.1}>
+                <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
+                  A conventional practice builds its capability one purchase at a
+                  time. Each instrument arrives with its own price, its own service
+                  contract, its own footprint, and its own connection to maintain.
+                  The XO Vision Care System replaces that accumulation with one
+                  integrated platform.
+                </p>
+              </Reveal>
 
-            <Reveal className="mt-14">
-              <div className="overflow-hidden rounded-md border border-fg/10">
-                <div className="grid grid-cols-12 border-b border-fg/10 bg-fg/[0.02] px-6 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40 md:px-8">
-                  <div className="col-span-3 md:col-span-2">Step</div>
-                  <div className="col-span-9 md:col-span-6">Conventional</div>
-                  <div className="hidden md:col-span-4 md:block text-xo-blue">XO System</div>
-                </div>
-                {REPLACES.map(([step, conv, xo]) => (
-                  <div
-                    key={step}
-                    className="grid grid-cols-12 items-start gap-2 border-b border-fg/5 px-6 py-6 transition-colors duration-300 hover:bg-fg/[0.02] last:border-0 md:px-8"
-                  >
-                    <div className="col-span-12 mb-2 font-display text-lg text-fg md:col-span-2 md:mb-0">{step}</div>
-                    <div className="col-span-12 text-[14px] leading-relaxed text-fg/40 md:col-span-6">{conv}</div>
-                    <div className="col-span-12 text-[14px] leading-relaxed text-fg/80 md:col-span-4">
-                      <span className="md:hidden font-mono text-[10px] uppercase tracking-widest text-xo-blue">XO: </span>
-                      {xo}
-                    </div>
+              <Reveal className="mt-14">
+                <div className="overflow-hidden border border-fg/10">
+                  <div className="grid grid-cols-12 border-b border-fg/10 bg-fg/[0.02] px-6 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40 md:px-8">
+                    <div className="col-span-3 md:col-span-2">Step</div>
+                    <div className="col-span-9 md:col-span-6">Conventional</div>
+                    <div className="hidden md:col-span-4 md:block text-xo-blue">XO System</div>
                   </div>
-                ))}
-              </div>
-            </Reveal>
+                  {REPLACES.map(([step, conv, xo]) => (
+                    <div
+                      key={step}
+                      data-testid={`replaces-row-${step.toLowerCase().replace(/\s+/g, "-")}`}
+                      className="grid grid-cols-12 items-start gap-2 border-b border-fg/5 px-6 py-6 transition-colors duration-300 hover:bg-fg/[0.02] last:border-0 md:px-8"
+                    >
+                      <div className="col-span-12 mb-2 font-display text-lg text-fg md:col-span-2 md:mb-0">{step}</div>
+                      <div className="col-span-12 text-[14px] leading-relaxed text-fg/40 md:col-span-6">{conv}</div>
+                      <div className="col-span-12 text-[14px] leading-relaxed text-fg/80 md:col-span-4">
+                        <span className="md:hidden font-mono text-[10px] uppercase tracking-widest text-xo-blue">XO: </span>
+                        {xo}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+            </div>
           </div>
         </section>
 
@@ -326,44 +429,59 @@ export default function System() {
             <div className="absolute inset-0 bg-bg/85" />
           </div>
           <div className="xo-container relative grid grid-cols-1 gap-16 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <Reveal>
-                <div className="eyebrow mb-6">Deployment</div>
-              </Reveal>
-              <MaskTextInView
-                lines={["Configured to the practice,", "not the other way around."]}
-                as="span"
-                className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
-              />
+            <div className="hidden lg:col-span-3 lg:block" aria-hidden="true" />
+            <div className="lg:col-span-9">
+              <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
+                <div className="lg:col-span-5">
+                  <Reveal>
+                    <div className="eyebrow mb-6">08 · Deployment</div>
+                  </Reveal>
+                  <MaskTextInView
+                    lines={["It goes where the practice needs it."]}
+                    as="span"
+                    className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+                  />
+                  <Reveal delay={0.1}>
+                    <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
+                      Because the system does not depend on a fixed exam lane, a
+                      darkened room, or a bank of separate instruments, it can be
+                      deployed in settings a conventional practice cannot serve, and
+                      configured to the scale of the organization running it.
+                    </p>
+                  </Reveal>
+                </div>
+                <div className="lg:col-span-7 lg:pl-10">
+                  <div className="divide-y divide-fg/10 border-t border-fg/10">
+                    {DEPLOYMENT_SCENARIOS.map((scenario, i) => (
+                      <Reveal key={scenario} delay={i * 0.05}>
+                        <div data-testid={`deployment-scenario-${i + 1}`} className="flex items-start gap-4 py-6">
+                          <span className="mt-1 font-mono text-xs text-xo-blue">{String(i + 1).padStart(2, "0")}</span>
+                          <span className="text-[15px] leading-relaxed text-fg/75">{scenario}</span>
+                        </div>
+                      </Reveal>
+                    ))}
+                  </div>
+                </div>
+              </div>
               <Reveal delay={0.1}>
-                <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
-                  The system is designed to work as a whole, and to be adopted in
-                  stages. However many components are in place, they run as one system
-                  rather than as separate purchases.
+                <p className="mt-16 max-w-2xl text-lg leading-relaxed text-fg/55">
+                  The system is designed to work as a whole and to be adopted in
+                  stages. However many components are in place, they run as one
+                  integrated system rather than as separate purchases.
                 </p>
               </Reveal>
-            </div>
-            <div className="lg:col-span-7 lg:pl-10">
-              <div className="grid grid-cols-1 gap-px overflow-hidden rounded-md border border-fg/10 bg-fg/10 sm:grid-cols-2">
-                {ENVIRONMENTS.map((env, i) => (
-                  <Reveal key={env} delay={i * 0.04} className="bg-surface">
-                    <div className="flex items-center gap-4 p-6 md:p-8">
-                      <span className="font-mono text-xs text-xo-blue">{String(i + 1).padStart(2, "0")}</span>
-                      <span className="text-[15px] text-fg/75">{env}</span>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
             </div>
           </div>
         </section>
       </div>
 
-      <DemoCTA
-        eyebrow="Request a demo"
-        headline="See a full visit, start to finish."
-        body="A thirty-minute walkthrough of the full journey, booking through finished eyewear, mapped against how your practice runs today."
-      />
+      <div id="demo" className="scroll-mt-32">
+        <DemoCTA
+          eyebrow="09 · See it work"
+          headline="See the whole journey in thirty minutes."
+          body="No two practices lose capacity in the same place. We will walk the XO Vision Care System through your practice's actual workflow, from the appointment to the finished pair, and show you where yours is going."
+        />
+      </div>
     </>
   );
 }
