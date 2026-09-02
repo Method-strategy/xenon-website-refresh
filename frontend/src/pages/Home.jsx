@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { ArrowDown, ArrowUpRight, CalendarClock, Workflow, ClipboardList, Building2 } from "lucide-react";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import SectionAnchors from "@/components/common/SectionAnchors";
 import DemoCTA from "@/components/common/DemoCTA";
@@ -19,21 +19,25 @@ const ANCHORS = [
 const HIDDEN_SPACES = [
   {
     n: "01",
+    icon: CalendarClock,
     title: "Schedule space",
     body: "The gap between the appointments you could hold and the ones you keep. No-shows in U.S. optometric practices average roughly 25 percent, climbing past 38 percent when booked six months out. Once a slot passes, that capacity is gone.",
   },
   {
     n: "02",
+    icon: Workflow,
     title: "Workflow space",
     body: "The friction between steps. Check-in to pre-test to lane to exam to the dispensary. Five extra minutes per patient across thirty patients is two and a half hours, before the schedule compression that follows.",
   },
   {
     n: "03",
+    icon: ClipboardList,
     title: "Information space",
     body: "The distance between what you record and what you can use. Physicians average 36 minutes in the chart for every 30-minute visit, and scheduling, clinical, and optical systems rarely share what they know.",
   },
   {
     n: "04",
+    icon: Building2,
     title: "Office space",
     body: "The gap between what your infrastructure was built for and what it does. A new practice runs $200,000 to $500,000 to outfit, with exam lane equipment alone $100,000 to $250,000. That cost doesn't shrink when utilization does.",
   },
@@ -194,7 +198,7 @@ export default function Home() {
                 {HIDDEN_SPACES.map((s, i) => (
                   <Reveal key={s.n} delay={i * 0.05} className="bg-surface">
                     <div className="group h-full p-8 transition-colors duration-500 hover:bg-fg/[0.02] md:p-10">
-                      <div className="font-mono text-sm text-xo-blue">{s.n}</div>
+                      <s.icon className="h-6 w-6 text-xo-blue" strokeWidth={1.5} />
                       <h3 className="mt-4 font-display text-2xl text-fg">{s.title}</h3>
                       <p className="mt-4 text-[15px] leading-relaxed text-fg/50">{s.body}</p>
                     </div>
