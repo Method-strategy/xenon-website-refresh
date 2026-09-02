@@ -94,7 +94,7 @@ const FAQS = [
   },
 ];
 
-function FeatureList({ items }) {
+function FeatureList({ items, bullet = false }) {
   return (
     <div className="mt-10 divide-y divide-fg/10 border-t border-fg/10">
       {items.map(([title, desc, Icon], i) => (
@@ -103,6 +103,8 @@ function FeatureList({ items }) {
             <div className="flex items-center gap-3 sm:col-span-4">
               {Icon ? (
                 <Icon className="h-[15px] w-[15px] shrink-0 text-acc" strokeWidth={1.5} />
+              ) : bullet ? (
+                <span aria-hidden="true" className="h-px w-3 shrink-0 bg-acc/60" />
               ) : (
                 <span className="font-mono text-[11px] text-acc tabular-nums">{String(i + 1).padStart(2, "0")}</span>
               )}
@@ -192,7 +194,7 @@ export default function Iris() {
               raised their hand.
             </p>
           </Reveal>
-          <FeatureList items={FILLING_THE_DAY} />
+          <FeatureList items={FILLING_THE_DAY} bullet />
         </div>
       </section>
 

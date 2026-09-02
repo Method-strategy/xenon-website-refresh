@@ -327,7 +327,7 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 
 ## xoIris feature-list icons + spec bullets (2026-09-02, this session) — DONE
 
-User asked to break up the "onslaught of numbered cards" further. Added icons (replacing the numbered index) to 2 of the 4 `FeatureList` sections: Patient Communication (MessageCircle/Headset/Languages/ArrowLeftRight/Zap/EyeOff) and Security and Access (Lock/FileClock/KeyRound/UserCog/Globe). `FeatureList` now accepts an optional 3rd tuple element (icon component); falls back to the mono number badge when absent, so Filling the Day and Intake and Records correctly kept their numbers (not requested). Specifications list (10 items) switched from numbers to a plain short tick-mark bullet (`h-px w-3 bg-acc/60`), per request. Verified via screenshot.
+User asked to break up the "onslaught of numbered cards" further. Added icons (replacing the numbered index) to 2 of the 4 `FeatureList` sections: Patient Communication (MessageCircle/Headset/Languages/ArrowLeftRight/Zap/EyeOff) and Security and Access (Lock/FileClock/KeyRound/UserCog/Globe). `FeatureList` now accepts an optional 3rd tuple element (icon component) and a `bullet` boolean prop; falls back to the mono number badge when neither is set. Specifications list (10 items) and Filling the Day list (7 items) both switched from numbers to the plain line-style tick-mark bullet (`h-px w-3 bg-acc/60`) via `bullet` prop — Patient Communication/Security use icons, Filling the Day/Specifications use line bullets, Intake and Records kept its numbers (not requested). Verified via screenshot.
 
 ## xoIris full copy + structure rewrite (2026-09-02, this session) — DONE
 
