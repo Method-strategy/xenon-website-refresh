@@ -1,185 +1,101 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Plus } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import ProductHero from "@/components/common/ProductHero";
 import { MaskTextInView, Reveal } from "@/components/common/Reveal";
 import FAQ from "@/components/common/FAQ";
 import DemoCTA from "@/components/common/DemoCTA";
 import { IMAGES } from "@/data/site";
-import { cn } from "@/lib/utils";
 import { usePageMeta } from "@/lib/usePageMeta";
 
 const SPECS = [
   "Cloud-based, high-availability deployment",
   "HIPAA-compliant cloud architecture",
   "No local software or on-site servers",
-  "macOS, Windows, iOS, Android & web browser",
-  "API integration with EHR & practice systems",
-  "Role-based access control (RBAC)",
+  "macOS, Windows, iOS, Android, and web browser",
+  "Standards-based integration with EHR and practice systems",
+  "Role-based access control",
   "Encrypted patient data transmission",
-  "Auditable communication & scheduling logs",
+  "Auditable communication and scheduling logs",
+  "Multi-factor authentication with passkeys or authenticator app",
+  "Protected health information masked by default, with logged reveals",
 ];
 
-// Verbatim feature set supplied by the client (XO Iris Features.pdf).
-// Grouped exactly as given; do not add or remove items without checking
-// the source doc first.
-const FEATURE_GROUPS = [
-  {
-    key: "schedule",
-    label: "Keeping the schedule full",
-    items: [
-      ["AI-managed scheduling", "Booking, confirmation, and rescheduling handled without staff time."],
-      ["Up to three confirmation notifications", "Sent automatically ahead of each appointment."],
-      ["Departure timing and directions", "Confirmed patients receive an estimated departure time based on local traffic, along with driving directions."],
-      ["Arrival estimates for the practice", "The front desk sees when each patient is expected."],
-      ["Automatic waitlist fill", "If a patient does not confirm, xoIris checks the waitlist and offers the slot to someone who can take it."],
-      ["Bulk cancellation and rescheduling", "Move an entire day at once when the practice has an emergency."],
-      ["Live activity notifications", "New bookings, cancellations, and escalations as they happen."],
-    ],
-  },
-  {
-    key: "communication",
-    label: "Patient communication",
-    items: [
-      ["Live AI conversation", "Patients get an answer immediately instead of a callback."],
-      ["Staff override at any time", "Any conversation can be taken over directly by a doctor or staff member."],
-      ["Six languages", "English, Spanish, French, Simplified Chinese, Haitian Creole, and Vietnamese."],
-      ["Two-way translation", "xoIris converses with the patient in their language and translates to the doctor's preferred language, and back again."],
-      ["Nothing for patients to download", "No app, no account setup."],
-      ["Confidential by default", "Patient conversations stay private."],
-    ],
-  },
-  {
-    key: "intake",
-    label: "Intake and records",
-    items: [
-      ["Digital onboarding", "Demographics and insurance collected before the visit."],
-      ["Card capture", "Data extracted from photographs of ID and insurance cards."],
-      ["Complete patient record", "Demographics, contacts, insurance, medical history, allergies and medications, visit history, and clinical imaging in one place."],
-      ["PHI masked by default", "Protected health information stays hidden until a staff member intentionally reveals it. Every reveal is logged."],
-    ],
-  },
-  {
-    key: "security",
-    label: "Security and access",
-    items: [
-      ["Full encryption", "Data encrypted in transit and at rest."],
-      ["Complete audit logs", "Who did what, and when."],
-      ["Multi-factor authentication", "Passkeys or an authenticator app."],
-      ["Browser-based", "A web interface for the practice, with nothing to install."],
-    ],
-  },
+const FILLING_THE_DAY = [
+  ["AI-managed scheduling", "Booking, confirmation, and rescheduling handled without staff time."],
+  ["Up to three confirmation notifications", "Sent automatically ahead of each appointment."],
+  ["Departure timing and directions", "Confirmed patients receive an estimated departure time based on local traffic, along with driving directions."],
+  ["Arrival estimates for the practice", "The front desk sees when each patient is expected."],
+  ["Automatic waitlist fill", "If a patient does not confirm, xoIris offers the slot to someone who can take it."],
+  ["Bulk cancellation and rescheduling", "Move an entire day at once when the practice has an emergency."],
+  ["Live activity notifications", "New bookings, cancellations, and escalations as they happen."],
+];
+
+const PATIENT_COMMUNICATION = [
+  ["Live AI conversation", "Patients get an answer immediately rather than waiting for a callback."],
+  ["Staff override at any time", "Any conversation can be taken over directly by a doctor or staff member."],
+  ["Six languages", "English, Spanish, French, Simplified Chinese, Haitian Creole, and Vietnamese."],
+  ["Two-way translation", "xoIris converses with the patient in their language and translates to the practice's preferred language, and back again."],
+  ["Nothing for patients to download", "No app, no account setup. Conversation happens over text."],
+  ["Confidential by default", "Patient conversations stay private."],
+];
+
+const INTAKE_RECORDS = [
+  ["Digital onboarding", "Demographics and insurance collected before the visit."],
+  ["Card capture", "Data extracted from photographs of ID and insurance cards."],
+  ["Complete patient record", "Demographics, contacts, insurance, medical history, allergies and medications, visit history, and clinical imaging in one place."],
+  ["Protected health information masked by default", "Records stay hidden until intentionally revealed, and every reveal is logged."],
+];
+
+const SECURITY_ACCESS = [
+  ["Full encryption", "Data encrypted in transit and at rest."],
+  ["Complete audit logs", "Who did what, and when."],
+  ["Multi-factor authentication", "Passkeys or an authenticator app."],
+  ["Role-based access control", "Permissions matched to the role."],
+  ["Browser-based", "A web interface for the practice, with nothing to install."],
 ];
 
 const FAQS = [
   {
-    q: "How do you fill a cancelled eye exam appointment?",
-    a: "When a slot opens, xoIris identifies patients nearby who are already due for care and reaches them by text with the specific opening, filling the gap from your existing patient base rather than waiting for someone to call.",
+    q: "How does xoIris fill a cancelled appointment?",
+    a: "Two ways, in sequence. It checks the waitlist for a patient who can take the slot. If the waitlist does not produce one, it looks at the patient base for patients nearby who are already due for care, and reaches them by text with the specific opening. The practice is not waiting for someone to call.",
   },
   {
     q: "What is the average no-show rate in optometry?",
-    a: "No-shows in U.S. optometric practices average roughly 25 percent, and research shows the rate climbing past 38 percent when appointments are booked six months out.",
+    a: "Roughly 25 percent across U.S. optometric practices, rising past 38 percent for appointments booked six months in advance. Appointment time is perishable. Once a slot passes unfilled, that capacity is gone.",
   },
   {
-    q: "Does xoIris replace my front desk?",
-    a: "No. xoIris handles the predictable, repetitive exchanges (confirmations, reminders, routine questions, rescheduling) and escalates to staff the moment a conversation needs a person.",
+    q: "Does it work with our EHR?",
+    a: "Yes. xoIris connects through the standards electronic health record systems already use, including FHIR, HL7, and Direct Secure Messaging. Your EHR stays in place and the practice does not change how it charts.",
+  },
+  {
+    q: "What languages does it support?",
+    a: "Six: English, Spanish, French, Simplified Chinese, Haitian Creole, and Vietnamese. The patient converses in their language while the practice reads and responds in its own.",
+  },
+  {
+    q: "Do patients need to download anything?",
+    a: "No. Conversation happens over text. There is no app and no account for the patient to set up.",
+  },
+  {
+    q: "Who can see patient information?",
+    a: "Access is governed by role. Protected health information stays masked by default and is not visible until a staff member intentionally reveals it. Every reveal is logged against the person who made it.",
   },
 ];
 
-function FeatureIndex() {
-  const [openKey, setOpenKey] = useState(FEATURE_GROUPS[0].key);
-
+function FeatureList({ items }) {
   return (
-    <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
-      <div className="xo-container">
-        <Reveal>
-          <div className="eyebrow mb-6">Full feature set</div>
+    <div className="mt-10 divide-y divide-fg/10 border-t border-fg/10">
+      {items.map(([title, desc], i) => (
+        <Reveal key={title} delay={i * 0.04}>
+          <div data-testid="feature-list-item" className="grid grid-cols-1 gap-2 py-6 sm:grid-cols-12 sm:items-baseline">
+            <div className="flex items-baseline gap-3 sm:col-span-4">
+              <span className="font-mono text-[11px] text-acc tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+              <span className="font-display text-base font-medium leading-snug text-fg">{title}</span>
+            </div>
+            <p className="text-[15px] leading-relaxed text-fg/60 sm:col-span-8">{desc}</p>
+          </div>
         </Reveal>
-        <MaskTextInView
-          lines={["What xoIris", "does."]}
-          as="span"
-          className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
-        />
-        <Reveal delay={0.1}>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
-            Scheduling, confirmation, patient communication, and intake, handled
-            without pulling staff off the floor.
-          </p>
-        </Reveal>
-
-        <div className="mt-16 border-t border-fg/10">
-          {FEATURE_GROUPS.map((group, gi) => {
-            const isOpen = openKey === group.key;
-            return (
-              <div key={group.key} className="border-b border-fg/10">
-                <button
-                  type="button"
-                  onClick={() => setOpenKey(isOpen ? null : group.key)}
-                  data-testid={`iris-feature-group-${group.key}`}
-                  aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between gap-6 py-8 text-left"
-                >
-                  <div className="flex items-baseline gap-5 sm:gap-8">
-                    <span className="font-mono text-xs text-fg/30 tabular-nums">
-                      {String(gi + 1).padStart(2, "0")}
-                    </span>
-                    <span
-                      className={cn(
-                        "font-display text-2xl font-medium tracking-tight transition-colors duration-300 sm:text-3xl",
-                        isOpen ? "text-fg" : "text-fg/50"
-                      )}
-                    >
-                      {group.label}
-                    </span>
-                  </div>
-                  <div className="flex shrink-0 items-center gap-4">
-                    <span className="hidden font-mono text-[11px] uppercase tracking-[0.2em] text-fg/30 sm:inline">
-                      {group.items.length} features
-                    </span>
-                    <Plus
-                      className={cn(
-                        "h-4 w-4 shrink-0 text-acc transition-transform duration-300",
-                        isOpen && "rotate-45"
-                      )}
-                    />
-                  </div>
-                </button>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="grid grid-cols-1 gap-x-12 pb-10 md:grid-cols-2">
-                        {group.items.map(([title, desc], ii) => (
-                          <div key={title} className="border-t border-fg/10 py-6">
-                            <div className="flex items-baseline gap-3">
-                              <span className="font-mono text-[11px] text-acc tabular-nums">
-                                {String(ii + 1).padStart(2, "0")}
-                              </span>
-                              <h4 className="font-display text-base font-medium leading-snug text-fg">
-                                {title}
-                              </h4>
-                            </div>
-                            <p className="mt-2 max-w-md text-sm leading-relaxed text-fg/55">
-                              {desc}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
+      ))}
+    </div>
   );
 }
 
@@ -197,13 +113,13 @@ export default function Iris() {
         logoWidth={104}
         logoHeight={25}
         role="Schedule"
-        headlineLines={["Every empty slot", "was capacity.", "Until it wasn't."]}
-        subhead="xoIris manages booking, communication, and recall, and starts the visit that carries through the rest of the day."
+        headlineLines={["A full schedule, and", "more patients through it."]}
+        subhead="xoIris manages booking, patient communication, and recall, working the schedule continuously so the clinical hours you already staff are the hours you actually bill."
         image={IMAGES.abstract}
         imageAlt="Abstract scheduling network"
       />
 
-      {/* Definitional overview */}
+      {/* 01 Overview */}
       <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
         <div className="xo-container grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -211,7 +127,7 @@ export default function Iris() {
               <div className="eyebrow mb-6">Overview</div>
             </Reveal>
             <MaskTextInView
-              lines={["Where the patient", "journey begins."]}
+              lines={["The schedule is the practice's", "most perishable asset."]}
               as="span"
               className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
             />
@@ -219,56 +135,169 @@ export default function Iris() {
           <div className="lg:col-span-7">
             <Reveal>
               <p className="text-lg leading-relaxed text-fg/60">
-                xoIris is the scheduling and patient communication component of the
-                XO Vision Care System. It automates appointment booking, reminders,
-                and recall outreach for eye care practices, and can fill cancelled
-                appointments by identifying nearby patients due for care and
-                contacting them by text.
-              </p>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="mt-6 leading-relaxed text-fg/45">
-                Every appointment slot is finite and perishable. Once it passes
-                unfilled, that capacity cannot be recovered. xoIris works the
-                schedule continuously rather than waiting on it, and it is where the
-                visit begins. What xoIris captures is what the exam, the fitting, and
-                the finished pair are built on.
+                Every appointment slot is finite. Once it passes unfilled, that
+                capacity cannot be recovered, carried forward, or sold to a
+                future patient. Across U.S. optometric practices, roughly a
+                quarter of booked appointments are not kept. xoIris is the
+                scheduling and patient communication software in the XO
+                Vision Care System. It automates booking, confirmation,
+                reminders, and recall outreach, and it works the schedule
+                continuously rather than waiting for someone at the front
+                desk to notice a gap. A full schedule means maximizing the
+                revenue potential of the hours your practice is already
+                staffing. No new chair, no new room, no additional staff.
               </p>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Filling the schedule */}
+      {/* 02 Filling the day */}
       <section className="border-t border-fg/10 bg-surface py-24 md:py-32">
         <div className="xo-container">
+          <Reveal>
+            <div className="eyebrow mb-6">Filling the Day</div>
+          </Reveal>
           <MaskTextInView
-            lines={["A cancellation is a hole in the day.", "It doesn't have to be."]}
+            lines={["A cancellation does not have to", "become a hole in the day."]}
             as="span"
             className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
           <Reveal delay={0.1}>
             <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
-              Most scheduling tools respond to a cancellation by notifying a
-              waitlist. xoIris works from the patient base: when a slot opens, it can
-              identify patients nearby already due for care and reach them by text
-              with the specific opening. The practice isn't waiting for someone to
-              call: it's filling the gap from patients it already has.
+              When a patient does not confirm, xoIris does two things. It
+              checks the waitlist for someone who can take the slot. And it
+              looks at the patient base, identifying patients nearby who are
+              already due for care, and reaches them by text with the
+              specific opening. Most scheduling tools stop at the waitlist,
+              which only helps when a waitlist exists. xoIris works from
+              demand the practice already has on file, whether or not anyone
+              raised their hand.
             </p>
           </Reveal>
+          <FeatureList items={FILLING_THE_DAY} />
         </div>
       </section>
 
-      <FeatureIndex />
+      {/* 03 Patient communication */}
+      <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
+        <div className="xo-container">
+          <Reveal>
+            <div className="eyebrow mb-6">Patient Communication</div>
+          </Reveal>
+          <MaskTextInView
+            lines={["Patients get an answer,", "not a callback."]}
+            as="span"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+          />
+          <Reveal delay={0.1}>
+            <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
+              A significant share of front-desk time goes to exchanges that
+              follow a predictable pattern: confirming an appointment,
+              answering a question about hours or insurance, rescheduling,
+              sending a reminder. xoIris handles these directly, in natural
+              conversation, and hands off to staff the moment a conversation
+              needs a person. It converses in six languages, and translates
+              between them. A patient can book, confirm, and ask questions in
+              Spanish, Haitian Creole, or Vietnamese while the practice reads
+              and responds in English. For a practice serving a diverse
+              patient population, that is the difference between a patient
+              who books and a patient who does not.
+            </p>
+          </Reveal>
+          <FeatureList items={PATIENT_COMMUNICATION} />
+        </div>
+      </section>
 
-      {/* What it delivers */}
+      {/* 04 Intake and records */}
+      <section className="border-t border-fg/10 bg-surface py-24 md:py-32">
+        <div className="xo-container">
+          <Reveal>
+            <div className="eyebrow mb-6">Intake and Records</div>
+          </Reveal>
+          <MaskTextInView
+            lines={["The paperwork is done", "before the patient sits down."]}
+            as="span"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+          />
+          <Reveal delay={0.1}>
+            <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
+              Demographics and insurance are collected ahead of the visit
+              rather than on a clipboard in the waiting room. Patients
+              photograph their ID and insurance card, and xoIris extracts the
+              data. The patient record holds demographics, contacts,
+              insurance, medical history, allergies and medications, visit
+              history, and clinical imaging. All of it stays masked by
+              default. Protected health information is not visible until a
+              staff member intentionally reveals it, and every reveal is
+              logged against the person who made it.
+            </p>
+          </Reveal>
+          <FeatureList items={INTAKE_RECORDS} />
+        </div>
+      </section>
+
+      {/* 05 Working with your EHR */}
+      <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
+        <div className="xo-container grid grid-cols-1 gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <Reveal>
+              <div className="eyebrow mb-6">Working with Your EHR</div>
+            </Reveal>
+            <MaskTextInView
+              lines={["It works with the EHR", "you already run."]}
+              as="span"
+              className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+            />
+          </div>
+          <div className="lg:col-span-7">
+            <Reveal>
+              <p className="text-lg leading-relaxed text-fg/60">
+                Integration is where practice technology usually stalls.
+                xoIris connects through the standards electronic health
+                record systems already use, including FHIR, HL7, and Direct
+                Secure Messaging, rather than requiring a custom integration
+                built for your specific system. Your EHR stays where it is.
+                Nothing is replaced, and the practice does not change how it
+                charts.
+              </p>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* 06 Security and access */}
+      <section className="border-t border-fg/10 bg-surface py-24 md:py-32">
+        <div className="xo-container">
+          <Reveal>
+            <div className="eyebrow mb-6">Security and Access</div>
+          </Reveal>
+          <MaskTextInView
+            lines={["Built for the data it holds."]}
+            as="span"
+            className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
+          />
+          <Reveal delay={0.1}>
+            <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/55">
+              xoIris holds protected health information, and it is built
+              accordingly. Data is encrypted in transit and at rest. Access
+              is governed by role, so what a front-desk employee can see and
+              what a practitioner can see are not the same. Every action is
+              logged, including every reveal of masked information.
+            </p>
+          </Reveal>
+          <FeatureList items={SECURITY_ACCESS} />
+        </div>
+      </section>
+
+      {/* 07 What it delivers */}
       <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
         <div className="xo-container">
           <Reveal>
             <div className="eyebrow mb-6">What it delivers</div>
           </Reveal>
           <MaskTextInView
-            lines={["A full day is capacity", "you already own."]}
+            lines={["Two results a practice", "can measure."]}
             as="span"
             className="max-w-4xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
           />
@@ -278,10 +307,10 @@ export default function Iris() {
                 <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-acc">Time</span>
               </div>
               <p className="md:col-span-9 text-lg leading-relaxed text-fg/60">
-                Every gap xoIris fills is time your team doesn't spend chasing
-                a phone that never rings back. Recall and reminders run
-                continuously, so the schedule holds its shape without a
-                person watching it all day.
+                Every gap xoIris fills is time your team does not spend
+                chasing a phone that never rings back. Recall, reminders, and
+                routine patient questions run continuously, without a person
+                watching them all day.
               </p>
             </div>
             <div className="grid grid-cols-1 gap-4 py-10 md:grid-cols-12 md:items-baseline">
@@ -290,7 +319,7 @@ export default function Iris() {
               </div>
               <p className="md:col-span-9 text-lg leading-relaxed text-fg/60">
                 A full day is capacity you already own. xoIris turns the
-                schedule you have into the patient volume you're capable of,
+                schedule you have into the patient volume you are capable of,
                 before you add a chair or a room.
               </p>
             </div>
@@ -298,7 +327,7 @@ export default function Iris() {
         </div>
       </section>
 
-      {/* Platform & specifications */}
+      {/* 08 Platform & specifications */}
       <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
         <div className="xo-container grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -312,9 +341,10 @@ export default function Iris() {
             />
             <Reveal delay={0.1}>
               <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
-                xoIris runs in a HIPAA-compliant cloud and reaches patients over
-                conversational SMS, no app to download, no on-site servers to
-                maintain. Staff work from any browser or device.
+                xoIris runs in a HIPAA-compliant cloud and reaches patients
+                over conversational text. No app for the patient to
+                download, no servers on site, and no software for the
+                practice to maintain. Staff work from any browser or device.
               </p>
             </Reveal>
           </div>
@@ -322,7 +352,7 @@ export default function Iris() {
             <Reveal>
               <div className="eyebrow mb-6">Specifications</div>
             </Reveal>
-            <div className="overflow-hidden rounded-md border border-fg/10">
+            <div className="overflow-hidden border border-fg/10">
               {SPECS.map((s, i) => (
                 <Reveal key={s} delay={i * 0.03}>
                   <div className="flex items-center gap-4 border-b border-fg/5 px-6 py-4 text-[14px] text-fg/70 last:border-0">
@@ -338,7 +368,7 @@ export default function Iris() {
         </div>
       </section>
 
-      {/* In the system */}
+      {/* 09 In the system */}
       <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
         <div className="xo-container">
           <Reveal>
@@ -351,9 +381,12 @@ export default function Iris() {
           />
           <Reveal delay={0.1}>
             <p className="mt-8 max-w-2xl text-lg leading-relaxed text-fg/55">
-              Who the patient is, why they came, and what happened last time: all
-              present the moment the exam begins. The visit starts where the booking
-              left off instead of starting over.
+              Who the patient is, why they came, and what happened last time,
+              all present the moment the exam begins. The visit starts where
+              the booking left off rather than starting over. xoIris is the
+              first of four components in the XO™ Vision Care System, which
+              covers the patient's visit from the appointment through the
+              finished eyewear.
             </p>
           </Reveal>
           <Reveal delay={0.15}>
@@ -378,7 +411,7 @@ export default function Iris() {
       <DemoCTA
         eyebrow="Request a demo"
         headline="Fill the schedule you already have."
-        body="A thirty-minute walkthrough of xoIris inside the full XO Vision Care System."
+        body="A thirty-minute walkthrough of xoIris inside the full XO Vision Care System, against how your practice books, confirms, and recalls today."
       />
     </div>
   );

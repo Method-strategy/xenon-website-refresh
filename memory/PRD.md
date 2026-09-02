@@ -325,6 +325,14 @@ User provided vendor code fragments (script tag + `<tint-vto>` custom element + 
 - Verified via screenshot + CLS re-check on Home post-change: CLS still 0, no visual regression.
 - Remaining backlog (P2, deferred by user this session): Task 4 (refactor Iris/Exam/Fit/Lab into shared component), Task 5 (draft FDA Clearance Callout section). SSG/prerendering and remaining placeholder-image swap are explicitly **not** this app's responsibility (handled server-side/deploy-side by another team, confirmed by user 2026-08-30).
 
+## xoIris full copy + structure rewrite (2026-09-02, this session) — DONE
+
+User supplied `xoIris_Page_Copy.docx`. Per ask_human: broke the previous single-open `FeatureIndex` accordion apart into 4 separate full sections (Filling the Day / Patient Communication / Intake and Records / Security and Access), each with its own eyebrow + H2 + intro paragraph + a plain non-collapsible numbered `FeatureList` (local component, replaces old accordion). New structure: Hero → Overview → Filling the Day (7 features) → Patient Communication (6) → Intake and Records (4) → **Working with Your EHR** (brand new section, FHIR/HL7/Direct Secure Messaging, no list) → Security and Access (5) → What it delivers (Time/Practice Growth) → Platform + Specifications (grew 8→10 items) → In the system (now notes xoIris is "first of four components") → FAQ (grew 3→6 questions) → DemoCTA.
+
+Also investigated user-reported one-time nav glitch (xoIris navbar link not navigating on first cold load from Home): could not reproduce via cold-load hover+click test; no code defect found in routing, dropdown hover logic, or Lenis smooth-scroll. Per user's instruction, proceeding without a code change, just monitoring.
+
+`testing_agent` (`iteration_31.json`): 100% pass, 14/14 checks (feature-list item counts, non-collapsible behavior, 10-row specs table with 0px border-radius, 6-question FAQ accordion, links, no dashes, dark/light + mobile). One cosmetic-only note (low-contrast hero image in light theme, pre-existing `IMAGES.abstract`, not introduced this session) - left as-is. Added `data-testid="feature-list-item"` per code-review suggestion.
+
 ## System.jsx full copy + structure rewrite (2026-09-02, this session) — DONE
 
 User supplied `XO_Vision_Care_System_Page.docx` with a complete rewrite of `/xo-vision-care-system`. Implemented verbatim per user's ask_human answers: (1) new local `SYSTEM_OUTCOMES` array added inline in `System.jsx` only, shared `SIX_OUTCOMES` in `site.js` left untouched (new copy for Home.jsx's version pending separately from user); (2) hero buttons ("Request a Demo"/"See the components") deliberately omitted — user confirmed this was a mistake in the doc; (3) section eyebrows numbered 01-09 to match the sidebar `ANCHORS` order.
