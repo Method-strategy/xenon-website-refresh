@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Clock, TrendingUp, SlidersHorizontal, HeartHandshake, ShieldCheck, BarChart3 } from "lucide-react";
 import { MaskText, MaskTextInView, Reveal } from "@/components/common/Reveal";
 import SectionAnchors from "@/components/common/SectionAnchors";
 import DemoCTA from "@/components/common/DemoCTA";
@@ -29,31 +29,37 @@ const SYSTEM_OUTCOMES = [
   {
     key: "time",
     title: "Time",
+    icon: Clock,
     body: "Hours returned to the practitioner and to staff. Less time lost to handoffs, re-entry, and waiting on the step before.",
   },
   {
     key: "profitability",
     title: "Profitability",
+    icon: TrendingUp,
     body: "More revenue from the same footprint. Capacity filled, margin retained, capital not spent on instruments the system replaces.",
   },
   {
     key: "control",
     title: "Control",
+    icon: SlidersHorizontal,
     body: "Less dependence on perfect staffing, an available room, and everything running to plan. Delegation without loss of clinical authority.",
   },
   {
     key: "patient-experience",
     title: "Patient Experience",
+    icon: HeartHandshake,
     body: "A visit that moves. Less waiting between steps, fewer repeated questions, and eyewear that fits correctly the first time.",
   },
   {
     key: "clinical-quality",
     title: "Clinical Quality",
+    icon: ShieldCheck,
     body: "Consistent capture regardless of who administers a test, and measurements taken rather than estimated.",
   },
   {
     key: "practice-growth",
     title: "Practice Growth",
+    icon: BarChart3,
     body: "Capacity added without construction. More patients through the practice you already have, and services you previously referred out.",
   },
 ];
@@ -273,7 +279,7 @@ export default function System() {
                 {SYSTEM_OUTCOMES.map((o, i) => (
                   <Reveal key={o.key} delay={i * 0.05} className="bg-surface">
                     <div data-testid={`system-outcome-tile-${o.key}`} className="flex h-full flex-col p-6 md:p-8">
-                      <span className="font-mono text-xs text-xo-blue">{String(i + 1).padStart(2, "0")}</span>
+                      <o.icon className="h-6 w-6 text-xo-blue" strokeWidth={1.5} />
                       <div className="mt-4 font-display text-lg text-fg">{o.title}</div>
                       <p className="mt-3 text-[14px] leading-relaxed text-fg/55">{o.body}</p>
                     </div>
@@ -286,22 +292,17 @@ export default function System() {
             <div className="mt-24 space-y-24">
               {STEPS.map((step) => {
                 const stepNumber = ANCHORS.findIndex((a) => a.id === step.id) + 1;
+                const stepLabel = ANCHORS.find((a) => a.id === step.id)?.label;
                 return (
                 <section key={step.id} id={step.id} className="scroll-mt-32">
                   <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
                     <div className="lg:col-span-3">
-                      <div
-                        data-testid={`step-number-${step.id}`}
-                        className="font-display text-4xl font-semibold leading-none text-fg/10 md:text-7xl"
-                      >
-                        {String(stepNumber).padStart(2, "0")}
-                      </div>
                       <img
                         src={step.logo.replace("-dark.svg", ".svg")}
                         alt={step.role}
                         width={step.logoWidth}
                         height={step.logoHeight}
-                        className="mt-6 block h-6 w-auto dark:hidden"
+                        className="block h-6 w-auto dark:hidden"
                       />
                       <img
                         src={step.logo}
@@ -309,13 +310,16 @@ export default function System() {
                         aria-hidden="true"
                         width={step.logoWidth}
                         height={step.logoHeight}
-                        className="mt-6 hidden h-6 w-auto dark:block"
+                        className="hidden h-6 w-auto dark:block"
                       />
                       <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40">
                         {step.role}
                       </div>
                     </div>
                     <div className="lg:col-span-9">
+                      <div data-testid={`step-number-${step.id}`} className="eyebrow mb-4">
+                        {String(stepNumber).padStart(2, "0")} · {stepLabel}
+                      </div>
                       <MaskTextInView
                         lines={[step.title]}
                         as="span"

@@ -342,6 +342,8 @@ User supplied `XO_Vision_Care_System_Page.docx` with a complete rewrite of `/xo-
 
 Re-verified via screenshot at 2560px: sidebar no longer overlaps section 07/08 headlines, both headline pairs stay on 1 balanced line each, table has `border-radius: 0px`.
 
+**Follow-up polish (same session, user feedback after first pass):** (1) the 4 step big display numerals (was `text-4xl md:text-7xl`, faded) looked oversized/out of place once they became 03-06 instead of 01-04 — replaced with a small `.eyebrow`-styled line ("03 · Schedule" etc, label pulled from `ANCHORS.find(...).label` so it can't drift) positioned above each step's H3 headline, and moved the product logo to sit flush at the top of the left column (no more `mt-6` pushing it down under the old numeral). (2) The "02 What it delivers" 6-tile grid's numbered 01-06 badges felt redundant since 6 cards are already visually obvious — replaced with 6 distinct lucide-react line icons (Clock/TrendingUp/SlidersHorizontal/HeartHandshake/ShieldCheck/BarChart3 for Time/Profitability/Control/Patient Experience/Clinical Quality/Practice Growth respectively), `strokeWidth={1.5}` for an elegant, non-cartoony line-icon look matching the site's editorial aesthetic. Verified via screenshot.
+
 ## Contact form: product-interest checkboxes (2026-09-01, this session) — DONE
 
 - **Context:** user updated the live HubSpot form (portal `245698072`, form GUID `cf605cae-ee6b-4a84-9783-ae35dd05bae2`) to add a "which products are you interested in" checkbox field, and shared the raw embed snippet, asking whether the site already used it.
