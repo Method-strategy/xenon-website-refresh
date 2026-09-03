@@ -4,7 +4,7 @@ import DemoCTA from "@/components/common/DemoCTA";
 import { IMAGES } from "@/data/site";
 import { usePageMeta } from "@/lib/usePageMeta";
 
-const PILLARS = ["Access", "Deliverable anywhere", "Doctor-led", "Since 2019"];
+const PILLARS = ["Access to care", "Deliverable anywhere", "Doctor-led", "Since 2019"];
 
 const GAP = [
   ["2.2B", "people worldwide live with vision impairment: 1 billion of those preventable or unaddressed."],
@@ -43,6 +43,18 @@ export default function About() {
             Founded in 2019, Xenon Ophthalmics™ builds technology to make eye care
             deliverable anywhere.
           </p>
+          <Reveal delay={0.2}>
+            <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[11px] uppercase tracking-[0.2em] text-fg/35">
+              {PILLARS.map((item, i) => (
+                <span key={item} className="flex items-center gap-4">
+                  {item}
+                  {i < PILLARS.length - 1 && (
+                    <span aria-hidden="true" className="h-1 w-1 rounded-full bg-fg/20" />
+                  )}
+                </span>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -79,22 +91,6 @@ export default function About() {
               </p>
             </Reveal>
           </div>
-        </div>
-      </section>
-
-      {/* Pillars */}
-      <section data-testid="about-pillars-strip" className="border-y border-fg/10 bg-surface py-14 md:py-16">
-        <div className="xo-container flex flex-col items-center gap-8 md:flex-row md:justify-center md:gap-0">
-          {PILLARS.map((item, i) => (
-            <Reveal key={item} delay={i * 0.08} className="flex items-center">
-              <span className="font-display text-2xl uppercase tracking-tight text-fg/70 md:text-3xl">
-                {item}
-              </span>
-              {i < PILLARS.length - 1 && (
-                <span aria-hidden="true" className="mx-8 hidden h-8 w-px bg-fg/15 md:block lg:mx-12" />
-              )}
-            </Reveal>
-          ))}
         </div>
       </section>
 
