@@ -19,6 +19,9 @@ const System = lazy(() => import("@/pages/System"));
 const Iris = lazy(() => import("@/pages/products/Iris"));
 const Exam = lazy(() => import("@/pages/products/Exam"));
 const Fit = lazy(() => import("@/pages/products/Fit"));
+const FitCore = lazy(() => import("@/pages/products/FitCore"));
+const FitMobile = lazy(() => import("@/pages/products/FitMobile"));
+const FitVto = lazy(() => import("@/pages/products/FitVto"));
 const Lab = lazy(() => import("@/pages/products/Lab"));
 const About = lazy(() => import("@/pages/About"));
 const Team = lazy(() => import("@/pages/Team"));
@@ -60,6 +63,9 @@ function App() {
               <Route path="/xoiris-scheduling" element={<Iris />} />
               <Route path="/xoexam-eye-exam" element={<Exam />} />
               <Route path="/xofit-frame-fitting" element={<Fit />} />
+              <Route path="/xofit-core" element={<FitCore />} />
+              <Route path="/xofit-mobile" element={<FitMobile />} />
+              <Route path="/xofit-vto" element={<FitVto />} />
               <Route path="/xolab-eyewear-finishing" element={<Lab />} />
               <Route path="/about" element={<About />} />
               <Route path="/team" element={<Team />} />

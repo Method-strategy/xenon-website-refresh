@@ -27,7 +27,11 @@ export const NAV = [
       { label: "Overview", sub: "The system", to: "/xo-vision-care-system" },
       { label: "xoIris", sub: "Schedule", to: "/xoiris-scheduling" },
       { label: "xoExam", sub: "Exam", to: "/xoexam-eye-exam" },
-      { label: "xoFit", sub: "Fit", to: "/xofit-frame-fitting" },
+      { label: "xoFit", sub: "Fit", to: "/xofit-frame-fitting", children: [
+        { label: "Core", sub: "Stand / Wall", to: "/xofit-core" },
+        { label: "Mobile", sub: "iPad-based", to: "/xofit-mobile" },
+        { label: "VTO", sub: "Virtual Try-On", to: "/xofit-vto" },
+      ] },
       { label: "xoLab", sub: "Finish", to: "/xolab-eyewear-finishing" },
     ],
   },

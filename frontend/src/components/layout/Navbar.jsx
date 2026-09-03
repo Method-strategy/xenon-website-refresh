@@ -61,7 +61,8 @@ export default function Navbar() {
     <header
       data-testid="site-navbar"
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,padding] duration-500",
+        "fixed inset-x-0 top-0 transition-[background-color,border-color,padding] duration-500",
+        open ? "z-[75]" : "z-50",
         scrolled ? "glass py-3" : "py-5 border-b border-transparent",
       )}
     >
@@ -95,6 +96,9 @@ export default function Navbar() {
                 {item.children ? (
                   <button
                     data-testid={`nav-${item.label.replace(/\s+/g, "-").toLowerCase()}`}
+                    aria-haspopup="true"
+                    aria-expanded={openGroup === item.label}
+                    onFocus={() => setOpenGroup(item.label)}
                     className={cn(
                       "flex items-center gap-1.5 px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors duration-300",
                       linkCls,
@@ -140,24 +144,42 @@ export default function Navbar() {
                     >
                       <div className="overflow-hidden rounded-xl border border-fg/10 bg-bg/70 shadow-2xl ring-1 ring-fg/5 backdrop-blur-2xl">
                         {item.children.map((c) => (
-                          <Link
-                            key={c.label}
-                            to={c.to}
-                            data-testid={`nav-child-${c.label.toLowerCase()}`}
-                            className="group flex items-center justify-between border-b border-fg/5 px-5 py-4 transition-colors duration-300 hover:bg-bg/95 last:border-0"
-                          >
-                            <div>
-                              <div className="font-display text-base text-fg group-hover:text-xo-blue">
-                                {c.label}
+                          <div key={c.label} className="border-b border-fg/5 last:border-0">
+                            <Link
+                              to={c.to}
+                              data-testid={`nav-child-${c.label.toLowerCase()}`}
+                              className="group flex items-center justify-between px-5 py-4 transition-colors duration-300 hover:bg-bg/95"
+                            >
+                              <div>
+                                <div className="font-display text-base text-fg group-hover:text-xo-blue">
+                                  {c.label}
+                                </div>
+                                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40">
+                                  {c.sub}
+                                </div>
                               </div>
-                              <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg/40">
-                                {c.sub}
+                              <span className="text-fg/30 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-xo-blue">
+                                →
+                              </span>
+                            </Link>
+                            {c.children && (
+                              <div className="pb-2">
+                                {c.children.map((sc) => (
+                                  <Link
+                                    key={sc.label}
+                                    to={sc.to}
+                                    data-testid={`nav-subchild-${sc.label.toLowerCase()}`}
+                                    className="group flex items-center gap-2.5 py-2 pl-9 pr-5 transition-colors duration-300 hover:bg-bg/95"
+                                  >
+                                    <span aria-hidden="true" className="h-px w-2.5 shrink-0 bg-fg/30 group-hover:bg-xo-blue" />
+                                    <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-fg/60 group-hover:text-xo-blue">
+                                      {sc.label}
+                                    </span>
+                                  </Link>
+                                ))}
                               </div>
-                            </div>
-                            <span className="text-fg/30 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-xo-blue">
-                              →
-                            </span>
-                          </Link>
+                            )}
+                          </div>
                         ))}
                       </div>
                     </motion.div>
@@ -211,19 +233,47 @@ export default function Navbar() {
                       >
                         {item.label}
                       </div>,
-                      ...item.children.map((c) => (
-                        <Link
-                          key={c.label}
-                          to={c.to}
-                          data-testid={`mobile-nav-${c.label.toLowerCase()}`}
-                          className="flex items-center justify-between border-b border-fg/5 py-3 text-fg/80"
-                        >
-                          <span className="font-display text-lg">{c.label}</span>
-                          <span className="font-mono text-[10px] uppercase tracking-widest text-fg/40">
-                            {c.sub}
-                          </span>
-                        </Link>
-                      )),
+                      ...item.children.map((c) =>
+                        c.children ? (
+                          <div key={c.label}>
+                            <Link
+                              to={c.to}
+                              data-testid={`mobile-nav-${c.label.toLowerCase()}`}
+                              className="flex items-center justify-between border-b border-fg/5 py-3 text-fg/80"
+                            >
+                              <span className="font-display text-lg">{c.label}</span>
+                              <span className="font-mono text-[10px] uppercase tracking-widest text-fg/40">
+                                {c.sub}
+                              </span>
+                            </Link>
+                            <div className="flex flex-col gap-1 pb-2 pl-4">
+                              {c.children.map((sc) => (
+                                <Link
+                                  key={sc.label}
+                                  to={sc.to}
+                                  data-testid={`mobile-nav-sub-${sc.label.toLowerCase()}`}
+                                  className="flex items-center gap-2.5 border-b border-fg/5 py-2.5 text-fg/60"
+                                >
+                                  <span aria-hidden="true" className="h-px w-2.5 shrink-0 bg-fg/30" />
+                                  <span className="font-mono text-sm uppercase tracking-wide">{sc.label}</span>
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
+                          <Link
+                            key={c.label}
+                            to={c.to}
+                            data-testid={`mobile-nav-${c.label.toLowerCase()}`}
+                            className="flex items-center justify-between border-b border-fg/5 py-3 text-fg/80"
+                          >
+                            <span className="font-display text-lg">{c.label}</span>
+                            <span className="font-mono text-[10px] uppercase tracking-widest text-fg/40">
+                              {c.sub}
+                            </span>
+                          </Link>
+                        ),
+                      ),
                     ]
                   : [
                       item.external ? (

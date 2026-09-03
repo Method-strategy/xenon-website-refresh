@@ -23,7 +23,7 @@ function toWords(lines, text) {
   return String(str).split(/\s+/).filter(Boolean);
 }
 
-function WordReveal({ lines, text, className, delay = 0, trigger }) {
+function WordReveal({ lines, text, className, delay = 0, trigger, as: Tag = "span" }) {
   const words = toWords(lines, text);
   const anim =
     trigger === "view"
@@ -31,7 +31,7 @@ function WordReveal({ lines, text, className, delay = 0, trigger }) {
       : { initial: "hidden", animate: "show" };
 
   return (
-    <span className={cn("block [text-wrap:balance]", className)}>
+    <Tag className={cn("block [text-wrap:balance]", className)}>
       <motion.span variants={container(delay)} {...anim} className="inline">
         {words.map((w, i) => (
           <Fragment key={i}>
@@ -45,20 +45,20 @@ function WordReveal({ lines, text, className, delay = 0, trigger }) {
           </Fragment>
         ))}
       </motion.span>
-    </span>
+    </Tag>
   );
 }
 
 // Animate on mount (hero headlines).
-export function MaskText({ lines, text, className, delay = 0 }) {
+export function MaskText({ lines, text, className, delay = 0, as }) {
   return (
-    <WordReveal lines={lines} text={text} className={className} delay={delay} trigger="mount" />
+    <WordReveal lines={lines} text={text} className={className} delay={delay} trigger="mount" as={as} />
   );
 }
 
 // Animate when scrolled into view (section headlines).
-export function MaskTextInView({ lines, text, className }) {
-  return <WordReveal lines={lines} text={text} className={className} trigger="view" />;
+export function MaskTextInView({ lines, text, className, as }) {
+  return <WordReveal lines={lines} text={text} className={className} trigger="view" as={as} />;
 }
 
 // Generic scroll-reveal fade-up wrapper.

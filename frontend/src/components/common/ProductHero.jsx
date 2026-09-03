@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
 import { useTheme } from "@/lib/theme";
 
 // Reusable product-page hero. Follows the site theme: airy/light in light mode
@@ -17,6 +18,12 @@ export default function ProductHero({
   imageAlt = "",
   imageSrcSet,
   imageSizes = "(max-width: 1024px) 100vw, 70vw",
+  backTo,
+  backLabel,
+  ctaLabel = "Request a Demo",
+  ctaTo = "/request-a-demo",
+  onCtaClick,
+  ctaTestId = "product-hero-cta",
 }) {
   const ref = useRef(null);
   const { theme } = useTheme();
@@ -67,6 +74,16 @@ export default function ProductHero({
       <div aria-hidden className="pointer-events-none absolute inset-0 spotlight" />
 
       <div className="xo-container relative">
+        {backTo && (
+          <Link
+            to={backTo}
+            data-testid="product-hero-breadcrumb"
+            className="group mb-8 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-fg/40 transition-colors duration-300 hover:text-acc"
+          >
+            <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
+            {backLabel}
+          </Link>
+        )}
         {logoSrc ? (
           <div className="mb-8 flex items-center gap-4">
             <img src={logoSrc} alt={eyebrow} width={logoWidth} height={logoHeight} className="h-9 w-auto md:h-11" />
@@ -81,16 +98,24 @@ export default function ProductHero({
             {eyebrow}
           </div>
         )}
-        <span className="mask-line block max-w-5xl font-display text-[10vw] font-medium leading-[0.96] tracking-tight text-fg [text-wrap:balance] sm:text-5xl lg:text-6xl xl:text-7xl">
+        <h1 className="mask-line block max-w-5xl font-display text-[10vw] font-medium leading-[0.96] tracking-tight text-fg [text-wrap:balance] sm:text-5xl lg:text-6xl xl:text-7xl">
           {headlineLines?.join(" ")}
-        </span>
-        <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/60">
-          {subhead}
-        </p>
+        </h1>
+        {subhead && (
+          <p className="mt-10 max-w-2xl text-lg leading-relaxed text-fg/60">
+            {subhead}
+          </p>
+        )}
         <div>
-          <Link to="/request-a-demo" data-testid="product-hero-cta" className="btn-primary mt-10">
-            Request a Demo
-          </Link>
+          {onCtaClick ? (
+            <button onClick={onCtaClick} data-testid={ctaTestId} className="btn-primary mt-10">
+              {ctaLabel}
+            </button>
+          ) : (
+            <Link to={ctaTo} data-testid={ctaTestId} className="btn-primary mt-10">
+              {ctaLabel}
+            </Link>
+          )}
         </div>
       </div>
     </section>
