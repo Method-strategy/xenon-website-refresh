@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { MaskText, MaskTextInView, Reveal } from "@/components/common/Reveal";
-import EditorialMarquee from "@/components/common/EditorialMarquee";
 import DemoCTA from "@/components/common/DemoCTA";
 import { IMAGES } from "@/data/site";
 import { usePageMeta } from "@/lib/usePageMeta";
+
+const PILLARS = ["Access", "Deliverable anywhere", "Doctor-led", "Since 2019"];
 
 const GAP = [
   ["2.2B", "people worldwide live with vision impairment: 1 billion of those preventable or unaddressed."],
@@ -81,10 +82,21 @@ export default function About() {
         </div>
       </section>
 
-      <EditorialMarquee
-        items={["Access", "Deliverable anywhere", "Doctor-led", "Since 2019"]}
-        className="bg-surface"
-      />
+      {/* Pillars */}
+      <section data-testid="about-pillars-strip" className="border-y border-fg/10 bg-surface py-14 md:py-16">
+        <div className="xo-container flex flex-col items-center gap-8 md:flex-row md:justify-center md:gap-0">
+          {PILLARS.map((item, i) => (
+            <Reveal key={item} delay={i * 0.08} className="flex items-center">
+              <span className="font-display text-2xl uppercase tracking-tight text-fg/70 md:text-3xl">
+                {item}
+              </span>
+              {i < PILLARS.length - 1 && (
+                <span aria-hidden="true" className="mx-8 hidden h-8 w-px bg-fg/15 md:block lg:mx-12" />
+              )}
+            </Reveal>
+          ))}
+        </div>
+      </section>
 
       {/* The access gap */}
       <section className="border-t border-fg/10 bg-bg py-24 md:py-32">
