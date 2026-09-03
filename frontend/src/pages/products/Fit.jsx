@@ -73,7 +73,7 @@ export default function Fit() {
         logoWidth={102}
         logoHeight={25}
         role="Fit"
-        headlineLines={["Eyewear has to", "fit twice."]}
+        headlineLines={["Fit is what makes", "a prescription work."]}
         subhead="Digital centration, frame measurement, and virtual try-on, so the lens sits where the prescription requires and the frame is one the patient actually wants to wear."
         image="/hero/xofit-measure.webp"
         imageSrcSet="/hero/xofit-measure-1200.webp 1200w, /hero/xofit-measure.webp 1920w"
@@ -88,7 +88,7 @@ export default function Fit() {
               <div className="eyebrow mb-6">Overview</div>
             </Reveal>
             <MaskTextInView
-              lines={["Eyewear has to", "fit twice."]}
+              lines={["Fit is what makes", "a prescription work."]}
               as="span"
               className="font-display text-4xl font-medium leading-[1.04] tracking-tight text-fg sm:text-5xl"
             />
